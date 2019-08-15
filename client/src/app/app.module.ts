@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 //Componentes de materialize
-import {MatButtonModule, MatProgressSpinnerModule} from '@angular/material'; 
+import {MatButtonModule, MatProgressSpinnerModule} from '@angular/material';
+import { ContenedorNinosComponent } from './components/contenedor-ninos/contenedor-ninos.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ContenedorNinosComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,13 @@
+.tabs .tab a {
+	font-family: "Helvetica";
+	font-size: 12px;
+	color: gray;
+}
+.tabs .tab a.active {
+	color:#00AAE7;
+	font-weight:bold;
+}
+
+.tabs .indicator {
+	background-color:#000;
+}
