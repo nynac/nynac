@@ -18,3 +18,34 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<script>
+	function iniciar_camara(video) {
+		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices.getUserMedia({ video: true}).then(function(stream) {
+				video.srcObject = stream;
+				video.play();
+			});
+		}
+	}	
+
+	function tomar_foto(video, canvas){
+		var context = canvas.getContext('2d');
+		context.drawImage(video,0,0,130,130);	/*context.drawImage(img,x,y,width,height);*/
+
+		console.log(video);
+		detener_camara(document.getElementById('video'));
+	}
+
+	function detener_camara(video) {
+		let stream = video.srcObject;
+		let tracks = stream.getTracks();
+
+		tracks.forEach(function(track) {
+			track.stop();
+		});
+
+		video.srcObject = null;
+	}
+</script>
+
