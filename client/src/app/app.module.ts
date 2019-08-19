@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 //Componentes de materialize
 import {MatButtonModule, MatProgressSpinnerModule} from '@angular/material';
 import { ContenedorNinosComponent } from './components/contenedor-ninos/contenedor-ninos.component';
+import { DatosGeneralesComponent } from './components/datos-generales/datos-generales.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContenedorNinosComponent,
+    DatosGeneralesComponent,
   ],
   imports: [
     BrowserModule,
