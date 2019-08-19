@@ -5,91 +5,103 @@
 		</div>
 		<div class="col-5">
 			<div class="custom-control custom-radio custom-control-inline">
-				<input type="radio" id="Nuevo" name="customRadio" class="custom-control-input">
+				<input id="DG_Nuevo" type="radio" class="custom-control-input">
 				<label class="custom-control-label" for="Nuevo">Nuevo</label>
 			</div>
 			<div class="custom-control custom-radio custom-control-inline">
-				<input type="radio" id="Modificar" name="customRadio" class="custom-control-input">
+				<input id="DG_Modificar" type="radio" class="custom-control-input">
 				<label class="custom-control-label" for="Modificar">Modificar</label>
 			</div>
 		</div>
 		<div class="input-group input-group-sm mb-3 col-3 aling-right">
 			<div class="input-group-prepend">
-				<span class="input-group-text" id="inputGroup-sizing-sm">No. Miembro:</span>
+				<span class="input-group-text">No. Miembro:</span>
 			</div>
-			<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+			<input id="DG_busc_miembro" type="text" class="form-control">
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-			<button type="button" class="btn btn-info btn-sm" style="width:100%;">Buscar</button>
+			<button id="DG_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
 		</div> 
-
 	</div>
 </form>
 
 <div class="dropdown-divider"></div>
 
 <form action="">
+
+	<!-- INICIO DE COL 12 DERECHOHABIENCIA -->	
 	<div class="row">
-		<!-- INICIO DE COL 12 -->	
 		<div class="col-2 text-center">
 			<div class="col-12">
-				<canvas id="foto_canvas" height="130px;" width="130px;" class="border border-primary rounded"></canvas>
+				<canvas id="DG_foto_canvas" height="130px;" width="130px;" class="border border-primary rounded"></canvas>
 			</div>
 			<div class="col-12">
-				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" style="width:100%;" onclick="iniciar_camara(document.getElementById('video'));" >Abrir cámara</button>
-
+				<button type="button" class="btn btn-club btn-sm" data-toggle="modal" data-target="#modal_foto" style="width:100%;" onclick="iniciar_camara(document.getElementById('video'));" >Abrir cámara
+				</button>
 			</div>
 		</div>
-
 		<div class="col-10" style="margin: 15px 0px 0px 0px">
 			<div class="col-12 custom-control-inline">
 				<div class="col-2 custom-control custom-switch">
-					<input type="checkbox" class="custom-control-input" id="estado" checked>
+					<input id="DG_estado" type="checkbox" class="custom-control-input" checked>
 					<label class="custom-control-label" for="estado">Estado actual</label>
 				</div>
 				<div class="col-1 custom-control custom-switch">
-					<input type="checkbox" class="custom-control-input" id="visa" >
+					<input id="DG_visa" type="checkbox" class="custom-control-input" >
 					<label class="custom-control-label" for="visa">Visa</label>
 				</div>
 				<div class="col-3 input-group input-group-sm mb-3">
-					<input type="text" class="form-control" placeholder="Religión">
+					<input id="DG_religion" type="text" class="form-control" placeholder="Religión">
+				</div>
+
+				<div class="col-3 input-group input-group-sm mb-3">
+					<select id="DG_talla_camisa" class="custom-select">
+						<option selected>Talla de camisa</option>
+						<option value="XS">XS</option>
+						<option value="S">S</option>
+						<option value="M">M</option>
+						<option value="L">L</option>
+						<option value="XL">XL</option>
+						<option value="XXL">XXL</option>
+					</select>
 				</div>
 				<div class="col-3 input-group input-group-sm mb-3">
-					<input type="text" class="form-control" placeholder="Talla de camisa">
-				</div>
-				<div class="col-3 input-group input-group-sm mb-3">
-					<input type="date" class="form-control" placeholder="Fecha de inscripción">
+					<input id="DG_fecha_inscripcion" type="date" class="form-control" placeholder="Fecha de inscripción">
 				</div>
 			</div>
 			<div class="col-12 custom-control-inline">
 				<div class="col-2 input-group input-group-sm mb-3">
-					<input type="text" class="form-control"  placeholder="No. Miembro">
+					<input id="DG_no_miembro" type="text" class="form-control"  placeholder="No. Miembro">
 				</div>
 				<div class="col-3 input-group input-group-sm mb-3">
-					<input type="text" class="form-control"  placeholder="Nombre">
+					<input id="DG_nombre_nino" type="text" class="form-control"  placeholder="Nombre">
 				</div>
 				<div class="col-2 input-group input-group-sm mb-3">
-					<input type="text" class="form-control" placeholder="Ap. Paterno">
+					<input id="DG_ap_pat_nino" type="text" class="form-control" placeholder="Ap. Paterno">
 				</div>
 				<div class="col-2 input-group input-group-sm mb-3">
-					<input type="text" class="form-control" placeholder="Ap. Materno">
+					<input id="DG_ap_mat_nino" type="text" class="form-control" placeholder="Ap. Materno">
 				</div>
 				<div class="col-3 input-group input-group-sm mb-3">
-					<input type="date" class="form-control" placeholder="Fecha de nacimiento">
+					<input id="DG_fecha_nacimiento" type="date" class="form-control" placeholder="Fecha de nacimiento">
 				</div>
 			</div>
 			<div class="col-12 custom-control-inline">
 				<div class="col-2 input-group input-group-sm mb-3">
-					<input type="number" class="form-control"  placeholder="Edad">
+					<input id="DG_edad" type="number" class="form-control"  placeholder="Edad">
 				</div>
 				<div class="col-4 input-group input-group-sm mb-3">
-					<input type="text" class="form-control" placeholder="Lugar de nacimiento">
+					<input id="DG_lugar_nacimiento" type="text" class="form-control" placeholder="Lugar de nacimiento">
 				</div>
 				<div class="col-3 input-group input-group-sm mb-3">
-					<input type="text" class="form-control" placeholder="Nacionalidad">
+					<input id="DG_nacionalidad" type="text" class="form-control" placeholder="Nacionalidad">
 				</div>
 				<div class="col-3 input-group input-group-sm mb-3">
-					<input type="text" class="form-control" placeholder="Sexo">
+					<select id="DG_sexo" class="custom-select" >
+						<option selected>Sexo</option>
+						<option value="M">Masculino</option>
+						<option value="F">Femenino</option>
+					</select>
 				</div>
 			</div>
 		</div>
@@ -101,43 +113,28 @@
 		<div class="col-12 font-weight-bold" >
 			<span>DERECHOHABIENCIA</span>
 		</div>
-		<div class="col-7">
-			<div class="custom-control custom-radio custom-control-inline">
-				<input type="radio" id="Nuevo" name="customRadio" class="custom-control-input">
-				<label class="custom-control-label" for="Nuevo">IMSS</label>
-			</div>
-			<div class="custom-control custom-radio custom-control-inline">
-				<input type="radio" id="Modificar" name="customRadio" class="custom-control-input">
-				<label class="custom-control-label" for="Modificar">ISSSTE</label>
-			</div>
-			<div class="custom-control custom-radio custom-control-inline">
-				<input type="radio" id="Nuevo" name="customRadio" class="custom-control-input">
-				<label class="custom-control-label" for="Nuevo">ISSSTECALI</label>
-			</div>
-			<div class="custom-control custom-radio custom-control-inline">
-				<input type="radio" id="Modificar" name="customRadio" class="custom-control-input">
-				<label class="custom-control-label" for="Modificar">SEGURO POPULAR</label>
-			</div>
-			<div class="custom-control custom-radio custom-control-inline">
-				<input type="radio" id="Modificar" name="customRadio" class="custom-control-input">
-				<label class="custom-control-label" for="Modificar">PARTICULAR</label>
-			</div>
+		
+		<div class="col-2 input-group input-group-sm mb-3">
+			<select id="DG_talla_camisa" class="custom-select" >
+				<option selected disabled>Tipo</option>
+				<option value="IMSS">IMSS</option>
+				<option value="ISSSTE">ISSSTE</option>
+				<option value="ISSSTECALI">ISSSTECALI</option>
+				<option value="POPULAR">SEGURO POPULAR</option>
+				<option value="PARTICULAR">PARTICULAR</option>
+				<option value="OTRO">OTRO</option>
+			</select>
 		</div>
-		<div class="col-5 input-group input-group-sm mb-3" style="margin: 0px 0px 0px -15px">
-			<div class="input-group-prepend">
-				<div class="input-group-text">
-					OTRO &nbsp;
-					<input type="radio" aria-label="Radio button for following text input">
-				</div>
-			</div>
-			<input type="text" class="form-control" aria-label="Text input with radio button">
+
+		<div class="col-2 input-group input-group-sm mb-3" style="margin: 0px 0px 0px -15px">
+			<input id="DG_otro_medico" type="text" class="form-control" placeholder="otro servicio">
 		</div>
-		<div class="col-12 custom-control-inline" style="margin: -10px 0px 0px -15px">
+		<div class="col-8 custom-control-inline" style="margin: 0px 0px 0px -15px">
+			<div class="col-8 input-group input-group-sm mb-3">
+				<input id="DG_vive_con" type="text" class="form-control"  placeholder="Con quién vive el niño (a) adolecente">
+			</div>
 			<div class="col-4 input-group input-group-sm mb-3">
-				<input type="text" class="form-control"  placeholder="Con quién vive el niño (a) adolecente">
-			</div>
-			<div class="col-2 input-group input-group-sm mb-3">
-				<input type="tel" class="form-control" placeholder="Teléfono">
+				<input id="DG_vive_con_tel" type="tel" class="form-control" placeholder="Teléfono">
 			</div>
 		</div>
 	</div>
@@ -150,19 +147,19 @@
 		</div>
 		<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
 			<div class="col-3 input-group input-group-sm mb-3">
-				<input type="text" class="form-control" placeholder="Calle y número">
+				<input id="DG_calle_num" type="text" class="form-control" placeholder="Calle y número">
 			</div>
 			<div class="col-3 input-group input-group-sm mb-3">
-				<input type="text" class="form-control" placeholder="Colonia">
+				<input id="DG_colonia" type="text" class="form-control" placeholder="Colonia">
 			</div>
 			<div class="col-1 input-group input-group-sm mb-3">
-				<input type="text" class="form-control" placeholder="C.P">
+				<input id="DG_c_p" type="text" class="form-control" placeholder="C.P">
 			</div>
 			<div class="col-2 input-group input-group-sm mb-3">
-				<input type="text" class="form-control" placeholder="Delegación">
+				<input id="DG_delegacion" type="text" class="form-control" placeholder="Delegación">
 			</div>
 			<div class="col-3 input-group input-group-sm mb-3">
-				<input type="text" class="form-control" placeholder="Municipio">
+				<input id="DG_municipio" type="text" class="form-control" placeholder="Municipio">
 			</div>
 		</div>
 	</div>	
@@ -176,10 +173,10 @@
 			</div>
 			<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
 				<div class="col-6 input-group input-group-sm mb-3">
-					<input type="text" class="form-control"  placeholder="Nombre de la escuela">
+					<input id="DG_nombre_escuela" type="text" class="form-control"  placeholder="Nombre de la escuela">
 				</div>
 				<div class="col-6 input-group input-group-sm mb-3">
-					<input type="tel" class="form-control" placeholder="Turno">
+					<input id="DG_turno_escuela" type="tel" class="form-control" placeholder="Turno">
 				</div>
 			</div>
 		</div>
@@ -189,10 +186,10 @@
 			</div>
 			<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
 				<div class="col-6 input-group input-group-sm mb-3">
-					<input type="text" class="form-control"  placeholder="Nombre">
+					<input id="DG_per_aut_nombre" type="text" class="form-control"  placeholder="Nombre">
 				</div>
 				<div class="col-6 input-group input-group-sm mb-3">
-					<input type="text" class="form-control" placeholder="Parentesco" s>
+					<input id="DG_per_aut_parentesco" type="text" class="form-control" placeholder="Parentesco">
 				</div>
 			</div>
 		</div>
@@ -209,50 +206,50 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Contacto 1</span>
 				</div>
-				<input type="text" placeholder="Nombre" class="form-control">
-				<input type="text" placeholder="Parentesco" class="form-control">
-				<input type="tel" placeholder="Teléfono" class="form-control">
+				<input id="DG_cto1_nombre" type="text" placeholder="Nombre" class="form-control">
+				<input id="DG_cto1_parentesco" type="text" placeholder="Parentesco" class="form-control">
+				<input id="DG_cto1_telefono" type="tel" placeholder="Teléfono" class="form-control">
 			</div>
 			<div class=" col-12 input-group">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Contacto 2</span>
 				</div>
-				<input type="text" placeholder="Nombre" class="form-control">
-				<input type="text" placeholder="Parentesco" class="form-control">
-				<input type="tel" placeholder="Teléfono" class="form-control">
+				<input id="DG_cto2_nombre" type="text" placeholder="Nombre" class="form-control">
+				<input id="DG_cto2_parentesco" type="text" placeholder="Parentesco" class="form-control">
+				<input id="DG_cto2_telefono" type="tel" placeholder="Teléfono" class="form-control">
 			</div>
 			<div class=" col-12 input-group">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Contacto 3</span>
 				</div>
-				<input type="text" placeholder="Nombre" class="form-control">
-				<input type="text" placeholder="Parentesco" class="form-control">
-				<input type="tel" placeholder="Teléfono" class="form-control">
+				<input id="DG_cto3_nombre" type="text" placeholder="Nombre" class="form-control">
+				<input id="DG_cto3_parentesco" type="text" placeholder="Parentesco" class="form-control">
+				<input id="DG_cto4_telefono" type="tel" placeholder="Teléfono" class="form-control">
 			</div>
 		</div>
 		<div class="col-2 text-right">
-			<button type="button" class="btn btn-info" style="width:100%; margin-top: 50px; height: 80px;">Guardar</button>
+			<button id="DG_btn_guardar" type="button" class="btn btn-club btn-sm" style="width:100%; margin-top: 50px; height: 80px;">Guardar</button>
 		</div> 
 	</div>	
 </form>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <video id="video" width="100%" autoplay class="rounded border border-primary rounded"></video>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="tomar_foto(document.getElementById('video'), document.getElementById('foto_canvas'))">Save changes</button>
-      </div>
-    </div>
-  </div>
+<div class="modal fade" id="modal_foto" tabindex="-1" role="dialog" aria-labelledby="modal_fotoLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_fotoLabel">Cámara</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="detener_camara(document.getElementById('video'))">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<video id="video" width="100%" autoplay class="rounded border border-primary rounded"></video>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="detener_camara(document.getElementById('video'))">Cancelar</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="tomar_foto(document.getElementById('video'), document.getElementById('DG_foto_canvas'))">Tomar foto</button>
+			</div>
+		</div>
+	</div>
 </div>
