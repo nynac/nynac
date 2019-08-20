@@ -11,6 +11,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DsNinosComponent } from './components/ds-ninos/ds-ninos.component';
 import { DatosGeneralesComponent } from './components/datos-generales/datos-generales.component';
 import { NucleoFamiliarComponent } from './components/nucleo-familiar/nucleo-familiar.component';
+import { DmNinosComponent } from './components/dm-ninos/dm-ninos.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NucleoFamiliarComponent } from './components/nucleo-familiar/nucleo-fam
     DsNinosComponent,
     DatosGeneralesComponent,
     NucleoFamiliarComponent,
+    DmNinosComponent,
   ],
   imports: [
     BrowserModule,
