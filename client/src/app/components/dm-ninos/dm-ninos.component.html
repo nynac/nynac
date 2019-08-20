@@ -1,0 +1,222 @@
+<form action="">
+  <div class="row" style="margin: 15px 0px 0px 0px">
+    <div class="col-2 text-right font-weight-bold">
+      <span>QUÉ VAS A HACER?</span>
+    </div>
+    <div class="col-5">
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="DG_Nuevo" type="radio" class="custom-control-input">
+        <label class="custom-control-label" for="Nuevo">Nuevo</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="DG_Modificar" type="radio" class="custom-control-input">
+        <label class="custom-control-label" for="Modificar">Modificar</label>
+      </div>
+    </div>
+    <div class="input-group input-group-sm mb-3 col-3 aling-right">
+      <div class="input-group-prepend">
+        <span class="input-group-text">No. Miembro:</span>
+      </div>
+      <input id="DG_busc_miembro" type="text" class="form-control">
+    </div>
+    <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+      <button id="DG_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+    </div>
+  </div>
+</form>
+
+<div class="dropdown-divider"></div>
+<div class="row " style="margin: 10px 0px 0px 0px">
+  <div class="col-12 custom-control-inline">
+    <span>Padece alguna alergia a alimentos, medicamentos, plantas u otros. </span>
+    <div class="input-group-sm col-6">
+      <input id="DM_alergia" type="text" placeholder=" ¿Cúales?" class="form-control ">
+    </div>
+  </div>
+</div>
+<br>
+<div class="col-12 custom-control-inline">
+  <span>Toma medicamentos de forma permanente.</span>
+  <div class="input-group-sm">
+    <input id="DM_medicamentos" type="text" style="margin-left: 10px" placeholder="¿Cúales?" class="form-control">
+  </div>
+  <span style="padding: 0px 0px 0px 30px;">Requiere algun cuidado especial.</span>
+  <div class="input-group-sm">
+    <input id="DM_cuidados" type="text" style="margin-left: 10px" placeholder="¿Cúales?" class="form-control">
+  </div>
+</div>
+<!-- INICIO DE COL 12 -->
+<div class="dropdown-divider"></div>
+<div class=" col-6">
+  <span class="font-weight-bold">Qué enfermedad a padecido: </span><br>
+</div>
+<div class=" col-12 input-group">
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_rubeola">
+    <label class="form-check-label" for="DM_rubeola">Rubéola</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_varicela">
+    <label class="form-check-label" for="DM_varicela">Varicela</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Escarlatina">
+    <label class="form-check-label" for="DM_Escarlatina">Escarlatina</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Hepatitis">
+    <label class="form-check-label" for="DM_Hepatitis">Hepatitis</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Influenza">
+    <label class="form-check-label" for="DM_Influenza">Influenza</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Tifoidea">
+    <label class="form-check-label" for="DM_Tifoidea">Tifoidea</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Paperas">
+    <label class="form-check-label" for="DM_Paperas">Paperas</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Tosferina">
+    <label class="form-check-label" for="DM_Tosferina">Tosferina</label>
+  </div>
+  <div class="input-group-sm custom-control-inline">
+    <div>
+      <input id="DM_otro_enfermedad" type="checkbox">
+      <label class="form-check-label" for="DM_otro_enfermedad">Otro</label></div>
+    <div class="input-group-sm">
+      <input id="DM_otro_enfermedad" type="text" placeholder="¿Cúales?" class="form-control">
+    </div>
+  </div>
+</div>
+
+<br>
+<!-- INICIO DE COL 12 -->
+<div class=" col-12 input-group">
+  <div class="input-group-sm custom-control-inline">
+    <div>
+      <input id="DM_frecuencia_epilep" type="checkbox">
+      <label class="form-check-label" for="DM_frecuencia_epilep" style="margin-left: 10px">Ha tenido ataques
+        epilécticos.</label></div>
+    <div class="input-group-sm">
+      <input id="DM_frecuencia_epilep" type="text" style="margin-left: 10px" placeholder="Frecuencia"
+        class="form-control">
+    </div>
+  </div>
+  <div class="input-group-sm custom-control-inline">
+    <div>
+      <input id="DM_padece_enfermedad" style="margin-left: 25px;" type="checkbox">
+      <label class="form-check-label" for="DM_padece_enfermedad" style="margin-left: 10px">Padece alguna enfermedad
+        cronica. </label></div>
+    <div class="input-group-sm">
+      <input id="DM_padece_enfermedad" type="text" style="margin-left: 10px" placeholder="Cual" class="form-control">
+      <br>
+    </div>
+  </div>
+  <div class="input-group-sm custom-control-inline">
+    <div>
+      <input id="DM_accidente" type="checkbox">
+      <label class="form-check-label" for="DM_accidente" style="margin-left: 10px">Ha sufrido accidentes graves.
+      </label></div>
+    <div class="input-group-sm">
+      <input id="DM_accidente" type="text" style="margin-left: 10px" placeholder="Cual" class="form-control">
+    </div>
+  </div>
+</div>
+<br>
+<div class="col-12">
+  <div class="input-group-sm custom-control-inline">
+    <div>
+      <input  id="DM_operacion" type="checkbox">
+      <label class="form-check-label" for="DM_operacion" style="margin-left: 10px">Ha sido operado. </label></div>
+    <div class="input-group-sm custom-control-inline">
+      <input id="DM_operacion_tipo" type="text" style="margin-left: 10px" placeholder="Tipo de operacion"
+        class="form-control">
+      <input id="DM_operacion_veces" type="number" style="margin-left: 10px" placeholder="Cuantas veces"
+        class="form-control">
+      <input id="DM_operacion_fecha" type="date" style="margin-left: 10px" placeholder="Fecha" class="form-control">
+    </div>
+  </div>
+</div>
+<br>
+<div class="input-group-sm custom-control-inline">
+    <div>
+      <input style="margin-left: 13px" id="DM_piojos" type="checkbox">
+      <label class="form-check-label" for="DM_piojos" style="margin-left: 10px">Se ha infectado de piojos/liendres. </label></div>
+    <div class="input-group-sm">
+      <input id="DM_piojos" type="text" style="margin-left: 10px" placeholder="Frecuencia"
+        class="form-control">
+    </div>
+  </div>
+<br>
+  <!-- INICIO DE COL 12 -->
+<div class="dropdown-divider"></div>
+<div class=" col-6">
+  <span class="font-weight-bold">Tiene algun problema fisico relacionado con: </span><br>
+</div>
+<div class=" col-12 input-group">
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Habla">
+    <label class="form-check-label" for="DM_Habla">Habla</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Vista">
+    <label class="form-check-label" for="DM_Vista">Vista</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Oido">
+    <label class="form-check-label" for="DM_Oido">Oido</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_TonoMuscular">
+    <label class="form-check-label" for="DM_TonoMuscular">Tono Muscular</label>
+  </div>
+  <div class="input-group-sm custom-control-inline">
+    <div>
+      <input id="DM_otro_enfermedad" type="checkbox">
+      <label class="form-check-label" for="DM_otro_enfermedad">Otro</label></div>
+    <div class="input-group-sm">
+      <input id="DM_otro_enfermedad" type="text" style="margin-left: 10px" placeholder="¿Cúales?" class="form-control">
+    </div>
+  </div>
+</div>
+<!-- INICIO DE COL 12 -->
+<div class="dropdown-divider"></div>
+<div class=" col-6">
+  <span class="font-weight-bold">Usa algún tipo de aparato: </span><br>
+</div>
+<div class=" col-12 input-group">
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Dental">
+    <label class="form-check-label" for="DM_Dental">Dental</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Anteojos">
+    <label class="form-check-label" for="DM_Anteojos">Anteojos</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Auditivo">
+    <label class="form-check-label" for="DM_Auditivo">Auditivo</label>
+  </div>
+  <div class="form-check custom-control-inline">
+    <input type="checkbox" class="form-check-input" id="DM_Ortopédico">
+    <label class="form-check-label" for="DM_Ortopédicos">Ortopédico</label>
+  </div>
+  <div class="input-group-sm custom-control-inline">
+    <div>
+      <input id="DM_otro_enfermedad" type="checkbox">
+      <label class="form-check-label" for="DM_otro_enfermedad">Otro</label></div>
+    <div class="input-group-sm">
+      <input id="DM_otro_enfermedad" style="margin-left: 10px" type="text" placeholder="¿Cúales?" class="form-control">
+    </div>
+  </div>
+  <div class="col-2 " style="margin-left: 20%;">
+      <button id="DS_btn_guardar" type="button" class="btn btn-club btn-sm"
+        style="width:100%; margin-top: 50px; height: 80px;">Guardar</button>
+        <br><br><br>
+    </div>
+</div>
+
