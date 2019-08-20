@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import {MatButtonModule, MatProgressSpinnerModule} from '@angular/material';
 import { ContenedorNinosComponent } from './components/contenedor-ninos/contenedor-ninos.component';
 import { DatosGeneralesComponent } from './components/datos-generales/datos-generales.component';
+import { NucleoFamiliarComponent } from './components/nucleo-familiar/nucleo-familiar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContenedorNinosComponent,
     DatosGeneralesComponent,
+    NucleoFamiliarComponent,
   ],
   imports: [
     BrowserModule,
