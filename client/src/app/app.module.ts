@@ -12,6 +12,7 @@ import { DsNinosComponent } from './components/ds-ninos/ds-ninos.component';
 import { DatosGeneralesComponent } from './components/datos-generales/datos-generales.component';
 import { NucleoFamiliarComponent } from './components/nucleo-familiar/nucleo-familiar.component';
 import { DmNinosComponent } from './components/dm-ninos/dm-ninos.component';
+import { EducacionNinosComponent } from './components/educacion-ninos/educacion-ninos.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { DmNinosComponent } from './components/dm-ninos/dm-ninos.component';
     DatosGeneralesComponent,
     NucleoFamiliarComponent,
     DmNinosComponent,
+    EducacionNinosComponent,
   ],
   imports: [
     BrowserModule,
