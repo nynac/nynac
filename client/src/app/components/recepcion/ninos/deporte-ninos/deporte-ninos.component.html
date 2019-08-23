@@ -1,0 +1,206 @@
+<form action="">
+    <div class="row" style="margin: 15px 0px 0px 0px">
+        <div class="col-2 text-right font-weight-bold">
+            <span>QUÉ VAS A HACER?</span>
+        </div>
+        <div class="col-5">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DEP_Nuevo" type="radio" class="custom-control-input" name="DEP_opcion">
+                <label class="custom-control-label" for="DEP_Nuevo">Nuevo</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DEP_Modificar" type="radio" class="custom-control-input" name="DEP_opcion">
+                <label class="custom-control-label" for="DEP_Modificar">Modificar</label>
+            </div>
+        </div>
+        <div class="input-group input-group-sm mb-3 col-3 aling-right">
+            <div class="input-group-prepend">
+                <span class="input-group-text">No. Miembro:</span>
+            </div>
+            <input id="DEP_busc_miembro" type="text" class="form-control">
+        </div>
+        <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+            <button id="DEP_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+        </div>
+    </div>
+</form>
+
+<div class="dropdown-divider"></div>
+<form action="">
+    <!-- INICIO  -->
+    <div class="row" style="margin: 0px 0px 15px 15px">
+        <div class="col-2 font-weight-bold">
+            <span>Edad</span>
+        </div>
+        <div class="col-2 font-weight-bold">
+            <span>Ciclo</span>
+        </div>
+        <div class="col-3 font-weight-bold">
+            <span>Estatura </span>
+        </div>
+        <div class="col-3 font-weight-bold">
+            <span>Peso </span>
+        </div>
+        <div class="col-2 font-weight-bold">
+            <span>IMC </span>
+        </div>
+        <div class=" col-12 input-group">
+            <input id="DEP_edad_1" type="number" class="form-control col-1">
+            <input id="DEP_ciclo_1" type="text" class="form-control col-5">
+            <input id="DEP_estatura_1" type="number" class="form-control col-5">
+            <input id="DEP_peso_1" type="number" class="form-control col-5">
+            <input id="DEP_imc_1" type="number" class="form-control col-5">
+        </div>
+        <div class=" col-12 input-group">
+            <input id="DEP_edad_2" type="number" class="form-control col-1">
+            <input id="DEP_ciclo_2" type="text" class="form-control col-5">
+            <input id="DEP_estatura_2" type="number" class="form-control col-5">
+            <input id="DEP_peso_2" type="number" class="form-control col-5">
+            <input id="DEP_imc_2" type="number" class="form-control col-5">
+        </div>
+        <div class=" col-12 input-group">
+            <input id="DEP_edad_3" type="number" class="form-control col-1">
+            <input id="DEP_ciclo_3" type="text" class="form-control col-5">
+            <input id="DEP_estatura_3" type="number" class="form-control col-5">
+            <input id="DEP_peso_3" type="number" class="form-control col-5">
+            <input id="DEP_imc_3" type="number" class="form-control col-5">
+        </div>
+    </div>
+    <div class="dropdown-divider"></div>
+    <!-- INICIO ROW #3 -->
+    <div class="row" style="margin: 0px 0px 0px 30px">
+        <div class="col-12" style="left: -15px;">
+            <span>Anteriormente ha participado en alguna actividad deportiva: </span>
+            <div class="form-check custom-control-inline" style="margin-left: 10px;">
+                <input type="checkbox" class="form-check-input" id="DEP_deporte_si">
+                <label class="form-check-label" for="DEP_deporte_si">Si</label>
+                <div class="input-group-sm mb-3">
+                    <input id="DEP_deporte_cual" style="margin-left: 10px;" type="text" placeholder=" ¿Cúal?"
+                        class="form-control ">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" col-6" style="margin-left: 15px;">
+        <span>Señale si presenta algun interes en algunas de las siguientes areas: </span><br>
+    </div>
+    <div class="col-12 text-center">
+        <div class="form-check custom-control-inline" style="margin-left: 20px;">
+            <input type="checkbox" class="form-check-input" id="DEP_Box">
+            <label class="form-check-label" for="DEP_Box">Box</label>
+        </div>
+        <div class="form-check custom-control-inline" style="margin-left: 50px;">
+            <input type="checkbox" class="form-check-input" id="DEP_Atletismo">
+            <label class="form-check-label" for="DEP_Atletismo">Atletismo</label>
+        </div>
+        <div class="form-check custom-control-inline" style="margin-left: 20px;">
+            <input type="checkbox" class="form-check-input" id="DEP_Basquetbol">
+            <label class="form-check-label" for="DEP_Basquetbol">Basquetbol</label>
+        </div>
+        <div class="form-check custom-control-inline" style="margin-left: 20px;">
+            <input type="checkbox" class="form-check-input" id="DEP_Volibol">
+            <label class="form-check-label" for="DEP_Volibol">Volibol</label>
+        </div>
+        <div class="form-check custom-control-inline" style="margin-left: 20px;">
+            <input type="checkbox" class="form-check-input" id="DEP_Animacion_Deportiva">
+            <label class="form-check-label" for="DEP_Animacion_Deportiva">Animacion Deportiva</label>
+        </div>
+        <div class="form-check custom-control-inline" style="margin-left: 20px;">
+            <input type="checkbox" class="form-check-input" id="DEP_Beisbol">
+            <label class="form-check-label" for="DEP_Beisbol">Beisbol</label>
+        </div>
+        <div class="form-check custom-control-inline" style="margin-left: 20px;">
+            <input type="checkbox" class="form-check-input" id="DEP_Gimnasia">
+            <label class="form-check-label" for="DEP_Gimnasia">Gimnasia</label>
+        </div>
+
+        <div class="col-12"></div>
+        <div class="form-check custom-control-inline" style="margin-left: 20px;">
+            <input type="checkbox" class="form-check-input" id="DEP_Marciales">
+            <label class="form-check-label" for="DEP_Marciales">Artes Marciales</label>
+        </div>
+        <div class="input-group-sm custom-control-inline">
+            <div>
+                <input id="DEP_otro_deporte" type="checkbox">
+                <label class="form-check-label" for="DEP_otro_deporte">Otro</label></div>
+            <div class="input-group-sm" style="margin-left: 20px;">
+                <input id="DEP_otro_deporte" type="text" placeholder="¿Cúal?" class="form-control">
+            </div>
+        </div>
+        <div class="form-check custom-control-inline">
+            <input type="checkbox" class="form-check-input" id="DEP_ninguna">
+            <label class="form-check-label" for="DEP_ninguna">Ninguna en especial</label>
+        </div>
+    </div>
+    <div class="row" style="margin: 15px 0px 15px 30px">
+        <div class="col-12" style="left: -15px;">
+            <span>Ha formado parte de algun equipo: </span>
+            <div class="form-check custom-control-inline" style="margin-left: 10px;">
+                <input type="checkbox" class="form-check-input" id="DEP_equipo_si">
+                <label class="form-check-label" for="DEP_equipo_si">Si</label>
+                <div class="input-group-sm mb-3">
+                    <input id="DEP_equipo_cual" style="margin-left: 10px;" type="text" placeholder=" ¿Cúal?"
+                        class="form-control ">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin: 15px 0px 15px 30px">
+        <div class="col-12" style="left: -15px;">
+            <span>Existe algun impedimento por el cual no pueda realizar ejercicio:: </span>
+            <div class="form-check custom-control-inline" style="margin-left: 10px;">
+                <input type="checkbox" class="form-check-input" id="DEP_impedimento_si">
+                <label class="form-check-label" for="DEP_impedimento_si">Si</label>
+                <div class="input-group-sm mb-3">
+                    <input id="DEP_impedimento_cual" style="margin-left: 10px;" type="text" placeholder=" ¿Cúal?"
+                        class="form-control ">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 15px 0px 15px 30px">
+        <div class="col-12" style="left: -15px;">
+            <span>Señale si ha recibido algun Premio, Beca o Reconocimiento dentro del area deportiva: </span>
+            <div class="form-check custom-control-inline" style="margin-left: 10px;">
+                <input type="checkbox" class="form-check-input" id="DEP_premio_si">
+                <label class="form-check-label" for="DEP_premio_si">Si. Cuales:</label>
+            </div>
+        </div>
+    </div>
+    <!-- INICIO ROW #2 -->
+    <div class="row" style="margin: 0px 0px 15px 15px">
+        <div class="col-4 font-weight-bold">
+            <span>Fecha</span>
+        </div>
+        <div class="col-4 font-weight-bold">
+            <span>Diciplina</span>
+        </div>
+        <div class="col-4 font-weight-bold">
+            <span>Lugar </span>
+        </div>
+        <div class=" col-12 input-group">
+            <input id="DEP_fecha_1" type="date" class="form-control col-2">
+            <input id="DEP_diciplina_1" type="text" class="form-control col-5">
+            <input id="DEP_lugar_1" type="text" class="form-control col-5">
+        </div>
+        <div class=" col-12 input-group">
+            <input id="DEP_fecha_2" type="date" class="form-control col-2">
+            <input id="DEP_diciplina_2" type="text" class="form-control col-5">
+            <input id="DEP_lugar_2" type="text" class="form-control col-5">
+        </div>
+        <div class=" col-12 input-group">
+            <input id="DEP_fecha_3" type="date" class="form-control col-2">
+            <input id="DEP_diciplina_3" type="text" class="form-control col-5">
+            <input id="DEP_lugar_3" type="text" class="form-control col-5">
+        </div>
+    </div>
+    <div class="row" style="margin: 15px 0px 15px 15px">
+        <div class="col-10"></div>
+        <div class="col-2">
+            <button id="ART_btn_guardar" type="button" class="btn btn-club btn-sm"
+                style="width:100%; height: 50px;">Guardar</button>
+        </div>
+    </div>
+</form>
