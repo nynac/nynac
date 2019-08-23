@@ -27,6 +27,7 @@ import { HistorialComponent } from './components/recepcion/entradas/historial/hi
 import { ContenedorNinosComponent } from './components/recepcion/ninos/contenedor-ninos/contenedor-ninos.component';
 import { ContenedorEntradasComponent } from './components/recepcion/entradas/contenedor-entradas/contenedor-entradas.component';
 import { ContenedorBuscadorComponent } from './components/recepcion/ninos/contenedor-buscador/contenedor-buscador.component';
+import { DeporteNinosComponent } from './components/recepcion/ninos/deporte-ninos/deporte-ninos.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
     RegistroComponent,
     HistorialComponent,
     ContenedorBuscadorComponent,
+    DeporteNinosComponent,
   ],
   imports: [
     RouterModule.forRoot(
