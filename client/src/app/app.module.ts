@@ -17,6 +17,8 @@ import { DmNinosComponent } from './components/recepcion/ninos/dm-ninos/dm-ninos
 import { EducacionNinosComponent } from './components/recepcion/ninos/educacion-ninos/educacion-ninos.component';
 import { ArteNinosComponent } from './components/recepcion/ninos/arte-ninos/arte-ninos.component';
 
+
+
 //COMPONENTES DE ENTRADAS
 import { RegistroComponent } from './components/recepcion/entradas/registro/registro.component';
 import { HistorialComponent } from './components/recepcion/entradas/historial/historial.component';
@@ -24,11 +26,13 @@ import { HistorialComponent } from './components/recepcion/entradas/historial/hi
 //CONTENEDORES DE RECEPCION
 import { ContenedorNinosComponent } from './components/recepcion/ninos/contenedor-ninos/contenedor-ninos.component';
 import { ContenedorEntradasComponent } from './components/recepcion/entradas/contenedor-entradas/contenedor-entradas.component';
+import { ContenedorBuscadorComponent } from './components/recepcion/ninos/contenedor-buscador/contenedor-buscador.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
   { path: 'agregar-modificar', component: ContenedorNinosComponent },
-  { path: 'entradas-salidas', component: ContenedorEntradasComponent }
+  { path: 'entradas-salidas', component: ContenedorEntradasComponent },
+  { path: 'buscar-niño', component: ContenedorBuscadorComponent }
 ];
 
 
@@ -45,7 +49,8 @@ const appRoutes: Routes = [
     ArteNinosComponent,
     ContenedorEntradasComponent,
     RegistroComponent,
-    HistorialComponent
+    HistorialComponent,
+    ContenedorBuscadorComponent,
   ],
   imports: [
     RouterModule.forRoot(
