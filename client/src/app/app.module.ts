@@ -1,19 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-//Componentes de materialize
-import {MatButtonModule, MatProgressSpinnerModule} from '@angular/material';
-import { ContenedorNinosComponent } from './components/contenedor-ninos/contenedor-ninos.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { DsNinosComponent } from './components/ds-ninos/ds-ninos.component';
-import { DatosGeneralesComponent } from './components/datos-generales/datos-generales.component';
-import { NucleoFamiliarComponent } from './components/nucleo-familiar/nucleo-familiar.component';
-import { DmNinosComponent } from './components/dm-ninos/dm-ninos.component';
-import { EducacionNinosComponent } from './components/educacion-ninos/educacion-ninos.component';
-import { ArteNinosComponent } from './components/arte-ninos/arte-ninos.component';
+import {FormsModule} from '@angular/forms';
+
+import { NavbarComponent } from './components/recepcion/navbar/navbar.component';
+
+/*COMPONENTES DEL NIÑO*/
+import { DsNinosComponent } from './components/recepcion/ninos/ds-ninos/ds-ninos.component';
+import { DatosGeneralesComponent } from './components/recepcion/ninos/datos-generales/datos-generales.component';
+import { NucleoFamiliarComponent } from './components/recepcion/ninos/nucleo-familiar/nucleo-familiar.component';
+import { DmNinosComponent } from './components/recepcion/ninos/dm-ninos/dm-ninos.component';
+import { EducacionNinosComponent } from './components/recepcion/ninos/educacion-ninos/educacion-ninos.component';
+import { ArteNinosComponent } from './components/recepcion/ninos/arte-ninos/arte-ninos.component';
+
+//COMPONENTES DE ENTRADAS
+import { RegistroComponent } from './components/recepcion/entradas/registro/registro.component';
+import { HistorialComponent } from './components/recepcion/entradas/historial/historial.component';
+
+//CONTENEDORES DE RECEPCION
+import { ContenedorNinosComponent } from './components/recepcion/ninos/contenedor-ninos/contenedor-ninos.component';
+import { ContenedorEntradasComponent } from './components/recepcion/entradas/contenedor-entradas/contenedor-entradas.component';
+
+//RUTAS DEL PROYECTO
+const appRoutes: Routes = [
+  { path: 'agregar-modificar', component: ContenedorNinosComponent },
+  { path: 'entradas-salidas', component: ContenedorEntradasComponent }
+];
+
 
 @NgModule({
   declarations: [
@@ -26,13 +43,18 @@ import { ArteNinosComponent } from './components/arte-ninos/arte-ninos.component
     DmNinosComponent,
     EducacionNinosComponent,
     ArteNinosComponent,
+    ContenedorEntradasComponent,
+    RegistroComponent,
+    HistorialComponent
   ],
   imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    ),
     BrowserModule,
     AppRoutingModule,
-
-    MatButtonModule,
-    MatProgressSpinnerModule
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,14 @@
+.btn-club{
+	background-color: #00AAE7;
+	border-color: transparent;
+	color: white;
+	font-family: "Helvetica";
+}
+
+input { 
+    text-align: center; 
+}
+
+input[type="number"]::placeholder {  
+	text-align: center; 
+}
