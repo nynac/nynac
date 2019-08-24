@@ -1,0 +1,723 @@
+<form action="">
+    <div class="row" style="margin: 15px 0px 0px 0px">
+        <div class="col-2 text-right font-weight-bold">
+            <span>QUÉ VAS A HACER?</span>
+        </div>
+        <div class="col-5">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DH_nuevo" type="radio" class="custom-control-input" name="DH_opcion">
+                <label class="custom-control-label" for="DH_nuevo">Nuevo</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DH_Modificar" type="radio" class="custom-control-input" name="DH_opcion">
+                <label class="custom-control-label" for="DH_Modificar">Modificar</label>
+            </div>
+        </div>
+        <div class="input-group input-group-sm mb-3 col-3 aling-right">
+            <div class="input-group-prepend">
+                <span class="input-group-text">No. Miembro:</span>
+            </div>
+            <input id="DH_busc_miembro" type="text" class="form-control">
+        </div>
+        <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+            <button id="DH_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+        </div>
+    </div>
+</form>
+
+<!--Inicio-->
+<div class="dropdown-divider"></div>
+<form>
+    <div class="col-12">
+        <span class="font-weight-bold">DESCRIBA EL COMPORTAMIENTO DEL NIÑO(A): </span>
+        <div>
+
+            <div class="dropdown-divider"></div>
+            <div class="col-2 custom-control-inline">
+                <span>Alegre:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_alegre" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 custom-control-inline">
+                <span>Hace berrinches:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_berrinche" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 custom-control-inline">
+                <span>Tolerante:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_tolerante" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 custom-control-inline">
+                <span>Persistentes:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_persistente" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div>
+            <div class="col-2 custom-control-inline">
+                <span>Amigable:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_amigable" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 custom-control-inline">
+                <span>Independiente:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_Independiente" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 custom-control-inline">
+                <span>Sociable:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_Sociable" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 custom-control-inline">
+                <span>Timido:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_Timido" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="dropdown-divider"></div>
+        <div>
+            <div class="col-2 custom-control-inline">
+                <span>Callado:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_Callado" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 custom-control-inline">
+                <span>Imaginativo:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_Imaginativo" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 custom-control-inline">
+                <span>Responsable:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_Responsable" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 custom-control-inline">
+                <span>Hace su Tarea:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_comp_Hace_Tarea" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Siempre</option>
+                        <option value="separados">A veces</option>
+                        <option value="viudo">Nunca</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="col-2 custom-control-inline">
+            <span>Coope- rador:</span>
+            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_Cooperador" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3 custom-control-inline">
+            <span>Irritable:</span>
+            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_Irritable" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3 custom-control-inline">
+            <span>Ordenado:</span>
+            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_Ordenado" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3 custom-control-inline">
+            <span>Uso de sustancias:</span>
+            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_Uso de sustancias" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="col-2 custom-control-inline">
+            <span>Curioso:</span>
+            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_Curioso" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3 custom-control-inline">
+            <span>Siente miedo:</span>
+            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_Siente_miedo" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3 custom-control-inline">
+            <span>Se chupa el dedo:</span>
+            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_chupa_dedo" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3 custom-control-inline">
+            <span>Sale del salon:</span>
+            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_Sale_salon" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="col-2 custom-control-inline">
+            <span>Comparte sus cosas:</span>
+            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_Comparte" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3 custom-control-inline">
+            <span>Moja la cama:</span>
+            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_Moja_cama" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-4 custom-control-inline">
+            <span>Golpea, muerde, grita:</span>
+            <div class="col-8 input-group input-group-sm mb-3" style="margin-left: 10px;">
+                <select id="DH_comp_Golpea" class="custom-select">
+                    <option selected disabled>Elige</option>
+                    <option value="juntos">Siempre</option>
+                    <option value="separados">A veces</option>
+                    <option value="viudo">Nunca</option>
+                </select>
+            </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="col-12">
+            <div class="col-lg-4 custom-control-inline">
+                <span>Interaccion Padre:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_padre" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4 custom-control-inline">
+                <span>Interaccion Abuelos Paternos:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_abuelos_paternos" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 custom-control-inline">
+                <span>Interaccion tios:</span>
+                <div class="col-10 input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_tios" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="col-lg-4 custom-control-inline">
+                <span>Interaccion Madre:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_madre" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4 custom-control-inline">
+                <span>Interaccion Abuelos Maternos:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_abuelos_maternos" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 custom-control-inline">
+                <span>Interaccion primos:</span>
+                <div class="col-10 input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_primos" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="col-lg-4 custom-control-inline">
+                <span>Interaccion hermanos:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_hermanos" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4 custom-control-inline">
+                <span>Interaccion vecinos:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_vecinos" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 custom-control-inline">
+                <span>Interaccion amigos de su edad:</span>
+                <div class="col-10 input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_amigos" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="col-lg-4 custom-control-inline">
+                <span>Problemas con la ley:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_ley" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4 custom-control-inline">
+                <span>Interaccion maestros:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_maestros" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 custom-control-inline">
+                <span>Interaccion amigos mas grandes:</span>
+                <div class="col-10 input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_amigos_mayores" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="col-lg-4 custom-control-inline">
+                <span>Adaptacion a situaciones nuevas:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_adaptacion" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4 custom-control-inline">
+                <span>Otras:</span>
+                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
+                    <select id="DH_interac_otras" class="custom-select">
+                        <option selected disabled>Elige</option>
+                        <option value="juntos">Estable</option>
+                        <option value="separados">Inestable</option>
+                        <option value="viudo">Conflicto</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dropdown-divider"></div>
+    <div class="col-12">
+        <span>Ha recibido terapia: </span>
+        <div class="col-8 form-check custom-control-inline" style="margin-left: 10px;">
+            <input type="checkbox" class="form-check-input" id="DH_terapia_si">
+            <label class="form-check-label" for="DH_terapia_si">Si</label>
+            <div class="col-12 input-group-sm mb-3">
+                <input id="DH_terapia_cual" style="margin-left: 10px;" type="text" placeholder="Motivo:"
+                    class="col-12 form-control ">
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <span>Tiene algun TIC (Mania): </span>
+        <div class="col-8 form-check custom-control-inline" style="margin-left: 10px;">
+            <input type="checkbox" class="form-check-input" id="DH_tic_si">
+            <label class="form-check-label" for="DH_tic_si">Si</label>
+            <div class="col-12 input-group-sm mb-3">
+                <input id="DH_tic_cual" style="margin-left: 10px;" type="text" placeholder="Motivo:"
+                    class="col-12 form-control ">
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <span>Pasatiempo que le gustan: </span>
+        <div class="col-8 form-check custom-control-inline" style="margin-left: 10px;">
+            <input type="checkbox" class="form-check-input" id="DH_pasatiempo_si">
+            <label class="form-check-label" for="DH_pasatiempo_si">Si</label>
+            <div class="col-12 input-group-sm mb-3">
+                <input id="DH_pasatiempo_cual" style="margin-left: 10px;" type="text" placeholder="Motivo:"
+                    class="col-12 form-control ">
+            </div>
+        </div>
+    </div>
+
+    <!--Screen 2-->
+    <div class="dropdown-divider"></div>
+    <div class="col-12">
+        <div class="col-8 form-check custom-control-inline" style="margin-left: 10px;">
+            <input type="checkbox" class="form-check-input" id="DH_ordenes_si">
+            <label class="form-check-label" for="DH_ordenes_si">Hace lo que se le ordena sin dicutir o resistir al
+                cumplirlo.</label>
+        </div>
+        <div class="col-8 form-check custom-control-inline" style="margin-left: 10px;">
+            <input type="checkbox" class="form-check-input" id="DH_materiales_peligrosos">
+            <label class="form-check-label" for="DH_materiales_peligrosos">Juega con materiales peligrosos (quema
+                papeles, enciende cerillos, juega con cuchillos, etc..).</label>
+        </div>
+        <div class="custom-control-inline">
+            <div class="input-group input-group-sm mb-3 col-6 aling-right">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Reaccion ante la obscuridad:</span>
+                </div>
+                <input id="DH_reaccion_obscuridad" type="text" class="col-12 form-control">
+            </div>
+            <div class="input-group input-group-sm mb-3 col-6 aling-right">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Fobias o Miedos:</span>
+                </div>
+                <input id="DH_Fobias" type="text" class="col-12 form-control">
+            </div>
+        </div>
+        <div>
+            <span class="font-weight-bold">Duerme la mayoria de las veces: </span>
+            <input type="checkbox" id="DH_duerme_solo">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_duerme_solo">Solo(a)</label>
+
+            <input type="checkbox" id="DH_duerme_con_padres">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_duerme_con_padres">Con sus Padres</label>
+
+            <input type="checkbox" id="DH_duerme_con_hermanos">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_duerme_con_hermanos">Con hermanos</label>
+
+            <input type="checkbox" id="DH_duerme_otros">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_duerme_otros">Otros</label>
+        </div>
+        <div class="custom-control-inline">
+            <input type="checkbox" id="DH_siesta_dia" style="margin-top: 5px;">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_siesta_dia">Hace siestas durante el
+                dia.</label>
+            <div class="input-group-sm mb-3">
+                <input id="DH_siesta_dia_horas" style="margin-left: 10px;" type="text" placeholder="Horas"
+                    class="form-control ">
+            </div>
+
+            <label style="margin-left: 30px;">Horas que duerme en promedio por la noche: </label>
+            <div class="input-group-sm mb-3">
+                <input id="DH_horas_promedio" style="margin-left: 10px;" type="text" placeholder="Horas"
+                    class="form-control ">
+            </div>
+        </div>
+        <div class="custom-control-inline">
+            <input type="checkbox" id="DH_transtorno_sueno_si" style="margin-top: 5px;">
+            <label class="font-weight-bold" style="margin-left: 10px; margin-right: 10px;"
+                for="DH_transtorno_sueno_si">Presenta algún transtorno de sueño. Cuál:</label>
+
+        </div>
+        <div class="custom-control-inline">
+            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_pesadilla">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_pesadilla">Pesadilla</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_insomnio">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_insomnio">Insomnio</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_rechinar_dientes">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_rechinar_dientes">Rechinar
+                dientes</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_sueño_intranquilo">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_sueño_intranquilo">Sueño
+                intranquilo</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_habla">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_habla">habla</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_sueño_corto">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_sueño_corto">Sueño nocturno en
+                periodos muy cortos</label>
+        </div>
+        <div class="custom-control-inline">
+            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_otro">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_otro">otro</label>
+            <div class="input-group-sm mb-3">
+                <input style="margin-left: 10px;" type="text" placeholder="Cual" id="DH_transtorno_cual"
+                    class="col-12 form-control ">
+            </div>
+        </div>
+        <div class="col-12 custom-control-inline">
+            <span class="font-weight-bold">Cuantas horas al dia pasa viendo algún programa de televisión: </span>
+            <div class="input-group-sm mb-3">
+                <input style="margin-left: 10px;" type="text" placeholder="Horas" id="DH_tv_horas"
+                    class="col-8 form-control ">
+            </div>
+            <div class="input-group-sm mb-3">
+                <input style="margin-left: 10px;" type="text" placeholder="Minutos" id="DH_tv_minutos"
+                    class="col-8 form-control ">
+            </div>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_solo">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_solo">Solo(a)</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_acompanado">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_acompanado">Acompañado</label>
+        </div>
+
+        <div class="col-12 custom-control-inline">
+            <span class="font-weight-bold">Cuantas horas al día pasa frente a algún aparato tecnológico (Ipod, laptop,
+                PC, etc.): </span>
+            <div class="input-group-sm mb-3">
+                <input style="margin-left: 10px;" type="text" placeholder="Horas" id="DH_pc_horas"
+                    class="col-8 form-control ">
+            </div>
+            <div class="input-group-sm mb-3">
+                <input style="margin-left: 10px;" type="text" placeholder="Minutos" id="DH_pc_minutos"
+                    class="col-8 form-control ">
+            </div>
+        </div>
+
+
+
+        <div class="custom-control-inline">
+            <label class="font-weight-bold" style="margin-left: 10px; margin-right: 10px;">Cuales son sus programas
+                favoritos:</label>
+        </div>
+        <div class="custom-control-inline">
+            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_caricatura">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_caricatura">Caricatura</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_documentales">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_documentales">Documentales</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_policialess">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_policiales">Series policiacas</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_telenovelas">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_telenovelas">Telenovelas</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_Concursos">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_Concursos">Concursos</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_Terror">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_Terror">Terror</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_Video_Musical">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_Video_Musical">Video Musical</label>
+
+            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_Otros">
+            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_Otros">Otros</label>
+
+            <div class="input-group-sm mb-3">
+                <input style="margin-left: 10px;" type="text" placeholder="Cual" id="DH_tv_cual" class="form-control ">
+            </div>
+        </div>
+
+        <div class="custom-control-inline">
+                <label class="font-weight-bold" style="margin-left: 10px; margin-right: 10px;">Habilidades:</label>
+            </div>
+            <div class="custom-control-inline">
+                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_come_solo">
+                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_come_solo">Come solo</label>
+    
+                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_asea_baño">
+                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_asea_baño">Se asea despues de ir al baño</label>
+    
+                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_peinar">
+                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_peinar">Se peina solo(a)</label>
+    
+                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_viste_solo">
+                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_viste_solo">Se viste solo(a)</label>
+    
+                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_lava_manos">
+                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_lava_manos">Se lava las manos frecuentemente</label>
+    
+                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_lava_dientes">
+                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_lava_dientes">Se lava los dientes frecuentemente</label>
+            </div>
+
+            <div class="custom-control-inline">
+                    <label class="font-weight-bold" style="margin-left: 10px; margin-right: 10px;">Que actividad realiza regularmente los fines de semana:</label>
+                </div>
+                <div class="custom-control-inline">
+                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Conciertos">
+                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Conciertos">Conciertos</label>
+        
+                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Cine">
+                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Cine">Cine</label>
+DH_actividad_caricatura
+                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Redes">
+                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Redes">Redes Sociales</label>
+        
+                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Salidas">
+                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Salidas">Salidas E.U</label>
+        
+                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Deportivas">
+                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Deportivas">Deportivas</label>
+        
+                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Parque">
+                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Parque">Parque de diversiones</label>
+        
+                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Visitas">
+                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Visitas">Visitas Familiares</label>
+        
+                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_otros">
+                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_otros">Otros</label>
+        
+                    <div class="input-group-sm mb-3">
+                        <input style="margin-left: 10px;" type="text" placeholder="Cual" id="DH_actividad_cual" class="form-control ">
+                    </div>
+                </div>
+
+
+        <div class="row" style="margin: 15px 0px 15px 15px">
+            <div class="col-10"></div>
+            <div class="col-2">
+                <button id="DH_btn_guardar" type="button" class="btn btn-club btn-sm"
+                    style="width:100%; height: 50px;">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+
+</form>
