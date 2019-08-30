@@ -16,7 +16,7 @@ import { NucleoFamiliarComponent } from './components/recepcion/ninos/nucleo-fam
 import { DmNinosComponent } from './components/recepcion/ninos/dm-ninos/dm-ninos.component';
 import { EducacionNinosComponent } from './components/recepcion/ninos/educacion-ninos/educacion-ninos.component';
 import { ArteNinosComponent } from './components/recepcion/ninos/arte-ninos/arte-ninos.component';
-
+import { DHNinosComponent } from './components/recepcion/ninos/dh-ninos/dh-ninos.component';
 
 
 //COMPONENTES DE ENTRADAS
@@ -28,7 +28,6 @@ import { ContenedorNinosComponent } from './components/recepcion/ninos/contenedo
 import { ContenedorEntradasComponent } from './components/recepcion/entradas/contenedor-entradas/contenedor-entradas.component';
 import { ContenedorBuscadorComponent } from './components/recepcion/ninos/contenedor-buscador/contenedor-buscador.component';
 import { DeporteNinosComponent } from './components/recepcion/ninos/deporte-ninos/deporte-ninos.component';
-import { DHNinosComponent } from './components/recepcion/ninos/dh-ninos/dh-ninos.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
