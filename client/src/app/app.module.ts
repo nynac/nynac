@@ -1,5 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule }    from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +34,8 @@ import { DeporteNinosComponent } from './components/recepcion/ninos/deporte-nino
 const appRoutes: Routes = [
   { path: 'agregar-modificar', component: ContenedorNinosComponent },
   { path: 'entradas-salidas', component: ContenedorEntradasComponent },
-  { path: 'buscar-niño', component: ContenedorBuscadorComponent }
+  { path: 'buscar-niño', component: ContenedorBuscadorComponent },
+  { path: '', component: NavbarComponent }
 ];
 
 
@@ -61,6 +63,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule
   ],
