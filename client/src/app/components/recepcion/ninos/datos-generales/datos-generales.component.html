@@ -1,15 +1,15 @@
-<form #ng_busq_Form="ngForm" (ngSubmit)="(ng_busq_Form.value)">
+<form #form_busq="ngForm" (ngSubmit)="ng_busq_Form(form_busq.value)">
 	<div class="row" style="margin: 15px 0px 0px 0px">
 		<div class="col-2 text-right font-weight-bold" >
 			<span>QUÉ VAS A HACER?</span>
 		</div>
 		<div class="col-5">
 			<div class="custom-control custom-radio custom-control-inline">
-				<input id="DG_Nuevo" type="radio" class="custom-control-input" name="DG_opcion" (ngModelChange)="nuevo()">
+				<input id="DG_Nuevo" type="radio" class="custom-control-input" name="DG_opcion" value="nuevo" (change)="radioChange($event)">
 				<label class="custom-control-label" for="DG_Nuevo">Nuevo</label>
 			</div>
 			<div class="custom-control custom-radio custom-control-inline">
-				<input id="DG_Modificar" type="radio" class="custom-control-input" name="DG_opcion" (ngModelChange)="modificar()">
+				<input id="DG_Modificar" type="radio" class="custom-control-input" name="DG_opcion" value="modificar" (change)="radioChange($event)">
 				<label class="custom-control-label" for="DG_Modificar">Modificar</label>
 			</div>
 		</div>
@@ -17,16 +17,16 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">No. Miembro:</span>
 			</div>
-			<input name="miembroID" type="text" class="form-control">
+			<input name="miembroID" type="number" class="form-control" ngModel>
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-			<button id="DG_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+			<button type="submit" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
 		</div> 
 	</div>
 </form>
 
 <div class="dropdown-divider"></div>
-<form #form_dg="ngForm" (ngSubmit)="guardar_DG(form_dg.value)">
+<form #form_dg="ngForm" (ngSubmit)="guardar_DG(form_dg.value)" >
 	<div class="row">
 		<!-- CÁMARA -->
 		<div class="col-2 text-center">
@@ -43,20 +43,24 @@
 			<div class="col-10" style="margin: 15px 0px 0px 0px">
 				<div class="col-12 custom-control-inline">
 					<div class="col-2 custom-control custom-switch">
-						<input id="estado" name="estado" type="checkbox" class="custom-control-input"  ngModel>
+						<input id="estado" name="estado" type="checkbox" class="custom-control-input"  
+						checked="{{resultado['Nino_DG'][0].estado}}" ngModel>
 						<label class="custom-control-label" for="estado">Estado actual</label>
 					</div>
 					<div class="col-1 custom-control custom-switch">
-						<input id="visa" name="visa" type="checkbox" class="custom-control-input" ngModel>
+						<input id="visa" name="visa" type="checkbox" class="custom-control-input"
+						checked="{{resultado['Nino_DG'][0].visa}}" ngModel>
 						<label class="custom-control-label" for="visa">Visa</label>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input name="religion" type="text" class="form-control" placeholder="Religión" ngModel>
+						<input name="religion" type="text" class="form-control" placeholder="Religión"
+						 value="{{resultado['Nino_DG'][0].religion}}" ngModel>
 					</div>
 					
 
 					<div class="col-3 input-group input-group-sm mb-3">
-						<select name="tallacamisa" class="custom-select" placeholder="Talla de camisa" ngModel>
+						<select name="tallacamisa" class="custom-select" placeholder="Talla de camisa"
+						value="{{resultado['Nino_DG'][0].tallacamisa}}" ngModel>
 							<option selected>Talla de camisa</option>
 							<option value="XS">XS</option>
 							<option value="S">S</option>
@@ -67,41 +71,52 @@
 						</select>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input name="fechainscripcion" type="date" class="form-control" placeholder="Fecha de inscripción" ngModel>
+						<input name="fechainscripcion" type="date" class="form-control" placeholder="Fecha de inscripción" 
+						value="{{resultado['Nino_DG'][0].fechainscripcion}}" ngModel>
 					</div>
 				</div>
 				<div class="col-12 custom-control-inline">
 					<div class="col-3 input-group input-group-sm mb-3" hidden="true">
-						<input name="idNinos" type="text" class="form-control" placeholder="id" ngModel>
+						<input name="idNinos" type="text" class="form-control" placeholder="id"
+						value="{{resultado['Nino_DG'][0].idNinos}}" ngModel>
 					</div>
 					<div class="col-2 input-group input-group-sm mb-3">
-						<input name="miembroID" required readonly type="number" class="form-control"  placeholder="No. Miembro" value="{{miembros[miembros.length -1].miembroID}}" ngModel>
+						<input name="miembroID" required readonly type="number" class="form-control"  placeholder="No. Miembro" value="{{nuevo_id_miembro}}"
+						value="{{resultado['Nino_DG'][0].miembroID}}" ngModel>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input name="nombres" required type="text" class="form-control"  placeholder="Nombre" ngModel>
+						<input name="nombres" required type="text" class="form-control"  placeholder="Nombre"
+						value="{{resultado['Nino_DG'][0].nombres}}" ngModel>
 					</div>
 					<div class="col-2 input-group input-group-sm mb-3">
-						<input name="appaterno" type="text" class="form-control" placeholder="Ap. Paterno" ngModel>
+						<input name="appaterno" type="text" class="form-control" placeholder="Ap. Paterno" 
+						value="{{resultado['Nino_DG'][0].appaterno}}" ngModel>
 					</div>
 					<div class="col-2 input-group input-group-sm mb-3">
-						<input name="apmaterno" type="text" class="form-control" placeholder="Ap. Materno" ngModel>
+						<input name="apmaterno" type="text" class="form-control" placeholder="Ap. Materno" 
+						value="{{resultado['Nino_DG'][0].apmaterno}}" ngModel>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input name="fechanacimiento" type="date" class="form-control" placeholder="Fecha de nacimiento" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" ngModel >
+						<input name="fechanacimiento" type="date" class="form-control" placeholder="Fecha de nacimiento"
+						value="{{resultado['Nino_DG'][0].fechanacimiento}}" ngModel >
 					</div>
 				</div>
 				<div class="col-12 custom-control-inline">
 					<div class="col-2 input-group input-group-sm mb-3">
-						<input name="edad" type="number" class="form-control"  placeholder="Edad" ngModel>
+						<input name="edad" type="number" class="form-control"  placeholder="Edad"
+						value="{{resultado['Nino_DG'][0].edad}}" ngModel>
 					</div>
 					<div class="col-4 input-group input-group-sm mb-3">
-						<input name="lugarnacimiento" type="text" class="form-control" placeholder="Lugar de nacimiento" ngModel>
+						<input name="lugarnacimiento" type="text" class="form-control" placeholder="Lugar de nacimiento"
+						value="{{resultado['Nino_DG'][0].lugarnacimiento}}" ngModel>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input name="nacionalidad" type="text" class="form-control" placeholder="Nacionalidad" ngModel>
+						<input name="nacionalidad" type="text" class="form-control" placeholder="Nacionalidad" 
+						value="{{resultado['Nino_DG'][0].nacionalidad}}" ngModel>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<select name="sexo" class="custom-select" ngModel>
+						<select name="sexo" class="custom-select" 
+						value="{{resultado['Nino_DG'][0].sexo}}" ngModel>
 							<option selected>Sexo</option>
 							<option value="M">Masculino</option>
 							<option value="F">Femenino</option>
@@ -119,7 +134,8 @@
 			</div>
 
 			<div class="col-2 input-group input-group-sm mb-3">
-				<select name="derechohabiencia" class="custom-select" ngModel>
+				<select name="derechohabiencia" class="custom-select"
+				value="{{resultado['Nino_DG'][0].derechohabiencia}}" ngModel>
 					<option selected disabled>Tipo</option>
 					<option value="IMSS">IMSS</option>
 					<option value="ISSSTE">ISSSTE</option>
@@ -131,14 +147,17 @@
 			</div>
 
 			<div class="col-2 input-group input-group-sm mb-3" style="margin: 0px 0px 0px -15px">
-				<input name="otroseguro" type="text" class="form-control" placeholder="otro servicio" ngModel>
+				<input name="otroseguro" type="text" class="form-control" placeholder="otro servicio"
+				value="{{resultado['Nino_DG'][0].otroseguro}}" ngModel>
 			</div>
 			<div class="col-8 custom-control-inline" style="margin: 0px 0px 0px -15px">
 				<div class="col-8 input-group input-group-sm mb-3">
-					<input name="vivecon" type="text" class="form-control"  placeholder="Con quién vive el niño (a) adolecente" ngModel>
+					<input name="vivecon" type="text" class="form-control"  placeholder="Con quién vive el niño (a) adolecente"
+					value="{{resultado['Nino_DG'][0].vivecon}}" ngModel>
 				</div>
 				<div class="col-4 input-group input-group-sm mb-3">
-					<input name="telefono" type="tel" class="form-control" placeholder="Teléfono" ngModel>
+					<input name="telefono" type="tel" class="form-control" placeholder="Teléfono"
+					value="{{resultado['Nino_DG'][0].telefono}}" ngModel>
 				</div>
 			</div>
 		</div>
@@ -151,19 +170,24 @@
 			</div>
 			<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
 				<div class="col-3 input-group input-group-sm mb-3">
-					<input name="domcalle" type="text" class="form-control" placeholder="Calle y número" ngModel>
+					<input name="domcalle" type="text" class="form-control" placeholder="Calle y número"
+					value="{{resultado['Nino_DG'][0].telefono}}" ngModel>
 				</div>
 				<div class="col-3 input-group input-group-sm mb-3">
-					<input name="domcolonia" type="text" class="form-control" placeholder="Colonia" ngModel>
+					<input name="domcolonia" type="text" class="form-control" placeholder="Colonia"
+					value="{{resultado['Nino_DG'][0].domcalle}}" ngModel>
 				</div>
 				<div class="col-1 input-group input-group-sm mb-3">
-					<input name="domcodpost" type="text" class="form-control" placeholder="C.P" ngModel>
+					<input name="domcodpost" type="text" class="form-control" placeholder="C.P"
+					value="{{resultado['Nino_DG'][0].domcodpost}}" ngModel>
 				</div>
 				<div class="col-2 input-group input-group-sm mb-3">
-					<input name="domdelegacion" type="text" class="form-control" placeholder="Delegación" ngModel>
+					<input name="domdelegacion" type="text" class="form-control" placeholder="Delegación"
+					value="{{resultado['Nino_DG'][0].domdelegacion}}" ngModel>
 				</div>
 				<div class="col-3 input-group input-group-sm mb-3">
-					<input name="dommunicipio" type="text" class="form-control" placeholder="Municipio" ngModel>
+					<input name="dommunicipio" type="text" class="form-control" placeholder="Municipio"
+					value="{{resultado['Nino_DG'][0].dommunicipio}}" ngModel>
 				</div>
 			</div>
 		</div>	
@@ -177,10 +201,12 @@
 				</div>
 				<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
 					<div class="col-6 input-group input-group-sm mb-3">
-						<input name="escuela" type="text" class="form-control"  placeholder="Nombre de la escuela" ngModel>
+						<input name="escuela" type="text" class="form-control"  placeholder="Nombre de la escuela" 
+						value="{{resultado['Nino_DG'][0].dommunicipio}}" ngModel>
 					</div>
 					<div class="col-6 input-group input-group-sm mb-3">
-						<input name="escuelaturno" type="tel" class="form-control" placeholder="Turno" ngModel>
+						<input name="escuelaturno" type="tel" class="form-control" placeholder="Turno"
+						value="{{resultado['Nino_DG'][0].dommunicipio}}" ngModel>
 					</div>
 				</div>
 			</div>
@@ -190,10 +216,12 @@
 				</div>
 				<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
 					<div class="col-6 input-group input-group-sm mb-3">
-						<input name="recoge1nino" type="text" class="form-control"  placeholder="Nombre" ngModel>
+						<input name="recoge1nino" type="text" class="form-control"  placeholder="Nombre" 
+						value="{{resultado['Nino_DG'][0].recoge1nino}}" ngModel>
 					</div>
 					<div class="col-6 input-group input-group-sm mb-3">
-						<input name="parentrecoge1" type="text" class="form-control" placeholder="Parentesco" ngModel>
+						<input name="parentrecoge1" type="text" class="form-control" placeholder="Parentesco" 
+						value="{{resultado['Nino_DG'][0].parentrecoge1}}" ngModel>
 					</div>
 				</div>
 			</div>
@@ -210,29 +238,38 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Contacto 1</span>
 					</div>
-					<input name="emergencia1" type="text" placeholder="Nombre" class="form-control" ngModel>
-					<input name="parentemergencia1" type="text" placeholder="Parentesco" class="form-control" ngModel>
-					<input name="telefonoemergencia1" type="tel" placeholder="Teléfono" class="form-control" ngModel>
+					<input name="emergencia1" type="text" placeholder="Nombre" class="form-control" 
+					value="{{resultado['Nino_DG'][0].emergencia1}}" ngModel>
+					<input name="parentemergencia1" type="text" placeholder="Parentesco" class="form-control" 
+					value="{{resultado['Nino_DG'][0].parentemergencia1}}" ngModel>
+					<input name="telefonoemergencia1" type="tel" placeholder="Teléfono" class="form-control" 
+					value="{{resultado['Nino_DG'][0].telefonoemergencia1}}" ngModel>
 				</div>
 				<div class=" col-12 input-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Contacto 2</span>
 					</div>
-					<input name="emergencia2" type="text" placeholder="Nombre" class="form-control" ngModel>
-					<input name="parentemergencia2" type="text" placeholder="Parentesco" class="form-control" ngModel>
-					<input name="telefonoemergencia2" type="tel" placeholder="Teléfono" class="form-control" ngModel>
+					<input name="emergencia2" type="text" placeholder="Nombre" class="form-control" 
+					value="{{resultado['Nino_DG'][0].emergencia2}}"ngModel>
+					<input name="parentemergencia2" type="text" placeholder="Parentesco" class="form-control" 
+					value="{{resultado['Nino_DG'][0].parentemergencia2}}"ngModel>
+					<input name="telefonoemergencia2" type="tel" placeholder="Teléfono" class="form-control" 
+					value="{{resultado['Nino_DG'][0].telefonoemergencia2}}"ngModel>
 				</div>
 				<div class=" col-12 input-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Contacto 3</span>
 					</div>
-					<input name="emergencia3" type="text" placeholder="Nombre" class="form-control" ngModel>
-					<input name="parentemergencia3" type="text" placeholder="Parentesco" class="form-control" ngModel>
-					<input name="telefonoemergencia3" type="tel" placeholder="Teléfono" class="form-control" ngModel>
+					<input name="emergencia3" type="text" placeholder="Nombre" class="form-control" 
+					value="{{resultado['Nino_DG'][0].emergencia3}}"ngModel>
+					<input name="parentemergencia3" type="text" placeholder="Parentesco" class="form-control" 
+					value="{{resultado['Nino_DG'][0].parentemergencia3}}"ngModel>
+					<input name="telefonoemergencia3" type="tel" placeholder="Teléfono" class="form-control" 
+					value="{{resultado['Nino_DG'][0].telefonoemergencia3}}"ngModel>
 				</div>
 			</div>
 			<div class="col-2 text-right">
-				<button name="DG_btn_guardar"  class="btn btn-club btn-sm" style="width:100%; margin-top: 50px; height: 80px;" type="submit">Submit</button>
+				<button name="DG_btn_guardar"  class="btn btn-club btn-sm" style="width:100%; margin-top: 50px; height: 80px;" type="submit">Guardar</button>
 			</div> 
 		</div>	
 	</form>
