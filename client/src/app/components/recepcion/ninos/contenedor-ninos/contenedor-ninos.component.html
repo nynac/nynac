@@ -1,5 +1,9 @@
 <navbar></navbar>
 <br>
+<p>
+		{{miembros}}
+</p>
+
 
 <div class="container border rounded">
 	<ul class="nav nav-tabs">
@@ -28,33 +32,31 @@
 			<a class="nav-link" href="#desarrollo" data-toggle="tab">Desarrollo Humano</a>
 		</li>
 	</ul>
-	
 	<div class="tab-content">
 		<div class="tab-pane active" id="generales">
-			<datos-generales></datos-generales>
+			<datos-generales [miembro]="miembros" (exampleOutput)="exampleMethodParent($event)"></datos-generales>
 		</div>
 		<div class="tab-pane " id="familia">
-			<nucleo-familiar></nucleo-familiar>
+			<nucleo-familiar [miembro]="miembros"></nucleo-familiar>
 		</div>
 		<div class="tab-pane" id="socioeconomico">
-			<ds-ninos></ds-ninos>
+			<ds-ninos [miembro]="miembros"></ds-ninos>
 		</div>
 		<div class="tab-pane" id="medico">
-			<dm-ninos></dm-ninos>
+			<dm-ninos [miembro]="miembros"></dm-ninos>
 		</div>
 		<div class="tab-pane" id="educacion">
-			<educacion-ninos></educacion-ninos>
+			<educacion-ninos [miembro]="miembros"></educacion-ninos>
 		</div>
 		<div class="tab-pane" id="deporte">
-			<deporte-ninos></deporte-ninos>
+			<deporte-ninos [miembro]="miembros"></deporte-ninos>
 		</div>
 		<div class="tab-pane" id="arte">
-			<arte-ninos></arte-ninos>
+			<arte-ninos [miembro]="miembros"></arte-ninos>
 		</div>
 		<div class="tab-pane" id="desarrollo">
-			<dh-ninos></dh-ninos>
+			<dh-ninos [miembro]="miembros"></dh-ninos>
 		</div>
-
 	</div>
 
 </div>

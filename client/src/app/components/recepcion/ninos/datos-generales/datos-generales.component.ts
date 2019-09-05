@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegistrationService } from '../../../../registration.service';
 
@@ -13,12 +13,24 @@ export class DatosGeneralesComponent implements OnInit {
 	nuevo_id_miembro : any;
 	url = "https://api-remota.conveyor.cloud/api/";
 
+
+	exampleChild: number=2;
+//Obtener variable de Padre
+	@Input('miembro') miembro: any;
+//Pasar variable a padre
+	@Output() exampleOutput= new EventEmitter<number>();
+	exampleMethodChild(){
+		this.exampleOutput.emit(this.exampleChild);
+	}
+
+
+
 	constructor(private http : HttpClient) { }
 	
 
 	ngOnInit() {
-		var response = this.http.get(this.url + "/miembro");
-		response.subscribe((data)=>this.miembros = data);
+		// var response = this.http.get(this.url + "/miembro");
+		// response.subscribe((data)=>this.miembros = data);
 	}
 
 	guardar_DG(formData) {

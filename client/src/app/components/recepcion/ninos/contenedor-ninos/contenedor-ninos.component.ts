@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
 	selector: 'contenedor-ninos',
@@ -6,8 +7,18 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./contenedor-ninos.component.css']
 })
 export class ContenedorNinosComponent implements OnInit {
+	
+	mensaje: any;
+	miembros: number = 33;
+	url = "https://api-remota.conveyor.cloud/api/";
 
-	constructor() { }
+	constructor(private http : HttpClient) {
+		
+	}
+
+	exampleMethodParent($event){
+		this.miembros=$event;
+	}
 
 	ngOnInit() {
 	}
