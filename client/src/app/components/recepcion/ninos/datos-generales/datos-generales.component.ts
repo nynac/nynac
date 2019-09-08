@@ -13,7 +13,6 @@ export class DatosGeneralesComponent implements OnInit {
 	nuevo_id_miembro : any;
 	url = "https://api-remota.conveyor.cloud/api/";
 
-
 	exampleChild: number=2;
 //Obtener variable de Padre
 	@Input('miembro') miembro: any;
