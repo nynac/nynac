@@ -19,6 +19,11 @@ import { EducacionNinosComponent } from './components/recepcion/ninos/educacion-
 import { ArteNinosComponent } from './components/recepcion/ninos/arte-ninos/arte-ninos.component';
 import { DHNinosComponent } from './components/recepcion/ninos/dh-ninos/dh-ninos.component';
 
+// COMPONENTES DONACION 
+import { DonacionDonanteComponent } from './components/donacion/donante/donacion-donante/donacion-donante.component';
+import { NavbarDonanteComponent } from './components/donacion/navbar-donante/navbar-donante.component';
+import { ContenedorDonanteComponent } from './components/donacion/donante/contenedor-donante/contenedor-donante.component';
+
 
 //COMPONENTES DE ENTRADAS
 import { RegistroComponent } from './components/recepcion/entradas/registro/registro.component';
@@ -29,15 +34,15 @@ import { ContenedorNinosComponent } from './components/recepcion/ninos/contenedo
 import { ContenedorEntradasComponent } from './components/recepcion/entradas/contenedor-entradas/contenedor-entradas.component';
 import { ContenedorBuscadorComponent } from './components/recepcion/ninos/contenedor-buscador/contenedor-buscador.component';
 import { DeporteNinosComponent } from './components/recepcion/ninos/deporte-ninos/deporte-ninos.component';
-import { DonacionDonanteComponent } from './components/donacion/donante/donacion-donante/donacion-donante.component';
-import { NavbarDonanteComponent } from './components/donacion/navbar-donante/navbar-donante.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
   { path: 'agregar-modificar', component: ContenedorNinosComponent },
   { path: 'entradas-salidas', component: ContenedorEntradasComponent },
   { path: 'buscar-niño', component: ContenedorBuscadorComponent },
-  { path: '', component: NavbarComponent }
+  { path: '', component: NavbarComponent },
+  { path: 'donacion', component: NavbarDonanteComponent },
+  { path: 'agregar-donante', component: ContenedorDonanteComponent },
 ];
 
 
@@ -60,6 +65,7 @@ const appRoutes: Routes = [
     DHNinosComponent,
     DonacionDonanteComponent,
     NavbarDonanteComponent,
+    ContenedorDonanteComponent,
   ],
   imports: [
     RouterModule.forRoot(
