@@ -29,6 +29,8 @@ import { ContenedorNinosComponent } from './components/recepcion/ninos/contenedo
 import { ContenedorEntradasComponent } from './components/recepcion/entradas/contenedor-entradas/contenedor-entradas.component';
 import { ContenedorBuscadorComponent } from './components/recepcion/ninos/contenedor-buscador/contenedor-buscador.component';
 import { DeporteNinosComponent } from './components/recepcion/ninos/deporte-ninos/deporte-ninos.component';
+import { DonacionDonanteComponent } from './components/donacion/donante/donacion-donante/donacion-donante.component';
+import { NavbarDonanteComponent } from './components/donacion/navbar-donante/navbar-donante.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
@@ -56,6 +58,8 @@ const appRoutes: Routes = [
     ContenedorBuscadorComponent,
     DeporteNinosComponent,
     DHNinosComponent,
+    DonacionDonanteComponent,
+    NavbarDonanteComponent,
   ],
   imports: [
     RouterModule.forRoot(
