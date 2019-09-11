@@ -1,4 +1,3 @@
-<a id="descarga" download></a>
 <form #form_busq="ngForm" (ngSubmit)="ng_busq_Form(form_busq.value)">
 	<div class="row" style="margin: 15px 0px 0px 0px">
 		<div class="col-2 text-right font-weight-bold" >
@@ -10,7 +9,7 @@
 				<label class="custom-control-label" for="DG_Nuevo">Nuevo</label>
 			</div>
 			<div class="custom-control custom-radio custom-control-inline">
-				<input id="DG_Modificar" type="radio" class="custom-control-input" name="DG_opcion" value="modificar" (change)="radioChange($event)">
+				<input id="DG_Modificar" type="radio" class="custom-control-input" name="DG_opcion" value="modificar" (change)="radioChange($event)" ng-checked="checked">
 				<label class="custom-control-label" for="DG_Modificar">Modificar</label>
 			</div>
 		</div>
@@ -18,7 +17,8 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">No. Miembro:</span>
 			</div>
-			<input name="miembroID" type="number" class="form-control" ngModel>
+			<input name="miembroID" type="number" class="form-control" required ngModel>
+
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
 			<button type="submit" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
@@ -32,7 +32,7 @@
 		<!-- CÁMARA -->
 		<div class="col-2 text-center" >
 			<div class="col-12"  > 
-				<img [src]="webcamImage.imageAsDataUrl" height="130px;" width="130px;" class=" border border-primary rounded"/>
+				<img [src]="foto" height="130px;" width="130px;" class=" border border-primary rounded"/>
 			</div>
 			<div class="col-12">
 				<button type="button" class="btn btn-club btn-sm" data-toggle="modal" data-target="#modal_foto" style="width:100%;" (click)="toggleWebcam();" >Abrir cámara

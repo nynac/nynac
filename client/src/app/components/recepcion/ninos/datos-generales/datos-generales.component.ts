@@ -4,8 +4,9 @@ import { RegistrationService } from '../../../../registration.service';
 
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
-import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 
+import { DomSanitizer } from '@angular/platform-browser'
 
 
 @Component({
@@ -18,13 +19,15 @@ export class DatosGeneralesComponent {
 	miembros : any;
 	datos_miembro : any;
 	nuevo_id_miembro : string = '';
-	url = "https://api-remota.conveyor.cloud/api/";
+	url = "http://192.168.1.98:45457/api/";
+	foto : any;
+
 
 	//Resultados de busqueda
 	resultado : any = "";
 	
 
-	constructor(private http : HttpClient) { }
+	constructor(private http : HttpClient, private sanitazor: DomSanitizer) { }
 
 	radioChange (event: any){
 		this.opcion = event.target.value;
@@ -43,11 +46,11 @@ export class DatosGeneralesComponent {
 
 	//Obtener nuevo miembro MÉTODO AUXILIAR
 	get_nuevo_miembro(){
-		var response = this.http.get(this.url + "/miembro");
+		var response = this.http.get(this.url + "miembroes");
 		response.subscribe((data)=> { 
 			this.miembros = data;
 			//Asignamos el id a nuevo_id_miembro porque será utilizada en el DOM
-			this.nuevo_id_miembro =  (this.miembros[this.miembros.length -1].miembroID + 1); 
+			this.nuevo_id_miembro =  (this.miembros[this.miembros.length -1].miembroID + 1);
 		},
 		error =>{
 			console.log("Error", error)
@@ -62,15 +65,20 @@ export class DatosGeneralesComponent {
 		this.datos_miembro = {
 			miembroID : this.nuevo_id_miembro,
 			tipo : "niño",
-			estado : "true"
+			estado : "true",
+			sede: "camino",
+			foto: this.webcamImage.imageAsBase64
 		}
 
-		this.http.post(this.url + 'miembro', this.datos_miembro).subscribe(data  => {
+		this.http.post(this.url + 'miembroes', this.datos_miembro).subscribe(data  => {
 			console.log("Se guardó el niño como nuevo miembro.", data);
 		},
 		error  => {
 			console.log("Error al guardar en la tabla miembro", error);
 		});
+		return;
+
+		datos_formulario['foto'] = this.webcamImage.imageAsDataUrl;
 
 		//3. Guardamos al niño en la tabla ninos_DG
 		datos_formulario['miembroID'] = this.nuevo_id_miembro;
@@ -84,11 +92,15 @@ export class DatosGeneralesComponent {
 		});
 	}
 
+
+
 	//TODO PARA MODIFICAR UN MIEMBRO DE TIPO NIÑO
 	ng_busq_Form(form_buscar){
-		var response = this.http.get(this.url + "/miembro/" + form_buscar['miembroID']);
+		var response = this.http.get(this.url + "/miembroes/" + form_buscar['miembroID']);
 		response.subscribe((data : any[])=> { 
 			this.resultado = data;
+			
+			this.foto =  this.sanitazor.bypassSecurityTrustUrl("data:image/png;base64," + this.resultado.foto);
 		},
 		error =>{
 			console.log("Error", error)
@@ -98,12 +110,12 @@ export class DatosGeneralesComponent {
 	modificar(datos_formulario){
 		console.log(datos_formulario);
 		//GUARDAR DATOS GENERALES MIEMBRO
-		/*this.http.put(this.url + "Nino_DG/1", datos_formulario).subscribe(data  => {
+		this.http.put(this.url + "Nino_DG/1", datos_formulario).subscribe(data  => {
 			console.log("Se han modificado los valores correctamente", data);
 		},
 		error  => {
 			console.log("Error", error);
-		});*/
+		});
 	}
 	// toggle webcam on/off
 	public showWebcam = false;
@@ -129,10 +141,9 @@ export class DatosGeneralesComponent {
 
 	public tomar_foto(): void {
 		this.trigger.next();
-
 		this.toggleWebcam();
-
-		/*this.saveBase64AsFile(this.webcamImage.imageAsDataUrl,"Nuevo.jpg")*/
+		
+		this.foto = this.webcamImage.imageAsDataUrl
 	}
 
 	public toggleWebcam(): void {
@@ -144,12 +155,10 @@ export class DatosGeneralesComponent {
 	}
 
 	public handleImage(webcamImage: WebcamImage): void {
-		console.log(webcamImage.imageAsBase64);
 		this.webcamImage = webcamImage;
 	}
 
 	public cameraWasSwitched(deviceId: string): void {
-		console.log('active device: ' + deviceId);
 		this.deviceId = deviceId;
 	}
 
@@ -160,15 +169,4 @@ export class DatosGeneralesComponent {
 	public get nextWebcamObservable(): Observable<boolean|string> {
 		return this.nextWebcam.asObservable();
 	}
-
-	/*saveBase64AsFile(base64, fileName) {
-
-		var link = document.getElementById("descarga");
-
-		link.setAttribute("href", base64);
-		link.click();
-	}*/
-
-
-
 }
