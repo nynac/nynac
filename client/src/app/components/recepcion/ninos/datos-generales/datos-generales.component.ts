@@ -19,7 +19,7 @@ export class DatosGeneralesComponent {
 	miembros : any;
 	datos_miembro : any;
 	nuevo_id_miembro : string = '';
-	url = "http://192.168.1.98:45457/api/";
+	url = "https://api-remota.conveyor.cloud/api/";
 	foto : any;
 
 
@@ -29,11 +29,18 @@ export class DatosGeneralesComponent {
 
 	constructor(private http : HttpClient, private sanitazor: DomSanitizer) { }
 
-	radioChange (event: any){
+	radioChange(event: any){
 		this.opcion = event.target.value;
+		var eleccion = document.getElementById("btn_buscar");
 
-		if (this.opcion == "nuevo")
+		if (this.opcion == "nuevo"){
 			this.get_nuevo_miembro();
+			eleccion.setAttribute("disabled", "true");
+		}
+		else if(this.opcion == "modificar"){
+			eleccion.removeAttribute("disabled");
+			eleccion.setAttribute("enable", "true");
+		}
 	}
 
 	//EVENTO DEL FORMULARIO DE DATOS GENERALES
@@ -76,9 +83,6 @@ export class DatosGeneralesComponent {
 		error  => {
 			console.log("Error al guardar en la tabla miembro", error);
 		});
-		return;
-
-		datos_formulario['foto'] = this.webcamImage.imageAsDataUrl;
 
 		//3. Guardamos al niño en la tabla ninos_DG
 		datos_formulario['miembroID'] = this.nuevo_id_miembro;
@@ -96,7 +100,7 @@ export class DatosGeneralesComponent {
 
 	//TODO PARA MODIFICAR UN MIEMBRO DE TIPO NIÑO
 	ng_busq_Form(form_buscar){
-		var response = this.http.get(this.url + "/miembroes/" + form_buscar['miembroID']);
+		var response = this.http.get(this.url + "miembroes/" + form_buscar['miembroID']);
 		response.subscribe((data : any[])=> { 
 			this.resultado = data;
 			

@@ -5,11 +5,11 @@
 		</div>
 		<div class="col-5">
 			<div class="custom-control custom-radio custom-control-inline">
-				<input id="DG_Nuevo" type="radio" class="custom-control-input" name="DG_opcion" value="nuevo" (change)="radioChange($event)">
+				<input id="DG_Nuevo" type="radio" class="custom-control-input" name="DG_opcion" value="nuevo" (change)="radioChange($event)" [checked] = "true">
 				<label class="custom-control-label" for="DG_Nuevo">Nuevo</label>
 			</div>
 			<div class="custom-control custom-radio custom-control-inline">
-				<input id="DG_Modificar" type="radio" class="custom-control-input" name="DG_opcion" value="modificar" (change)="radioChange($event)" ng-checked="checked">
+				<input id="DG_Modificar" type="radio" class="custom-control-input" name="DG_opcion" value="modificar" (change)="radioChange($event)">
 				<label class="custom-control-label" for="DG_Modificar">Modificar</label>
 			</div>
 		</div>
@@ -21,7 +21,7 @@
 
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-			<button type="submit" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar" [disabled] = "true">Buscar</button>
 		</div> 
 	</div>
 </form>
