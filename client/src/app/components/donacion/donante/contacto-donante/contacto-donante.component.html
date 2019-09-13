@@ -1,0 +1,208 @@
+<form #ng_busq_Form="ngForm" (ngSubmit)="(ng_busq_Form.value)">
+    <div class="row" style="margin: 15px 0px 0px 0px">
+        <div class="col-2 text-right font-weight-bold">
+            <span>QUÉ VAS A HACER? </span>
+        </div>
+        <div class="col-5">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DContacto_Nuevo" type="radio" class="custom-control-input" name="DContacto_opcion"
+                    (ngModelChange)="nuevo()">
+                <label class="custom-control-label" for="DContacto_Nuevo">Nuevo</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DContacto_Modificar" type="radio" class="custom-control-input" name="DContacto_opcion"
+                    (ngModelChange)="modificar()">
+                <label class="custom-control-label" for="DContacto_Modificar">Modificar</label>
+            </div>
+        </div>
+        <div class="input-group input-group-sm mb-3 col-3 aling-right">
+            <div class="input-group-prepend">
+                <span class="input-group-text">ID Donante:</span>
+            </div>
+            <input id="DContacto_busc_donante" name="DContacto_busc_donante" type="text" class="form-control">
+        </div>
+        <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+            <button name="DContacto_btn_buscar" type="button" class="btn btn-club btn-sm"
+                style="width:100%;">Buscar</button>
+        </div>
+    </div>
+</form>
+<div class="dropdown-divider"></div>
+<form #form_NF="ngForm" (ngSubmit)="guardar_DContacto(form_DContacto.value)">
+    <!-- INICIO ROW #1 -->
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 15px 0px 0px 15px">
+            <div class="col-8 input-group input-group-sm mb-3">
+            <label for="donacionID" style="margin-right: 10px">ID Donante</label>
+            <input name="donacionID" type="text" class="form-control" placeholder="Donante ID" ngModel>
+            <label for="nombrefiscal" style="margin-right: 10px; margin-left: 10px;">Nombre Fiscal </label>
+            <input name="nombrefiscal" type="text" class="form-control" placeholder="Nombre Fiscal" ngModel>
+                </div>
+        <div class="col-12 font-weight-bold">
+            
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-divider"></div>
+            <span>Contactos Donante 1</span>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="nombres1" type="text" class="form-control" placeholder="Nombres" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="paterno1" type="text" class="form-control" placeholder="Apellido Paterno" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="materno1" type="text" class="form-control" placeholder="Apellido Materno" ngModel>
+        </div>
+
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="relacion1" type="text" class="form-control" placeholder="Relacion" ngModel>
+        </div>
+
+        <div class="col-12 font-weight-bold">
+            <span>Dirección</span>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input name="calle1" type="text" class="form-control" placeholder="Calle" ngModel>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input name="colonia1" type="text" class="form-control" placeholder="Colonia" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="noexterior1" type="number" class="form-control" placeholder="No Ext." ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="nointerior1" type="number" class="form-control" placeholder="No Int." ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="edad1" type="number" class="form-control" placeholder="edad" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="cp1" type="number" class="form-control" placeholder="Codigo Postal" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+                <label for="pais1" style="margin-right: 10px">Pais </label>
+            <select name="pais1" class="custom-select" ngModel>
+                <option selected disabled>Pais</option>
+                <option value="Mexico">Mexico</option>
+                <option value="EstadosUnidos">Estados Unidos</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="estado1" type="text" class="form-control" placeholder="Estado" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="municipio1" type="text" class="form-control" placeholder="Municipio" ngModel>
+        </div>
+        
+        <div class="col-3 input-group input-group-sm mb-3">
+                <input name="email1" type="text" class="form-control" placeholder="Email" ngModel>
+            </div>
+            
+        <div class="col-4 input-group input-group-sm mb-3">
+                <label for="fechanacimiento1" style="margin-right: 10px">Fecha Nacimiento: </label>
+                <input name="fechanacimiento1" type="date" class="form-control" placeholder="Fecha Nacimiento" ngModel>
+            </div>
+            
+            <div class="col-3 input-group input-group-sm mb-3">
+                    <input name="telefono1" type="number" class="form-control" placeholder="Telefono" ngModel>
+                </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+                <input name="lada1" type="text" class="form-control" placeholder="Lada" ngModel>
+            </div>
+            
+            <div class="col-7 input-group input-group-sm mb-3">
+                    <input name="observacion1" type="text" class="form-control" placeholder="Observacion" ngModel>
+                </div>
+
+    </div>
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 15px 0px 0px 15px">
+        <div class="col-12 font-weight-bold">
+            <span>Contactos Donante 2</span>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="nombres2" type="text" class="form-control" placeholder="Nombres" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="paterno2" type="text" class="form-control" placeholder="Apellido Paterno" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="materno2" type="text" class="form-control" placeholder="Apellido Materno" ngModel>
+        </div>
+
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="relacion2" type="text" class="form-control" placeholder="Relacion" ngModel>
+        </div>
+
+        <div class="col-12 font-weight-bold">
+            <span>Dirección</span>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input name="calle2" type="text" class="form-control" placeholder="Calle" ngModel>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input name="colonia2" type="text" class="form-control" placeholder="Colonia" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="noexterior2" type="number" class="form-control" placeholder="No Ext." ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="nointerior2" type="number" class="form-control" placeholder="No Int." ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="edad2" type="number" class="form-control" placeholder="edad" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="cp2" type="number" class="form-control" placeholder="Codigo Postal" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+                <label for="pais2" style="margin-right: 10px">Pais </label>
+            <select name="pais2" class="custom-select" ngModel>
+                <option selected disabled>Pais</option>
+                <option value="Empresa">Mexico</option>
+                <option value="Fundacion">Estados Unidos</option>
+                <option value="Gobierno">Otro</option>
+            </select>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="estado2" type="text" class="form-control" placeholder="Estado" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="municipio2" type="text" class="form-control" placeholder="Municipio" ngModel>
+        </div>
+        
+        <div class="col-3 input-group input-group-sm mb-3">
+                <input name="email2" type="text" class="form-control" placeholder="Email" ngModel>
+            </div>
+            
+        <div class="col-4 input-group input-group-sm mb-3">
+                <label for="fechanacimiento2" style="margin-right: 10px">Fecha Nacimiento: </label>
+                <input name="fechanacimiento2" type="date" class="form-control" placeholder="Fecha Nacimiento" ngModel>
+            </div>
+            
+            <div class="col-3 input-group input-group-sm mb-3">
+                    <input name="telefono2" type="number" class="form-control" placeholder="Telefono" ngModel>
+                </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+                <input name="lada2" type="text" class="form-control" placeholder="Lada" ngModel>
+            </div>
+            
+            <div class="col-7 input-group input-group-sm mb-3">
+                    <input name="observacion2" type="text" class="form-control" placeholder="Observacion" ngModel>
+                </div>
+
+    </div>
+
+    <div class="row" style="margin: 0px 0px 15px 15px">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-2">
+            <button name="NF_btn_guardar" type="submit" class="btn btn-club btn-sm"
+                style="width:100%; height: 50px;">Guardar</button>
+        </div>
+    </div>
+</form>

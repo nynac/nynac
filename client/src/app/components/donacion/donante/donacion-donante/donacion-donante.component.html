@@ -1,1 +1,124 @@
-<p>donacion-donante works!</p>
+<form #ng_busq_Form="ngForm" (ngSubmit)="(ng_busq_Form.value)">
+	<div class="row" style="margin: 15px 0px 0px 0px">
+		<div class="col-2 text-right font-weight-bold" >
+			<span>QUÉ VAS A HACER? </span> 
+		</div>
+		<div class="col-5">
+			<div class="custom-control custom-radio custom-control-inline">
+				<input id="Don_Nuevo" type="radio" class="custom-control-input" name="Don_opcion" (ngModelChange)="nuevo()">
+				<label class="custom-control-label" for="Don_Nuevo">Nuevo</label>
+			</div>
+			<div class="custom-control custom-radio custom-control-inline">
+				<input id="Don_Modificar" type="radio" class="custom-control-input" name="Don_opcion" (ngModelChange)="modificar()">
+				<label class="custom-control-label" for="Don_Modificar">Modificar</label>
+			</div>
+		</div>
+		<div class="input-group input-group-sm mb-3 col-3 aling-right">
+			<div class="input-group-prepend">
+				<span class="input-group-text">ID Donante:</span>
+			</div> 
+			<input id="Don_busc_donante" name="Don_busc_donante" type="text" class="form-control">
+		</div>
+		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+			<button name="Don_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+		</div> 
+	</div>
+</form>
+
+<div class="dropdown-divider"></div>
+<form #form_NF="ngForm" (ngSubmit)="guardar_Don(form_Don.value)">
+	<!-- INICIO ROW #1 -->	
+	<div class="dropdown-divider"></div>
+	<div class="row" style="margin: 15px 0px 0px 15px">
+		<div class="col-12 font-weight-bold" >
+			<span>Datos Donante</span>
+		</div>
+		<div class="col-4 input-group input-group-sm mb-3">
+			<input name="donacionID" type="text" class="form-control" placeholder="Donante ID" ngModel>
+		</div>
+		<div class="col-4 input-group input-group-sm mb-3">
+			<input name="nombres" type="text" class="form-control" placeholder="Nombres"  ngModel>
+		</div>
+		<div class="col-4 input-group input-group-sm mb-3">
+			<input name="apellidos" type="text" class="form-control" placeholder="Apellidos" ngModel>
+        </div>
+        <div class="col-6 input-group input-group-sm mb-3">
+			<input name="nombrefiscal" type="text" class="form-control" placeholder="Nombre Fiscal" ngModel>
+		</div>
+		<div class="col-3 input-group input-group-sm mb-3">
+                <label for="status" style="margin-right: 10px">Status: </label>
+			<select name="status" class="custom-select" ngModel required>
+				<option value="Activo">Activo</option>
+				<option value="Cancelado">Cancelado</option>
+				<option value="Prospecto">Prospecto</option>
+				<option value="Suspendido">Suspendido</option>
+			</select>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+			<input name="email" type="text" class="form-control" placeholder="Email" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            
+                <label for="tipodonante" style="margin-right: 10px">Tipo Donante</label>
+			<select name="tipodonante"  class="custom-select" ngModel>
+				<option value="Empresa">Empresa</option>
+				<option value="Fundacion">Fundacion</option>
+				<option value="Gobierno">Gobierno</option>
+				<option value="Individuo">Individuo</option>
+			</select>
+        </div>
+		<div class="col-4 input-group input-group-sm mb-3">
+                <label for="fechanacimiento" style="margin-right: 10px">Fecha Nacimiento: </label>
+			<input name="fechanacimiento" type="date" class="form-control" placeholder="Fecha Nacimiento" ngModel>
+		</div>
+		<div class="col-2 input-group input-group-sm mb-3">
+			<input name="edad" type="number" class="form-control" placeholder="edad" ngModel>
+		</div>
+		<div class="col-3 input-group input-group-sm mb-3">
+                <label for="fechadonacion" style="margin-right: 10px">Fecha Donacion </label>
+			<input name="fechadonacion" type="date" class="form-control" placeholder="fechadonacion" ngModel>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+                <label for="lider" style="margin-right: 10px">Lider: </label>
+			<select name="liderID" class="custom-select" ngModel>
+				<option value="Empresa">Empresa</option>
+				<option value="Fundacion">Fundacion</option>
+				<option value="Gobierno">Gobierno</option>
+				<option value="Individuo">Individuo</option>
+			</select>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+                <label for="campanaID" style="margin-right: 10px">Campaña: </label>
+			<select name="campanaID" class="custom-select" ngModel>
+				<option value="Empresa">Empresa</option>
+				<option value="Fundacion">Fundacion</option>
+				<option value="Gobierno">Gobierno</option>
+				<option value="Individuo">Individuo</option>
+			</select>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+                <label for="Evento" style="margin-right: 10px">Evento: </label>
+			<select name="eventoID" class="custom-select" ngModel>
+				<option value="Empresa">Empresa</option>
+				<option value="Fundacion">Fundacion</option>
+				<option value="Gobierno">Gobierno</option>
+				<option value="Individuo">Individuo</option>
+			</select>
+        </div>
+        <div class="col-12 input-group input-group-sm mb-3">
+			<input name="observacion" type="text" class="form-control" placeholder="Observacion" ngModel>
+        </div>
+    </div>
+    
+	<div class="dropdown-divider"></div>
+	<div class="row" style="margin: 0px 0px 15px 15px">
+		<div class="col"></div>
+		<div class="col"></div>
+		<div class="col"></div>
+		<div class="col"></div>
+		<div class="col"></div>
+		<div class="col-2">
+			<button name="Don_btn_guardar" type="submit" class="btn btn-club btn-sm" style="width:100%; height: 50px;">Guardar</button>
+		</div> 
+	</div>
+</form>

@@ -1,0 +1,79 @@
+<form #ng_busq_Form="ngForm" (ngSubmit)="(ng_busq_Form.value)">
+    <div class="row" style="margin: 15px 0px 0px 0px">
+        <div class="col-2 text-right font-weight-bold">
+            <span>QUÉ VAS A HACER? </span>
+        </div>
+        <div class="col-5">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="Nota_Nuevo" type="radio" class="custom-control-input" name="Nota_opcion"
+                    (ngModelChange)="nuevo()">
+                <label class="custom-control-label" for="Nota_Nuevo">Nuevo</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="Nota_Modificar" type="radio" class="custom-control-input" name="Nota_opcion"
+                    (ngModelChange)="modificar()">
+                <label class="custom-control-label" for="Nota_Modificar">Modificar</label>
+            </div>
+        </div>
+        <div class="input-group input-group-sm mb-3 col-3 aling-right">
+            <div class="input-group-prepend">
+                <span class="input-group-text">ID Donante:</span>
+            </div>
+            <input id="Nota_busc_donante" name="Nota_busc_donante" type="text" class="form-control">
+        </div>
+        <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+            <button name="Nota_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+        </div>
+    </div>
+</form>
+<div class="dropdown-divider"></div>
+<form #form_NF="ngForm" (ngSubmit)="guardar_Nota(form_Nota.value)">
+    <!-- INICIO ROW #1 -->
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 15px 0px 0px 15px">
+        <div class="col-8 input-group input-group-sm mb-3">
+            <label for="donacionID" style="margin-right: 10px">ID Donante</label>
+            <input name="donacionID" type="text" class="form-control" placeholder="Donante ID" ngModel>
+            <label for="nombrefiscal" style="margin-right: 10px; margin-left: 10px;">Nombre Fiscal </label>
+            <input name="nombrefiscal" type="text" class="form-control" placeholder="Nombre Fiscal" ngModel>
+        </div>
+        <div class="col-12 font-weight-bold">
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-divider"></div>
+            <span>Nota Donación</span>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input name="nota" type="text" class="form-control" placeholder="Nota" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <label for="statusnota" style="margin-right: 10px">Status </label>
+            <select name="statusnota" class="custom-select" ngModel>
+                <option selected disabled>status: </option>
+                <option value="Pendiente">Pendiente</option>
+                <option value="Finalizada">Finalizada</option>
+            </select>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="programar" style="margin-right: 10px">Programar: </label>
+            <input name="programar" type="date" class="form-control" ngModel>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="responsable" style="margin-right: 10px">Responsable: </label>
+            <select name="responsable" class="custom-select" ngModel>
+                <option value="Usuario de consulta">Usuario de consulta</option>
+                <option value="Servicio Social">Servicio Social</option>
+            </select>
+        </div>
+    </div>
+    <div class="row" style="margin: 0px 0px 15px 15px">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-2">
+            <button name="NF_btn_guardar" type="submit" class="btn btn-club btn-sm"
+                style="width:100%; height: 50px;">Guardar</button>
+        </div>
+    </div>
+</form>

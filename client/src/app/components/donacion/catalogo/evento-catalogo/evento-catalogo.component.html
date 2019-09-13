@@ -1,0 +1,99 @@
+<form #ng_busq_Form="ngForm" (ngSubmit)="(ng_busq_Form.value)">
+    <div class="row" style="margin: 15px 0px 0px 0px">
+        <div class="input-group input-group-sm mb-3 col-3 aling-right">
+            <div class="input-group-prepend">
+                <span class="input-group-text">ID Evento:</span>
+            </div>
+            <input id="CEvento_busc_Evento" name="CEvento_busc_Evento" type="text" class="form-control">
+        </div>
+        <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+            <button name="CEvento_btn_buscar" type="button" class="btn btn-club btn-sm"
+                style="width:100%;">Buscar</button>
+        </div>
+    </div>
+</form>
+
+<div class="dropdown-divider"></div>
+<form #form_NF="ngForm" (ngSubmit)="guardar_Don(form_Don.value)">
+    <!-- INICIO ROW #1 -->
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 15px 0px 0px 15px">
+        <div class="col-12 font-weight-bold">
+            <span>Evento</span>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input name="EventoID" type="text" class="form-control" placeholder="EventoID" ngModel>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input name="Descripcion" type="text" class="form-control" placeholder="Descripcion" ngModel>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label>Fecha: </label>
+            <input name="Fecha" type="date" class="form-control" placeholder="Fecha" ngModel>
+        </div>
+
+
+    </div>
+
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 0px 0px 15px 15px">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-2">
+            <button name="Don_btn_guardar" type="submit" class="btn btn-club btn-sm"
+                style="width:100%; height: 50px;">Guardar</button>
+        </div>
+    </div>
+</form>
+
+<div class="container border rounded">
+    <div class="row" style="margin: 15px 15px 0px 0px">
+        <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+            <label class="font-weight-bold">Eventos</label>
+        </div>
+        <div class="col-12">
+            <form action="">
+                <table class="table text-center table-bordered table-sm rounded">
+                    <thead style="background-color: #00AAE7; color: white;">
+                        <tr>
+                            <th scope="col">Evento ID</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <th scope="row">1</th>
+                            <td>Perla Winzard</td>
+                            <th>02/02/2014</th>
+                            <td>
+                                <button id="BUSQ_btn_modificar" type="button"
+                                    class="btn btn-info btn-sm">Modificar</button>
+                                <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
+                                        background-color: rgb(224, 8, 8); " type="button"
+                                    class="btn btn-info btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Efectivo</td>
+                            <th>02/02/2014</th>
+                            <td>
+                                <button id="BUSQ_btn_modificar" type="button"
+                                    class="btn btn-info btn-sm">Modificar</button>
+                                <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
+                                        background-color: rgb(224, 8, 8); " type="button"
+                                    class="btn btn-info btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

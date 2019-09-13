@@ -32,7 +32,6 @@ export class NucleoFamiliarComponent implements OnInit {
 		});
 	}
 
-
   //Opciones agregar o modificar
 	nuevo(obj){
 		alert("Se agregará un nuevo miembro");

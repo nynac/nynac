@@ -1,0 +1,186 @@
+<navbar-donante></navbar-donante>
+<br>
+<div class="container border rounded">
+    <form action="">
+        <div class="row" style="margin: 15px 0px 0px 0px">
+            <div class="col-2 text-left font-weight-bold">
+                <span>Buscar por: </span>
+            </div>
+
+            <div class="col-4 text-left custom-control-inline" style=" margin-left: -80px;">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input id="BUSQ_no_donante" type="radio" class="custom-control-input" name="BUSQ_donante"
+                        checked="">
+                    <label class="custom-control-label" for="BUSQ_no_donante">Número de donante</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input id="BUSQ_nombre" type="radio" class="custom-control-input" name="BUSQ_donante">
+                    <label class="custom-control-label" for="BUSQ_nombre">Nombre</label>
+                </div>
+
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3" style="margin-left: -80px;">
+                <input type="text" class="form-control" id="BUSQ_texto" autofocus>
+            </div>
+
+            <div class="col-2 text-center" style="margin-left: 0px;">
+                <button id="BUSQ_btn_buscar" type="button" class="btn btn-club btn-sm"
+                    style="width:100%;">Buscar</button>
+            </div>
+        </div>
+    </form>
+    <form #form_NF="ngForm" (ngSubmit)="guardar_DFiscal(form_DFiscal.value)">
+        <!-- INICIO ROW #1 -->
+        <div class="dropdown-divider"></div>
+        <div class="row" style="margin: 15px 0px 0px 15px">
+            <div class="col-8 input-group input-group-sm mb-3">
+                <label for="donacionID" style="margin-right: 10px">ID Donante</label>
+                <input name="donacionID" type="text" class="form-control" placeholder="Donante ID" ngModel>
+                <label for="nombrefiscal" style="margin-right: 10px; margin-left: 10px;">Nombre Fiscal </label>
+                <input name="nombrefiscal" type="text" class="form-control" placeholder="Nombre Fiscal" ngModel>
+            </div>
+            <div class="col-12 font-weight-bold">
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div>
+                <span>Donación</span>
+            </div>
+            <div class="col-4 input-group input-group-sm mb-3">
+                <label for="tipo" style="margin-right: 10px">Tipo donación </label>
+                <select name="tipo" class="custom-select" ngModel>
+                    <option selected disabled>Tipo: </option>
+                    <option value="Cheque">Cheque</option>
+                    <option value="Deposito Bancario">Deposito Bancario</option>
+                    <option value="Donativo Especie">Donativo en Especie</option>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Paypal">Paypal</option>
+                    <option value="Tarjeta Debito/Credito">Tarjeta de Debito/Credito</option>
+                    <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                </select>
+            </div>
+            <div class="col-4 input-group input-group-sm mb-3">
+                <input name="monto" type="number" class="form-control" placeholder="Monto" ngModel>
+            </div>
+            <div class="col-4 input-group input-group-sm mb-3">
+                <input name="banco" type="text" class="form-control" placeholder="Banco" ngModel>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <label for="estatus" style="margin-right: 10px">Estatus </label>
+                <select name="estatus" class="custom-select" ngModel>
+                    <option selected disabled>Estatus: </option>
+                    <option value="Cobrado">Cobrado</option>
+                    <option value="Sin cobrar">Sin cobrar</option>
+                    <option value="En espera">En espera</option>
+                    <option value="Recibido">Recibido</option>
+                </select>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <input name="numero" type="number" class="form-control" placeholder="Numero" ngModel>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <input name="codigo" type="number" class="form-control" placeholder="Codigo" ngModel>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <label for="vence" style="margin-right: 10px">Vence: </label>
+                <input name="vence" type="date" class="form-control" placeholder="" ngModel>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <label for="primerpago" style="margin-right: 10px">Primer pago: </label>
+                <input name="primerpago" type="date" class="form-control" ngModel>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <input name="cargo" type="text" class="form-control" placeholder="Cargo" ngModel>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <label for="frecuencia" style="margin-right: 10px">Frecuencia </label>
+                <select name="frecuencia" class="custom-select" ngModel>
+                    <option selected disabled>selección: </option>
+                    <option value="Mensual">Mensual</option>
+                    <option value="Bimestral">Bimestral</option>
+                    <option value="Trimestral">Trimestral</option>
+                    <option value="Cuatrimestral">Cuatrimestral</option>
+                    <option value="Semestral">Semestral</option>
+                    <option value="Anual">Anual</option>
+                    <option value="Unica vez">Unica vez</option>
+                </select>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <label for="ultimopago" style="margin-right: 10px">Ultimo pago: </label>
+                <input name="ultimopago" type="date" class="form-control" ngModel>
+            </div>
+            <div class="col-12 input-group input-group-sm mb-3">
+                <input name="observacion" type="text" class="form-control" placeholder="Observación: " ngModel>
+            </div>
+        </div>
+
+
+        <div class="row" style="margin: 0px 0px 15px 15px">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col-2">
+                <button name="NF_btn_guardar" type="submit" class="btn btn-club btn-sm"
+                    style="width:100%; height: 50px;">Guardar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container border rounded">
+    <div class="row" style="margin: 15px 15px 0px 0px">
+        <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+            <label class="font-weight-bold">Resultados</label>
+        </div>
+        <div class="col-12">
+            <form action="">
+                <table class="table text-center table-bordered table-sm rounded">
+                    <thead style="background-color: #00AAE7; color: white;">
+                        <tr>
+                                <th scope="col">Numero Aportación</th>
+                            <th scope="col">Tipo Donación</th>
+                            <th scope="col">Monto</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Vence</th>
+                            <th scope="col">Banco</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <th scope="row">1</th>
+                            <td>Efectivo</td>
+                            <td>$ 25,000</td>
+                            <td>Cobrado</td>
+                            <td>07/08/2014</td>
+                            <td>HSBC</td>
+                            <td>
+                                <button id="BUSQ_btn_modificar" type="button"
+                                    class="btn btn-info btn-sm">Modificar</button>
+                                    <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
+                                            background-color: rgb(224, 8, 8); " type="button"
+                                        class="btn btn-info btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Efectivo</td>
+                            <td>$ 25,000</td>
+                            <td>Cobrado</td>
+                            <td>07/08/2014</td>
+                            <td>HSBC</td>
+                            <td>
+                                <button id="BUSQ_btn_modificar" type="button"
+                                    class="btn btn-info btn-sm">Modificar</button>
+                                    <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
+                                            background-color: rgb(224, 8, 8); " type="button"
+                                        class="btn btn-info btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

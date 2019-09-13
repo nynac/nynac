@@ -1,0 +1,196 @@
+<form #ng_busq_Form="ngForm" (ngSubmit)="(ng_busq_Form.value)">
+    <div class="row" style="margin: 15px 0px 0px 0px">
+        <div class="col-2 text-right font-weight-bold">
+            <span>QUÉ VAS A HACER? </span>
+        </div>
+        <div class="col-5">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DDireccion_Nuevo" type="radio" class="custom-control-input" name="DDireccion_opcion"
+                    (ngModelChange)="nuevo()">
+                <label class="custom-control-label" for="DDireccion_Nuevo">Nuevo</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DDireccion_Modificar" type="radio" class="custom-control-input" name="DDireccion_opcion"
+                    (ngModelChange)="modificar()">
+                <label class="custom-control-label" for="DDireccion_Modificar">Modificar</label>
+            </div>
+        </div>
+        <div class="input-group input-group-sm mb-3 col-3 aling-right">
+            <div class="input-group-prepend">
+                <span class="input-group-text">ID Donante:</span>
+            </div>
+            <input id="DDireccion_busc_donante" name="DDireccion_busc_donante" type="text" class="form-control">
+        </div>
+        <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+            <button name="DDireccion_btn_buscar" type="button" class="btn btn-club btn-sm"
+                style="width:100%;">Buscar</button>
+        </div>
+    </div>
+</form>
+<div class="dropdown-divider"></div>
+<form #form_NF="ngForm" (ngSubmit)="guardar_DDireccion(form_DDireccion.value)">
+    <!-- INICIO ROW #1 -->
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 15px 0px 0px 15px">
+        <div class="col-8 input-group input-group-sm mb-3">
+            <label for="donacionID" style="margin-right: 10px">ID Donante</label>
+            <input name="donacionID" type="text" class="form-control" placeholder="Donante ID" ngModel>
+            <label for="nombrefiscal" style="margin-right: 10px; margin-left: 10px;">Nombre Fiscal </label>
+            <input name="nombrefiscal" type="text" class="form-control" placeholder="Nombre Fiscal" ngModel>
+        </div>
+        <div class="col-12 font-weight-bold">
+
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-divider"></div>
+            <span>Dirección 1</span>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="tipo1" style="margin-right: 10px">Tipo dirección </label>
+            <select name="tipo1" class="custom-select" ngModel>
+                <option selected disabled>Tipo: </option>
+                <option value="Postal">Postal</option>
+                <option value="Fiscal">Fiscal</option>
+                <option value="Trabajo">Trabajo</option>
+                <option value="Casa">Casa</option>
+                <option value="Otra Dirección">Otra Dirección</option>
+            </select>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input name="calle1" type="text" class="form-control" placeholder="Calle" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="nointerior1" type="number" class="form-control" placeholder="No. interior" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="noexterior1" type="number" class="form-control" placeholder="No. exterior" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="cp1" type="number" class="form-control" placeholder="CP" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="colonia1" type="text" class="form-control" placeholder="Colonia" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <label for="pais1" style="margin-right: 10px">País </label>
+            <select name="pais1" class="custom-select" ngModel>
+                <option selected disabled>País: </option>
+                <option value="México">México</option>
+                <option value="Estados Unido">Estados Unido</option>
+                <option value="Otro País">Otro País</option>
+            </select>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="estado1" type="text" class="form-control" placeholder="Estado" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="municipio1" type="text" class="form-control" placeholder="Municipio" ngModel>
+        </div>
+    </div>
+     <!-- INICIO ROW #2 -->
+     <div class="row" style="margin: 15px 0px 0px 15px">
+         <div class="col-12 font-weight-bold">
+             <div class="dropdown-divider"></div>
+             <span>Dirección 2</span>
+         </div>
+         <div class="col-4 input-group input-group-sm mb-3">
+             <label for="tipo2" style="margin-right: 10px">Tipo dirección </label>
+             <select name="tipo2" class="custom-select" ngModel>
+                 <option selected disabled>Tipo: </option>
+                 <option value="Postal">Postal</option>
+                 <option value="Fiscal">Fiscal</option>
+                 <option value="Trabajo">Trabajo</option>
+                 <option value="Casa">Casa</option>
+                 <option value="Otra Dirección">Otra Dirección</option>
+             </select>
+         </div>
+         <div class="col-4 input-group input-group-sm mb-3">
+             <input name="calle2" type="text" class="form-control" placeholder="Calle" ngModel>
+         </div>
+         <div class="col-2 input-group input-group-sm mb-3">
+             <input name="nointerior2" type="number" class="form-control" placeholder="No. interior" ngModel>
+         </div>
+         <div class="col-2 input-group input-group-sm mb-3">
+             <input name="noexterior2" type="number" class="form-control" placeholder="No. exterior" ngModel>
+         </div>
+         <div class="col-2 input-group input-group-sm mb-3">
+             <input name="cp2" type="number" class="form-control" placeholder="CP" ngModel>
+         </div>
+         <div class="col-3 input-group input-group-sm mb-3">
+             <input name="colonia2" type="text" class="form-control" placeholder="Colonia" ngModel>
+         </div>
+         <div class="col-3 input-group input-group-sm mb-3">
+             <label for="pais2" style="margin-right: 10px">País </label>
+             <select name="pais2" class="custom-select" ngModel>
+                 <option selected disabled>País: </option>
+                 <option value="México">México</option>
+                 <option value="Estados Unido">Estados Unido</option>
+                 <option value="Otro País">Otro País</option>
+             </select>
+         </div>
+         <div class="col-2 input-group input-group-sm mb-3">
+             <input name="estado2" type="text" class="form-control" placeholder="Estado" ngModel>
+         </div>
+         <div class="col-2 input-group input-group-sm mb-3">
+             <input name="municipio2" type="text" class="form-control" placeholder="Municipio" ngModel>
+         </div>
+     </div>
+      <!-- INICIO ROW #3 -->
+    <div class="row" style="margin: 15px 0px 0px 15px">
+        <div class="col-12 font-weight-bold">
+            <div class="dropdown-divider"></div>
+            <span>Dirección 3</span>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="tipo3" style="margin-right: 10px">Tipo dirección </label>
+            <select name="tipo3" class="custom-select" ngModel>
+                <option selected disabled>Tipo: </option>
+                <option value="Postal">Postal</option>
+                <option value="Fiscal">Fiscal</option>
+                <option value="Trabajo">Trabajo</option>
+                <option value="Casa">Casa</option>
+                <option value="Otra Dirección">Otra Dirección</option>
+            </select>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input name="calle3" type="text" class="form-control" placeholder="Calle" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="nointerior3" type="number" class="form-control" placeholder="No. interior" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="noexterior3" type="number" class="form-control" placeholder="No. exterior" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="cp3" type="number" class="form-control" placeholder="CP" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input name="colonia3" type="text" class="form-control" placeholder="Colonia" ngModel>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <label for="pais3" style="margin-right: 10px">País </label>
+            <select name="pais3" class="custom-select" ngModel>
+                <option selected disabled>País: </option>
+                <option value="México">México</option>
+                <option value="Estados Unido">Estados Unido</option>
+                <option value="Otro País">Otro País</option>
+            </select>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="estado3" type="text" class="form-control" placeholder="Estado" ngModel>
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input name="municipio3" type="text" class="form-control" placeholder="Municipio" ngModel>
+        </div>
+    </div>
+    <div class="row" style="margin: 0px 0px 15px 15px">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-2">
+            <button name="NF_btn_guardar" type="submit" class="btn btn-club btn-sm"
+                style="width:100%; height: 50px;">Guardar</button>
+        </div>
+    </div>
+</form>

@@ -18,12 +18,24 @@ import { DmNinosComponent } from './components/recepcion/ninos/dm-ninos/dm-ninos
 import { EducacionNinosComponent } from './components/recepcion/ninos/educacion-ninos/educacion-ninos.component';
 import { ArteNinosComponent } from './components/recepcion/ninos/arte-ninos/arte-ninos.component';
 import { DHNinosComponent } from './components/recepcion/ninos/dh-ninos/dh-ninos.component';
+import { DeporteNinosComponent } from './components/recepcion/ninos/deporte-ninos/deporte-ninos.component';
 
 // COMPONENTES DONACION 
 import { DonacionDonanteComponent } from './components/donacion/donante/donacion-donante/donacion-donante.component';
 import { NavbarDonanteComponent } from './components/donacion/navbar-donante/navbar-donante.component';
-import { ContenedorDonanteComponent } from './components/donacion/donante/contenedor-donante/contenedor-donante.component';
+import { ContactoDonanteComponent } from './components/donacion/donante/contacto-donante/contacto-donante.component';
+import { TelefonoDonanteComponent } from './components/donacion/donante/telefono-donante/telefono-donante.component';
+import { FormaDonanteComponent } from './components/donacion/donante/forma-donante/forma-donante.component';
+import { DireccionDonanteComponent } from './components/donacion/donante/direccion-donante/direccion-donante.component';
+import { DFiscalesDonanteComponent } from './components/donacion/donante/dfiscales-donante/dfiscales-donante.component';
+import { NotaDonanteComponent } from './components/donacion/donante/nota-donante/nota-donante.component';
+import { BuscadorDonanteComponent } from './components/donacion/donante/buscador-donante/buscador-donante.component';
+import { AportacionDonanteComponent } from './components/donacion/donante/aportacion-donante/aportacion-donante.component';
+import { LiderCatalogoComponent } from './components/donacion/catalogo/lider-catalogo/lider-catalogo.component';
 
+//CONTENEDOR DONACION
+import { ContenedorDonanteComponent } from './components/donacion/donante/contenedor-donante/contenedor-donante.component';
+import { ContenedorCatalogoComponent } from './components/donacion/catalogo/contenedor-catalogo/contenedor-catalogo.component';
 
 //COMPONENTES DE ENTRADAS
 import { RegistroComponent } from './components/recepcion/entradas/registro/registro.component';
@@ -33,7 +45,8 @@ import { HistorialComponent } from './components/recepcion/entradas/historial/hi
 import { ContenedorNinosComponent } from './components/recepcion/ninos/contenedor-ninos/contenedor-ninos.component';
 import { ContenedorEntradasComponent } from './components/recepcion/entradas/contenedor-entradas/contenedor-entradas.component';
 import { ContenedorBuscadorComponent } from './components/recepcion/ninos/contenedor-buscador/contenedor-buscador.component';
-import { DeporteNinosComponent } from './components/recepcion/ninos/deporte-ninos/deporte-ninos.component';
+import { EventoCatalogoComponent } from './components/donacion/catalogo/evento-catalogo/evento-catalogo.component';
+import { CampanaCatalogoComponent } from './components/donacion/catalogo/campana-catalogo/campana-catalogo.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
@@ -42,9 +55,11 @@ const appRoutes: Routes = [
   { path: 'buscar-niño', component: ContenedorBuscadorComponent },
   { path: '', component: NavbarComponent },
   { path: 'donacion', component: NavbarDonanteComponent },
-  { path: 'agregar-donante', component: ContenedorDonanteComponent },
+  { path: 'donacion/agregar-donante', component: ContenedorDonanteComponent },
+  { path: 'donacion/busqueda', component: BuscadorDonanteComponent },
+  { path: 'donacion/Otra-Aportacion', component: AportacionDonanteComponent },
+  { path: 'donacion/Catalogo', component: ContenedorCatalogoComponent },
 ];
-
 
 @NgModule({
   declarations: [
@@ -66,6 +81,18 @@ const appRoutes: Routes = [
     DonacionDonanteComponent,
     NavbarDonanteComponent,
     ContenedorDonanteComponent,
+    ContactoDonanteComponent,
+    TelefonoDonanteComponent,
+    FormaDonanteComponent,
+    DireccionDonanteComponent,
+    DFiscalesDonanteComponent,
+    NotaDonanteComponent,
+    BuscadorDonanteComponent,
+    AportacionDonanteComponent,
+    ContenedorCatalogoComponent,
+    LiderCatalogoComponent,
+    EventoCatalogoComponent,
+    CampanaCatalogoComponent,
   ],
   imports: [
     RouterModule.forRoot(
