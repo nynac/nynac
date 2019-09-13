@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {WebcamModule} from 'ngx-webcam';
 
 import { NavbarComponent } from './components/recepcion/navbar/navbar.component';
@@ -64,6 +65,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     WebcamModule
   ],
   providers: [],

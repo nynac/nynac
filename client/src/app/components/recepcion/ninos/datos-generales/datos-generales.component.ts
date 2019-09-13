@@ -1,43 +1,74 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegistrationService } from '../../../../registration.service';
 
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-
 import { DomSanitizer } from '@angular/platform-browser'
 
+import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 
-@Component({
-	selector: 'datos-generales',
-	templateUrl: './datos-generales.component.html',
-	styleUrls: ['./datos-generales.component.css']
-})
-export class DatosGeneralesComponent {
-	opcion: string = '';
-	miembros : any;
-	datos_miembro : any;
-	nuevo_id_miembro : string = '';
+@Component({ selector: 'datos-generales', templateUrl: './datos-generales.component.html', styleUrls: ['./datos-generales.component.css']})
+
+export class DatosGeneralesComponent  implements OnInit {
 	url = "https://api-remota.conveyor.cloud/api/";
+	agregar_o_modificar: string = '';
+	miembros : any; datos_miembro : any; nuevo_id_miembro : any = '';
 	foto : any;
+	resultado : any = ""; //Resultado de la búsqueda
+
+	//Formularios dentro de datos generales
+	form_buscar : FormGroup;
+	submitted = false;
+
+	constructor(
+		private http : HttpClient, 
+		private sanitazor: DomSanitizer,
+		private formBuilder: FormBuilder
+	) { }
+
+	ngOnInit(){
+		//Se rellena los campos al formulario 
+		this.form_buscar = this.formBuilder.group({
+			miembroID: ['', Validators.required]
+		})
+
+		WebcamUtil.getAvailableVideoInputs()
+		.then((mediaDevices: MediaDeviceInfo[]) => {
+			this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+		});
+	}
+
+	get f(){ return this.form_buscar.controls;}
 
 
-	//Resultados de busqueda
-	resultado : any = "";
-	
+	onSubmit(){
+		this.submitted = true;
 
-	constructor(private http : HttpClient, private sanitazor: DomSanitizer) { }
+		if (this.form_buscar.invalid) {
+			return;
+		}
+		else{
+			alert("Seguardará correctamente.");
+		}
+	}
+
+	onReset(){
+		this.submitted =false;
+		this.form_buscar.reset();
+	}
+
+
 
 	radioChange(event: any){
-		this.opcion = event.target.value;
+		this.agregar_o_modificar = event.target.value;
 		var eleccion = document.getElementById("btn_buscar");
 
-		if (this.opcion == "nuevo"){
+		if (this.agregar_o_modificar == "nuevo"){
 			this.get_nuevo_miembro();
 			eleccion.setAttribute("disabled", "true");
 		}
-		else if(this.opcion == "modificar"){
+		else if(this.agregar_o_modificar == "modificar"){
 			eleccion.removeAttribute("disabled");
 			eleccion.setAttribute("enable", "true");
 		}
@@ -45,7 +76,7 @@ export class DatosGeneralesComponent {
 
 	//EVENTO DEL FORMULARIO DE DATOS GENERALES
 	guardar_DG(datos_formulario) {
-		if (this.opcion == "nuevo")
+		if (this.agregar_o_modificar == "nuevo")
 			this.nuevo(datos_formulario);
 		else
 			this.modificar(datos_formulario);
@@ -99,8 +130,13 @@ export class DatosGeneralesComponent {
 
 
 	//TODO PARA MODIFICAR UN MIEMBRO DE TIPO NIÑO
-	ng_busq_Form(form_buscar){
-		var response = this.http.get(this.url + "miembroes/" + form_buscar['miembroID']);
+	ng_busq_Form(form){
+
+		console.log(form);
+		console.log(form.value)
+		return;
+
+		var response = this.http.get(this.url + "miembroes/" + form['miembroID']);
 		response.subscribe((data : any[])=> { 
 			this.resultado = data;
 			
@@ -135,13 +171,6 @@ export class DatosGeneralesComponent {
 
 	private trigger: Subject<void> = new Subject<void>();
 	private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
-
-	public ngOnInit(): void {
-		WebcamUtil.getAvailableVideoInputs()
-		.then((mediaDevices: MediaDeviceInfo[]) => {
-			this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
-		});
-	}
 
 	public tomar_foto(): void {
 		this.trigger.next();

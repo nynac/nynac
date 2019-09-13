@@ -1,4 +1,33 @@
-<form #form_busq="ngForm" (ngSubmit)="ng_busq_Form(form_busq.value)">
+<form [formGroup] = "form_buscar" (ngSubmit)="onSubmit()">
+	<div class="form-row">
+		<div class="form-group col">
+			<div class="form-group col-5">
+				<label>Número de miembro</label>
+				<input type="text" formControlName="miembroID" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }" />
+				<div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
+					<div *ngIf="f.miembroID.errors.required">Rellena este campo</div>
+				</div>
+			</div>
+			 <div class="text-center">
+                <button class="btn btn-primary mr-1">buscar</button>
+                <button class="btn btn-secondary" type="reset" (click)="onReset()">cancelar</button>
+            </div>
+		</div>
+	</div>
+</form>
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<form #form_busq="ngForm" (ngSubmit)="ng_busq_Form(form_busq)">
 	<div class="row" style="margin: 15px 0px 0px 0px">
 		<div class="col-2 text-right font-weight-bold" >
 			<span>QUÉ VAS A HACER?</span>
@@ -17,7 +46,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">No. Miembro:</span>
 			</div>
-			<input name="miembroID" type="number" class="form-control" required ngModel>
+			<input name="miembroID" type="number" class="form-control" [required]="true">
 
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
