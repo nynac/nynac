@@ -1,10 +1,20 @@
-<form [formGroup]="form_buscar" (ngSubmit)="buscar_evento()">
+<form [formGroup]="form_buscar" (ngSubmit)="select_todo()">
     <div class="row" style="margin: 15px 0px 0px 0px">
+        <div class="col-5">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DContacto_Nuevo" type="radio" class="custom-control-input" name="DContacto_opcion" checked>
+                <label class="custom-control-label" for="DContacto_Nuevo">Nuevo</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DContacto_Modificar" type="radio" class="custom-control-input" name="DContacto_opcion">
+                <label class="custom-control-label" for="DContacto_Modificar">Modificar</label>
+            </div>
+        </div>
         <div class="input-group input-group-sm mb-3 col-3 aling-right">
             <div class="input-group-prepend">
                 <span class="input-group-text">ID Evento:</span>
             </div>
-            <input type="text" formControlName="buscarID" class="form-control"
+            <input type="number" formControlName="buscarID" class="form-control"
                 [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
             <div *ngIf="submit_buscar && f_B.buscarID.errors" class="invalid-feedback">
                 <div *ngIf="f_B.buscarID.errors.required">Campo requerido para busqueda.</div>
@@ -41,8 +51,8 @@
         </div>
         <div class="col-4 input-group input-group-sm mb-3">
             <label>Fecha: </label>
-            <input type="date" formControlName="fecha" class="form-control"
-                [ngClass]="{ 'is-invalid': submit_agregar && f_A.fecha.errors }">
+            <input type="text" formControlName="fecha" class="form-control" id="fecha" 
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.fecha.errors }"> 
             <div *ngIf="submit_agregar && f_A.fecha.errors" class="invalid-feedback">
                 <div *ngIf="f_A.fecha.errors.required">*Favor de llenar el campo</div>
             </div>
@@ -66,7 +76,6 @@
         </div>
     </div>
 </form>
-
 <div class="container border rounded">
     <div class="row" style="margin: 15px 15px 0px 0px">
         <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
