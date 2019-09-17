@@ -1,0 +1,116 @@
+<navbar-donante></navbar-donante>
+<br>
+
+<div class="container border rounded">
+    <form [formGroup]="form_buscar" (ngSubmit)="buscar_donante()">
+        <div class="row" style="margin: 15px 0px 0px 0px">
+            <div class="col-2 text-left font-weight-bold">
+                <span>Buscar por: </span>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <input type="text" formControlName="donanteID" class="form-control" placeholder="DonanteID"
+                    [ngClass]="{ 'is-invalid': submit_buscar && f_B.donanteID.errors }">
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre"
+                    [ngClass]="{ 'is-invalid': submit_buscar && f_B.nombre.errors }">
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <label for="tipodonante" style="margin-right: 10px">Tipo Donante</label>
+                <select formControlName="tipodonante" class="custom-select"
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.tipodonante.errors }">
+                    <option value="Empresa">Empresa</option>
+                    <option value="Fundacion">Fundacion</option>
+                    <option value="Gobierno">Gobierno</option>
+                    <option value="Individuo">Individuo</option>
+                </select>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <label for="tipo" style="margin-right: 10px">Tipo donación </label>
+                <select formControlName="tipodonacion" class="custom-select"
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.tipodonacion.errors }">
+                    <option selected disabled>Tipo: </option>
+                    <option value="Cheque">Cheque</option>
+                    <option value="Deposito Bancario">Deposito Bancario</option>
+                    <option value="Donativo Especie">Donativo en Especie</option>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Paypal">Paypal</option>
+                    <option value="Tarjeta Debito/Credito">Tarjeta de Debito/Credito</option>
+                    <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                </select>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <input type="text" formControlName="lider" class="form-control" placeholder="Lider"
+                    [ngClass]="{ 'is-invalid': submit_buscar && f_B.lider.errors }">
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <input type="text" formControlName="campana" class="form-control" placeholder="Campaña"
+                    [ngClass]="{ 'is-invalid': submit_buscar && f_B.campana.errors }">
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <input type="text" formControlName="evento" class="form-control" placeholder="Evento"
+                    [ngClass]="{ 'is-invalid': submit_buscar && f_B.evento.errors }">
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col-2 text-center" style="margin-left: 0px; padding-bottom: 10px;">
+                <button class="btn btn-primary mr-1">buscar</button>
+                <button class="btn btn-secondary" type="reset" (click)="clean_Buscar()">Borrar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" style="margin: 15px 15px 0px 0px">
+    <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+        <label class="font-weight-bold">Resultados</label>
+    </div>
+    <div class="col-12">
+        <form action="">
+            <table class="table text-center table-bordered table-sm rounded">
+                <thead style="background-color: #00AAE7; color: white;">
+                    <tr>
+                        <th scope="col">No. donante</th>
+                        <th scope="col">Nombre (s)</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">F. Nacimiento</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+                        <th scope="row">1</th>
+                        <td>Cristian Nicolas</td>
+                        <td>Hernandez Hernandez</td>
+                        <td>02/07/96</td>
+                        <td>6644860637</td>
+                        <td>
+                            <button id="BUSQ_btn_buscar" type="button" class="btn btn-info btn-sm">Modificar</button>
+                            <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
+                                            background-color: rgb(224, 8, 8); " type="button"
+                                class="btn btn-info btn-sm">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Victor Angel</td>
+                        <td>Sanchez Calderon</td>
+                        <td>05/07/96</td>
+                        <td>6641112225</td>
+                        <td>
+                            <button id="BUSQ_btn_buscar" type="button" class="btn btn-info btn-sm">Modificar</button>
+                            <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
+                                            background-color: rgb(224, 8, 8); " type="button"
+                                class="btn btn-info btn-sm">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

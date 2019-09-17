@@ -1,53 +1,53 @@
-<form #ng_busq_Form="ngForm" (ngSubmit)="(ng_busq_Form.value)">
+<form [formGroup]="form_buscar" (ngSubmit)="buscar_telefono()">
     <div class="row" style="margin: 15px 0px 0px 0px">
         <div class="col-2 text-right font-weight-bold">
             <span>QUÉ VAS A HACER? </span>
         </div>
         <div class="col-5">
             <div class="custom-control custom-radio custom-control-inline">
-                <input id="DFormaD_Nuevo" type="radio" class="custom-control-input" name="DFormaD_opcion"
-                    (ngModelChange)="nuevo()">
-                <label class="custom-control-label" for="DFormaD_Nuevo">Nuevo</label>
+                <input id="DContacto_Nuevo" type="radio" class="custom-control-input" name="DContacto_opcion" checked>
+                <label class="custom-control-label" for="DContacto_Nuevo">Nuevo</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                <input id="DFormaD_Modificar" type="radio" class="custom-control-input" name="DFormaD_opcion"
-                    (ngModelChange)="modificar()">
-                <label class="custom-control-label" for="DFormaD_Modificar">Modificar</label>
+                <input id="DContacto_Modificar" type="radio" class="custom-control-input" name="DContacto_opcion">
+                <label class="custom-control-label" for="DContacto_Modificar">Modificar</label>
             </div>
         </div>
         <div class="input-group input-group-sm mb-3 col-3 aling-right">
             <div class="input-group-prepend">
                 <span class="input-group-text">ID Donante:</span>
             </div>
-            <input id="DFormaD_busc_donante" name="DFormaD_busc_donante" type="text" class="form-control">
+            <input type="text" formControlName="buscarID" class="form-control"
+                [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
         </div>
         <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-            <button name="DFormaD_btn_buscar" type="button" class="btn btn-club btn-sm"
-                style="width:100%;">Buscar</button>
+            <button class="btn btn-primary mr-1" style="width:100%;">buscar</button>
         </div>
     </div>
 </form>
 <div class="dropdown-divider"></div>
-<form #form_NF="ngForm" (ngSubmit)="guardar_DFormaD(form_DFormaD.value)">
+<form [formGroup]="form_agregar" (ngSubmit)="agregar_telefono()">
     <!-- INICIO ROW #1 -->
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
         <div class="col-8 input-group input-group-sm mb-3">
             <label for="donacionID" style="margin-right: 10px">ID Donante</label>
-            <input name="donacionID" type="text" class="form-control" placeholder="Donante ID" ngModel>
+            <input type="text" formControlName="donacionID" class="form-control" placeholder="ID Donante"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }">
             <label for="nombrefiscal" style="margin-right: 10px; margin-left: 10px;">Nombre Fiscal </label>
             <input name="nombrefiscal" type="text" class="form-control" placeholder="Nombre Fiscal" ngModel>
             <div class="dropdown-divider"></div>
             <div class="dropdown-divider"></div>
         </div>
         <div class="col-12 font-weight-bold">
-                <div class="dropdown-divider"></div>
-                <div class="dropdown-divider"></div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-divider"></div>
             <span>Telefono Donante 1</span>
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
             <label for="tipo1" style="margin-right: 10px">Tipo de Telefono </label>
-            <select name="tipo1" class="custom-select" ngModel>
+            <select formControlName="tipo1" class="custom-select"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.tipo1.errors }">
                 <option selected disabled>Tipo: </option>
                 <option value="Casa">Casa</option>
                 <option value="Celular">Celular</option>
@@ -58,17 +58,21 @@
             </select>
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
-            <input name="telefono1" type="text" class="form-control" placeholder="Telefono" ngModel>
+            <input type="number" formControlName="telefono1" class="form-control" placeholder="Telefono"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.telefono1.errors }">
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
-            <input name="lada1" type="text" class="form-control" placeholder="Lada" ngModel>
+            <input type="number" formControlName="lada1" class="form-control" placeholder="Lada"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.lada1.errors }">
         </div>
 
         <div class="col-3 input-group input-group-sm mb-3">
-            <input name="extension1" type="text" class="form-control" placeholder="Ext." ngModel>
+            <input type="number" formControlName="extension1" class="form-control" placeholder="Ext."
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.extension1.errors }">
         </div>
         <div class="col-12 input-group input-group-sm mb-3">
-            <input name="observacion1" type="text" class="form-control" placeholder="Nota" ngModel>
+            <input type="text" formControlName="observacion1" class="form-control" placeholder="Observacion"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion1.errors }">
         </div>
     </div>
 
@@ -79,7 +83,8 @@
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
             <label for="tipo2" style="margin-right: 10px">Tipo de Telefono </label>
-            <select name="tipo2" class="custom-select" ngModel>
+            <select formControlName="tipo2" class="custom-select"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.tipo2.errors }">
                 <option selected disabled>Tipo: </option>
                 <option value="Casa">Casa</option>
                 <option value="Celular">Celular</option>
@@ -90,17 +95,21 @@
             </select>
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
-            <input name="telefono2" type="text" class="form-control" placeholder="Telefono" ngModel>
+            <input type="number" formControlName="telefono2" class="form-control" placeholder="Telefono"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.telefono2.errors }">
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
-            <input name="lada2" type="text" class="form-control" placeholder="Lada" ngModel>
+            <input type="number" formControlName="lada2" class="form-control" placeholder="Lada"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.lada2.errors }">
         </div>
 
         <div class="col-3 input-group input-group-sm mb-3">
-            <input name="extension2" type="text" class="form-control" placeholder="Ext." ngModel>
+            <input type="number" formControlName="extension2" class="form-control" placeholder="Ext."
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.extension2.errors }">
         </div>
         <div class="col-12 input-group input-group-sm mb-3">
-            <input name="observacion2" type="text" class="form-control" placeholder="Nota" ngModel>
+            <input type="text" formControlName="observacion2" class="form-control" placeholder="Observacion"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion2.errors }">
         </div>
     </div>
     <div class="dropdown-divider"></div>
@@ -111,7 +120,8 @@
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
             <label for="tipo3" style="margin-right: 10px">Tipo de Telefono </label>
-            <select name="tipo3" class="custom-select" ngModel>
+            <select formControlName="tipo3" class="custom-select"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.tipo3.errors }">
                 <option selected disabled>Tipo: </option>
                 <option value="Casa">Casa</option>
                 <option value="Celular">Celular</option>
@@ -122,17 +132,21 @@
             </select>
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
-            <input name="telefono3" type="text" class="form-control" placeholder="Telefono" ngModel>
+            <input type="number" formControlName="telefono3" class="form-control" placeholder="Telefono"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.telefono3.errors }">
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
-            <input name="lada3" type="text" class="form-control" placeholder="Lada" ngModel>
+            <input type="number" formControlName="lada3" class="form-control" placeholder="Lada"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.lada3.errors }">
         </div>
 
         <div class="col-3 input-group input-group-sm mb-3">
-            <input name="extension3" type="text" class="form-control" placeholder="Ext." ngModel>
+            <input type="number" formControlName="extension3" class="form-control" placeholder="Ext."
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.extension3.errors }">
         </div>
         <div class="col-12 input-group input-group-sm mb-3">
-            <input name="observacion3" type="text" class="form-control" placeholder="Nota" ngModel>
+            <input type="text" formControlName="observacion3" class="form-control" placeholder="Observacion"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion3.errors }">
         </div>
     </div>
 
@@ -146,6 +160,10 @@
         <div class="col-2">
             <button name="NF_btn_guardar" type="submit" class="btn btn-club btn-sm"
                 style="width:100%; height: 50px;">Guardar</button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-secondary" style="width:100%; height: 50px;" type="reset"
+                (click)="clean_Agregar()">Cancelar</button>
         </div>
     </div>
 </form>

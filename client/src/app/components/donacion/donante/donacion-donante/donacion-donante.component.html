@@ -1,115 +1,130 @@
-<form #ng_busq_Form="ngForm" (ngSubmit)="(ng_busq_Form.value)">
+<form [formGroup]="form_buscar" (ngSubmit)="buscar_donante()">
 	<div class="row" style="margin: 15px 0px 0px 0px">
-		<div class="col-2 text-right font-weight-bold" >
-			<span>QUÉ VAS A HACER? </span> 
+		<div class="col-2 text-right font-weight-bold">
+			<span>QUÉ VAS A HACER? </span>
 		</div>
 		<div class="col-5">
 			<div class="custom-control custom-radio custom-control-inline">
-				<input id="Don_Nuevo" type="radio" class="custom-control-input" name="Don_opcion" (ngModelChange)="nuevo()">
-				<label class="custom-control-label" for="Don_Nuevo">Nuevo</label>
+				<input id="DContacto_Nuevo" type="radio" class="custom-control-input" name="DContacto_opcion" checked>
+				<label class="custom-control-label" for="DContacto_Nuevo">Nuevo</label>
 			</div>
 			<div class="custom-control custom-radio custom-control-inline">
-				<input id="Don_Modificar" type="radio" class="custom-control-input" name="Don_opcion" (ngModelChange)="modificar()">
-				<label class="custom-control-label" for="Don_Modificar">Modificar</label>
+				<input id="DContacto_Modificar" type="radio" class="custom-control-input" name="DContacto_opcion">
+				<label class="custom-control-label" for="DContacto_Modificar">Modificar</label>
 			</div>
 		</div>
 		<div class="input-group input-group-sm mb-3 col-3 aling-right">
 			<div class="input-group-prepend">
 				<span class="input-group-text">ID Donante:</span>
-			</div> 
-			<input id="Don_busc_donante" name="Don_busc_donante" type="text" class="form-control">
+			</div>
+			<input type="text" formControlName="buscarID" class="form-control"
+				[ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-			<button name="Don_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
-		</div> 
+			<button class="btn btn-primary mr-1" style="width:100%;">buscar</button>
+		</div>
 	</div>
 </form>
 
 <div class="dropdown-divider"></div>
-<form #form_NF="ngForm" (ngSubmit)="guardar_Don(form_Don.value)">
-	<!-- INICIO ROW #1 -->	
+<form [formGroup]="form_agregar" (ngSubmit)="agregar_donante()">
+	<!-- INICIO ROW #1 -->
 	<div class="dropdown-divider"></div>
 	<div class="row" style="margin: 15px 0px 0px 15px">
-		<div class="col-12 font-weight-bold" >
+		<div class="col-12 font-weight-bold">
 			<span>Datos Donante</span>
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<input name="donacionID" type="text" class="form-control" placeholder="Donante ID" ngModel>
+			<input type="text" formControlName="donacionID" class="form-control" placeholder="ID Donante"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }">
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<input name="nombres" type="text" class="form-control" placeholder="Nombres"  ngModel>
+			<input type="text" formControlName="nombres" class="form-control" placeholder="Nombres"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.nombres.errors }">
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<input name="apellidos" type="text" class="form-control" placeholder="Apellidos" ngModel>
-        </div>
-        <div class="col-6 input-group input-group-sm mb-3">
-			<input name="nombrefiscal" type="text" class="form-control" placeholder="Nombre Fiscal" ngModel>
+			<input type="text" formControlName="apellidos" class="form-control" placeholder="Apellidos"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.apellidos.errors }">
+		</div>
+		<div class="col-6 input-group input-group-sm mb-3">
+			<input type="text" formControlName="nombrefiscal" class="form-control" placeholder="Nombre Fiscal"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.nombrefiscal.errors }">
 		</div>
 		<div class="col-3 input-group input-group-sm mb-3">
-                <label for="status" style="margin-right: 10px">Status: </label>
-			<select name="status" class="custom-select" ngModel required>
+			<label for="status" style="margin-right: 10px">Status: </label>
+			<select formControlName="status" class="custom-select"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.status.errors }">
 				<option value="Activo">Activo</option>
 				<option value="Cancelado">Cancelado</option>
 				<option value="Prospecto">Prospecto</option>
 				<option value="Suspendido">Suspendido</option>
 			</select>
-        </div>
-        <div class="col-3 input-group input-group-sm mb-3">
-			<input name="email" type="text" class="form-control" placeholder="Email" ngModel>
-        </div>
-        <div class="col-3 input-group input-group-sm mb-3">
-            
-                <label for="tipodonante" style="margin-right: 10px">Tipo Donante</label>
-			<select name="tipodonante"  class="custom-select" ngModel>
-				<option value="Empresa">Empresa</option>
-				<option value="Fundacion">Fundacion</option>
-				<option value="Gobierno">Gobierno</option>
-				<option value="Individuo">Individuo</option>
-			</select>
-        </div>
-		<div class="col-4 input-group input-group-sm mb-3">
-                <label for="fechanacimiento" style="margin-right: 10px">Fecha Nacimiento: </label>
-			<input name="fechanacimiento" type="date" class="form-control" placeholder="Fecha Nacimiento" ngModel>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input name="edad" type="number" class="form-control" placeholder="edad" ngModel>
 		</div>
 		<div class="col-3 input-group input-group-sm mb-3">
-                <label for="fechadonacion" style="margin-right: 10px">Fecha Donacion </label>
-			<input name="fechadonacion" type="date" class="form-control" placeholder="fechadonacion" ngModel>
-        </div>
-        <div class="col-4 input-group input-group-sm mb-3">
-                <label for="lider" style="margin-right: 10px">Lider: </label>
-			<select name="liderID" class="custom-select" ngModel>
+			<input type="text" formControlName="email" class="form-control" placeholder="Email"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.email.errors }">
+		</div>
+		<div class="col-3 input-group input-group-sm mb-3">
+
+			<label for="tipodonante" style="margin-right: 10px">Tipo Donante</label>
+			<select formControlName="tipodonante" class="custom-select"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.tipodonante.errors }">
 				<option value="Empresa">Empresa</option>
 				<option value="Fundacion">Fundacion</option>
 				<option value="Gobierno">Gobierno</option>
 				<option value="Individuo">Individuo</option>
 			</select>
-        </div>
-        <div class="col-4 input-group input-group-sm mb-3">
-                <label for="campanaID" style="margin-right: 10px">Campaña: </label>
-			<select name="campanaID" class="custom-select" ngModel>
+		</div>
+		<div class="col-4 input-group input-group-sm mb-3">
+			<label for="fechanacimiento" style="margin-right: 10px">Fecha Nacimiento: </label>
+			<input type="date" formControlName="fechanacimiento" class="form-control"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento.errors }">
+		</div>
+		<div class="col-2 input-group input-group-sm mb-3">
+			<input type="number" formControlName="edad" class="form-control" placeholder="Edad"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.edad.errors }">
+		</div>
+		<div class="col-3 input-group input-group-sm mb-3">
+			<label for="fechadonacion" style="margin-right: 10px">Fecha Donacion </label>
+			<input type="date" formControlName="fechadonacion" class="form-control" placeholder="Fecha Donación"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.fechadonacion.errors }">
+		</div>
+		<div class="col-4 input-group input-group-sm mb-3">
+			<label for="lider" style="margin-right: 10px">Lider: </label>
+			<select formControlName="liderID" class="custom-select"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.liderID.errors }">
 				<option value="Empresa">Empresa</option>
 				<option value="Fundacion">Fundacion</option>
 				<option value="Gobierno">Gobierno</option>
 				<option value="Individuo">Individuo</option>
 			</select>
-        </div>
-        <div class="col-4 input-group input-group-sm mb-3">
-                <label for="Evento" style="margin-right: 10px">Evento: </label>
-			<select name="eventoID" class="custom-select" ngModel>
+		</div>
+		<div class="col-4 input-group input-group-sm mb-3">
+			<label for="campanaID" style="margin-right: 10px">Campaña: </label>
+			<select formControlName="campanaID" class="custom-select"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.campanaID.errors }">
 				<option value="Empresa">Empresa</option>
 				<option value="Fundacion">Fundacion</option>
 				<option value="Gobierno">Gobierno</option>
 				<option value="Individuo">Individuo</option>
 			</select>
-        </div>
-        <div class="col-12 input-group input-group-sm mb-3">
-			<input name="observacion" type="text" class="form-control" placeholder="Observacion" ngModel>
-        </div>
-    </div>
-    
+		</div>
+		<div class="col-4 input-group input-group-sm mb-3">
+			<label for="Evento" style="margin-right: 10px">Evento: </label>
+			<select formControlName="eventoID" class="custom-select"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.eventoID.errors }">
+				<option value="Empresa">Empresa</option>
+				<option value="Fundacion">Fundacion</option>
+				<option value="Gobierno">Gobierno</option>
+				<option value="Individuo">Individuo</option>
+			</select>
+		</div>
+		<div class="col-12 input-group input-group-sm mb-3">
+			<input type="text" formControlName="observacion" class="form-control" placeholder="Observación"
+				[ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion.errors }">
+		</div>
+	</div>
+
 	<div class="dropdown-divider"></div>
 	<div class="row" style="margin: 0px 0px 15px 15px">
 		<div class="col"></div>
@@ -118,7 +133,12 @@
 		<div class="col"></div>
 		<div class="col"></div>
 		<div class="col-2">
-			<button name="Don_btn_guardar" type="submit" class="btn btn-club btn-sm" style="width:100%; height: 50px;">Guardar</button>
-		</div> 
+			<button name="Don_btn_guardar" type="submit" class="btn btn-club btn-sm"
+				style="width:100%; height: 50px;">Guardar</button>
+		</div>
+		<div class="col-2">
+				<button class="btn btn-secondary" style="width:100%; height: 50px;" type="reset"
+					(click)="clean_Agregar()">Cancelar</button>
+			</div>
 	</div>
 </form>

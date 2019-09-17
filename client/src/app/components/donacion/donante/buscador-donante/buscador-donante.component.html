@@ -1,36 +1,70 @@
-<navbar-donante></navbar-donante>
+<navbar-donante></navbar-donante> 
 <br>
-
 <div class="container border rounded">
+		<form [formGroup]="form_buscar" (ngSubmit)="buscar_donante()">
+			<div class="row" style="margin: 15px 0px 0px 0px">
+				<div class="col-2 text-left font-weight-bold">
+					<span>Buscar por: </span>
+				</div>
+				<div class="col-3 input-group input-group-sm mb-3">
+					<input type="text" formControlName="donanteID" class="form-control" placeholder="DonanteID"
+						[ngClass]="{ 'is-invalid': submit_buscar && f_B.donanteID.errors }">
+				</div>
+				<div class="col-3 input-group input-group-sm mb-3">
+					<input type="text" formControlName="nombre" class="form-control" placeholder="Nombre"
+						[ngClass]="{ 'is-invalid': submit_buscar && f_B.nombre.errors }">
+				</div>
+				<div class="col-3 input-group input-group-sm mb-3">
+					<label for="tipodonante" style="margin-right: 10px">Tipo Donante</label>
+					<select formControlName="tipodonante" class="custom-select"
+						[ngClass]="{ 'is-invalid': submit_agregar && f_A.tipodonante.errors }">
+						<option value="Empresa">Empresa</option>
+						<option value="Fundacion">Fundacion</option>
+						<option value="Gobierno">Gobierno</option>
+						<option value="Individuo">Individuo</option>
+					</select>
+				</div>
+				<div class="col-3 input-group input-group-sm mb-3">
+					<label for="tipo" style="margin-right: 10px">Tipo donación </label>
+					<select formControlName="tipodonacion" class="custom-select"
+						[ngClass]="{ 'is-invalid': submit_agregar && f_A.tipodonacion.errors }">
+						<option selected disabled>Tipo: </option>
+						<option value="Cheque">Cheque</option>
+						<option value="Deposito Bancario">Deposito Bancario</option>
+						<option value="Donativo Especie">Donativo en Especie</option>
+						<option value="Efectivo">Efectivo</option>
+						<option value="Paypal">Paypal</option>
+						<option value="Tarjeta Debito/Credito">Tarjeta de Debito/Credito</option>
+						<option value="Transferencia Bancaria">Transferencia Bancaria</option>
+					</select>
+				</div>
+				<div class="col-3 input-group input-group-sm mb-3">
+					<input type="text" formControlName="lider" class="form-control" placeholder="Lider"
+						[ngClass]="{ 'is-invalid': submit_buscar && f_B.lider.errors }">
+				</div>
+				<div class="col-3 input-group input-group-sm mb-3">
+					<input type="text" formControlName="campana" class="form-control" placeholder="Campaña"
+						[ngClass]="{ 'is-invalid': submit_buscar && f_B.campana.errors }">
+				</div>
+				<div class="col-3 input-group input-group-sm mb-3">
+					<input type="text" formControlName="evento" class="form-control" placeholder="Evento"
+						[ngClass]="{ 'is-invalid': submit_buscar && f_B.evento.errors }">
+				</div>
+				<div class="col"></div>
+				<div class="col"></div>
+				<div class="col"></div>
+				<div class="col"></div>
+				<div class="col"></div>
+				<div class="col-2 text-center" style="margin-left: 0px; padding-bottom: 10px;">
+					<button class="btn btn-primary mr-1">buscar</button>
+					<button class="btn btn-secondary" type="reset" (click)="clean_Buscar()">Borrar</button>
+				</div>
+			</div>
+		</form>
+	</div>
 	
-	<form action="">
-		<div class="row" style="margin: 15px 0px 0px 0px">
-			<div class="col-2 text-left font-weight-bold" >
-				<span>Buscar por: </span>
-			</div>
-
-			<div class="col-4 text-left custom-control-inline" style=" margin-left: -80px;">
-				<div class="custom-control custom-radio custom-control-inline">
-					<input id="BUSQ_no_donante" type="radio" class="custom-control-input" name="BUSQ_donante" checked="" required>
-					<label class="custom-control-label" for="BUSQ_no_donante">Número de donante</label>
-				</div>
-				<div class="custom-control custom-radio custom-control-inline">
-					<input id="BUSQ_nombre" type="radio" class="custom-control-input" name="BUSQ_donante">
-					<label class="custom-control-label" for="BUSQ_nombre">Nombre</label>
-				</div>
-			</div>
-			<div class="col-3 input-group input-group-sm mb-3" style="margin-left: -80px;">
-				<input type="text" class="form-control" id="BUSQ_texto" autofocus>
-			</div>
-
-			<div class="col-2 text-center" style="margin-left: 0px;">
-				<button id="BUSQ_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
-			</div> 
-		</div>
-	</form>
-
 	<div class="row" style="margin: 15px 15px 0px 0px">
-		<div class="col-12 text-left "  style="margin: 0px 0px 0px 0px;">
+		<div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
 			<label class="font-weight-bold">Resultados</label>
 		</div>
 		<div class="col-12">
@@ -48,7 +82,7 @@
 					</thead>
 					<tbody>
 						<tr>
-
+	
 							<th scope="row">1</th>
 							<td>Cristian Nicolas</td>
 							<td>Hernandez Hernandez</td>
@@ -57,8 +91,8 @@
 							<td>
 								<button id="BUSQ_btn_buscar" type="button" class="btn btn-info btn-sm">Modificar</button>
 								<button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                            background-color: rgb(224, 8, 8); " type="button"
-                                        class="btn btn-info btn-sm">Eliminar</button>
+												background-color: rgb(224, 8, 8); " type="button"
+									class="btn btn-info btn-sm">Eliminar</button>
 							</td>
 						</tr>
 						<tr>
@@ -70,8 +104,8 @@
 							<td>
 								<button id="BUSQ_btn_buscar" type="button" class="btn btn-info btn-sm">Modificar</button>
 								<button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                            background-color: rgb(224, 8, 8); " type="button"
-                                        class="btn btn-info btn-sm">Eliminar</button>
+												background-color: rgb(224, 8, 8); " type="button"
+									class="btn btn-info btn-sm">Eliminar</button>
 							</td>
 						</tr>
 					</tbody>
@@ -79,11 +113,3 @@
 			</form>
 		</div>
 	</div>
-</div>
-<input [(ngModel)]="name" required>
-
-    <p>Value: {{ name }}</p>
-    <p>Valid: {{ ctrl.valid }}</p>
-    
-    <button (click)="setValue()">Set value</button>
-

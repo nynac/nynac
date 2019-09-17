@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; 
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+ 
 @Component({
-  selector: 'app-buscador-donante',
-  templateUrl: './buscador-donante.component.html',
-  styleUrls: ['./buscador-donante.component.css']
+  selector: 'reportes',
+  templateUrl: './reportes.component.html',
+  styleUrls: ['./reportes.component.css']
 })
-export class BuscadorDonanteComponent implements OnInit {
-
- //Formularios
+export class ReportesComponent implements OnInit {
+//Formularios
 form_buscar : FormGroup;
 //validacion
 submit_buscar = false;

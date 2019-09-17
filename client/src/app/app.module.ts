@@ -6,8 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import {FormsModule} from '@angular/forms';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+ 
 import { NavbarComponent } from './components/recepcion/navbar/navbar.component';
 
 /*COMPONENTES DEL NIÑO*/
@@ -32,6 +32,12 @@ import { NotaDonanteComponent } from './components/donacion/donante/nota-donante
 import { BuscadorDonanteComponent } from './components/donacion/donante/buscador-donante/buscador-donante.component';
 import { AportacionDonanteComponent } from './components/donacion/donante/aportacion-donante/aportacion-donante.component';
 import { LiderCatalogoComponent } from './components/donacion/catalogo/lider-catalogo/lider-catalogo.component';
+
+//AGENDA
+import { AgendaComponent } from './components/donacion/agenda/agenda.component';
+
+//REPORTE 
+import { ReportesComponent } from './components/donacion/reportes/reportes.component';
 
 //CONTENEDOR DONACION
 import { ContenedorDonanteComponent } from './components/donacion/donante/contenedor-donante/contenedor-donante.component';
@@ -59,6 +65,8 @@ const appRoutes: Routes = [
   { path: 'donacion/busqueda', component: BuscadorDonanteComponent },
   { path: 'donacion/Otra-Aportacion', component: AportacionDonanteComponent },
   { path: 'donacion/Catalogo', component: ContenedorCatalogoComponent },
+  { path: 'agenda', component: AgendaComponent },
+  { path: 'reporte', component: ReportesComponent },
 ];
 
 @NgModule({
@@ -93,6 +101,8 @@ const appRoutes: Routes = [
     LiderCatalogoComponent,
     EventoCatalogoComponent,
     CampanaCatalogoComponent,
+    AgendaComponent,
+    ReportesComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -102,7 +112,8 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
