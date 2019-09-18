@@ -101,6 +101,7 @@ export class DatosGeneralesComponent  implements OnInit {
 		this.submitted = true;
 
 		if (this.form_buscar.invalid) {
+			spinner_buscar.setAttribute("hidden", "true");
 			return;
 		}
 		else{
@@ -176,9 +177,11 @@ export class DatosGeneralesComponent  implements OnInit {
 
 	guardar_DG(){
 		this.submitted2 = true;
+		var spinner = document.getElementById("spinner");
 
 		if (this.form_guardar.invalid) {
 			console.log("Formato incorrecto del formulario");
+			spinner.setAttribute("hidden", "true");
 			return;
 		}
 		else{
@@ -188,7 +191,7 @@ export class DatosGeneralesComponent  implements OnInit {
 				return;
 			}
 			
-			var spinner = document.getElementById("spinner");
+			
 			spinner.removeAttribute("hidden");
 
 			if (this.agregar_o_modificar == "nuevo"){
