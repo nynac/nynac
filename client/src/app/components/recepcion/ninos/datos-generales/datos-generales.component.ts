@@ -82,9 +82,7 @@ export class DatosGeneralesComponent  implements OnInit {
 			parentemergencia3 : [''],
 			telefonoemergencia3 : [''],
 
-		})
-
-		this.get_nuevo_miembro();
+		});
 
 		WebcamUtil.getAvailableVideoInputs()
 		.then((mediaDevices: MediaDeviceInfo[]) => {
@@ -97,6 +95,9 @@ export class DatosGeneralesComponent  implements OnInit {
 
 
 	ng_busq_Form_prueba(){
+		var spinner_buscar = document.getElementById("spinner_buscar");
+		spinner_buscar.removeAttribute("hidden");
+
 		this.submitted = true;
 
 		if (this.form_buscar.invalid) {
@@ -106,8 +107,6 @@ export class DatosGeneralesComponent  implements OnInit {
 
 			var response = this.http.get(this.url + "miembroes/" + this.form_buscar.value.miembroID);
 			response.subscribe((resultado : any[])=> {
-
-				console.log(resultado);
 
 				var datePipe = new DatePipe("en-US");
 				resultado['Nino_DG'][0].fechanacimiento = datePipe.transform(resultado['Nino_DG'][0].fechanacimiento, 'yyyy/MM/dd');
@@ -153,9 +152,13 @@ export class DatosGeneralesComponent  implements OnInit {
 				this.form_guardar.get('emergencia3').setValue(resultado['Nino_DG'][0].emergencia3);
 				this.form_guardar.get('parentemergencia3').setValue(resultado['Nino_DG'][0].parentemergencia3);
 				this.form_guardar.get('telefonoemergencia3').setValue(resultado['Nino_DG'][0].telefonoemergencia3);
+
+				spinner_buscar.setAttribute("hidden", "true");
 			},
 			error =>{
-				console.log("Error", error)
+				console.log("Error", error);
+				alert("No se encontraron resultados");
+				spinner_buscar.setAttribute("hidden", "true");
 			});
 		}
 	}
@@ -185,6 +188,9 @@ export class DatosGeneralesComponent  implements OnInit {
 				return;
 			}
 			
+			var spinner = document.getElementById("spinner");
+			spinner.removeAttribute("hidden");
+
 			if (this.agregar_o_modificar == "nuevo"){
 				console.log("Creando ...");
 				this.nuevo();
@@ -238,8 +244,9 @@ export class DatosGeneralesComponent  implements OnInit {
 		});
 	}
 
-
 	nuevo(){
+		this.form_guardar.disable();
+		var spinner = document.getElementById("spinner");
 		//1. Recalcula el número de miembro, en dado caso que ya hayan registrado uno mientras estaba en proceso
 		this.get_nuevo_miembro()
 		
@@ -268,14 +275,21 @@ export class DatosGeneralesComponent  implements OnInit {
 		
 		this.http.post(this.url + "Nino_DG1", this.form_guardar.value).subscribe(data  => {
 			alert(this.form_guardar.value.nombres + " se han guardado sus datos generales");
+			spinner.setAttribute("hidden", "true");
+			this.form_guardar.enable();
 		},
 		error  => {
 			console.log("Error al guardar datos generales.", error);
+			spinner.setAttribute("hidden", "true");
+			this.form_guardar.enable();
 		});
 	}
 
 	modificar(){
+		this.form_guardar.disable();
 		//GUARDAR DATOS GENERALES MIEMBRO
+		var spinner = document.getElementById("spinner");
+
 		if (this.webcamImage != null) {
 			this.form_guardar.get("foto").setValue(this.webcamImage.imageAsBase64);
 		}
@@ -285,9 +299,14 @@ export class DatosGeneralesComponent  implements OnInit {
 			this.limpiar_form_guardar();
 			this.limpiar_form_buscar();
 			this.foto = "";
+
+			spinner.setAttribute("hidden", "true");
+			this.form_guardar.enable();
 		},
 		error  => {
 			console.log(error);
+			spinner.setAttribute("hidden", "true");
+			this.form_guardar.enable();
 		});
 	}
 
