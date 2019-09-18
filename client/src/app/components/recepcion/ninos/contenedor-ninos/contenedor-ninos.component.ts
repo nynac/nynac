@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./contenedor-ninos.component.css']
 })
 export class ContenedorNinosComponent implements OnInit {
-
 	constructor() { }
 
 	ngOnInit() {
 	}
 }
-

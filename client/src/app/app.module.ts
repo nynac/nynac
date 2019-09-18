@@ -1,11 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule }    from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
+import {WebcamModule} from 'ngx-webcam';
 
 import { NavbarComponent } from './components/recepcion/navbar/navbar.component';
 
@@ -33,7 +36,8 @@ import { DeporteNinosComponent } from './components/recepcion/ninos/deporte-nino
 const appRoutes: Routes = [
   { path: 'agregar-modificar', component: ContenedorNinosComponent },
   { path: 'entradas-salidas', component: ContenedorEntradasComponent },
-  { path: 'buscar-niño', component: ContenedorBuscadorComponent }
+  { path: 'buscar-niño', component: ContenedorBuscadorComponent },
+  { path: '', component: NavbarComponent }
 ];
 
 
@@ -61,8 +65,11 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    WebcamModule
   ],
   providers: [],
   bootstrap: [AppComponent]
