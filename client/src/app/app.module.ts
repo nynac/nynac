@@ -19,6 +19,8 @@ import { NucleoFamiliarComponent } from './components/recepcion/ninos/nucleo-fam
 import { DmNinosComponent } from './components/recepcion/ninos/dm-ninos/dm-ninos.component';
 import { EducacionNinosComponent } from './components/recepcion/ninos/educacion-ninos/educacion-ninos.component';
 import { ArteNinosComponent } from './components/recepcion/ninos/arte-ninos/arte-ninos.component';
+import { DHNinosComponent } from './components/recepcion/ninos/dh-ninos/dh-ninos.component';
+
 
 //COMPONENTES DE ENTRADAS
 import { RegistroComponent } from './components/recepcion/entradas/registro/registro.component';
@@ -55,6 +57,7 @@ const appRoutes: Routes = [
     HistorialComponent,
     ContenedorBuscadorComponent,
     DeporteNinosComponent,
+    DHNinosComponent,
   ],
   imports: [
     RouterModule.forRoot(
