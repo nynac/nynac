@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { DatePipe } from '@angular/common';
+
+
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
@@ -55,7 +58,7 @@ export class DatosGeneralesComponent  implements OnInit {
 			edad : ['',(Validators.required, Validators.min(6), Validators.max(16))],
 			lugarnacimiento : [''],
 			nacionalidad : [''],
-			sexo : ['', Validators.required],
+			sexo : ['',],
 			derechohabiencia : [''],
 			otroseguro : [''],
 			vivecon : [''],
@@ -106,6 +109,10 @@ export class DatosGeneralesComponent  implements OnInit {
 
 				console.log(resultado);
 
+				var datePipe = new DatePipe("en-US");
+				resultado['Nino_DG'][0].fechanacimiento = datePipe.transform(resultado['Nino_DG'][0].fechanacimiento, 'yyyy/MM/dd');
+				console.log(resultado['Nino_DG'][0].fechanacimiento);
+
 				this.foto =  this.sanitazor.bypassSecurityTrustUrl("data:image/png;base64," + resultado['Nino_DG'][0].foto);
 				this.form_guardar.get('foto').setValue(resultado['Nino_DG'][0].foto);
 				this.form_guardar.get('sede').setValue(resultado['sede']);
@@ -119,7 +126,7 @@ export class DatosGeneralesComponent  implements OnInit {
 				this.form_guardar.get('nombres').setValue(resultado['Nino_DG'][0].nombres);
 				this.form_guardar.get('appaterno').setValue(resultado['Nino_DG'][0].appaterno);
 				this.form_guardar.get('apmaterno').setValue(resultado['Nino_DG'][0].apmaterno);
-				this.form_guardar.get('fechanacimiento').setValue(resultado['Nino_DG'][0].fechanacimiento, 'dd/MM/yyyy');
+				this.form_guardar.get('fechanacimiento').setValue(datePipe.transform(resultado['Nino_DG'][0].fechanacimiento, 'yyyy/MM/dd'));
 				this.form_guardar.get('edad').setValue(parseInt(resultado['Nino_DG'][0].edad));
 				this.form_guardar.get('lugarnacimiento').setValue(resultado['Nino_DG'][0].lugarnacimiento);
 				this.form_guardar.get('nacionalidad').setValue(resultado['Nino_DG'][0].nacionalidad);
@@ -172,10 +179,14 @@ export class DatosGeneralesComponent  implements OnInit {
 			return;
 		}
 		else{
+
+			var r = confirm("Estas seguro que deseas completar esta acción");
+			if (r== false) {
+				return;
+			}
 			
 			if (this.agregar_o_modificar == "nuevo"){
 				console.log("Creando ...");
-				return;
 				this.nuevo();
 			}
 			else if (this.agregar_o_modificar == "modificar"){
@@ -241,7 +252,7 @@ export class DatosGeneralesComponent  implements OnInit {
 		}
 
 		this.http.post(this.url + 'miembroes', this.datos_miembro).subscribe(data  => {
-			console.log("Se guardó el niño como nuevo miembro.");
+			alert(this.form_guardar.value.nombres + " se agregó correctamente. Su No. Miembro es: " + this.form_guardar.value.miembroID);
 			this.limpiar_form_guardar();
 			this.limpiar_form_buscar();
 			this.foto = "";
@@ -251,9 +262,12 @@ export class DatosGeneralesComponent  implements OnInit {
 		});
 
 
-		this.form_guardar.get("foto").setValue("" + this.webcamImage.imageAsBase64);
-		this.http.post(this.url + "Nino_DG", this.form_guardar.value).subscribe(data  => {
-			console.log("Se guardaron los datos generales.", data);
+		if (this.webcamImage != null) {
+			this.form_guardar.get("foto").setValue(this.webcamImage.imageAsBase64);
+		}
+		
+		this.http.post(this.url + "Nino_DG1", this.form_guardar.value).subscribe(data  => {
+			alert(this.form_guardar.value.nombres + " se han guardado sus datos generales");
 		},
 		error  => {
 			console.log("Error al guardar datos generales.", error);
@@ -262,8 +276,12 @@ export class DatosGeneralesComponent  implements OnInit {
 
 	modificar(){
 		//GUARDAR DATOS GENERALES MIEMBRO
-		this.http.put(this.url + "Nino_DG/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
-			console.log("Se han modificado los valores correctamente");
+		if (this.webcamImage != null) {
+			this.form_guardar.get("foto").setValue(this.webcamImage.imageAsBase64);
+		}
+		
+		this.http.put(this.url + "Nino_DG1/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
+			alert("Se han guardado las modificaciones correctamente");
 			this.limpiar_form_guardar();
 			this.limpiar_form_buscar();
 			this.foto = "";
