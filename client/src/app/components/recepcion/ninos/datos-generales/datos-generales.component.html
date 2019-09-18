@@ -24,7 +24,7 @@
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
 			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar" [disabled] = "true">
-			<span id="spinner_buscar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+				<span id="spinner_buscar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
 			Buscar</button>
 		</div> 
 	</div>
@@ -32,6 +32,13 @@
 
 <div class="dropdown-divider"></div>
 <form [formGroup] = "form_guardar" (ngSubmit)="guardar_DG()">
+	<div class="row" *ngIf="agregar_o_modificar=='nuevo'">
+		<div class="col-12 text-center" style="color: #00AAE7;">
+			<small id="passwordHelpInline" class="text-center">
+				El número de miembro se generará el completar formulario
+			</small>
+		</div>
+	</div>
 	<div class="row">
 		<!-- CÁMARA -->
 		<div class="col-2 text-center" >
@@ -65,14 +72,14 @@
 						<input type="checkbox" id="visa" formControlName="visa" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.visa.errors }"/>
 						<label class="custom-control-label" for="visa">Visa</label>
 					</div>
-					<div class="col-3 input-group input-group-sm mb-3">
+					<div class="col-2 input-group input-group-sm mb-3">
 						<input type="text" formControlName="religion" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.religion.errors }" placeholder="Religión"/>
 					</div>
 					
 
-					<div class="col-2 input-group input-group-sm mb-3">
-						<select formControlName="tallacamisa" class="custom-select" placeholder="Talla de camisa" [ngClass]="{ 'is-invalid': submitted2 && f2.tallacamisa.errors }">
-							<option selected>Talla de camisa</option>
+					<div class="col-3 input-group input-group-sm mb-3" style="margin: 0px -20px 0px 0px">
+						<select formControlName="tallacamisa" class="custom-select" [ngClass]="{ 'is-invalid': submitted2 && f2.tallacamisa.errors }" placeholder="Talla de camisa">
+							<option selected disabled>Talla de camisa</option>
 							<option value="XS">XS</option>
 							<option value="S">S</option>
 							<option value="M">M</option>
@@ -89,16 +96,16 @@
 					<div class="col-3 input-group input-group-sm mb-3" hidden="true">
 						<input type="text" formControlName="idNinosDG" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.idNinosDG.errors}" readonly/>
 					</div>
-					<div class="col-2 input-group input-group-sm mb-3">
+					<div class="col-2 input-group input-group-sm mb-3"  hidden="true">
 						<input type="number" formControlName="miembroID" class="form-control" placeholder="No. Miembro" [ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" readonly/>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
 						<input type="text" formControlName="nombres" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.nombres.errors }"/>
 					</div>
-					<div class="col-2 input-group input-group-sm mb-3">
+					<div class="col-3 input-group input-group-sm mb-3">
 						<input type="text" formControlName="appaterno" class="form-control" placeholder="Ap. Paterno" [ngClass]="{ 'is-invalid': submitted2 && f2.appaterno.errors }"/>
 					</div>
-					<div class="col-2 input-group input-group-sm mb-3">
+					<div class="col-3 input-group input-group-sm mb-3">
 						<input type="text" formControlName="apmaterno" class="form-control" placeholder="Ap. Materno" [ngClass]="{ 'is-invalid': submitted2 && f2.apmaterno.errors }"/>
 					</div>
 
@@ -113,10 +120,10 @@
 					<div class="col-4 input-group input-group-sm mb-3">
 						<input type="text" formControlName="lugarnacimiento" class="form-control" placeholder="Lugar de nacimiento" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarnacimiento.errors }"/>
 					</div>
-				<div class="col-3 input-group input-group-sm mb-3">
+					<div class="col-3 input-group input-group-sm mb-3">
 						<select formControlName="nacionalidad" class="custom-select" placeholder="Nacionalidad"
 						[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidad.errors }">
-						<option selected>Nacionalidad</option>
+						<option selected disabled>Nacionalidad</option>
 						<option value="Mexicano">Mexicano</option>
 						<option value="Extranjero">Extranjero</option>
 					</select>
@@ -125,7 +132,7 @@
 
 					<select formControlName="sexo" class="custom-select" placeholder="Sexo"
 					[ngClass]="{ 'is-invalid': submitted2 && f2.sexo.errors }">
-					<option selected>Sexo</option>
+					<option selected disabled>Sexo</option>
 					<option value="M">Masculino</option>
 					<option value="F">Femenino</option>
 				</select>
@@ -144,7 +151,7 @@
 	<div class="col-2 input-group input-group-sm mb-3">
 		<select formControlName="derechohabiencia" class="custom-select" placeholder="derechohabiencia"
 		[ngClass]="{ 'is-invalid': submitted2 && f2.derechohabiencia.errors }">
-		<option selected disabled>Tipo</option>
+		<option selected disabled disabled>Tipo</option>
 		<option value="IMSS">IMSS</option>
 		<option value="ISSSTE">ISSSTE</option>
 		<option value="ISSSTECALI">ISSSTECALI</option>
@@ -206,7 +213,7 @@
 			<div class="col-6 input-group input-group-sm mb-3">
 				<select formControlName="escuelaturno" class="custom-select" placeholder="turno"
 				[ngClass]="{ 'is-invalid': submitted2 && f2.escuelaturno.errors }">
-				<option selected>Turno</option>
+				<option selected disabled>Turno</option>
 				<option value="Matutino">Matutino</option>
 				<option value="Intermedio">Intermedio</option>
 				<option value="Vespertino">Vespertino</option>
@@ -263,8 +270,8 @@
 	</div>
 	<div class="col-2 text-right">
 		<button name="DG_btn_guardar"  class="btn btn-club btn-sm" style="width:100%; margin-top: 50px; height: 80px;" type="submit">
-		<span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
-		Guardar
+			<span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+			Guardar
 		</button>
 	</div> 
 </div>	
