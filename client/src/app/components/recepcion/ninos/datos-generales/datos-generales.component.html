@@ -55,7 +55,7 @@
 			<div class="col-10" style="margin: 15px 0px 0px 0px">
 				<div class="col-12 custom-control-inline">
 					<div class="col-2 input-group input-group-sm mb-3">
-						<select formControlName="sede" class="custom-select"[ngClass]="{ 'is-invalid': submitted2 && f2.sede.errors }">
+						<select formControlName="sede" class="custom-select"[ngClass]="{ 'is-invalid': submitted2 && f2.sede.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una sede">
 							<option selected>Sede</option>
 							<option value="LomaDorada">Loma Dorada</option>
 							<option value="camino">Camino Verde</option>
@@ -78,7 +78,7 @@
 					
 
 					<div class="col-3 input-group input-group-sm mb-3" style="margin: 0px -20px 0px 0px">
-						<select formControlName="tallacamisa" class="custom-select" [ngClass]="{ 'is-invalid': submitted2 && f2.tallacamisa.errors }" placeholder="Talla de camisa">
+						<select formControlName="tallacamisa" class="custom-select" [ngClass]="{ 'is-invalid': submitted2 && f2.tallacamisa.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una Talla de camisa">
 							<option selected disabled>Talla de camisa</option>
 							<option value="XS">XS</option>
 							<option value="S">S</option>
@@ -89,7 +89,7 @@
 						</select>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input formControlName="fechainscripcion" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechainscripcion.errors }" id="fechainscripcion">
+						<input formControlName="fechainscripcion" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechainscripcion.errors }" id="fechainscripcion" data-toggle="tooltip" data-placement="top" title="Fecha de inscripción">
 					</div>
 				</div>
 				<div class="col-12 custom-control-inline">
@@ -110,7 +110,7 @@
 					</div>
 
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input formControlName="fechanacimiento" placeholder="Fecha de nacimiento" type="date"  class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechanacimiento.errors }">
+						<input formControlName="fechanacimiento" placeholder="Fecha de nacimiento" type="date"  class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechanacimiento.errors }" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento">
 					</div>
 				</div>
 				<div class="col-12 custom-control-inline">
@@ -122,7 +122,7 @@
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
 						<select formControlName="nacionalidad" class="custom-select" placeholder="Nacionalidad"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidad.errors }">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidad.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una nacionalidad">
 						<option selected disabled>Nacionalidad</option>
 						<option value="Mexicano">Mexicano</option>
 						<option value="Extranjero">Extranjero</option>
@@ -131,7 +131,7 @@
 				<div class="col-3 input-group input-group-sm mb-3">
 
 					<select formControlName="sexo" class="custom-select" placeholder="Sexo"
-					[ngClass]="{ 'is-invalid': submitted2 && f2.sexo.errors }">
+					[ngClass]="{ 'is-invalid': submitted2 && f2.sexo.errors }" data-toggle="tooltip" data-placement="top" title="Sexo">
 					<option selected disabled>Sexo</option>
 					<option value="M">Masculino</option>
 					<option value="F">Femenino</option>
@@ -150,7 +150,7 @@
 
 	<div class="col-2 input-group input-group-sm mb-3">
 		<select formControlName="derechohabiencia" class="custom-select" placeholder="derechohabiencia"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.derechohabiencia.errors }">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.derechohabiencia.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona la DERECHOHABIENCIA">
 		<option selected disabled disabled>Tipo</option>
 		<option value="IMSS">IMSS</option>
 		<option value="ISSSTE">ISSSTE</option>
@@ -212,7 +212,7 @@
 			</div>
 			<div class="col-6 input-group input-group-sm mb-3">
 				<select formControlName="escuelaturno" class="custom-select" placeholder="turno"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.escuelaturno.errors }">
+				[ngClass]="{ 'is-invalid': submitted2 && f2.escuelaturno.errors }" data-toggle="tooltip" data-placement="top" title="Turno escolar">
 				<option selected disabled>Turno</option>
 				<option value="Matutino">Matutino</option>
 				<option value="Intermedio">Intermedio</option>
