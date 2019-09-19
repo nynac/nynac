@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { DatePipe } from '@angular/common';
@@ -26,7 +26,15 @@ export class DatosGeneralesComponent  implements OnInit {
 	//form guardar
 	form_guardar : FormGroup
 	submitted2 = false;
-
+ 
+	exampleChild: number=2;
+//Obtener variable de Padre
+	@Input('miembro') miembro: any;
+//Pasar variable a padre
+	@Output() exampleOutput= new EventEmitter<number>();
+	exampleMethodChild(){
+		this.exampleOutput.emit(this.exampleChild);
+	}
 
 	constructor(
 		private http : HttpClient, 

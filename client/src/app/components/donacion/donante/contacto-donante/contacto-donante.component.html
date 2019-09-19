@@ -1,0 +1,236 @@
+<form [formGroup]="form_buscar" (ngSubmit)="buscar_contacto()">
+    <div class="row" style="margin: 15px 0px 0px 0px">
+        <div class="col-2 text-right font-weight-bold">
+            <span>QUÉ VAS A HACER? </span>
+        </div>
+        <div class="col-5">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DContacto_Nuevo" type="radio" class="custom-control-input" name="DContacto_opcion" checked>
+                <label class="custom-control-label" for="DContacto_Nuevo">Nuevo</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input id="DContacto_Modificar" type="radio" class="custom-control-input" name="DContacto_opcion">
+                <label class="custom-control-label" for="DContacto_Modificar">Modificar</label>
+            </div>
+        </div>
+        <div class="input-group input-group-sm mb-3 col-3 aling-right">
+            <div class="input-group-prepend">
+                <span class="input-group-text">ID Donante:</span>
+            </div>
+            <input type="text" formControlName="buscarID" class="form-control"
+                [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
+        </div>
+        <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+            <button class="btn btn-primary mr-1" style="width:100%;">buscar</button>
+        </div>
+    </div>
+</form>
+<div class="dropdown-divider"></div>
+<form [formGroup]="form_agregar" (ngSubmit)="agregar_contacto()">
+    <!-- INICIO ROW #1 -->
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 15px 0px 0px 15px">
+        <div class="col-8 input-group input-group-sm mb-3">
+            <label for="donacionID" style="margin-right: 10px">ID Donante</label>
+            <input type="text" formControlName="donacionID" class="form-control"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }" >
+            <label for="nombrefiscal" style="margin-right: 10px; margin-left: 10px;">Nombre Fiscal </label>
+            <input id="info" type="text" class="form-control " placeholder="Nombre Fiscal" disabled>
+        </div>
+        <div class="col-12 font-weight-bold">
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-divider"></div>
+            <span>Contactos Donante 1</span>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="nombre1" class="form-control" placeholder="Nombres"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.nombre1.errors }">
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="paterno1" class="form-control" placeholder="Apellido paterno"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.paterno1.errors }">
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="materno1" class="form-control" placeholder="Apellido materno"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.materno1.errors }">
+        </div>
+
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="relacion1" class="form-control" placeholder="Relacion"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.relacion1.errors }">
+        </div>
+        <div class="col-12 font-weight-bold">
+            <span>Dirección</span>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input type="text" formControlName="calle1" class="form-control" placeholder="Calle"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.calle1.errors }">
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input type="text" formControlName="colonia1" class="form-control" placeholder="Colonia"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.colonia1.errors }">
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input type="number" formControlName="noexterior1" class="form-control" placeholder="Noexterior"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.noexterior1.errors }">
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input type="number" formControlName="nointerior1" class="form-control" placeholder="Nointerior"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.nointerior1.errors }">
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input type="number" formControlName="cp1" class="form-control" placeholder="CP"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.cp1.errors }">
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <label for="pais1" style="margin-right: 10px">Pais </label>
+            <select formControlName="pais1" class="custom-select"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.pais1.errors }">
+                <option selected disabled>Pais</option>
+                <option value="Mexico">Mexico</option>
+                <option value="EstadosUnidos">Estados Unidos</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="estado1" class="form-control" placeholder="Estado"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.estado1.errors }">
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="municipio1" class="form-control" placeholder="Municipio"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.municipio1.errors }">
+        </div>
+
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="email1" class="form-control" placeholder="Email"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.email1.errors }">
+        </div>
+
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="fechanacimiento1" style="margin-right: 10px">Fecha Nacimiento: </label>
+            <input type="date" formControlName="fechanacimiento1" class="form-control"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento1.errors }">
+        </div>
+
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="number" formControlName="telefono1" class="form-control" placeholder="Telefono"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.telefono1.errors }">
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input type="number" formControlName="lada1" class="form-control" placeholder="Lada"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.lada1.errors }">
+        </div>
+
+        <div class="col-7 input-group input-group-sm mb-3">
+            <input type="text" formControlName="observacion1" class="form-control" placeholder="Observacion"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion1.errors }">
+        </div>
+
+    </div>
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 15px 0px 0px 15px">
+        <div class="col-12 font-weight-bold">
+            <span>Contactos Donante 2</span>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="nombre2" class="form-control" placeholder="Nombres"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.nombre2.errors }">
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="paterno2" class="form-control" placeholder="Apellido paterno"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.paterno2.errors }">
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="materno2" class="form-control" placeholder="Apellido materno"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.materno2.errors }">
+        </div>
+
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="relacion2" class="form-control" placeholder="Relacion"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.relacion2.errors }">
+        </div>
+        <div class="col-12 font-weight-bold">
+            <span>Dirección</span>
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input type="text" formControlName="calle2" class="form-control" placeholder="Calle"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.calle2.errors }">
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <input type="text" formControlName="colonia2" class="form-control" placeholder="Colonia"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.colonia2.errors }">
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input type="number" formControlName="noexterior2" class="form-control" placeholder="Noexterior"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.noexterior2.errors }">
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input type="number" formControlName="nointerior2" class="form-control" placeholder="Nointerior"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.nointerior2.errors }">
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input type="number" formControlName="cp2" class="form-control" placeholder="CP"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.cp2.errors }">
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <label for="pais2" style="margin-right: 10px">Pais </label>
+            <select formControlName="pais2" class="custom-select"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.pais2.errors }">
+                <option selected disabled>Pais</option>
+                <option value="Mexico">Mexico</option>
+                <option value="EstadosUnidos">Estados Unidos</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="estado2" class="form-control" placeholder="Estado"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.estado2.errors }">
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="municipio2" class="form-control" placeholder="Municipio"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.municipio2.errors }">
+        </div>
+
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="email2" class="form-control" placeholder="Email"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.email2.errors }">
+        </div>
+
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="fechanacimiento2" style="margin-right: 10px">Fecha Nacimiento: </label>
+            <input type="date" formControlName="fechanacimiento2" class="form-control"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento2.errors }">
+        </div>
+
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="number" formControlName="telefono2" class="form-control" placeholder="Telefono"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.telefono2.errors }">
+        </div>
+        <div class="col-2 input-group input-group-sm mb-3">
+            <input type="number" formControlName="lada2" class="form-control" placeholder="Lada"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.lada2.errors }">
+        </div>
+
+        <div class="col-7 input-group input-group-sm mb-3">
+            <input type="text" formControlName="observacion2" class="form-control" placeholder="Observacion"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion2.errors }">
+        </div>
+
+    </div>
+
+    <div class="row" style="margin: 0px 0px 15px 15px">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col-2">
+            <button name="DC_btn_guardar" type="submit" class="btn btn-club btn-sm"
+                style="width:100%; height: 50px;">Guardar</button>
+        </div>
+        <div class="col-2">
+                <button class="btn btn-secondary" style="width:100%; height: 50px;" type="reset"
+                    (click)="clean_Agregar()">Cancelar</button>
+            </div>
+    </div>
+</form>
