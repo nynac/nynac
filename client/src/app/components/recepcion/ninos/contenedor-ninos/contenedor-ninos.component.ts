@@ -23,4 +23,3 @@ export class ContenedorNinosComponent implements OnInit {
 	ngOnInit() {
 	}
 }
-

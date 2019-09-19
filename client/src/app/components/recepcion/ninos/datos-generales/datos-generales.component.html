@@ -1,12 +1,11 @@
-
-<form #form_busq="ngForm" (ngSubmit)="ng_busq_Form(form_busq.value)">
+<form [formGroup] = "form_buscar" (ngSubmit)="ng_busq_Form_prueba()">
 	<div class="row" style="margin: 15px 0px 0px 0px">
 		<div class="col-2 text-right font-weight-bold" >
 			<span>QUÉ VAS A HACER?</span>
 		</div>
 		<div class="col-5">
 			<div class="custom-control custom-radio custom-control-inline">
-				<input id="DG_Nuevo" type="radio" class="custom-control-input" name="DG_opcion" value="nuevo" (change)="radioChange($event)">
+				<input id="DG_Nuevo" type="radio" class="custom-control-input" name="DG_opcion" value="nuevo" (change)="radioChange($event)" [checked] = "true">
 				<label class="custom-control-label" for="DG_Nuevo">Nuevo</label>
 			</div>
 			<div class="custom-control custom-radio custom-control-inline">
@@ -18,30 +17,42 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">No. Miembro:</span>
 			</div>
-			<input name="miembroID" type="number" class="form-control" ngModel>
+			<input type="number" formControlName="miembroID"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
+			<!-- <div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
+				<div *ngIf="f.miembroID.errors.required">Rellena este campo</div>
+			</div> -->
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-			<button type="submit" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar" [disabled] = "true">
+				<span id="spinner_buscar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+			Buscar</button>
 		</div> 
 	</div>
 </form>
 
 <div class="dropdown-divider"></div>
-<form #form_dg="ngForm" (ngSubmit)="guardar_DG(form_dg.value)" >
-		{{ miembro }}
+{{ miembro }}
 		<div>
 			<input type="text" >
 			<label>prueba</label>
 		</div>
 		<button (click)="exampleMethodChild()">Click</button>
+<form [formGroup] = "form_guardar" (ngSubmit)="guardar_DG()">
+	<div class="row" *ngIf="agregar_o_modificar=='nuevo'">
+		<div class="col-12 text-center" style="color: #00AAE7;">
+			<small id="passwordHelpInline" class="text-center">
+				El número de miembro se generará el completar formulario
+			</small>
+		</div>
+	</div>
 	<div class="row">
 		<!-- CÁMARA -->
-		<div class="col-2 text-center">
-			<div class="col-12">
-				<canvas id="DG_foto_canvas" height="130px;" width="130px;" class="border border-primary rounded"></canvas>
+		<div class="col-2 text-center" >
+			<div class="col-12"  > 
+				<img [src]="foto" height="130px;" width="130px;" class=" border border-primary rounded"/>
 			</div>
 			<div class="col-12">
-				<button type="button" class="btn btn-club btn-sm" data-toggle="modal" data-target="#modal_foto" style="width:100%;" onclick="iniciar_camara(document.getElementById('video'));" >Abrir cámara
+				<button type="button" class="btn btn-club btn-sm" data-toggle="modal" data-target="#modal_foto" style="width:100%;" (click)="toggleWebcam();" >Abrir cámara
 				</button>
 			</div>
 		</div>
@@ -49,26 +60,32 @@
 			F.NAC, EDAD, LUG. NAC, NACIONALIDAD, SEXO-->
 			<div class="col-10" style="margin: 15px 0px 0px 0px">
 				<div class="col-12 custom-control-inline">
-					<div class="col-2 custom-control custom-switch">
-						<input id="estado" name="estado" type="checkbox" class="custom-control-input"  
-						checked="{{resultado['Nino_DG'][0].estado}}" ngModel>
-						<label class="custom-control-label" for="estado">Estado actual</label>
+					<div class="col-2 input-group input-group-sm mb-3">
+						<select formControlName="sede" class="custom-select"[ngClass]="{ 'is-invalid': submitted2 && f2.sede.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una sede">
+							<option selected>Sede</option>
+							<option value="LomaDorada">Loma Dorada</option>
+							<option value="camino">Camino Verde</option>
+							<option value="Natura">Natura</option>
+						</select>
 					</div>
-					<div class="col-1 custom-control custom-switch">
-						<input id="visa" name="visa" type="checkbox" class="custom-control-input"
-						checked="{{resultado['Nino_DG'][0].visa}}" ngModel>
+
+					<div class="col-1 custom-control form-check" style="margin: 0px 10px 0px 10px;">
+						<input type="checkbox" id="estado" formControlName="estado" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.estado.errors}"/>
+						<label class="custom-control-label" for="estado">Estado&nbsp;</label>
+					</div>
+
+					<div class="col-1 custom-control form-check" >
+						<input type="checkbox" id="visa" formControlName="visa" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.visa.errors }"/>
 						<label class="custom-control-label" for="visa">Visa</label>
 					</div>
-					<div class="col-3 input-group input-group-sm mb-3">
-						<input name="religion" type="text" class="form-control" placeholder="Religión"
-						 value="{{resultado['Nino_DG'][0].religion}}" ngModel>
+					<div class="col-2 input-group input-group-sm mb-3">
+						<input type="text" formControlName="religion" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.religion.errors }" placeholder="Religión"/>
 					</div>
 					
 
-					<div class="col-3 input-group input-group-sm mb-3">
-						<select name="tallacamisa" class="custom-select" placeholder="Talla de camisa"
-						value="{{resultado['Nino_DG'][0].tallacamisa}}" ngModel>
-							<option selected>Talla de camisa</option>
+					<div class="col-3 input-group input-group-sm mb-3" style="margin: 0px -20px 0px 0px">
+						<select formControlName="tallacamisa" class="custom-select" [ngClass]="{ 'is-invalid': submitted2 && f2.tallacamisa.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una Talla de camisa">
+							<option selected disabled>Talla de camisa</option>
 							<option value="XS">XS</option>
 							<option value="S">S</option>
 							<option value="M">M</option>
@@ -78,229 +95,220 @@
 						</select>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input name="fechainscripcion" type="date" class="form-control" placeholder="Fecha de inscripción" 
-						value="{{resultado['Nino_DG'][0].fechainscripcion}}" ngModel>
+						<input formControlName="fechainscripcion" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechainscripcion.errors }" id="fechainscripcion" data-toggle="tooltip" data-placement="top" title="Fecha de inscripción">
 					</div>
 				</div>
 				<div class="col-12 custom-control-inline">
 					<div class="col-3 input-group input-group-sm mb-3" hidden="true">
-						<input name="idNinos" type="text" class="form-control" placeholder="id"
-						value="{{resultado['Nino_DG'][0].idNinos}}" ngModel>
+						<input type="text" formControlName="idNinosDG" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.idNinosDG.errors}" readonly/>
 					</div>
-					<div class="col-2 input-group input-group-sm mb-3">
-						<input name="miembroID" required readonly type="number" class="form-control"  placeholder="No. Miembro" value="{{nuevo_id_miembro}}"
-						value="{{resultado['Nino_DG'][0].miembroID}}" ngModel>
+					<div class="col-2 input-group input-group-sm mb-3"  hidden="true">
+						<input type="number" formControlName="miembroID" class="form-control" placeholder="No. Miembro" [ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" readonly/>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input name="nombres" required type="text" class="form-control"  placeholder="Nombre"
-						value="{{resultado['Nino_DG'][0].nombres}}" ngModel>
-					</div>
-					<div class="col-2 input-group input-group-sm mb-3">
-						<input name="appaterno" type="text" class="form-control" placeholder="Ap. Paterno" 
-						value="{{resultado['Nino_DG'][0].appaterno}}" ngModel>
-					</div>
-					<div class="col-2 input-group input-group-sm mb-3">
-						<input name="apmaterno" type="text" class="form-control" placeholder="Ap. Materno" 
-						value="{{resultado['Nino_DG'][0].apmaterno}}" ngModel>
+						<input type="text" formControlName="nombres" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.nombres.errors }"/>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input name="fechanacimiento" type="date" class="form-control" placeholder="Fecha de nacimiento"
-						value="{{resultado['Nino_DG'][0].fechanacimiento}}" ngModel >
+						<input type="text" formControlName="appaterno" class="form-control" placeholder="Ap. Paterno" [ngClass]="{ 'is-invalid': submitted2 && f2.appaterno.errors }"/>
+					</div>
+					<div class="col-3 input-group input-group-sm mb-3">
+						<input type="text" formControlName="apmaterno" class="form-control" placeholder="Ap. Materno" [ngClass]="{ 'is-invalid': submitted2 && f2.apmaterno.errors }"/>
+					</div>
+
+					<div class="col-3 input-group input-group-sm mb-3">
+						<input formControlName="fechanacimiento" placeholder="Fecha de nacimiento" type="date"  class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechanacimiento.errors }" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento">
 					</div>
 				</div>
 				<div class="col-12 custom-control-inline">
 					<div class="col-2 input-group input-group-sm mb-3">
-						<input name="edad" type="number" class="form-control"  placeholder="Edad"
-						value="{{resultado['Nino_DG'][0].edad}}" ngModel>
+						<input type="number" formControlName="edad" class="form-control" placeholder="Edad" [ngClass]="{ 'is-invalid': submitted2 && f2.edad.errors }" min="6" max="16" />
 					</div>
 					<div class="col-4 input-group input-group-sm mb-3">
-						<input name="lugarnacimiento" type="text" class="form-control" placeholder="Lugar de nacimiento"
-						value="{{resultado['Nino_DG'][0].lugarnacimiento}}" ngModel>
+						<input type="text" formControlName="lugarnacimiento" class="form-control" placeholder="Lugar de nacimiento" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarnacimiento.errors }"/>
 					</div>
 					<div class="col-3 input-group input-group-sm mb-3">
-						<input name="nacionalidad" type="text" class="form-control" placeholder="Nacionalidad" 
-						value="{{resultado['Nino_DG'][0].nacionalidad}}" ngModel>
-					</div>
-					<div class="col-3 input-group input-group-sm mb-3">
-						<select name="sexo" class="custom-select" 
-						value="{{resultado['Nino_DG'][0].sexo}}" ngModel>
-							<option selected>Sexo</option>
-							<option value="M">Masculino</option>
-							<option value="F">Femenino</option>
-						</select>
-					</div>
+						<select formControlName="nacionalidad" class="custom-select" placeholder="Nacionalidad"
+						[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidad.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una nacionalidad">
+						<option selected disabled>Nacionalidad</option>
+						<option value="Mexicano">Mexicano</option>
+						<option value="Extranjero">Extranjero</option>
+					</select>
 				</div>
-			</div>
-		</div>
+				<div class="col-3 input-group input-group-sm mb-3">
 
-		<!-- INICIO DE COL 12 DERECHOHABIENCIA -->
-		<div class="dropdown-divider"></div>
-		<div class="row" style="margin: 10px 0px 0px 0px">
-			<div class="col-12 font-weight-bold" >
-				<span>DERECHOHABIENCIA</span>
-			</div>
-
-			<div class="col-2 input-group input-group-sm mb-3">
-				<select name="derechohabiencia" class="custom-select"
-				value="{{resultado['Nino_DG'][0].derechohabiencia}}" ngModel>
-					<option selected disabled>Tipo</option>
-					<option value="IMSS">IMSS</option>
-					<option value="ISSSTE">ISSSTE</option>
-					<option value="ISSSTECALI">ISSSTECALI</option>
-					<option value="POPULAR">SEGURO POPULAR</option>
-					<option value="PARTICULAR">PARTICULAR</option>
-					<option value="OTRO">OTRO</option>
+					<select formControlName="sexo" class="custom-select" placeholder="Sexo"
+					[ngClass]="{ 'is-invalid': submitted2 && f2.sexo.errors }" data-toggle="tooltip" data-placement="top" title="Sexo">
+					<option selected disabled>Sexo</option>
+					<option value="M">Masculino</option>
+					<option value="F">Femenino</option>
 				</select>
-			</div>
-
-			<div class="col-2 input-group input-group-sm mb-3" style="margin: 0px 0px 0px -15px">
-				<input name="otroseguro" type="text" class="form-control" placeholder="otro servicio"
-				value="{{resultado['Nino_DG'][0].otroseguro}}" ngModel>
-			</div>
-			<div class="col-8 custom-control-inline" style="margin: 0px 0px 0px -15px">
-				<div class="col-8 input-group input-group-sm mb-3">
-					<input name="vivecon" type="text" class="form-control"  placeholder="Con quién vive el niño (a) adolecente"
-					value="{{resultado['Nino_DG'][0].vivecon}}" ngModel>
-				</div>
-				<div class="col-4 input-group input-group-sm mb-3">
-					<input name="telefono" type="tel" class="form-control" placeholder="Teléfono"
-					value="{{resultado['Nino_DG'][0].telefono}}" ngModel>
-				</div>
-			</div>
-		</div>
-
-		<!-- INICIO DE COL 12 DOMICILIO -->
-		<div class="dropdown-divider"></div>
-		<div class="row" style="margin: 10px 0px 0px 0px">
-			<div class="col-12 font-weight-bold" >
-				<span>DOMICILIO</span>
-			</div>
-			<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
-				<div class="col-3 input-group input-group-sm mb-3">
-					<input name="domcalle" type="text" class="form-control" placeholder="Calle y número"
-					value="{{resultado['Nino_DG'][0].telefono}}" ngModel>
-				</div>
-				<div class="col-3 input-group input-group-sm mb-3">
-					<input name="domcolonia" type="text" class="form-control" placeholder="Colonia"
-					value="{{resultado['Nino_DG'][0].domcalle}}" ngModel>
-				</div>
-				<div class="col-1 input-group input-group-sm mb-3">
-					<input name="domcodpost" type="text" class="form-control" placeholder="C.P"
-					value="{{resultado['Nino_DG'][0].domcodpost}}" ngModel>
-				</div>
-				<div class="col-2 input-group input-group-sm mb-3">
-					<input name="domdelegacion" type="text" class="form-control" placeholder="Delegación"
-					value="{{resultado['Nino_DG'][0].domdelegacion}}" ngModel>
-				</div>
-				<div class="col-3 input-group input-group-sm mb-3">
-					<input name="dommunicipio" type="text" class="form-control" placeholder="Municipio"
-					value="{{resultado['Nino_DG'][0].dommunicipio}}" ngModel>
-				</div>
-			</div>
-		</div>	
-
-		<!-- INICIO DE COL 12 ESCOLARES y PERSONAS AUTORIZADAS -->
-		<div class="dropdown-divider"></div>
-		<div class="row" style="margin: 0px 0px 0px 0px">
-			<div class="col-6" style="margin: 0px 0px 0px -15px">
-				<div class="col-12 font-weight-bold" >
-					<span>DATOS ESCOLARES</span>
-				</div>
-				<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
-					<div class="col-6 input-group input-group-sm mb-3">
-						<input name="escuela" type="text" class="form-control"  placeholder="Nombre de la escuela" 
-						value="{{resultado['Nino_DG'][0].dommunicipio}}" ngModel>
-					</div>
-					<div class="col-6 input-group input-group-sm mb-3">
-						<input name="escuelaturno" type="tel" class="form-control" placeholder="Turno"
-						value="{{resultado['Nino_DG'][0].dommunicipio}}" ngModel>
-					</div>
-				</div>
-			</div>
-			<div class="col-6" style="margin: 0px 0px 0px -15px">
-				<div class="col-12 font-weight-bold" >
-					<span>PERSONAS AUTORIZADAS A RECOGERLO</span>
-				</div>
-				<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
-					<div class="col-6 input-group input-group-sm mb-3">
-						<input name="recoge1nino" type="text" class="form-control"  placeholder="Nombre" 
-						value="{{resultado['Nino_DG'][0].recoge1nino}}" ngModel>
-					</div>
-					<div class="col-6 input-group input-group-sm mb-3">
-						<input name="parentrecoge1" type="text" class="form-control" placeholder="Parentesco" 
-						value="{{resultado['Nino_DG'][0].parentrecoge1}}" ngModel>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- INICIO DE COL 12 ESCOLARES y PERSONAS AUTORIZADAS -->
-		<div class="dropdown-divider"></div>
-		<div class="row" style="margin: 0px 0px 0px -5px">
-			<div class="col-10" style="margin: 0px 0px 15px -5px">
-				<div class="col-12 font-weight-bold" >
-					<span>CONTACTOS DE EMERGENCIA</span>
-				</div>
-				<div class=" col-12 input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Contacto 1</span>
-					</div>
-					<input name="emergencia1" type="text" placeholder="Nombre" class="form-control" 
-					value="{{resultado['Nino_DG'][0].emergencia1}}" ngModel>
-					<input name="parentemergencia1" type="text" placeholder="Parentesco" class="form-control" 
-					value="{{resultado['Nino_DG'][0].parentemergencia1}}" ngModel>
-					<input name="telefonoemergencia1" type="tel" placeholder="Teléfono" class="form-control" 
-					value="{{resultado['Nino_DG'][0].telefonoemergencia1}}" ngModel>
-				</div>
-				<div class=" col-12 input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Contacto 2</span>
-					</div>
-					<input name="emergencia2" type="text" placeholder="Nombre" class="form-control" 
-					value="{{resultado['Nino_DG'][0].emergencia2}}"ngModel>
-					<input name="parentemergencia2" type="text" placeholder="Parentesco" class="form-control" 
-					value="{{resultado['Nino_DG'][0].parentemergencia2}}"ngModel>
-					<input name="telefonoemergencia2" type="tel" placeholder="Teléfono" class="form-control" 
-					value="{{resultado['Nino_DG'][0].telefonoemergencia2}}"ngModel>
-				</div>
-				<div class=" col-12 input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Contacto 3</span>
-					</div>
-					<input name="emergencia3" type="text" placeholder="Nombre" class="form-control" 
-					value="{{resultado['Nino_DG'][0].emergencia3}}"ngModel>
-					<input name="parentemergencia3" type="text" placeholder="Parentesco" class="form-control" 
-					value="{{resultado['Nino_DG'][0].parentemergencia3}}"ngModel>
-					<input name="telefonoemergencia3" type="tel" placeholder="Teléfono" class="form-control" 
-					value="{{resultado['Nino_DG'][0].telefonoemergencia3}}"ngModel>
-				</div>
-			</div>
-			<div class="col-2 text-right">
-				<button name="DG_btn_guardar"  class="btn btn-club btn-sm" style="width:100%; margin-top: 50px; height: 80px;" type="submit">Guardar</button>
-			</div> 
-		</div>	
-	</form>
-
-	<!-- Modal -->
-	<div class="modal fade" id="modal_foto" tabindex="-1" role="dialog" aria-labelledby="modal_fotoLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modal_fotoLabel">Cámara</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="detener_camara(document.getElementById('video'))">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<video id="video" width="100%" autoplay class="rounded border border-primary rounded"></video>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="detener_camara(document.getElementById('video'))">Cancelar</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="tomar_foto(document.getElementById('video'), document.getElementById('DG_foto_canvas'))">Tomar foto</button>
-				</div>
 			</div>
 		</div>
 	</div>
+</div>
+
+<!-- INICIO DE COL 12 DERECHOHABIENCIA -->
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 10px 0px 0px 0px">
+	<div class="col-12 font-weight-bold" >
+		<span>DERECHOHABIENCIA</span>
+	</div>
+
+	<div class="col-2 input-group input-group-sm mb-3">
+		<select formControlName="derechohabiencia" class="custom-select" placeholder="derechohabiencia"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.derechohabiencia.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona la DERECHOHABIENCIA">
+		<option selected disabled disabled>Tipo</option>
+		<option value="IMSS">IMSS</option>
+		<option value="ISSSTE">ISSSTE</option>
+		<option value="ISSSTECALI">ISSSTECALI</option>
+		<option value="POPULAR">SEGURO POPULAR</option>
+		<option value="PARTICULAR">PARTICULAR</option>
+		<option value="OTRO">OTRO</option>
+	</select>
+</div>
+
+<div class="col-2 input-group input-group-sm mb-3" style="margin: 0px 0px 0px -15px">
+	<input type="text" formControlName="otroseguro" class="form-control" placeholder="otro servicio" [ngClass]="{ 'is-invalid': submitted2 && f2.otroseguro.errors }"/>
+</div>
+<div class="col-8 custom-control-inline" style="margin: 0px 0px 0px -15px">
+	<div class="col-8 input-group input-group-sm mb-3">
+		<input type="text" formControlName="vivecon" class="form-control" placeholder="Con quién vive el niño (a) adolecente" [ngClass]="{ 'is-invalid': submitted2 && f2.vivecon.errors }"/>
+	</div>
+	<div class="col-4 input-group input-group-sm mb-3">
+		<input type="tel" formControlName="telefono" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': submitted2 && f2.telefono.errors }"/>
+	</div>
+</div>
+</div>
+
+<!-- INICIO DE COL 12 DOMICILIO -->
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 10px 0px 0px 0px">
+	<div class="col-12 font-weight-bold" >
+		<span>DOMICILIO</span>
+	</div>
+	<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
+		<div class="col-3 input-group input-group-sm mb-3">
+			<input type="text" formControlName="domcalle" class="form-control" placeholder="Calle y número" [ngClass]="{ 'is-invalid': submitted2 && f2.domcalle.errors }"/>
+		</div>
+		<div class="col-3 input-group input-group-sm mb-3">
+			<input type="text" formControlName="domcolonia" class="form-control" placeholder="Colonia" [ngClass]="{ 'is-invalid': submitted2 && f2.domcolonia.errors }"/>
+		</div>
+		<div class="col-1 input-group input-group-sm mb-3">
+			<input type="text" formControlName="domcodpost" class="form-control" placeholder="C.P" [ngClass]="{ 'is-invalid': submitted2 && f2.domcodpost.errors }"/>
+		</div>
+		<div class="col-2 input-group input-group-sm mb-3">
+			<input type="text" formControlName="domdelegacion" class="form-control" placeholder="Delegación" [ngClass]="{ 'is-invalid': submitted2 && f2.domdelegacion.errors }" />
+		</div>
+		<div class="col-3 input-group input-group-sm mb-3">
+			<input type="text" formControlName="dommunicipio" class="form-control" placeholder="Municipio" [ngClass]="{ 'is-invalid': submitted2 && f2.dommunicipio.errors }"/>
+		</div>
+	</div>
+</div>	
+
+<!-- INICIO DE COL 12 ESCOLARES y PERSONAS AUTORIZADAS -->
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 0px 0px 0px 0px">
+	<div class="col-6" style="margin: 0px 0px 0px -15px">
+		<div class="col-12 font-weight-bold" >
+			<span>DATOS ESCOLARES</span>
+		</div>
+		<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
+			<div class="col-6 input-group input-group-sm mb-3">
+				<input type="text" formControlName="escuela" class="form-control" placeholder="Nombre de la escuela" [ngClass]="{ 'is-invalid': submitted2 && f2.escuela.errors }"/>
+			</div>
+			<div class="col-6 input-group input-group-sm mb-3">
+				<select formControlName="escuelaturno" class="custom-select" placeholder="turno"
+				[ngClass]="{ 'is-invalid': submitted2 && f2.escuelaturno.errors }" data-toggle="tooltip" data-placement="top" title="Turno escolar">
+				<option selected disabled>Turno</option>
+				<option value="Matutino">Matutino</option>
+				<option value="Intermedio">Intermedio</option>
+				<option value="Vespertino">Vespertino</option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="col-6" style="margin: 0px 0px 0px -15px">
+	<div class="col-12 font-weight-bold" >
+		<span>PERSONAS AUTORIZADAS A RECOGERLO</span>
+	</div>
+	<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
+		<div class="col-6 input-group input-group-sm mb-3">
+			<input type="text" formControlName="recoge1nino" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.recoge1nino.errors }"/>
+		</div>
+		<div class="col-6 input-group input-group-sm mb-3">
+			<input type="text" formControlName="parentrecoge1" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': submitted2 && f2.parentrecoge1.errors }"/>
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- INICIO DE COL 12 ESCOLARES y PERSONAS AUTORIZADAS -->
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 0px 0px 0px -5px">
+	<div class="col-10" style="margin: 0px 0px 15px -5px">
+		<div class="col-12 font-weight-bold" >
+			<span>CONTACTOS DE EMERGENCIA</span>
+		</div>
+		<div class=" col-12 input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Contacto 1</span>
+			</div>
+			<input type="text" formControlName="emergencia1" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.emergencia1.errors }"/>
+			<input type="text" formControlName="parentemergencia1" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': submitted2 && f2.parentemergencia1.errors }"/>
+			<input type="tel" formControlName="telefonoemergencia1" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': submitted2 && f2.telefonoemergencia1.errors }"/>
+		</div>
+		<div class=" col-12 input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Contacto 2</span>
+			</div>
+			<input type="text" formControlName="emergencia2" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.emergencia2.errors }"/>
+			<input type="text" formControlName="parentemergencia2" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': submitted2 && f2.parentemergencia2.errors }"/>
+			<input type="tel" formControlName="telefonoemergencia2" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': submitted2 && f2.telefonoemergencia2.errors }"/>
+		</div>
+		<div class=" col-12 input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Contacto 3</span>
+			</div>
+			<input type="text" formControlName="emergencia3" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.emergencia3.errors }"/>
+			<input type="text" formControlName="parentemergencia3" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': submitted2 && f2.parentemergencia3.errors }"/>
+			<input type="tel" formControlName="telefonoemergencia3" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': submitted2 && f2.telefonoemergencia3.errors }"/>
+		</div>
+	</div>
+	<div class="col-2 text-right">
+		<button name="DG_btn_guardar"  class="btn btn-club btn-sm" style="width:100%; margin-top: 50px; height: 80px;" type="submit">
+			<span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+			Guardar
+		</button>
+	</div> 
+</div>	
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="modal_foto" tabindex="-1" role="dialog" aria-labelledby="modal_fotoLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_fotoLabel">Cámara</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleWebcam();">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<webcam [height]="350" [width]="460" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+				[allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+				[videoOptions]="videoOptions"
+				[imageQuality]="1"
+				(cameraSwitched)="cameraWasSwitched($event)"
+				(initError)="handleInitError($event)"
+				></webcam>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="toggleWebcam();">Cancelar</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="tomar_foto();">Tomar foto</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <!-- <span>el siguiente número de miembro es: <mark>{{miembros[miembros.length -1].miembroID + 1}}</mark></span>
 <li *ngFor="let miembro of miembros">

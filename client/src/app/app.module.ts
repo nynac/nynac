@@ -7,8 +7,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
- 
+import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
+import {WebcamModule} from 'ngx-webcam';
+
 import { NavbarComponent } from './components/recepcion/navbar/navbar.component';
 
 /*COMPONENTES DEL NIÑO*/
@@ -115,7 +117,8 @@ const appRoutes: Routes = [
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    WebcamModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
