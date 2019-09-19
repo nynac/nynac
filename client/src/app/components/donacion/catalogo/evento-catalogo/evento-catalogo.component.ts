@@ -2,14 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'evento-catalogo',
   templateUrl: './evento-catalogo.component.html',
-  styleUrls: ['./evento-catalogo.component.css']
+  styleUrls: ['./evento-catalogo.component.css'],
+  providers: [{provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}]
 })
 export class EventoCatalogoComponent implements OnInit {
   resultado: any;
+  model2: any;
+  fecha_evento:any;
   arreglo: any;
   //Formularios
   form_buscar: FormGroup;
@@ -35,7 +39,7 @@ export class EventoCatalogoComponent implements OnInit {
     this.form_agregar = this.formBuilder.group({
       eventoID: ['', Validators.required],
       descripcion: ['', Validators.required],
-      fecha: ['', Validators.required],
+      fecha: [this.model2, Validators.required],
 
     })
   }
@@ -50,32 +54,56 @@ export class EventoCatalogoComponent implements OnInit {
     return this.form_agregar.controls;
   }
 
+  get today() {
+    return new Date();
+  }
+
   buscar_evento() {
-    this.submit_buscar = true;
-    if (this.form_buscar.invalid) {
-      return;
-    }
-    else {
-      //select mediante el id
-      var response = this.http.get(this.url + "Eventoe/" + this.form_buscar.value.buscarID);
-      response.subscribe((data: any[]) => {
-        this.resultado = data;
-        //transformar fecha formato
-        var datePipe = new DatePipe("en-US");
-        this.resultado.fecha = datePipe.transform(this.resultado.fecha, 'dd/MM/yyyy');
+    console.log(this.model2);
+    var datePipe = new DatePipe("en-US");
+    this.model2 = datePipe.transform(this.model2, 'yyyy/MM/dd');
+    this.form_agregar.get('fecha').setValue(this.model2);
+    console.log(this.form_agregar.value.fecha);
+    // var datePipe = new DatePipe("en-US");
+    // this.form_agregar.value.model2 = datePipe.transform(this.form_agregar.value.model2, 'yyyy/MM/dd');
+    // console.log(this.form_agregar.value.model2);
 
-        console.log(this.resultado.fecha);
+    // console.log(this.form_agregar.value.model.year+"/"+this.form_agregar.value.model.month+"/"+this.form_agregar.value.model.day);
+        //MOdelo ng model migrar a formgruop
+    // console.log(this.model.year);
+    // console.log(this.model.month);
+    // console.log(this.model.day);
+    // this.fecha_evento=this.model.year+"/"+this.model.month+"/"+this.model.day;
+    // console.log(this.fecha_evento);
 
-        // console.log(this.form_agregar.get('fecha').value);
-        this.form_agregar.get('eventoID').setValue(this.resultado.eventoID);
-        this.form_agregar.get('descripcion').setValue(this.resultado.descripcion);
-        this.form_agregar.get('fecha').setValue(this.resultado.fecha);
+    // //     this.form_agregar.get('fecha').setValue(this.resultado.fecha);
+    // console.log(this.form_agregar.get('fecha').value);
 
-      },
-        error => {
-          console.log("Error", error)
-        });
-    }
+    // this.submit_buscar = true;
+    // if (this.form_buscar.invalid) {
+    //   return;
+    // }
+    // else {
+    //   //select mediante el id
+    //   var response = this.http.get(this.url + "Eventoe/" + this.form_buscar.value.buscarID);
+    //   response.subscribe((data: any[]) => {
+    //     this.resultado = data;
+    //     //transformar fecha formato
+    //     var datePipe = new DatePipe("en-US");
+    //     this.resultado.fecha = datePipe.transform(this.resultado.fecha, 'yyyy/MM/dd');
+
+    //     console.log(this.resultado.fecha);
+
+    //     // console.log(this.form_agregar.get('fecha').value);
+    //     this.form_agregar.get('eventoID').setValue(this.resultado.eventoID);
+    //     this.form_agregar.get('descripcion').setValue(this.resultado.descripcion);
+    //     this.form_agregar.get('fecha').setValue(this.resultado.fecha);
+
+    //   },
+    //     error => {
+    //       console.log("Error", error)
+    //     });
+    // }
   }
 
   agregar_evento() {
