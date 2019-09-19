@@ -23,12 +23,16 @@ export class EventoCatalogoComponent implements OnInit {
   submit_buscar = false;
   submit_agregar = false;
 
+  solo_fecha: Date = null;
+
   url = "https://api-remota.conveyor.cloud/api/";
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) { }
 
 
   ngOnInit() {
+
+    console.log("Fecha: " + this.solo_fecha);
     //Se rellena los campos al formulario 
     //buscar
     this.form_buscar = this.formBuilder.group({

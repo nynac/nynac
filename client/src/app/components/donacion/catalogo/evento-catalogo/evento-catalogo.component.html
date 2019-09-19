@@ -15,7 +15,7 @@
                 <span class="input-group-text">ID Evento:</span>
             </div>
             <input type="number" formControlName="buscarID" class="form-control"
-                [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
+            [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
             <div *ngIf="submit_buscar && f_B.buscarID.errors" class="invalid-feedback">
                 <div *ngIf="f_B.buscarID.errors.required">Campo requerido para busqueda.</div>
             </div>
@@ -35,64 +35,54 @@
         <div class="col-12 font-weight-bold">
             <span>Evento</span>
         </div>
+    </div>
+    <div class="row" style="margin: 15px 0px 0px 15px">
         <div class="col-4 input-group input-group-sm mb-3">
             <input type="text" formControlName="eventoID" class="form-control" placeholder="EventoID"
-                [ngClass]="{ 'is-invalid': submit_agregar && f_A.eventoID.errors }">
+            [ngClass]="{ 'is-invalid': submit_agregar && f_A.eventoID.errors }">
             <div *ngIf="submit_agregar && f_A.eventoID.errors" class="invalid-feedback">
                 <div *ngIf="f_A.eventoID.errors.required">*Favor de llenar el campo</div>
             </div>
         </div>
-        <div class="col-4 input-group input-group-sm mb-3">
+        <div class="col-5 input-group input-group-sm mb-3">
             <input type="text" formControlName="descripcion" class="form-control" placeholder="Descripcion"
-                [ngClass]="{ 'is-invalid': submit_agregar && f_A.descripcion.errors }">
+            [ngClass]="{ 'is-invalid': submit_agregar && f_A.descripcion.errors }">
             <div *ngIf="submit_agregar && f_A.descripcion.errors" class="invalid-feedback">
                 <div *ngIf="f_A.descripcion.errors.required">*Favor de llenar el campo</div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-2 custom-control-inline" style="padding:0px;">
+            <div class="col-11 input-group input-group-sm mb-3" style="padding-right: 0px;">
                 <input type="text" formControlName="fecha" class="form-control" placeholder="fecha"
-                [ngClass]="{ 'is-invalid': submit_agregar && f_A.fecha.errors }"  value="{{ model2 | json }}">
-            <div *ngIf="submit_agregar && f_A.fecha.errors" class="invalid-feedback">
-                <div *ngIf="f_A.fecha.errors.required">*Favor de llenar el campo</div>
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.fecha.errors }"  value="{{ model2 | date:'yyyy/MM/dd'  }}">
             </div>
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <input class="form-control" placeholder="yyyy-mm-dd" type="hidden"
-                         name="d2" #c2="ngModel" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary calendar" (click)="d2.toggle() " type="button"></button>
-                  </div>
-                </div>
-              </div>
-            </form>
-            
-        
-            <hr/>
-            <button class="btn btn-sm btn-outline-primary" (click)="model2 = today">Select Today</button>
-            <hr/>
-        
-        
-            <pre>Model: variable start  {{ model2 }}</pre>
-          </div>
-
-
+            <div class="col-1" style="padding: 0px;">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" type="hidden"
+                            name="d2" #c2="ngModel" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary btn-sm calendar" (click)="d2.toggle()" type="button" style="padding: 0px;">
+                                    <img src="./assets/img/calendario.png"   style="height: 25px; padding: 0px;"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 0px 0px 15px 15px">
-        <div class="col"></div>
-        <div class="col">
-            
-        </div>
-        <div class="col"></div>
-        <div class="col"></div>
+        <div class="col-8"></div>
         <div class="col-2">
             <button class="btn btn-primary mr-1" style="width:100%; height: 50px;">Guardar</button>
         </div>
         <div class="col-2">
             <button class="btn btn-secondary" style="width:100%; height: 50px;" type="reset"
-                (click)="clean_Agregar()">Cancelar</button>
+            (click)="clean_Agregar()">Cancelar</button>
         </div>
     </div>
 </form>
@@ -120,10 +110,10 @@
                             <th>02/02/2014</th>
                             <td>
                                 <button id="BUSQ_btn_modificar" type="button"
-                                    class="btn btn-info btn-sm">Modificar</button>
+                                class="btn btn-info btn-sm">Modificar</button>
                                 <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                                background-color: rgb(224, 8, 8); " type="button"
-                                    class="btn btn-info btn-sm">Eliminar</button>
+                                background-color: rgb(224, 8, 8); " type="button"
+                                class="btn btn-info btn-sm">Eliminar</button>
                             </td>
                         </tr>
                         <tr>
@@ -132,10 +122,10 @@
                             <th>02/02/2014</th>
                             <td>
                                 <button id="BUSQ_btn_modificar" type="button"
-                                    class="btn btn-info btn-sm">Modificar</button>
+                                class="btn btn-info btn-sm">Modificar</button>
                                 <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                                background-color: rgb(224, 8, 8); " type="button"
-                                    class="btn btn-info btn-sm">Eliminar</button>
+                                background-color: rgb(224, 8, 8); " type="button"
+                                class="btn btn-info btn-sm">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
