@@ -25,37 +25,38 @@
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
 			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar" [disabled] = "true">
 				<span id="spinner_buscar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
-			Buscar</button>
+				Buscar
+			</button>
 		</div> 
 	</div>
 </form>
 
 <div class="dropdown-divider"></div>
-{{ miembro }}
+<!-- {{ miembro }}
 		<div>
 			<input type="text" >
 			<label>prueba</label>
 		</div>
-		<button (click)="exampleMethodChild()">Click</button>
-<form [formGroup] = "form_guardar" (ngSubmit)="guardar_DG()">
-	<div class="row" *ngIf="agregar_o_modificar=='nuevo'">
-		<div class="col-12 text-center" style="color: #00AAE7;">
-			<small id="passwordHelpInline" class="text-center">
-				El número de miembro se generará el completar formulario
-			</small>
-		</div>
-	</div>
-	<div class="row">
-		<!-- CÁMARA -->
-		<div class="col-2 text-center" >
-			<div class="col-12"  > 
-				<img [src]="foto" height="130px;" width="130px;" class=" border border-primary rounded"/>
+		<button (click)="exampleMethodChild()">Click</button> -->
+		<form [formGroup] = "form_guardar" (ngSubmit)="guardar_DG()">
+			<div class="row" *ngIf="agregar_o_modificar=='nuevo'">
+				<div class="col-12 text-center" style="color: #00AAE7;">
+					<small id="passwordHelpInline" class="text-center">
+						El número de miembro se generará el completar formulario
+					</small>
+				</div>
 			</div>
-			<div class="col-12">
-				<button type="button" class="btn btn-club btn-sm" data-toggle="modal" data-target="#modal_foto" style="width:100%;" (click)="toggleWebcam();" >Abrir cámara
-				</button>
-			</div>
-		</div>
+			<div class="row">
+				<!-- CÁMARA -->
+				<div class="col-2 text-center" >
+					<div class="col-12"  > 
+						<img [src]="foto" height="130px;" width="130px;" class=" border border-primary rounded"/>
+					</div>
+					<div class="col-12">
+						<button type="button" class="btn btn-club btn-sm" data-toggle="modal" data-target="#modal_foto" style="width:100%;" (click)="toggleWebcam();" >Abrir cámara
+						</button>
+					</div>
+				</div>
 		<!-- ESTADO, VISA, RELIGION, TALLA, F.INSCR, NOMBRES, APPAT, APMAT.
 			F.NAC, EDAD, LUG. NAC, NACIONALIDAD, SEXO-->
 			<div class="col-10" style="margin: 15px 0px 0px 0px">

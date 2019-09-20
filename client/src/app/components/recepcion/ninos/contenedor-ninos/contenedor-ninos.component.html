@@ -1,17 +1,17 @@
 <navbar></navbar>
 <br>
 <p>
-		{{miembros}}
+		<!-- {{miembros}} -->
 </p>
 
 
 <div class="container border rounded">
 	<ul class="nav nav-tabs">
 		<li class="nav-item">
-			<a class="nav-link active" href="#generales" data-toggle="tab">Datos generales</a>
+			<a class="nav-link" href="#generales" data-toggle="tab">Datos generales</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#familia" data-toggle="tab">Núcleo Familia</a>
+			<a class="nav-link active" href="#familia" data-toggle="tab">Núcleo Familia</a>
 		</li>
 		<li class="nav-item ">
 			<a class="nav-link" href="#socioeconomico" data-toggle="tab">Estudio socioeconómicos</a>
@@ -33,10 +33,10 @@
 		</li>
 	</ul>
 	<div class="tab-content">
-		<div class="tab-pane active" id="generales">
+		<div class="tab-pane" id="generales">
 			<datos-generales [miembro]="miembros" (exampleOutput)="exampleMethodParent($event)"></datos-generales>
 		</div>
-		<div class="tab-pane " id="familia">
+		<div class="tab-pane active" id="familia">
 			<nucleo-familiar [miembro]="miembros"></nucleo-familiar>
 		</div>
 		<div class="tab-pane" id="socioeconomico">
