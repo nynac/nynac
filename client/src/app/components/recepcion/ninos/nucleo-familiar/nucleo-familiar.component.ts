@@ -23,7 +23,6 @@ export class NucleoFamiliarComponent implements OnInit {
 		private formBuilder: FormBuilder
 		){}
 
-
 	@Input('miembro') miembro: any;
 
 	ngOnInit() {
@@ -32,7 +31,7 @@ export class NucleoFamiliarComponent implements OnInit {
 		})
 
 		this.form_guardar = this.formBuilder.group({
-			idNinosDG : ['', Validators.required],
+			idNinosNF : ['', Validators.required],
 			miembroID : ['', Validators.required],
 			restriccionlegal : [''],
 			razonrestriccion : [''],
@@ -58,11 +57,11 @@ export class NucleoFamiliarComponent implements OnInit {
 			telparticularmadre : [''],
 			teltrabajomadre : [''],
 			celularmadre : [''],
-			emailmadr: [''],
+			emailmadre: [''],
 			tutorsustituto : [''],
 			edadtutor : [''],
 			ocupaciontutor : [''],
-			teltuto: [''],
+			teltutor: [''],
 			nucleofamiliarnombre1 : [''],
 			nucleofamiliarnombre2 : [''],
 			nucleofamiliarnombre3 : [''],
@@ -71,7 +70,7 @@ export class NucleoFamiliarComponent implements OnInit {
 			nucleofamiliaredad3 : [''],
 			nucleofamiliargrado1 : [''],
 			nucleofamiliargrado2 : [''],
-			nucleofamiliargrado: [''],
+			nucleofamiliargrado3: [''],
 			desintegracionfamiliar : [''],
 			fallecimientos : [''],
 			nacimientos : [''],
@@ -82,14 +81,15 @@ export class NucleoFamiliarComponent implements OnInit {
 			alacostarse : [''],
 			horaalimentos : [''],
 			allevantarse : [''],
-			horaban: [''],
+			horabano: [''],
 		});
 	}
+
 	get f(){ return this.form_buscar.controls;}
 	get f2(){ return this.form_guardar.controls;}
 
-	ng_busq_Form_prueba(){
-		var spinner_buscar = document.getElementById("spinner_buscar");
+	ng_busq_Form(){
+		var spinner_buscar = document.getElementById("spinner_buscarNF");
 		spinner_buscar.removeAttribute("hidden");
 
 		this.submitted = true;
@@ -99,75 +99,77 @@ export class NucleoFamiliarComponent implements OnInit {
 			return;
 		}
 		else{
+			this.form_buscar.disable();
 
-			var response = this.http.get(this.url + "miembroes/" + this.form_buscar.value.miembroID);
+			var response = this.http.get(this.url + "Nino_NF/" + this.form_buscar.value.miembroID);
 			response.subscribe((resultado : any[])=> {
-				this.form_guardar.get('idNinosNF').setValue(resultado['Nino_DG'][0].idNinosNF);
-				this.form_guardar.get('miembroID').setValue(resultado['Nino_DG'][0].miembroID);
+				this.form_guardar.get('idNinosNF').setValue(resultado['idNinosNF']);
+				this.form_guardar.get('miembroID').setValue(resultado['miembroID']);
 				
-				this.form_guardar.get('restriccionlegal').setValue(resultado['Nino_DG'][0].restriccionlegal);
-				this.form_guardar.get('razonrestriccion').setValue(resultado['Nino_DG'][0].razonrestriccion);
-				this.form_guardar.get('padresituacion').setValue(resultado['Nino_DG'][0].padresituacion);
+				this.form_guardar.get('restriccionlegal').setValue(resultado['restriccionlegal']);
+				this.form_guardar.get('razonrestriccion').setValue(resultado['razonrestriccion']);
+				this.form_guardar.get('padresituacion').setValue(resultado['padresituacion']);
 
-				this.form_guardar.get('nombrepadre').setValue(resultado['Nino_DG'][0].nombrepadre);
+				this.form_guardar.get('nombrepadre').setValue(resultado['nombrepadre']);
 				this.form_guardar.get('edadpadre').setValue(resultado['edadpadre']);
-				this.form_guardar.get('fechaylugarpadre').setValue(resultado['Nino_DG'][0].fechaylugarpadre);
-				this.form_guardar.get('nacionalidadpadre').setValue(resultado['Nino_DG'][0].nacionalidadpadre);
-				this.form_guardar.get('escolaridadpadre').setValue(resultado['Nino_DG'][0].escolaridadpadre);
-				this.form_guardar.get('ocupacionpadre').setValue(parseInt(resultado['Nino_DG'][0].ocupacionpadre));
-				this.form_guardar.get('lugartrabajopadre').setValue(resultado['Nino_DG'][0].lugartrabajopadre);
-				this.form_guardar.get('telparticularpadre').setValue(resultado['Nino_DG'][0].telparticularpadre);
-				this.form_guardar.get('teltrabajopadre').setValue(resultado['Nino_DG'][0].teltrabajopadre);
-				this.form_guardar.get('celularpadre').setValue(resultado['Nino_DG'][0].celularpadre);
-				this.form_guardar.get('emailpadre').setValue(resultado['Nino_DG'][0].emailpadre);
+				this.form_guardar.get('fechaylugarpadre').setValue(resultado['fechaylugarpadre']);
+				this.form_guardar.get('nacionalidadpadre').setValue(resultado['nacionalidadpadre']);
+				this.form_guardar.get('escolaridadpadre').setValue(resultado['escolaridadpadre']);
+				this.form_guardar.get('ocupacionpadre').setValue(resultado['ocupacionpadre']);
+				this.form_guardar.get('lugartrabajopadre').setValue(resultado['lugartrabajopadre']);
+				this.form_guardar.get('telparticularpadre').setValue(resultado['telparticularpadre']);
+				this.form_guardar.get('teltrabajopadre').setValue(resultado['teltrabajopadre']);
+				this.form_guardar.get('celularpadre').setValue(resultado['celularpadre']);
+				this.form_guardar.get('emailpadre').setValue(resultado['emailpadre']);
 
-				this.form_guardar.get('nombremadre').setValue(resultado['Nino_DG'][0].nombremadre);
+				this.form_guardar.get('nombremadre').setValue(resultado['nombremadre']);
 				this.form_guardar.get('edadmadre').setValue(resultado['edadmadre']);
-				this.form_guardar.get('fechaylugarmadre').setValue(resultado['Nino_DG'][0].fechaylugarmadre);
-				this.form_guardar.get('nacionalidadmadre').setValue(resultado['Nino_DG'][0].nacionalidadmadre);
-				this.form_guardar.get('escolaridadmadre').setValue(resultado['Nino_DG'][0].escolaridadmadre);
-				this.form_guardar.get('ocupacionmadre').setValue(parseInt(resultado['Nino_DG'][0].ocupacionmadre));
-				this.form_guardar.get('lugartrabajomadre').setValue(resultado['Nino_DG'][0].lugartrabajomadre);
-				this.form_guardar.get('telparticularmadre').setValue(resultado['Nino_DG'][0].telparticularmadre);
-				this.form_guardar.get('teltrabajomadre').setValue(resultado['Nino_DG'][0].teltrabajomadre);
-				this.form_guardar.get('celularmadre').setValue(resultado['Nino_DG'][0].celularmadre);
-				this.form_guardar.get('emailmadre').setValue(resultado['Nino_DG'][0].emailmadre);
+				this.form_guardar.get('fechaylugarmadre').setValue(resultado['fechaylugarmadre']);
+				this.form_guardar.get('nacionalidadmadre').setValue(resultado['nacionalidadmadre']);
+				this.form_guardar.get('escolaridadmadre').setValue(resultado['escolaridadmadre']);
+				this.form_guardar.get('ocupacionmadre').setValue(resultado['ocupacionmadre']);
+				this.form_guardar.get('lugartrabajomadre').setValue(resultado['lugartrabajomadre']);
+				this.form_guardar.get('telparticularmadre').setValue(resultado['telparticularmadre']);
+				this.form_guardar.get('teltrabajomadre').setValue(resultado['teltrabajomadre']);
+				this.form_guardar.get('celularmadre').setValue(resultado['celularmadre']);
+				this.form_guardar.get('emailmadre').setValue(resultado['emailmadre']);
 
-				this.form_guardar.get('tutorsustituto').setValue(resultado['Nino_DG'][0].tutorsustituto);
-				this.form_guardar.get('edadtutor').setValue(resultado['Nino_DG'][0].edadtutor);
-				this.form_guardar.get('ocupaciontutor').setValue(resultado['Nino_DG'][0].ocupaciontutor);
-				this.form_guardar.get('teltutor').setValue(resultado['Nino_DG'][0].teltutor);
+				this.form_guardar.get('tutorsustituto').setValue(resultado['tutorsustituto']);
+				this.form_guardar.get('edadtutor').setValue(resultado['edadtutor']);
+				this.form_guardar.get('ocupaciontutor').setValue(resultado['ocupaciontutor']);
+				this.form_guardar.get('teltutor').setValue(resultado['teltutor']);
 
-				this.form_guardar.get('nucleofamiliarnombre1').setValue(resultado['Nino_DG'][0].nucleofamiliarnombre1);
-				this.form_guardar.get('nucleofamiliarnombre2').setValue(resultado['Nino_DG'][0].nucleofamiliarnombre2);
-				this.form_guardar.get('nucleofamiliarnombre3').setValue(resultado['Nino_DG'][0].nucleofamiliarnombre3);
-				this.form_guardar.get('nucleofamiliaredad1').setValue(resultado['Nino_DG'][0].nucleofamiliaredad1);
-				this.form_guardar.get('nucleofamiliaredad2').setValue(resultado['Nino_DG'][0].nucleofamiliaredad2);
-				this.form_guardar.get('nucleofamiliaredad3').setValue(resultado['Nino_DG'][0].nucleofamiliaredad3);
-				this.form_guardar.get('nucleofamiliargrado1').setValue(resultado['Nino_DG'][0].nucleofamiliargrado1);
-				this.form_guardar.get('nucleofamiliargrado2').setValue(resultado['Nino_DG'][0].nucleofamiliargrado2);
-				this.form_guardar.get('nucleofamiliargrado3').setValue(resultado['Nino_DG'][0].nucleofamiliargrado3);
+				this.form_guardar.get('nucleofamiliarnombre1').setValue(resultado['nucleofamiliarnombre1']);
+				this.form_guardar.get('nucleofamiliarnombre2').setValue(resultado['nucleofamiliarnombre2']);
+				this.form_guardar.get('nucleofamiliarnombre3').setValue(resultado['nucleofamiliarnombre3']);
+				this.form_guardar.get('nucleofamiliaredad1').setValue(resultado['nucleofamiliaredad1']);
+				this.form_guardar.get('nucleofamiliaredad2').setValue(resultado['nucleofamiliaredad2']);
+				this.form_guardar.get('nucleofamiliaredad3').setValue(resultado['nucleofamiliaredad3']);
+				this.form_guardar.get('nucleofamiliargrado1').setValue(resultado['nucleofamiliargrado1']);
+				this.form_guardar.get('nucleofamiliargrado2').setValue(resultado['nucleofamiliargrado2']);
+				this.form_guardar.get('nucleofamiliargrado3').setValue(resultado['nucleofamiliargrado3']);
 
+				this.form_guardar.get('desintegracionfamiliar').setValue(resultado['desintegracionfamiliar']);
+				this.form_guardar.get('fallecimientos').setValue(resultado['fallecimientos']);
+				this.form_guardar.get('nacimientos').setValue(resultado['nacimientos']);
+				this.form_guardar.get('situacion_economica').setValue(resultado['situacion_economica']);
+				this.form_guardar.get('cambiosrutina').setValue(resultado['cambiosrutina']);
 
-				this.form_guardar.get('desintegracionfamiliar').setValue(resultado['Nino_DG'][0].desintegracionfamiliar);
-				this.form_guardar.get('fallecimientos').setValue(resultado['Nino_DG'][0].fallecimientos);
-				this.form_guardar.get('nacimientos').setValue(resultado['Nino_DG'][0].nacimientos);
-				this.form_guardar.get('situacion_economica').setValue(resultado['Nino_DG'][0].situacion_economica);
-				this.form_guardar.get('cambiosrutina').setValue(resultado['Nino_DG'][0].cambiosrutina);
-
-				this.form_guardar.get('disciplica').setValue(resultado['Nino_DG'][0].disciplica);
-				this.form_guardar.get('juegos').setValue(resultado['Nino_DG'][0].juegos);
-				this.form_guardar.get('alacostarse').setValue(resultado['Nino_DG'][0].alacostarse);
-				this.form_guardar.get('horaalimentos').setValue(resultado['Nino_DG'][0].horaalimentos);
-				this.form_guardar.get('allevantarse').setValue(resultado['Nino_DG'][0].allevantarse);
-				this.form_guardar.get('horabano').setValue(resultado['Nino_DG'][0].horabano);
+				this.form_guardar.get('disciplica').setValue(resultado['disciplica']);
+				this.form_guardar.get('juegos').setValue(resultado['juegos']);
+				this.form_guardar.get('alacostarse').setValue(resultado['alacostarse']);
+				this.form_guardar.get('horaalimentos').setValue(resultado['horaalimentos']);
+				this.form_guardar.get('allevantarse').setValue(resultado['allevantarse']);
+				this.form_guardar.get('horabano').setValue(resultado['horabano']);
 
 				spinner_buscar.setAttribute("hidden", "true");
+				this.form_buscar.enable();
 			},
 			error =>{
 				console.log("Error", error);
 				alert("No se encontraron resultados");
 				spinner_buscar.setAttribute("hidden", "true");
+				this.form_buscar.enable();
 			});
 		}
 	}
@@ -176,15 +178,12 @@ export class NucleoFamiliarComponent implements OnInit {
 		this.submitted =false;
 		this.form_buscar.reset();
 	}
-
 	limpiar_form_guardar(){
 		this.submitted2 =false;
 		this.form_guardar.reset();
 	}
 
-//Generando los módulos para el niño
-
-	guardar_DG(){
+	guardar_NF(){
 		this.submitted2 = true;
 		var spinner = document.getElementById("spinner");
 
@@ -194,26 +193,60 @@ export class NucleoFamiliarComponent implements OnInit {
 			return;
 		}
 		else{
-
+	
 			var r = confirm("Estas seguro que deseas completar esta acción");
 			if (r== false) {
 				return;
-			}
-			
-			
-			spinner.removeAttribute("hidden");
+			}else{
+				this.form_guardar.disable();
 
-			if (this.agregar_o_modificar == "nuevo"){
-				console.log("Creando ...");
-				this.nuevo();
+				spinner.removeAttribute("hidden");
+				console.log("Actualizando ...");
+
+				this.http.put(this.url + "Nino_NF/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
+					alert("Se han guardado las modificaciones correctamente");
+					this.limpiar_form_guardar();
+					this.limpiar_form_buscar();
+		
+					spinner.setAttribute("hidden", "true");
+					this.form_guardar.enable();
+				},
+				error  => {
+					console.log(error);
+					spinner.setAttribute("hidden", "true");
+					this.form_guardar.enable();
+				});
 			}
-			else if (this.agregar_o_modificar == "modificar"){
-				console.log("Modificando ...");
-				this.modificar();
-			}
-			else{
-				console.log("se fue a ninguno")
-			}
+	
 		}
 	}
 }
+
+/*
+
+
+
+//Generando los módulos para el niño
+
+guardar_DG(){
+	this.submitted2 = true;
+	var spinner = document.getElementById("spinner");
+
+	if (this.form_guardar.invalid) {
+		console.log("Formato incorrecto del formulario");
+		spinner.setAttribute("hidden", "true");
+		return;
+	}
+	else{
+
+		var r = confirm("Estas seguro que deseas completar esta acción");
+		if (r== false) {
+			return;
+		}else{
+			spinner.removeAttribute("hidden");
+			console.log("Creando ...");
+			//this.nuevo();
+		}
+
+	}
+}*/

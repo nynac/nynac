@@ -10,13 +10,14 @@ import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { DomSanitizer } from '@angular/platform-browser'
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({ selector: 'datos-generales', templateUrl: './datos-generales.component.html', styleUrls: ['./datos-generales.component.css']})
 
 export class DatosGeneralesComponent  implements OnInit {
 	url = "https://api-remota.conveyor.cloud/api/";
 	agregar_o_modificar: string = 'nuevo';
-	miembros : any; datos_miembro : any;
+	miembros : any; datos_miembro : any; aux_datos : any;
 	foto : any;
 
 	//form buscar
@@ -189,6 +190,7 @@ export class DatosGeneralesComponent  implements OnInit {
 
 		if (this.form_guardar.invalid) {
 			console.log("Formato incorrecto del formulario");
+			console.log(this.form_guardar.value);
 			spinner.setAttribute("hidden", "true");
 			return;
 		}
@@ -225,7 +227,6 @@ export class DatosGeneralesComponent  implements OnInit {
 		if (this.agregar_o_modificar == "nuevo"){
 			this.limpiar_form_guardar();
 			this.limpiar_form_buscar();
-			this.get_nuevo_miembro();
 			this.foto = "";
 
 			eleccion.setAttribute("disabled", "true");
@@ -242,13 +243,14 @@ export class DatosGeneralesComponent  implements OnInit {
 
 	//Obtener nuevo miembro MÉTODO AUXILIAR
 	get_nuevo_miembro(){
-		var response = this.http.get(this.url + "miembroes");
-		response.subscribe((data)=> { 
-			this.miembros = data;
+		var response = this.http.get(this.url + "ultimoMiembro");
+		response.subscribe((resultado : number)=> {
 			this.form_guardar.get('estado').setValue(true);
 			this.form_guardar.get('visa').setValue(false);
-			this.form_guardar.get('idNinosDG').setValue((this.miembros[this.miembros.length -1].miembroID + 1));
-			this.form_guardar.get('miembroID').setValue((this.miembros[this.miembros.length -1].miembroID + 1));
+			this.form_guardar.get('idNinosDG').setValue(resultado + 1);
+			this.form_guardar.get('miembroID').setValue(resultado + 1);
+
+			console.log(resultado + 1);
 		},
 		error =>{
 			console.log("Error", error)
@@ -271,14 +273,10 @@ export class DatosGeneralesComponent  implements OnInit {
 
 		this.http.post(this.url + 'miembroes', this.datos_miembro).subscribe(data  => {
 			alert(this.form_guardar.value.nombres + " se agregó correctamente. Su No. Miembro es: " + this.form_guardar.value.miembroID);
-			this.limpiar_form_guardar();
-			this.limpiar_form_buscar();
-			this.foto = "";
 		},
 		error  => {
 			console.log("Error al guardar en la tabla miembro", error);
 		});
-
 
 		if (this.webcamImage != null) {
 			this.form_guardar.get("foto").setValue(this.webcamImage.imageAsBase64);
@@ -286,6 +284,14 @@ export class DatosGeneralesComponent  implements OnInit {
 		
 		this.http.post(this.url + "Nino_DG1", this.form_guardar.value).subscribe(data  => {
 			alert(this.form_guardar.value.nombres + " se han guardado sus datos generales");
+
+			this.guardar_miembro_en_tabla("Nino_NF", "idNinosNF", this.form_guardar.value.idNinosDG); //Nucleo familiar
+			this.guardar_miembro_en_tabla("Nino_ES", "idNinosES", this.form_guardar.value.idNinosDG); //Socioeconomico
+
+			this.limpiar_form_guardar();
+			this.limpiar_form_buscar();
+			this.foto = "";
+
 			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
 		},
@@ -310,7 +316,7 @@ export class DatosGeneralesComponent  implements OnInit {
 			this.limpiar_form_guardar();
 			this.limpiar_form_buscar();
 			this.foto = "";
-
+		
 			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
 		},
@@ -318,6 +324,18 @@ export class DatosGeneralesComponent  implements OnInit {
 			console.log(error);
 			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
+		});
+	}
+	guardar_miembro_en_tabla(tabla : string, columnaID : string, valorID : number){
+		
+		var datos_aux = JSON.parse('{"'+columnaID+'":'+valorID+', "miembroID":'+valorID+'}');
+
+		this.http.post(this.url + tabla, datos_aux).subscribe(data  => {
+			console.log("Se han guardado: " + tabla);
+		},
+		error  => {
+			console.log("Error al guardar en la tabla: " + tabla, error);
+			
 		});
 	}
 
