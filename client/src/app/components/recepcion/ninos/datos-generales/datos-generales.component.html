@@ -18,25 +18,26 @@
 				<span class="input-group-text">No. Miembro:</span>
 			</div>
 			<input type="number" formControlName="miembroID"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
-			<!-- <div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
-				<div *ngIf="f.miembroID.errors.required">Rellena este campo</div>
-			</div> -->
-		</div>
-		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar" [disabled] = "true">
-				<span id="spinner_buscar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
-			Buscar</button>
-		</div> 
-	</div>
+<!-- <div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
+<div *ngIf="f.miembroID.errors.required">Rellena este campo</div>
+</div> -->
+</div>
+<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+	<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar" [disabled] = "true">
+		<span id="spinner_buscar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+		Buscar
+	</button>
+</div> 
+</div>
 </form>
 
 <div class="dropdown-divider"></div>
-{{ miembro }}
-		<div>
-			<input type="text" >
-			<label>prueba</label>
-		</div>
-		<button (click)="exampleMethodChild()">Click</button>
+<!-- {{ miembro }}
+<div>
+<input type="text" >
+<label>prueba</label>
+</div>
+<button (click)="exampleMethodChild()">Click</button> -->
 <form [formGroup] = "form_guardar" (ngSubmit)="guardar_DG()">
 	<div class="row" *ngIf="agregar_o_modificar=='nuevo'">
 		<div class="col-12 text-center" style="color: #00AAE7;">
@@ -56,95 +57,95 @@
 				</button>
 			</div>
 		</div>
-		<!-- ESTADO, VISA, RELIGION, TALLA, F.INSCR, NOMBRES, APPAT, APMAT.
-			F.NAC, EDAD, LUG. NAC, NACIONALIDAD, SEXO-->
-			<div class="col-10" style="margin: 15px 0px 0px 0px">
-				<div class="col-12 custom-control-inline">
-					<div class="col-2 input-group input-group-sm mb-3">
-						<select formControlName="sede" class="custom-select"[ngClass]="{ 'is-invalid': submitted2 && f2.sede.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una sede">
-							<option selected>Sede</option>
-							<option value="LomaDorada">Loma Dorada</option>
-							<option value="camino">Camino Verde</option>
-							<option value="Natura">Natura</option>
-						</select>
-					</div>
-
-					<div class="col-1 custom-control form-check" style="margin: 0px 10px 0px 10px;">
-						<input type="checkbox" id="estado" formControlName="estado" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.estado.errors}"/>
-						<label class="custom-control-label" for="estado">Estado&nbsp;</label>
-					</div>
-
-					<div class="col-1 custom-control form-check" >
-						<input type="checkbox" id="visa" formControlName="visa" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.visa.errors }"/>
-						<label class="custom-control-label" for="visa">Visa</label>
-					</div>
-					<div class="col-2 input-group input-group-sm mb-3">
-						<input type="text" formControlName="religion" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.religion.errors }" placeholder="Religión"/>
-					</div>
-					
-
-					<div class="col-3 input-group input-group-sm mb-3" style="margin: 0px -20px 0px 0px">
-						<select formControlName="tallacamisa" class="custom-select" [ngClass]="{ 'is-invalid': submitted2 && f2.tallacamisa.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una Talla de camisa">
-							<option selected disabled>Talla de camisa</option>
-							<option value="XS">XS</option>
-							<option value="S">S</option>
-							<option value="M">M</option>
-							<option value="L">L</option>
-							<option value="XL">XL</option>
-							<option value="XXL">XXL</option>
-						</select>
-					</div>
-					<div class="col-3 input-group input-group-sm mb-3">
-						<input formControlName="fechainscripcion" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechainscripcion.errors }" id="fechainscripcion" data-toggle="tooltip" data-placement="top" title="Fecha de inscripción">
-					</div>
-				</div>
-				<div class="col-12 custom-control-inline">
-					<div class="col-3 input-group input-group-sm mb-3" hidden="true">
-						<input type="text" formControlName="idNinosDG" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.idNinosDG.errors}" readonly/>
-					</div>
-					<div class="col-2 input-group input-group-sm mb-3"  hidden="true">
-						<input type="number" formControlName="miembroID" class="form-control" placeholder="No. Miembro" [ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" readonly/>
-					</div>
-					<div class="col-3 input-group input-group-sm mb-3">
-						<input type="text" formControlName="nombres" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.nombres.errors }"/>
-					</div>
-					<div class="col-3 input-group input-group-sm mb-3">
-						<input type="text" formControlName="appaterno" class="form-control" placeholder="Ap. Paterno" [ngClass]="{ 'is-invalid': submitted2 && f2.appaterno.errors }"/>
-					</div>
-					<div class="col-3 input-group input-group-sm mb-3">
-						<input type="text" formControlName="apmaterno" class="form-control" placeholder="Ap. Materno" [ngClass]="{ 'is-invalid': submitted2 && f2.apmaterno.errors }"/>
-					</div>
-
-					<div class="col-3 input-group input-group-sm mb-3">
-						<input formControlName="fechanacimiento" placeholder="Fecha de nacimiento" type="date"  class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechanacimiento.errors }" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento">
-					</div>
-				</div>
-				<div class="col-12 custom-control-inline">
-					<div class="col-2 input-group input-group-sm mb-3">
-						<input type="number" formControlName="edad" class="form-control" placeholder="Edad" [ngClass]="{ 'is-invalid': submitted2 && f2.edad.errors }" min="6" max="16" />
-					</div>
-					<div class="col-4 input-group input-group-sm mb-3">
-						<input type="text" formControlName="lugarnacimiento" class="form-control" placeholder="Lugar de nacimiento" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarnacimiento.errors }"/>
-					</div>
-					<div class="col-3 input-group input-group-sm mb-3">
-						<select formControlName="nacionalidad" class="custom-select" placeholder="Nacionalidad"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidad.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una nacionalidad">
-						<option selected disabled>Nacionalidad</option>
-						<option value="Mexicano">Mexicano</option>
-						<option value="Extranjero">Extranjero</option>
-					</select>
-				</div>
-				<div class="col-3 input-group input-group-sm mb-3">
-
-					<select formControlName="sexo" class="custom-select" placeholder="Sexo"
-					[ngClass]="{ 'is-invalid': submitted2 && f2.sexo.errors }" data-toggle="tooltip" data-placement="top" title="Sexo">
-					<option selected disabled>Sexo</option>
-					<option value="M">Masculino</option>
-					<option value="F">Femenino</option>
+<!-- ESTADO, VISA, RELIGION, TALLA, F.INSCR, NOMBRES, APPAT, APMAT.
+	F.NAC, EDAD, LUG. NAC, NACIONALIDAD, SEXO-->
+	<div class="col-10" style="margin: 15px 0px 0px 0px">
+		<div class="col-12 custom-control-inline">
+			<div class="col-2 input-group input-group-sm mb-3">
+				<select formControlName="sede" class="custom-select"[ngClass]="{ 'is-invalid': submitted2 && f2.sede.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una sede">
+					<option selected>Sede</option>
+					<option value="LomaDorada">Loma Dorada</option>
+					<option value="camino">Camino Verde</option>
+					<option value="Natura">Natura</option>
 				</select>
 			</div>
+
+			<div class="col-1 custom-control form-check" style="margin: 0px 10px 0px 10px;">
+				<input type="checkbox" id="estado" formControlName="estado" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.estado.errors}"/>
+				<label class="custom-control-label" for="estado">Estado&nbsp;</label>
+			</div>
+
+			<div class="col-1 custom-control form-check" >
+				<input type="checkbox" id="visa" formControlName="visa" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.visa.errors }"/>
+				<label class="custom-control-label" for="visa">Visa</label>
+			</div>
+			<div class="col-2 input-group input-group-sm mb-3">
+				<input type="text" formControlName="religion" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.religion.errors }" placeholder="Religión"/>
+			</div>
+
+
+			<div class="col-3 input-group input-group-sm mb-3" style="margin: 0px -20px 0px 0px">
+				<select formControlName="tallacamisa" class="custom-select" [ngClass]="{ 'is-invalid': submitted2 && f2.tallacamisa.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una Talla de camisa">
+					<option selected disabled>Talla de camisa</option>
+					<option value="XS">XS</option>
+					<option value="S">S</option>
+					<option value="M">M</option>
+					<option value="L">L</option>
+					<option value="XL">XL</option>
+					<option value="XXL">XXL</option>
+				</select>
+			</div>
+			<div class="col-3 input-group input-group-sm mb-3">
+				<input formControlName="fechainscripcion" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechainscripcion.errors }" id="fechainscripcion" data-toggle="tooltip" data-placement="top" title="Fecha de inscripción">
+			</div>
 		</div>
+		<div class="col-12 custom-control-inline">
+			<div class="col-3 input-group input-group-sm mb-3" hidden="true">
+				<input type="text" formControlName="idNinosDG" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.idNinosDG.errors}" readonly/>
+			</div>
+			<div class="col-2 input-group input-group-sm mb-3" hidden="true">
+				<input type="number" formControlName="miembroID" class="form-control" placeholder="No. Miembro" [ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" readonly/>
+			</div>
+			<div class="col-3 input-group input-group-sm mb-3">
+				<input type="text" formControlName="nombres" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.nombres.errors }"/>
+			</div>
+			<div class="col-3 input-group input-group-sm mb-3">
+				<input type="text" formControlName="appaterno" class="form-control" placeholder="Ap. Paterno" [ngClass]="{ 'is-invalid': submitted2 && f2.appaterno.errors }"/>
+			</div>
+			<div class="col-3 input-group input-group-sm mb-3">
+				<input type="text" formControlName="apmaterno" class="form-control" placeholder="Ap. Materno" [ngClass]="{ 'is-invalid': submitted2 && f2.apmaterno.errors }"/>
+			</div>
+
+			<div class="col-3 input-group input-group-sm mb-3">
+				<input formControlName="fechanacimiento" placeholder="Fecha de nacimiento" type="date"  class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechanacimiento.errors }" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento">
+			</div>
+		</div>
+		<div class="col-12 custom-control-inline">
+			<div class="col-2 input-group input-group-sm mb-3">
+				<input type="number" formControlName="edad" class="form-control" placeholder="Edad" [ngClass]="{ 'is-invalid': submitted2 && f2.edad.errors }" min="6" max="16" />
+			</div>
+			<div class="col-4 input-group input-group-sm mb-3">
+				<input type="text" formControlName="lugarnacimiento" class="form-control" placeholder="Lugar de nacimiento" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarnacimiento.errors }"/>
+			</div>
+			<div class="col-3 input-group input-group-sm mb-3">
+				<select formControlName="nacionalidad" class="custom-select" placeholder="Nacionalidad"
+				[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidad.errors }" data-toggle="tooltip" data-placement="top" title="Selecciona una nacionalidad">
+				<option selected disabled>Nacionalidad</option>
+				<option value="Mexicano">Mexicano</option>
+				<option value="Extranjero">Extranjero</option>
+			</select>
+		</div>
+		<div class="col-3 input-group input-group-sm mb-3">
+
+			<select formControlName="sexo" class="custom-select" placeholder="Sexo"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.sexo.errors }" data-toggle="tooltip" data-placement="top" title="Sexo">
+			<option selected disabled>Sexo</option>
+			<option value="M">Masculino</option>
+			<option value="F">Femenino</option>
+		</select>
 	</div>
+</div>
+</div>
 </div>
 
 <!-- INICIO DE COL 12 DERECHOHABIENCIA -->
@@ -312,5 +313,5 @@
 
 <!-- <span>el siguiente número de miembro es: <mark>{{miembros[miembros.length -1].miembroID + 1}}</mark></span>
 <li *ngFor="let miembro of miembros">
-	{{ miembro.estado}}
+{{ miembro.estado}}
 </li> -->
