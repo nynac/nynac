@@ -287,6 +287,7 @@ export class DatosGeneralesComponent  implements OnInit {
 
 			this.guardar_miembro_en_tabla("Nino_NF", "idNinosNF", this.form_guardar.value.idNinosDG); //Nucleo familiar
 			this.guardar_miembro_en_tabla("Nino_ES", "idNinosES", this.form_guardar.value.idNinosDG); //Socioeconomico
+			this.guardar_miembro_en_tabla("Nino_DM", "idNinosDM", this.form_guardar.value.idNinosDG); //Medicos
 
 			this.limpiar_form_guardar();
 			this.limpiar_form_buscar();
