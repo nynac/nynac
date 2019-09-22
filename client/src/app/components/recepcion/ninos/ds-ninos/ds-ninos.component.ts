@@ -127,7 +127,7 @@ export class DsNinosComponent implements OnInit {
 
 	guardar_ES(){
 		this.submitted2 = true;
-		var spinner = document.getElementById("spinner");
+		var spinner = document.getElementById("ES_spinner");
 		
 		if (this.form_guardar.invalid) {
 			console.log("Formato incorrecto del formulario");

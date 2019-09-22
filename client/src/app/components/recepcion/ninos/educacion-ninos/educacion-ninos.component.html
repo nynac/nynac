@@ -1,39 +1,36 @@
-<form action="">
+<form [formGroup]="form_buscar" (ngSubmit)="edu_busq_Form()">
 	<div class="row" style="margin: 15px 0px 0px 0px">
-		<div class="col-2 text-right font-weight-bold" >
-			<span>QUÉ VAS A HACER?</span>
+		<div class="col-6">
 		</div>
-		<div class="col-5">
-			<div class="custom-control custom-radio custom-control-inline">
-				<input id="EDU_Nuevo" type="radio" class="custom-control-input" name="EDU_opcion">
-				<label class="custom-control-label" for="EDU_Nuevo">Nuevo</label>
-			</div>
-			<div class="custom-control custom-radio custom-control-inline">
-				<input id="EDU_Modificar" type="radio" class="custom-control-input" name="EDU_opcion">
-				<label class="custom-control-label" for="EDU_Modificar">Modificar</label>
-			</div>
-		</div>
-		<div class="input-group input-group-sm mb-3 col-3 aling-right">
+		<div class="col-4 input-group input-group-sm mb-3 aling-left">
 			<div class="input-group-prepend">
 				<span class="input-group-text">No. Miembro:</span>
 			</div>
-			<input id="EDU_busc_miembro" type="text" class="form-control">
+			<input type="number" formControlName="miembroID" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
+			<div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
+				<div *ngIf="f.miembroID.errors.required">Completa este campo</div>
+			</div>
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-			<button id="EDU_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
-		</div> 
+			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar">
+				<span id="spinner_buscarEDU" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+				hidden></span>
+				Buscar
+			</button>
+		</div>
 	</div>
 </form>
 
 <div class="dropdown-divider"></div>
-<form action="">
+<form [formGroup]="form_guardar" (ngSubmit)="guardar_ED()">
 	<!-- INICIO ROW #1 -->	
 	<div class="row text-center" style="margin: 15px 0px 0px 15px">
 		<div class="col-7 text-center">
 			<span>Con relación a los últimos 3 grados escolares de su hijo (a), su promedio es: </span>
 		</div>
 		<div class="col-5 input-group input-group-sm mb-3" style="left: -40px">
-			<input id="EDU_promedio" type="text" class="form-control" placeholder="Ingresa el promedio">
+			<input type="text" id="promediogrados" formControlName="promediogrados" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.promediogrados.errors }" placeholder="Ingresa el promedio">
 		</div>
 	</div>
 	<!-- INICIO ROW #2 -->	
@@ -54,39 +51,25 @@
 			<span>Promedio al final</span>
 		</div>
 		<div class=" col-12 input-group">
-			<input id="EDU_tbl_ciclo1" type="text" class="form-control col-2">
-			<input id="EDU_tbl_escuela1" type="text" class="form-control col-3">
-			<input id="EDU_tbl_grado1" type="text" class="form-control col-1">
-			<input id="EDU_tbl_prom_ini1" type="text" class="form-control col-3">
-			<input id="EDU_tbl_prom_fin1" type="text" class="form-control col-3">
+			<input type="text" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+			<input type="text" id="escuelaeducacion1" formControlName="escuelaeducacion1" class="form-control col-3" [ngClass]="{ 'is-invalid': submitted2 && f2.escuelaeducacion1.errors }">
+			<input type="text" id="gradoeducacion1" formControlName="gradoeducacion1" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.gradoeducacion1.errors }">
+			<input type="text" id="promedioinicioeducacion1" formControlName="promedioinicioeducacion1" class="form-control col-3" [ngClass]="{ 'is-invalid': submitted2 && f2.promedioinicioeducacion1.errors }">
+			<input type="text" id="promediofinaleducacion1" formControlName="promediofinaleducacion1" class="form-control col-3" [ngClass]="{ 'is-invalid': submitted2 && f2.promediofinaleducacion1.errors }">
 		</div>
 		<div class=" col-12 input-group">
-			<input id="EDU_tbl_ciclo2" type="text" class="form-control col-2">
-			<input id="EDU_tbl_escuela2" type="text" class="form-control col-3">
-			<input id="EDU_tbl_grado2" type="text" class="form-control col-1">
-			<input id="EDU_tbl_prom_ini2" type="text" class="form-control col-3">
-			<input id="EDU_tbl_prom_fin2" type="text" class="form-control col-3">
+			<input type="text" id="cicloeducacion2" formControlName="cicloeducacion2" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion2.errors }">
+			<input type="text" id="escuelaeducacion2" formControlName="escuelaeducacion2" class="form-control col-3" [ngClass]="{ 'is-invalid': submitted2 && f2.escuelaeducacion2.errors }">
+			<input type="text" id="gradoeducacion2" formControlName="gradoeducacion2" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.gradoeducacion2.errors }">
+			<input type="text" id="promedioinicioeducacion2" formControlName="promedioinicioeducacion2" class="form-control col-3" [ngClass]="{ 'is-invalid': submitted2 && f2.promedioinicioeducacion2.errors }">
+			<input type="text" id="promediofinaleducacion2" formControlName="promediofinaleducacion2" class="form-control col-3" [ngClass]="{ 'is-invalid': submitted2 && f2.promediofinaleducacion2.errors }">
 		</div>
 		<div class=" col-12 input-group">
-			<input id="EDU_tbl_ciclo3" type="text" class="form-control col-2">
-			<input id="EDU_tbl_escuela3" type="text" class="form-control col-3">
-			<input id="EDU_tbl_grado3" type="text" class="form-control col-1">
-			<input id="EDU_tbl_prom_ini3" type="text" class="form-control col-3">
-			<input id="EDU_tbl_prom_fin3" type="text" class="form-control col-3">
-		</div>
-		<div class=" col-12 input-group">
-			<input id="EDU_tbl_ciclo4" type="text" class="form-control col-2">
-			<input id="EDU_tbl_escuela4" type="text" class="form-control col-3">
-			<input id="EDU_tbl_grado4" type="text" class="form-control col-1">
-			<input id="EDU_tbl_prom_ini4" type="text" class="form-control col-3">
-			<input id="EDU_tbl_prom_fin4" type="text" class="form-control col-3">
-		</div>
-		<div class=" col-12 input-group">
-			<input id="EDU_tbl_ciclo5" type="text" class="form-control col-2">
-			<input id="EDU_tbl_escuela5" type="text" class="form-control col-3">
-			<input id="EDU_tbl_grado5" type="text" class="form-control col-1">
-			<input id="EDU_tbl_prom_ini5" type="text" class="form-control col-3">
-			<input id="EDU_tbl_prom_fin5" type="text" class="form-control col-3">
+			<input type="text" id="cicloeducacion3" formControlName="cicloeducacion3" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion3.errors }">
+			<input type="text" id="escuelaeducacion3" formControlName="escuelaeducacion3" class="form-control col-3" [ngClass]="{ 'is-invalid': submitted2 && f2.escuelaeducacion3.errors }">
+			<input type="text" id="gradoeducacion3" formControlName="gradoeducacion3" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.gradoeducacion3.errors }">
+			<input type="text" id="promedioinicioeducacion3" formControlName="promedioinicioeducacion3" class="form-control col-3" [ngClass]="{ 'is-invalid': submitted2 && f2.promedioinicioeducacion3.errors }">
+			<input type="text" id="promediofinaleducacion3" formControlName="promediofinaleducacion3" class="form-control col-3" [ngClass]="{ 'is-invalid': submitted2 && f2.promediofinaleducacion3.errors }">
 		</div>
 	</div>
 	<!-- INICIO ROW #3 -->	
@@ -105,56 +88,43 @@
 
 		<div class="col-5">
 			<div class=" col-12 input-group">
-				<input id="EDU_tbl_asig_mayor1" type="text" class="form-control col-8" placeholder="Asignatura">
-				<input id="EDU_tbl_prom_mayor1" type="text" class="form-control col-4" placeholder="Promedio">
+				<input type="text" id="mejorasignaturaeducacion1" formControlName="mejorasignaturaeducacion1" class="form-control col-8" [ngClass]="{ 'is-invalid': submitted2 && f2.mejorasignaturaeducacion1.errors }" placeholder="Asignatura">
+				<input type="text" id="mejorpromedioeducacion1" formControlName="mejorpromedioeducacion1" class="form-control col-4" [ngClass]="{ 'is-invalid': submitted2 && f2.mejorpromedioeducacion1.errors }" placeholder="Promedio">
 			</div>
 		</div>
 		<div class="col-2"></div>
 		<div class="col-5">
 			<div class=" col-12 input-group">
-				<input id="EDU_tbl_asig_menor1" type="text" class="form-control col-8" placeholder="Asignatura">
-				<input id="EDU_tbl_prom_menor1" type="text" class="form-control col-4" placeholder="Promedio">
+				<input type="text" id="menorasignaturaeducacion1" formControlName="menorasignaturaeducacion1" class="form-control col-8" [ngClass]="{ 'is-invalid': submitted2 && f2.menorasignaturaeducacion1.errors }" placeholder="Asignatura">
+				<input type="text" id="menorpromedioeducacion1" formControlName="menorpromedioeducacion1" class="form-control col-4" [ngClass]="{ 'is-invalid': submitted2 && f2.menorpromedioeducacion1.errors }" placeholder="Promedio">
 			</div>
 		</div>
 
 		<div class="col-5">
 			<div class=" col-12 input-group">
-				<input id="EDU_tbl_asig_mayor2" type="text" class="form-control col-8" placeholder="Asignatura">
-				<input id="EDU_tbl_prom_mayor2" type="text" class="form-control col-4" placeholder="Promedio">
+				<input type="text" id="mejorasignaturaeducacion2" formControlName="mejorasignaturaeducacion2" class="form-control col-8" [ngClass]="{ 'is-invalid': submitted2 && f2.mejorasignaturaeducacion2.errors }" placeholder="Asignatura">
+				<input type="text" id="mejorpromedioeducacion2" formControlName="mejorpromedioeducacion2" class="form-control col-4" [ngClass]="{ 'is-invalid': submitted2 && f2.mejorpromedioeducacion2.errors }" placeholder="Promedio">
 			</div>
 		</div>
 		<div class="col-2"></div>
 		<div class="col-5">
 			<div class=" col-12 input-group">
-				<input id="EDU_tbl_asig_menor2" type="text" class="form-control col-8" placeholder="Asignatura">
-				<input id="EDU_tbl_prom_menor2" type="text" class="form-control col-4" placeholder="Promedio">
+				<input type="text" id="menorasignaturaeducacion2" formControlName="menorasignaturaeducacion2" class="form-control col-8" [ngClass]="{ 'is-invalid': submitted2 && f2.menorasignaturaeducacion2.errors }" placeholder="Asignatura">
+				<input type="text" id="menorpromedioeducacion2" formControlName="menorpromedioeducacion2" class="form-control col-4" [ngClass]="{ 'is-invalid': submitted2 && f2.menorpromedioeducacion2.errors }" placeholder="Promedio">
 			</div>
 		</div>
 
 		<div class="col-5">
 			<div class=" col-12 input-group">
-				<input id="EDU_tbl_asig_mayor3" type="text" class="form-control col-8" placeholder="Asignatura">
-				<input id="EDU_tbl_prom_mayor3" type="text" class="form-control col-4" placeholder="Promedio">
+				<input type="text" id="mejorasignaturaeducacion3" formControlName="mejorasignaturaeducacion3" class="form-control col-8" [ngClass]="{ 'is-invalid': submitted2 && f2.mejorasignaturaeducacion3.errors }" placeholder="Asignatura">
+				<input type="text" id="mejorpromedioeducacion3" formControlName="mejorpromedioeducacion3" class="form-control col-4" [ngClass]="{ 'is-invalid': submitted2 && f2.mejorpromedioeducacion3.errors }" placeholder="Promedio">
 			</div>
 		</div>
 		<div class="col-2"></div>
 		<div class="col-5">
 			<div class=" col-12 input-group">
-				<input id="EDU_tbl_asig_menor3" type="text" class="form-control col-8" placeholder="Asignatura">
-				<input id="EDU_tbl_prom_menor3" type="text" class="form-control col-4" placeholder="Promedio">
-			</div>
-		</div>
-		<div class="col-5">
-			<div class=" col-12 input-group">
-				<input id="EDU_tbl_asig_mayor4" type="text" class="form-control col-8" placeholder="Asignatura">
-				<input id="EDU_tbl_prom_mayor4" type="text" class="form-control col-4" placeholder="Promedio">
-			</div>
-		</div>
-		<div class="col-2"></div>
-		<div class="col-5">
-			<div class=" col-12 input-group">
-				<input id="EDU_tbl_asig_menor4" type="text" class="form-control col-8" placeholder="Asignatura">
-				<input id="EDU_tbl_prom_menor4" type="text" class="form-control col-4" placeholder="Promedio">
+				<input type="text" id="menorasignaturaeducacion3" formControlName="menorasignaturaeducacion3" class="form-control col-8" [ngClass]="{ 'is-invalid': submitted2 && f2.menorasignaturaeducacion3.errors }" placeholder="Asignatura">
+				<input type="text" id="menorpromedioeducacion3" formControlName="menorpromedioeducacion3" class="form-control col-4" [ngClass]="{ 'is-invalid': submitted2 && f2.menorpromedioeducacion3.errors }" placeholder="Promedio">
 			</div>
 		</div>
 	</div>
@@ -174,25 +144,30 @@
 	</div>
 	<div class="row" style="margin: 0px 0px 0px 15px;">
 		<div class="col-4">
-			<div class="col-12 custom-control custom-switch">
-				<input id="EDU_leer" type="checkbox" class="custom-control-input" >
-				<label class="custom-control-label" for="EDU_leer">Sabe leer</label>
+			<div class="col-12 custom-control custom-checkbox">
+				<input type="checkbox" id="leer" formControlName="leer" class="custom-control-input"
+				[ngClass]="{ 'is-invalid': submitted2 && f2.leer.errors}" />
+				<label class="custom-control-label" for="leer">Sabe leer</label>
 			</div>
 		</div>
 		<div class="col-4 custom-control-inline" style="left: -15px;">
 			<div class="col-7 input-group input-group-sm mb-3">
-				<input id="EDU_palabras_xmin_ini1" type="text" class="form-control" placeholder="Palabras por minuto">
+				<input type="number"  formControlName="palabraxminutoInicio" class="form-control"
+				[ngClass]="{ 'is-invalid': submitted2 && f2.palabraxminutoInicio.errors }" placeholder="Palabras por minuto">
 			</div>
 			<div class="col-5 input-group input-group-sm mb-3">
-				<input id="EDU_nivel_logro_leer_fin1" type="text" class="form-control" placeholder="Nivel de logro">
+				<input type="text"  formControlName="nivellecturaInicio" class="form-control"
+				[ngClass]="{ 'is-invalid': submitted2 && f2.nivellecturaInicio.errors }" placeholder="Nivel de logro">
 			</div>
 		</div>
 		<div class="col-3 custom-control-inline" style="left: -45px;">
 			<div class="col-10 input-group input-group-sm mb-3">
-				<input id="EDU_palabras_xmin_fin2" type="text" class="form-control" placeholder="Palabras por minuto">
+				<input type="number"  formControlName="palabraxminutoFinal" class="form-control"
+				[ngClass]="{ 'is-invalid': submitted2 && f2.palabraxminutoFinal.errors }" placeholder="Palabras por minuto">
 			</div>
 			<div class="col-8 input-group input-group-sm mb-3">
-				<input id="EDU_nivel_logro_leer_fin2" type="text" class="form-control" placeholder="Nivel de logro">
+				<input type="text"  formControlName="nivellecturaFinal" class="form-control"
+				[ngClass]="{ 'is-invalid': submitted2 && f2.nivellecturaFinal.errors }" placeholder="Nivel de logro">
 			</div>
 		</div>
 	</div>
@@ -204,28 +179,78 @@
 			</div>
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<input id="EDU_nivel_logro_compr_ini1" type="text" class="form-control" placeholder="Nivel de logro">
+			<input type="text"  formControlName="nivelcomprencionInicio" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.nivelcomprencionInicio.errors }" placeholder="Nivel de logro">
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<input id="EDU_nivel_logro_compr_fin1" type="text" class="form-control" placeholder="Nivel de logro">
+			<input type="text"  formControlName="nivelcomprencionFinal" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.nivelcomprencionFinal.errors }" placeholder="Nivel de logro">
 		</div>
 	</div>
 
-	<div class="row" style="margin: 0px 0px 0px 15px;">
+	<div class="row" style="margin: 0px 15px 0px 15px;">
 		<div class="col-4">
-			<div class="col-12 custom-control custom-switch">
-				<input id="EDU_escribir" type="checkbox" class="custom-control-input" >
-				<label class="custom-control-label" for="EDU_escribir">Sabe escribir</label>
+			<div class="col-12 custom-control custom-checkbox">
+				<input type="checkbox" id="escribir" formControlName="escribir" class="custom-control-input"
+				[ngClass]="{ 'is-invalid': submitted2 && f2.escribir.errors}" />
+				<label class="custom-control-label" for="escribir">Sabe escribir</label>
 			</div>
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<input id="EDU_nivel_logro_escr_ini1" type="text" class="form-control" placeholder="Nivel de logro">
+			<input type="text"  formControlName="nivelescrituraInicio" class="form-control"[ngClass]="{ 'is-invalid': submitted2 && f2.nivelescrituraInicio.errors }" placeholder="Nivel de logro">
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<input id="EDU_nivel_logro_escr_fin1" type="text" class="form-control" placeholder="Nivel de logro">
+			<input type="text"  formControlName="nivelescrituraFinal" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.nivelescrituraFinal.errors }" placeholder="Nivel de logro">
 		</div>
 	</div>
-	<!-- INICIO ROW #4 -->	
+	<div class="dropdown-divider"></div>
+	<div class="row custom-control-inline" style="margin: 0px 0px 15px 15px;">
+		<div class="col-12 text-left font-weight-bold">
+			<span>Señale si ha recibido algún premio, beca o reconocimiento dentro del área educativa</span>
+		</div>
+		<div class="col-3">
+			<div class="col-12 custom-control custom-checkbox">
+				<input type="checkbox" id="becas" formControlName="becas" class="custom-control-input"
+				[ngClass]="{ 'is-invalid': submitted2 && f2.becas.errors}" />
+				<label class="custom-control-label" for="becas">Ha recibido alguno: </label>
+			</div>
+		</div>
+		<div class="col-8 custom-control-inline" style="left: -15px;">
+			<div class="col-12 input-group input-group-sm mb-3">
+				<input type="number"  formControlName="palabraxminutoInicio" class="form-control"
+				[ngClass]="{ 'is-invalid': submitted2 && f2.palabraxminutoInicio.errors }" placeholder="Cuáles">
+			</div>
+		</div>
+	</div>
+	<div class="row" style="margin: 0px 15px 15px 15px;">
+		<div class="col-2" >
+			<span>Fecha</span>
+		</div>
+		<div class="col-5" >
+			<span>Asignatura</span>
+		</div>
+		<div class="col-5" >
+			<span>Lugar</span>
+		</div>
+		<div class=" col-12 input-group">
+			<input type="date" id="datoBecafecha1" formControlName="datoBecafecha1" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.datoBecafecha1.errors }">
+			<input type="text" id="datoBecaasignatura1" formControlName="datoBecaasignatura1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.datoBecaasignatura1.errors }">
+			<input type="text" id="datoBecalugar1" formControlName="datoBecalugar1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.datoBecalugar1.errors }">
+		</div>
+		<div class=" col-12 input-group">
+			<input type="date" id="datoBecafecha2" formControlName="datoBecafecha2" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.datoBecafecha2.errors }">
+			<input type="text" id="datoBecaasignatura2" formControlName="datoBecaasignatura2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.datoBecaasignatura2.errors }">
+			<input type="text" id="datoBecalugar2" formControlName="datoBecalugar2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.datoBecalugar2.errors }">
+			
+		</div>
+		<div class=" col-12 input-group">
+			<input type="date" id="datoBecafecha3" formControlName="datoBecafecha3" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.datoBecafecha3.errors }">
+			<input type="text" id="datoBecaasignatura3" formControlName="datoBecaasignatura3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.datoBecaasignatura3.errors }">
+			<input type="text" id="datoBecalugar3" formControlName="datoBecalugar3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.datoBecalugar3.errors }">
+		</div>
+	</div>
+
 	<div class="dropdown-divider"></div>
 	<div class="row font-weight-bold" style="margin: 0px 0px 15px 15px;">
 		<div class="col-12 text-left">
@@ -234,38 +259,52 @@
 	</div>
 
 	<div class="row" style="margin: 0px 0px 15px 30px;">
-		<div class="col custom-control custom-switch">
-			<input id="EDU_espanol" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="EDU_espanol">Español</label>
+		<div class="col custom-control custom-checkbox">
+			<input type="checkbox" id="espanol" formControlName="espanol" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.espanol.errors}"/>
+			<label class="custom-control-label" for="espanol">Español</label>
 		</div>
-		<div class="col custom-control custom-switch">
-			<input id="EDU_mate" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="EDU_mate">Matemáticas</label>
+		<div class="col custom-control custom-checkbox">
+			<input type="checkbox" id="matematicas" formControlName="matematicas" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.matematicas.errors}"/>
+			<label class="custom-control-label" for="matematicas">Matemáticas</label>
 		</div>
-		<div class="col custom-control custom-switch">
-			<input id="EDU_ciencias" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="EDU_ciencias">Ciencias Naturales</label>
+		<div class="col custom-control custom-checkbox">
+			<input type="checkbox" id="cienciasnaturales" formControlName="cienciasnaturales" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.cienciasnaturales.errors}"/>
+			<label class="custom-control-label" for="cienciasnaturales">Ciencias Naturales</label>
 		</div>
-		<div class="col custom-control custom-switch">
-			<input id="EDU_ciencias_soc" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="EDU_ciencias_soc">Ciencias Sociales</label>
+		<div class="col custom-control custom-checkbox">
+			<input type="checkbox" id="cienciassociales" formControlName="cienciassociales" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.cienciassociales.errors}"/>
+			<label class="custom-control-label" for="cienciassociales">Ciencias Sociales</label>
 		</div>
+		<div class="col"></div>
 	</div>
-	<div class="row" style="margin: 0px 0px 15px 30px;">
-		<div class="col custom-control custom-switch">
-			<input id="EDU_fisico" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="EDU_fisico">Fisicomatemáticas</label>
+	<div class="row" style="margin: 0px 15px 15px 30px;">
+		<div class="col custom-control custom-checkbox">
+			<input type="checkbox" id="fisicomatematicas" formControlName="fisicomatematicas" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.fisicomatematicas.errors}"/>
+			<label class="custom-control-label" for="fisicomatematicas">Fisicomatemáticas</label>
 		</div>
-		<div class="col custom-control custom-switch">
-			<input id="EDU_humanidades" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="EDU_humanidades">Humanidades</label>
+		<div class="col custom-control custom-checkbox">
+			<input type="checkbox" id="humanidades" formControlName="humanidades" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.humanidades.errors}"/>
+			<label class="custom-control-label" for="humanidades">Humanidades</label>
 		</div>
-		<div class="col custom-control custom-switch">
-			<input id="EDU_administrativas" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="EDU_administrativas">Administrativas</label>
+		<div class="col custom-control custom-checkbox">
+			<input type="checkbox" id="administracion" formControlName="administracion" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.administracion.errors}"/>
+			<label class="custom-control-label" for="administracion">Administrativas</label>
 		</div>
+		<div class="col"></div>
 		<div class="col">
-			<button id="EDU_btn_guardar" type="button" class="btn btn-club btn-sm" style="width:100%; height: 45px;">Guardar</button>
-		</div>
+			<button name="ED_btn_guardar" class="btn btn-club btn-sm"
+			style="width:100%; margin-top: -40px; height: 50px;" type="submit">
+			<span id="spinner_ED" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+			hidden></span>
+			Guardar
+		</button>
 	</div>
+</div>
 </form>
