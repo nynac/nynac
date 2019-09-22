@@ -20,9 +20,9 @@
 			<a class="nav-link" href="#medico" data-toggle="tab">Datos médicos</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link active" href="#educacion" data-toggle="tab">Educación</a>
+			<a class="nav-link" href="#educacion" data-toggle="tab">Educación</a>
 		</li>
-		<li class="nav-item">
+		<li class="nav-item active">
 			<a class="nav-link" href="#deporte" data-toggle="tab">Deporte</a>
 		</li>
 		<li class="nav-item">
@@ -45,10 +45,10 @@
 		<div class="tab-pane" id="medico">
 			<dm-ninos [miembro]="miembros"></dm-ninos>
 		</div>
-		<div class="tab-pane active" id="educacion">
+		<div class="tab-pane" id="educacion">
 			<educacion-ninos [miembro]="miembros"></educacion-ninos>
 		</div>
-		<div class="tab-pane" id="deporte">
+		<div class="tab-pane active" id="deporte">
 			<deporte-ninos [miembro]="miembros"></deporte-ninos>
 		</div>
 		<div class="tab-pane" id="arte">
