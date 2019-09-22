@@ -1,5 +1,4 @@
-<!-- <form [formGroup]="form_buscar" (ngSubmit)="dep_busq_Form()"> -->
-<!--     <form>
+<form [formGroup]="form_buscar" (ngSubmit)="dep_busq_Form()">
     <div class="row" style="margin: 15px 0px 0px 0px">
         <div class="col-6">
         </div>
@@ -21,12 +20,12 @@
             </button>
         </div>
     </div>
-</form> -->
+</form>
 
 <div class="dropdown-divider"></div>
-<form action="">
+<form [formGroup]="form_guardar" (ngSubmit)="guardar_DEP()">
     <!-- INICIO  -->
-    <div class="row" style="margin: 0px 0px 15px 15px">
+    <div class="row" style="margin: 0px 15px 15px 15px">
         <div class="col-2 font-weight-bold">
             <span>Edad</span>
         </div>
@@ -43,169 +42,155 @@
             <span>IMC </span>
         </div>
         <div class=" col-12 input-group">
-        <!--     <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="text" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }"> -->
+            <input type="number" id="edaddeporte1" formControlName="edaddeporte1" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.edaddeporte1.errors }">
+            <input type="text" id="ciclodeporte1" formControlName="ciclodeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.ciclodeporte1.errors }">
+            <input type="number" id="estaturadeporte1" formControlName="estaturadeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.estaturadeporte1.errors }">
+            <input type="number" id="pesodeporte1" formControlName="pesodeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.pesodeporte1.errors }">
+            <input type="number" id="imcdeporte1" formControlName="imcdeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.imcdeporte1.errors }">
         </div>
         <div class=" col-12 input-group">
-          <!--   <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="text" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }"> -->
+            <input type="number" id="edaddeporte2" formControlName="edaddeporte2" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.edaddeporte2.errors }">
+            <input type="text" id="ciclodeporte2" formControlName="ciclodeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.ciclodeporte2.errors }">
+            <input type="number" id="estaturadeporte2" formControlName="estaturadeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.estaturadeporte2.errors }">
+            <input type="number" id="pesodeporte2" formControlName="pesodeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.pesodeporte2.errors }">
+            <input type="number" id="imcdeporte2" formControlName="imcdeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.imcdeporte2.errors }">
         </div>
         <div class=" col-12 input-group">
-       <!--      <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="text" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
-            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }"> -->
-        </div>
-        <div class=" col-12 input-group">
-            <input id="DEP_edad_2" type="number" class="form-control col-1">
-            <input id="DEP_ciclo_2" type="text" class="form-control col-5">
-            <input id="DEP_estatura_2" type="number" class="form-control col-5">
-            <input id="DEP_peso_2" type="number" class="form-control col-5">
-            <input id="DEP_imc_2" type="number" class="form-control col-5">
+            <input type="number" id="edaddeporte3" formControlName="edaddeporte3" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.edaddeporte3.errors }">
+            <input type="text" id="ciclodeporte3" formControlName="ciclodeporte3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.ciclodeporte3.errors }">
+            <input type="number" id="estaturadeporte3" formControlName="estaturadeporte3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.estaturadeporte3.errors }">
+            <input type="number" id="pesodeporte3" formControlName="pesodeporte3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.pesodeporte3.errors }">
+            <input type="number" id="imcdeporte3" formControlName="imcdeporte3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.imcdeporte3.errors }">
         </div>
     </div>
     <div class="dropdown-divider"></div>
     <!-- INICIO ROW #3 -->
-    <div class="row" style="margin: 0px 0px 0px 30px">
-        <div class="col-12" style="left: -15px;">
-            <span>Anteriormente ha participado en alguna actividad deportiva: </span>
-            <div class="form-check custom-control-inline" style="margin-left: 10px;">
-                <input type="checkbox" class="form-check-input" id="DEP_deporte_si">
-                <label class="form-check-label" for="DEP_deporte_si">Si</label>
-                <div class="input-group-sm mb-3">
-                    <input id="DEP_deporte_cual" style="margin-left: 10px;" type="text" placeholder=" ¿Cúal?"
-                        class="form-control ">
-                </div>
-            </div>
+    <div class="row" style="margin: 0px 15px 0px 15px">
+        <div class="col-6">
+            <label>Anteriormente ha participado en alguna actividad deportiva:</label>
+        </div>
+        <div class="col-6 input-group input-group-sm mb-3">
+            <input type="text"  formControlName="actividaddeportiva" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.actividaddeportiva.errors }" placeholder="¿Cúal?">
         </div>
     </div>
-    <div class=" col-6" style="margin-left: 15px;">
-        <span>Señale si presenta algun interes en algunas de las siguientes areas: </span><br>
-    </div>
-    <div class="col-12 text-center">
-        <div class="form-check custom-control-inline" style="margin-left: 20px;">
-            <input type="checkbox" class="form-check-input" id="DEP_Box">
-            <label class="form-check-label" for="DEP_Box">Box</label>
-        </div>
-        <div class="form-check custom-control-inline" style="margin-left: 50px;">
-            <input type="checkbox" class="form-check-input" id="DEP_Atletismo">
-            <label class="form-check-label" for="DEP_Atletismo">Atletismo</label>
-        </div>
-        <div class="form-check custom-control-inline" style="margin-left: 20px;">
-            <input type="checkbox" class="form-check-input" id="DEP_Basquetbol">
-            <label class="form-check-label" for="DEP_Basquetbol">Basquetbol</label>
-        </div>
-        <div class="form-check custom-control-inline" style="margin-left: 20px;">
-            <input type="checkbox" class="form-check-input" id="DEP_Volibol">
-            <label class="form-check-label" for="DEP_Volibol">Volibol</label>
-        </div>
-        <div class="form-check custom-control-inline" style="margin-left: 20px;">
-            <input type="checkbox" class="form-check-input" id="DEP_Animacion_Deportiva">
-            <label class="form-check-label" for="DEP_Animacion_Deportiva">Animacion Deportiva</label>
-        </div>
-        <div class="form-check custom-control-inline" style="margin-left: 20px;">
-            <input type="checkbox" class="form-check-input" id="DEP_Beisbol">
-            <label class="form-check-label" for="DEP_Beisbol">Beisbol</label>
-        </div>
-        <div class="form-check custom-control-inline" style="margin-left: 20px;">
-            <input type="checkbox" class="form-check-input" id="DEP_Gimnasia">
-            <label class="form-check-label" for="DEP_Gimnasia">Gimnasia</label>
-        </div>
-
-        <div class="col-12"></div>
-        <div class="form-check custom-control-inline" style="margin-left: 20px;">
-            <input type="checkbox" class="form-check-input" id="DEP_Marciales">
-            <label class="form-check-label" for="DEP_Marciales">Artes Marciales</label>
-        </div>
-        <div class="input-group-sm custom-control-inline">
-            <div>
-                <input id="DEP_otro_deporte" type="checkbox">
-                <label class="form-check-label" for="DEP_otro_deporte">Otro</label></div>
-            <div class="input-group-sm" style="margin-left: 20px;">
-                <input id="DEP_otro_deporte" type="text" placeholder="¿Cúal?" class="form-control">
-            </div>
-        </div>
-        <div class="form-check custom-control-inline">
-            <input type="checkbox" class="form-check-input" id="DEP_ninguna">
-            <label class="form-check-label" for="DEP_ninguna">Ninguna en especial</label>
-        </div>
-    </div>
-    <div class="row" style="margin: 15px 0px 15px 30px">
-        <div class="col-12" style="left: -15px;">
-            <span>Ha formado parte de algun equipo: </span>
-            <div class="form-check custom-control-inline" style="margin-left: 10px;">
-                <input type="checkbox" class="form-check-input" id="DEP_equipo_si">
-                <label class="form-check-label" for="DEP_equipo_si">Si</label>
-                <div class="input-group-sm mb-3">
-                    <input id="DEP_equipo_cual" style="margin-left: 10px;" type="text" placeholder=" ¿Cúal?"
-                        class="form-control ">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row" style="margin: 15px 0px 15px 30px">
-        <div class="col-12" style="left: -15px;">
-            <span>Existe algun impedimento por el cual no pueda realizar ejercicio:: </span>
-            <div class="form-check custom-control-inline" style="margin-left: 10px;">
-                <input type="checkbox" class="form-check-input" id="DEP_impedimento_si">
-                <label class="form-check-label" for="DEP_impedimento_si">Si</label>
-                <div class="input-group-sm mb-3">
-                    <input id="DEP_impedimento_cual" style="margin-left: 10px;" type="text" placeholder=" ¿Cúal?"
-                        class="form-control ">
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <div class="dropdown-divider"></div>
-    <div class="row" style="margin: 15px 0px 15px 30px">
-        <div class="col-12" style="left: -15px;">
-            <span>Señale si ha recibido algun Premio, Beca o Reconocimiento dentro del area deportiva: </span>
-            <div class="form-check custom-control-inline" style="margin-left: 10px;">
-                <input type="checkbox" class="form-check-input" id="DEP_premio_si">
-                <label class="form-check-label" for="DEP_premio_si">Si. Cuales:</label>
-            </div>
+    <div class="row" style="margin: 0px 0px 15px 30px;">
+        <div class=" col-12" style="left: -15px;">
+            <span>Señale si presenta algun interes en algunas de las siguientes areas: </span>
+        </div>
+        <div class="col-2 custom-control custom-checkbox">
+            <input type="checkbox" id="futbol" formControlName="futbol" class="custom-control-input"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.futbol.errors}"/>
+            <label class="custom-control-label" for="futbol">Futbol</label>
+        </div>
+        <div class="col-2 custom-control custom-checkbox">
+            <input type="checkbox" id="box" formControlName="box" class="custom-control-input"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.box.errors}"/>
+            <label class="custom-control-label" for="box">Box</label>
+        </div>
+        <div class="col-2 custom-control custom-checkbox">
+            <input type="checkbox" id="atletismo" formControlName="atletismo" class="custom-control-input"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.atletismo.errors}"/>
+            <label class="custom-control-label" for="atletismo">Atletismo</label>
+        </div>
+        <div class="col-2 custom-control custom-checkbox">
+            <input type="checkbox" id="basquetbol" formControlName="basquetbol" class="custom-control-input"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.basquetbol.errors}"/>
+            <label class="custom-control-label" for="basquetbol">Basquetbol</label>
+        </div>
+        <div class="col-2 custom-control custom-checkbox">
+            <input type="checkbox" id="volibol" formControlName="volibol" class="custom-control-input"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.volibol.errors}"/>
+            <label class="custom-control-label" for="volibol">Volleyball </label>
+        </div>
+        <div class="col-2 custom-control custom-checkbox">
+            <input type="checkbox" id="beisbol" formControlName="beisbol" class="custom-control-input"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.beisbol.errors}"/>
+            <label class="custom-control-label" for="beisbol">Beisbol</label>
         </div>
     </div>
-    <!-- INICIO ROW #2 -->
-    <div class="row" style="margin: 0px 0px 15px 15px">
-        <div class="col-4 font-weight-bold">
-            <span>Fecha</span>
+    <div class="row" style="margin: 0px 15px 15px 30px;">
+        <div class="col-2 custom-control custom-checkbox">
+            <input type="checkbox" id="animaciondeportiva" formControlName="animaciondeportiva" class="custom-control-input"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.animaciondeportiva.errors}"/>
+            <label class="custom-control-label" for="animaciondeportiva">Animación deportiva</label>
         </div>
-        <div class="col-4 font-weight-bold">
-            <span>Diciplina</span>
+        <div class="col-2 custom-control custom-checkbox">
+            <input type="checkbox" id="artesmarciales" formControlName="artesmarciales" class="custom-control-input"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.artesmarciales.errors}"/>
+            <label class="custom-control-label" for="artesmarciales">Artes Marciales</label>
         </div>
-        <div class="col-4 font-weight-bold">
-            <span>Lugar </span>
+        <div class="col-2 custom-control custom-checkbox">
+            <input type="checkbox" id="gimnasia" formControlName="gimnasia" class="custom-control-input"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.gimnasia.errors}"/>
+            <label class="custom-control-label" for="gimnasia">Gimnasia</label>
         </div>
-        <div class=" col-12 input-group">
-            <input id="DEP_fecha_1" type="date" class="form-control col-2">
-            <input id="DEP_diciplina_1" type="text" class="form-control col-5">
-            <input id="DEP_lugar_1" type="text" class="form-control col-5">
+        <div class="col-2 custom-control custom-checkbox">
+
         </div>
-        <div class=" col-12 input-group">
-            <input id="DEP_fecha_2" type="date" class="form-control col-2">
-            <input id="DEP_diciplina_2" type="text" class="form-control col-5">
-            <input id="DEP_lugar_2" type="text" class="form-control col-5">
-        </div>
-        <div class=" col-12 input-group">
-            <input id="DEP_fecha_3" type="date" class="form-control col-2">
-            <input id="DEP_diciplina_3" type="text" class="form-control col-5">
-            <input id="DEP_lugar_3" type="text" class="form-control col-5">
+        <div class="col-4 form-group input-group-sm mb-3" style="top: -10px;">
+            <label for="otro" style="padding: 0px; font-size: 13px;">Otro</label>
+            <input type="text" id="otro" formControlName="otro" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.otro.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
         </div>
     </div>
-    <div class="row" style="margin: 15px 0px 15px 15px">
-        <div class="col-10"></div>
-        <div class="col-2">
-            <button id="ART_btn_guardar" type="button" class="btn btn-club btn-sm"
-                style="width:100%; height: 50px;">Guardar</button>
-        </div>
+    <div class="row" style="margin: 15px 15px 15px 30px">
+     <div class="col-6 form-group input-group-sm mb-3">
+        <label for="equipo" style="padding: 0px; font-size: 13px;">Ha formado parte de algun equipo</label>
+        <input type="text" id="equipo" formControlName="equipo" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.equipo.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
     </div>
+    <div class="col-6 form-group input-group-sm mb-3">
+        <label for="problemaejercicio" style="padding: 0px; font-size: 13px;">Existe algun impedimento por el cual no pueda realizar ejercicio</label>
+        <input type="text" id="problemaejercicio" formControlName="problemaejercicio" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.problemaejercicio.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+    </div>
+</div>
+
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 0px 15px 15px">
+    <div class="col-12">
+        <span>Señale si ha recibido algun Premio, Beca o Reconocimiento dentro del area deportiva: 
+        </span>
+    </div>
+</div>
+<div class="row" style="margin: 0px 15px 15px 15px;">
+    <div class="col-2" >
+        <span>Fecha</span>
+    </div>
+    <div class="col-5" >
+        <span>Diciplina</span>
+    </div>
+    <div class="col-5" >
+        <span>Lugar</span>
+    </div>
+    <div class=" col-12 input-group">
+        <input type="date" id="fechapremiodeporte1" formControlName="fechapremiodeporte1" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.fechapremiodeporte1.errors }">
+        <input type="text" id="diciplinapremiodeporte1" formControlName="diciplinapremiodeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.diciplinapremiodeporte1.errors }">
+        <input type="text" id="lugarpremiodeporte1" formControlName="lugarpremiodeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarpremiodeporte1.errors }">
+    </div>
+    <div class=" col-12 input-group">
+        <input type="date" id="fechapremiodeporte2" formControlName="fechapremiodeporte2" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.fechapremiodeporte2.errors }">
+        <input type="text" id="diciplinapremiodeporte2" formControlName="diciplinapremiodeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.diciplinapremiodeporte2.errors }">
+        <input type="text" id="lugarpremiodeporte2" formControlName="lugarpremiodeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarpremiodeporte2.errors }">
+
+    </div>
+    <div class=" col-12 input-group">
+        <input type="date" id="fechapremiodeporte3" formControlName="fechapremiodeporte3" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.fechapremiodeporte3.errors }">
+        <input type="text" id="diciplinapremiodeporte3" formControlName="diciplinapremiodeporte3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.diciplinapremiodeporte3.errors }">
+        <input type="text" id="lugarpremiodeporte3" formControlName="lugarpremiodeporte3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarpremiodeporte3.errors }">
+    </div>
+</div>
+<div class="row" style="margin: 15px 15px 15px 15px">
+    <div class="col-10"></div>
+    <div class="col-2">
+        <button name="DEP_btn_guardar" class="btn btn-club btn-sm"
+            style="width:100%; height: 50px;" type="submit">
+            <span id="spinner_dep" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+            hidden></span>
+            Guardar
+        </button>
+    </div>
+</div>
 </form>
