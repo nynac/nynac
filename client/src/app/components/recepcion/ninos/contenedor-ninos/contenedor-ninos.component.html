@@ -13,11 +13,11 @@
 		<li class="nav-item">
 			<a class="nav-link" href="#familia" data-toggle="tab">Núcleo Familia</a>
 		</li>
-		<li class="nav-item ">
-			<a class="nav-link active" href="#socioeconomico" data-toggle="tab">Estudio socioeconómicos</a>
+		<li class="nav-item">
+			<a class="nav-link" href="#socioeconomico" data-toggle="tab">Estudio socioeconómicos</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#medico" data-toggle="tab">Datos médicos</a>
+			<a class="nav-link active" href="#medico" data-toggle="tab">Datos médicos</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="#educacion" data-toggle="tab">Educación</a>
@@ -39,10 +39,10 @@
 		<div class="tab-pane" id="familia">
 			<nucleo-familiar [miembro]="miembros"></nucleo-familiar>
 		</div>
-		<div class="tab-pane active" id="socioeconomico">
+		<div class="tab-pane" id="socioeconomico">
 			<ds-ninos [miembro]="miembros"></ds-ninos>
 		</div>
-		<div class="tab-pane" id="medico">
+		<div class="tab-pane active" id="medico">
 			<dm-ninos [miembro]="miembros"></dm-ninos>
 		</div>
 		<div class="tab-pane" id="educacion">

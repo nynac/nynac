@@ -24,6 +24,7 @@ export class DsNinosComponent implements OnInit {
 		){}
 
 	@Input('miembro') miembro: any;
+
 	ngOnInit() {
 		this.form_buscar = this.formBuilder.group({
 			miembroID: ['', Validators.required]
@@ -81,6 +82,7 @@ export class DsNinosComponent implements OnInit {
 			nivelingresomensual : ['']
 		})
 	}
+
 	get f(){ return this.form_buscar.controls;}
 	get f2(){ return this.form_guardar.controls;}
 
@@ -126,10 +128,7 @@ export class DsNinosComponent implements OnInit {
 	guardar_ES(){
 		this.submitted2 = true;
 		var spinner = document.getElementById("spinner");
-
-		this.form_guardar.get('idNinosES').setValue(24);
-		this.form_guardar.get('miembroID').setValue(24);
-
+		
 		if (this.form_guardar.invalid) {
 			console.log("Formato incorrecto del formulario");
 			spinner.setAttribute("hidden", "true");
