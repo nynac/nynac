@@ -1,29 +1,27 @@
-<form action="">
+<!-- <form [formGroup]="form_buscar" (ngSubmit)="dep_busq_Form()"> -->
+<!--     <form>
     <div class="row" style="margin: 15px 0px 0px 0px">
-        <div class="col-2 text-right font-weight-bold">
-            <span>QUÉ VAS A HACER?</span>
+        <div class="col-6">
         </div>
-        <div class="col-5">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input id="DEP_Nuevo" type="radio" class="custom-control-input" name="DEP_opcion">
-                <label class="custom-control-label" for="DEP_Nuevo">Nuevo</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input id="DEP_Modificar" type="radio" class="custom-control-input" name="DEP_opcion">
-                <label class="custom-control-label" for="DEP_Modificar">Modificar</label>
-            </div>
-        </div>
-        <div class="input-group input-group-sm mb-3 col-3 aling-right">
+        <div class="col-4 input-group input-group-sm mb-3 aling-left">
             <div class="input-group-prepend">
                 <span class="input-group-text">No. Miembro:</span>
             </div>
-            <input id="DEP_busc_miembro" type="text" class="form-control">
+            <input type="number" formControlName="miembroID" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
+            <div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
+                <div *ngIf="f.miembroID.errors.required">Completa este campo</div>
+            </div>
         </div>
         <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-            <button id="DEP_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+            <button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar">
+                <span id="spinner_buscarDEP" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                hidden></span>
+                Buscar
+            </button>
         </div>
     </div>
-</form>
+</form> -->
 
 <div class="dropdown-divider"></div>
 <form action="">
@@ -45,11 +43,25 @@
             <span>IMC </span>
         </div>
         <div class=" col-12 input-group">
-            <input id="DEP_edad_1" type="number" class="form-control col-1">
-            <input id="DEP_ciclo_1" type="text" class="form-control col-5">
-            <input id="DEP_estatura_1" type="number" class="form-control col-5">
-            <input id="DEP_peso_1" type="number" class="form-control col-5">
-            <input id="DEP_imc_1" type="number" class="form-control col-5">
+        <!--     <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="text" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }"> -->
+        </div>
+        <div class=" col-12 input-group">
+          <!--   <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="text" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }"> -->
+        </div>
+        <div class=" col-12 input-group">
+       <!--      <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="text" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }">
+            <input type="number" id="cicloeducacion1" formControlName="cicloeducacion1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.cicloeducacion1.errors }"> -->
         </div>
         <div class=" col-12 input-group">
             <input id="DEP_edad_2" type="number" class="form-control col-1">
@@ -57,13 +69,6 @@
             <input id="DEP_estatura_2" type="number" class="form-control col-5">
             <input id="DEP_peso_2" type="number" class="form-control col-5">
             <input id="DEP_imc_2" type="number" class="form-control col-5">
-        </div>
-        <div class=" col-12 input-group">
-            <input id="DEP_edad_3" type="number" class="form-control col-1">
-            <input id="DEP_ciclo_3" type="text" class="form-control col-5">
-            <input id="DEP_estatura_3" type="number" class="form-control col-5">
-            <input id="DEP_peso_3" type="number" class="form-control col-5">
-            <input id="DEP_imc_3" type="number" class="form-control col-5">
         </div>
     </div>
     <div class="dropdown-divider"></div>

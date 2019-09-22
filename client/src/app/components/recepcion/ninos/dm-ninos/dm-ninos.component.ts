@@ -118,7 +118,7 @@ export class DmNinosComponent implements OnInit {
 
 	guardar_DM(){
 		this.submitted2 = true;
-		var spinner = document.getElementById("spinner");
+		var spinner = document.getElementById("DM_spinner");
 		
 		if (this.form_guardar.invalid) {
 			console.log("Formato incorrecto del formulario");
