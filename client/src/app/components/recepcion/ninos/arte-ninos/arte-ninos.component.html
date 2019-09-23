@@ -1,165 +1,180 @@
-<form action="">
+<form [formGroup]="form_buscar" (ngSubmit)="art_busq_Form()">
 	<div class="row" style="margin: 15px 0px 0px 0px">
-		<div class="col-2 text-right font-weight-bold" >
-			<span>QUÉ VAS A HACER?</span>
+		<div class="col-6">
 		</div>
-		<div class="col-5">
-			<div class="custom-control custom-radio custom-control-inline">
-				<input id="ART_Nuevo" type="radio" class="custom-control-input" name="ART_opcion">
-				<label class="custom-control-label" for="ART_Nuevo">Nuevo</label>
-			</div>
-			<div class="custom-control custom-radio custom-control-inline">
-				<input id="ART_Modificar" type="radio" class="custom-control-input" name="ART_opcion">
-				<label class="custom-control-label" for="ART_Modificar">Modificar</label>
-			</div>
-		</div>
-		<div class="input-group input-group-sm mb-3 col-3 aling-right">
+		<div class="col-4 input-group input-group-sm mb-3 aling-left">
 			<div class="input-group-prepend">
 				<span class="input-group-text">No. Miembro:</span>
 			</div>
-			<input id="ART_busc_miembro" type="text" class="form-control">
+			<input type="number" formControlName="miembroID" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
+			<div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
+				<div *ngIf="f.miembroID.errors.required">Completa este campo</div>
+			</div>
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-			<button id="ART_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
-		</div> 
+			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar">
+				<span id="spinner_buscarART" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+				hidden></span>
+				Buscar
+			</button>
+		</div>
 	</div>
 </form>
 
 <div class="dropdown-divider"></div>
-<form action="">
+<form [formGroup]="form_guardar" (ngSubmit)="guardar_ART()">
 	<!-- INICIO ROW #1 -->	
-	<div class="row" style="margin: 15px 0px 0px 15px">
+	<div class="row" style="margin: 15px 15px 0px 15px">
 		
 		<div class="col-7 text-right">
 			<span>Regularmente participa en las actividades artísticas escolares:</span>
 		</div>
 		<div class="col-5 input-group input-group-sm mb-3">
-			<select id="AR_act_artisticas" class="custom-select" >
-				<option selected disabled>Elige</option>
-				<option value="Siempre">Siempre</option>
-				<option value="Aveces">Aveces</option>
-				<option value="Nunca">Nunca</option>
-			</select> 
-		</div>
-		<div class="col-7 text-right">
-			<span>Ha notado que quiere particcipar en las actividades artísticas pero no se anima:</span>
-		</div>
-		<div class="col-5 input-group input-group-sm mb-3">
-			<select id="AR_act_artisticas_anima" class="custom-select" >
-				<option selected disabled>Elige</option>
-				<option value="Si">Si</option>
-				<option value="No">No</option>
-			</select>
-			&nbsp; Cuales:
-		</div>
+			<select formControlName="actividadartistica" class="custom-select"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.actividadartistica.errors }" data-toggle="tooltip"
+			data-placement="top" title="Elige">
+			<option selected disabled>Elige</option>
+			<option value="Siempre">Siempre</option>
+			<option value="Aveces">Aveces</option>
+			<option value="Nunca">Nunca</option>
+		</select> 
 	</div>
-	<!-- INICIO ROW #2 -->	
-	<div class="row" style="margin: 0px 0px 15px 15px">
-		<div class="col-2 font-weight-bold">
-			<span>Fecha</span>
-		</div>
-		<div class="col-5 font-weight-bold">
-			<span>Diciplina</span>
-		</div>
-		<div class="col-5 font-weight-bold">
-			<span>Lugar </span>
-		</div>
-		<div class=" col-12 input-group">
-			<input id="ART_act_art_fecha_1" type="date" class="form-control col-2">
-			<input id="ART_act_art_diciplina_1" type="text" class="form-control col-5">
-			<input id="ART_act_art_lugar_1" type="text" class="form-control col-5">
-		</div>
-		<div class=" col-12 input-group">
-			<input id="ART_act_art_fecha_2" type="date" class="form-control col-2">
-			<input id="ART_act_art_diciplina_2" type="text" class="form-control col-5">
-			<input id="ART_act_art_lugar_2" type="text" class="form-control col-5">
-		</div>
-		<div class=" col-12 input-group">
-			<input id="ART_act_art_fecha_3" type="date" class="form-control col-2">
-			<input id="ART_act_art_diciplina_3" type="text" class="form-control col-5">
-			<input id="ART_act_art_lugar_3" type="text" class="form-control col-5">
-		</div>
+	<div class="col-7 text-right">
+		<span>Ha notado que quiere particcipar en las actividades artísticas pero no se anima:</span>
 	</div>
-	<div class="dropdown-divider"></div>
-	<!-- INICIO ROW #3 -->	
-	<div class="row" style="margin: 15px 0px 15px 30px">
-		<div class="col-12 font-weight-bold" style="left: -15px;">
-			<span>Señale si presenta algún interés especial en algunas de las siguientes áreas:</span>
-		</div>
-		<div class="col custom-control custom-switch">
-			<input id="ART_musica" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="ART_musica">Mùsica</label>
-		</div>
-		<div class="col custom-control custom-switch">
-			<input id="ART_danza" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="ART_danza">Danza</label>
-		</div>
-		<div class="col custom-control custom-switch">
-			<input id="ART_manualidades" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="ART_manualidades">Manualidades</label>
-		</div>
-		<div class="col custom-control custom-switch">
-			<input id="ART_pintura" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="ART_pintura">Pintura</label>
-		</div>
-		<div class="col custom-control custom-switch">
-			<input id="ART_teatro" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="ART_teatro">Teatro</label>
-		</div>
-		<div class="col custom-control custom-switch">
-			<input id="ART_canto" type="checkbox" class="custom-control-input" >
-			<label class="custom-control-label" for="ART_canto">Canto</label>
-		</div>
-		<div class="col-3 input-group input-group-sm mb-3">
-			<input id="ART_otro" type="text" class="form-control" placeholder="Otro">
-		</div>
+	<div class="col-5 input-group input-group-sm mb-3">
+		<select formControlName="hanotadoparticipar" class="custom-select"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.hanotadoparticipar.errors }" data-toggle="tooltip"
+		data-placement="top" title="Elige">
+		<option selected disabled>Elige</option>
+		<option value="Si">Si</option>
+		<option value="No">No</option>
+	</select>
+	&nbsp; Cuales:
+</div>
+</div>
+<!-- INICIO ROW #2 -->	
+<div class="row" style="margin: 0px 15px 15px 15px;">
+	<div class="col-2" >
+		<span>Fecha</span>
 	</div>
-	<div class="dropdown-divider"></div>
-	<div class="row" style="margin: 15px 15px 0px 30px">
-		<div class="col-8 text-right font-weight-bold">
-			<span>Señale si ha recibido algùn premio o reconocimiento dentro del área deportiva: </span>
-		</div>
-		<div class="col-3 input-group input-group-sm mb-3">
-			<select id="AR_act_premio_deportiva" class="custom-select" >
-				<option selected disabled>Elige</option>
-				<option value="Si">Si</option>
-				<option value="No">No</option>
-			</select>
-			&nbsp; Cuales:
-		</div>
+	<div class="col-5" >
+		<span>Diciplina</span>
 	</div>
-	<!-- INICIO ROW #2 -->	
-	<div class="row" style="margin: 0px 0px 0px 15px">
-		<div class="col-2 font-weight-bold">
-			<span>Fecha</span>
-		</div>
-		<div class="col-5 font-weight-bold">
-			<span>Diciplina</span>
-		</div>
-		<div class="col-5 font-weight-bold">
-			<span>Lugar</span>
-		</div>
-		<div class=" col-12 input-group">
-			<input id="ART_deporte_fecha_1" type="date" class="form-control col-2">
-			<input id="ART_deporte_diciplina_1" type="text" class="form-control col-5">
-			<input id="ART_deporte_lugar_1" type="text" class="form-control col-5">
-		</div>
-		<div class=" col-12 input-group">
-			<input id="ART_deporte_fecha_2" type="date" class="form-control col-2">
-			<input id="ART_deporte_diciplina_2" type="text" class="form-control col-5">
-			<input id="ART_deporte_lugar_2" type="text" class="form-control col-5">
-		</div>
-		<div class=" col-12 input-group">
-			<input id="ART_deporte_fecha_3" type="date" class="form-control col-2">
-			<input id="ART_deporte_diciplina_3" type="text" class="form-control col-5">
-			<input id="ART_deporte_lugar_3" type="text" class="form-control col-5">
-		</div>
+	<div class="col-5" >
+		<span>Lugar</span>
 	</div>
-	<div class="row" style="margin: 15px 0px 15px 15px">
-		<div class="col-10"></div>
-		<div class="col-2">
-			<button id="ART_btn_guardar" type="button" class="btn btn-club btn-sm" style="width:100%; height: 50px;">Guardar</button>
-		</div> 
+	<div class=" col-12 input-group">
+		<input type="date" id="actividadfecha1" formControlName="actividadfecha1" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.actividadfecha1.errors }">
+		<input type="text" id="actividaddiciplina1" formControlName="actividaddiciplina1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.actividaddiciplina1.errors }">
+		<input type="text" id="actividadlugar1" formControlName="actividadlugar1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.actividadlugar1.errors }">
 	</div>
+	<div class=" col-12 input-group">
+		<input type="date" id="actividadfecha2" formControlName="actividadfecha2" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.actividadfecha2.errors }">
+		<input type="text" id="actividaddiciplina2" formControlName="actividaddiciplina2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.actividaddiciplina2.errors }">
+		<input type="text" id="actividadlugar2" formControlName="actividadlugar2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.actividadlugar2.errors }">
+
+	</div>
+	<div class=" col-12 input-group">
+		<input type="date" id="actividadfecha3" formControlName="actividadfecha3" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.actividadfecha3.errors }">
+		<input type="text" id="actividaddiciplina3" formControlName="actividaddiciplina3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.actividaddiciplina3.errors }">
+		<input type="text" id="actividadlugar3" formControlName="actividadlugar3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.actividadlugar3.errors }">
+	</div>
+</div>
+<div class="dropdown-divider"></div>
+<!-- INICIO ROW #3 -->	
+<div class="row" style="margin: 0px 0px 15px 30px;">
+	<div class=" col-12  font-weight-bold" style="left: -15px;">
+		<span>Señale si presenta algun interes en algunas de las siguientes areas: </span>
+	</div>
+	<div class="col-2 custom-control custom-checkbox">
+		<input type="checkbox" id="musica" formControlName="musica" class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.musica.errors}"/>
+		<label class="custom-control-label" for="musica">Mùsica</label>
+	</div>
+	<div class="col-2 custom-control custom-checkbox">
+		<input type="checkbox" id="danza" formControlName="danza" class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.danza.errors}"/>
+		<label class="custom-control-label" for="danza">Danza</label>
+	</div>
+	<div class="col-2 custom-control custom-checkbox">
+		<input type="checkbox" id="pintura" formControlName="pintura" class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.pintura.errors}"/>
+		<label class="custom-control-label" for="pintura">Pintura</label>
+	</div>
+	<div class="col-2 custom-control custom-checkbox">
+		<input type="checkbox" id="manualidades" formControlName="manualidades" class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.manualidades.errors}"/>
+		<label class="custom-control-label" for="manualidades">Manualidades</label>
+	</div>
+	<div class="col-2 custom-control custom-checkbox">
+		<input type="checkbox" id="teatro" formControlName="teatro" class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.teatro.errors}"/>
+		<label class="custom-control-label" for="teatro">Teatro</label>
+	</div>
+	<div class="col-2 custom-control custom-checkbox">
+		<input type="checkbox" id="canto" formControlName="canto" class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.canto.errors}"/>
+		<label class="custom-control-label" for="canto">Canto</label>
+	</div>
+	<div class="col-12 form-group input-group-sm mb-3" style="left: -15px;">
+		<label for="otro" style="padding: 0px; font-size: 13px;">otro</label>
+		<input type="text" id="otro" formControlName="otro" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.otro.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+	</div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="row custom-control-inline" style="margin: 0px 0px 15px 15px;">
+	<div class="col-10 text-left font-weight-bold">
+		<span>Señale si ha recibido algùn premio o reconocimiento dentro del área artistica</span>
+	</div>
+	<div class="col-2 custom-control custom-checkbox">
+		
+		<input type="checkbox" id="recibiopremio" formControlName="recibiopremio" class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.recibiopremio.errors}" />
+		<label class="custom-control-label" for="recibiopremio" style="font-size: 13PX;">Ha recibido alguno: </label>
+	</div>
+</div>
+<!-- INICIO ROW #2 -->	
+<div class="row" style="margin: 0px 15px 15px 15px;">
+	<div class="col-2" >
+		<span>Fecha</span>
+	</div>
+	<div class="col-5" >
+		<span>Diciplina</span>
+	</div>
+	<div class="col-5" >
+		<span>Lugar</span>
+	</div>
+	<div class=" col-12 input-group">
+		<input type="date" id="premioartefecha1" formControlName="premioartefecha1" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.premioartefecha1.errors }">
+		<input type="text" id="premioartediciplina1" formControlName="premioartediciplina1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.premioartediciplina1.errors }">
+		<input type="text" id="premioartelugar1" formControlName="premioartelugar1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.premioartelugar1.errors }">
+	</div>
+	<div class=" col-12 input-group">
+		<input type="date" id="premioartefecha2" formControlName="premioartefecha2" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.premioartefecha2.errors }">
+		<input type="text" id="premioartediciplina2" formControlName="premioartediciplina2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.premioartediciplina2.errors }">
+		<input type="text" id="premioartelugar2" formControlName="premioartelugar2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.premioartelugar2.errors }">
+
+	</div>
+	<div class=" col-12 input-group">
+		<input type="date" id="premioartefecha3" formControlName="premioartefecha3" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.premioartefecha3.errors }">
+		<input type="text" id="premioartediciplina3" formControlName="premioartediciplina3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.premioartediciplina3.errors }">
+		<input type="text" id="premioartelugar3" formControlName="premioartelugar3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.premioartelugar3.errors }">
+	</div>
+</div>
+<div class="row" style="margin: 15px 15px 15px 15px">
+	<div class="col-10"></div>
+	<div class="col-2">
+		<button name="ART_btn_guardar" class="btn btn-club btn-sm"
+		style="width:100%; height: 50px;" type="submit">
+		<span id="spinner_art" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+		hidden
+		></span>
+		Guardar
+	</button>
+</div>
+</div>
 </form>
 
