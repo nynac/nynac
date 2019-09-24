@@ -15,7 +15,7 @@ export class ArteNinosComponent implements OnInit {
 	form_buscar : FormGroup;
 	submitted = false;
 
-	//form guardar
+	//form guardar A File Icon
 	form_guardar : FormGroup
 	submitted2 = false;
 	constructor(

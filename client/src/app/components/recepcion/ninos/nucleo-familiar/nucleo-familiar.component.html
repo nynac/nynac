@@ -7,7 +7,7 @@
 				<span class="input-group-text">No. Miembro:</span>
 			</div>
 			<input type="number" formControlName="miembroID" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
+			[ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
 			<div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
 				<div *ngIf="f.miembroID.errors.required">Completa este campo</div>
 			</div>
@@ -15,7 +15,7 @@
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
 			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar">
 				<span id="spinner_buscarNF" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-					hidden></span>
+				hidden></span>
 				Buscar
 			</button>
 		</div>
@@ -27,11 +27,11 @@
 <form [formGroup]="form_guardar" (ngSubmit)="guardar_NF()">
 	<div class="col-3 input-group input-group-sm mb-3" hidden="true">
 		<input type="text" formControlName="idNinosNF" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.idNinosNF.errors}" readonly />
+		[ngClass]="{ 'is-invalid': submitted2 && f2.idNinosNF.errors}" readonly />
 	</div>
 	<div class="col-2 input-group input-group-sm mb-3" hidden="true">
 		<input type="number" formControlName="miembroID" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" readonly />
+		[ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" readonly />
 	</div>
 	<!-- INICIO ROW #1 -->
 	<div class="row" style="margin: 0px 0px 0px 15px">
@@ -40,13 +40,13 @@
 		</div>
 		<div class="col-4 custom-control form-check" style="margin: 0px 10px 0px 10px;">
 			<input type="checkbox" id="restriccionlegal" formControlName="restriccionlegal" class="custom-control-input"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.restriccionlegal.errors}" />
+			[ngClass]="{ 'is-invalid': submitted2 && f2.restriccionlegal.errors}" />
 			<label class="custom-control-label" for="restriccionlegal"> &nbsp;Existe restricción legal para alguno de
-				los padres biológicos de su hijo:</label>
+			los padres biológicos de su hijo:</label>
 		</div>
-		<div class="col-3 input-group input-group-sm mb-3">
-			<input type="text" formControlName="razonrestriccion" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.razonrestriccion.errors }" placeholder="Nombre y razón" />
+		<div class="col-3 form-group input-group-sm mb-3">
+			<label for="razonrestriccion" style="padding: 0px; font-size: 13px;">Nombre y razón</label>
+			<input type="text" id="razonrestriccion" formControlName="razonrestriccion" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.razonrestriccion.errors }" style="margin-top: -10px;"/>
 		</div>
 
 		<div class="col-2 text-right">
@@ -54,336 +54,336 @@
 		</div>
 		<div class="col-2 input-group input-group-sm mb-3">
 			<select formControlName="padresituacion" class="custom-select"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.padresituacion.errors }" data-toggle="tooltip"
-				data-placement="top" title="Situación de los padres">
-				<option selected disabled>Situación</option>
-				<option value="juntos">Viven juntos</option>
-				<option value="separados">Separados</option>
-				<option value="viudo">Viudo (a)</option>
-				<option value="soltero">Madre o padre soltero (a)</option>
-			</select>
-		</div>
+			[ngClass]="{ 'is-invalid': submitted2 && f2.padresituacion.errors }" data-toggle="tooltip"
+			data-placement="top" title="Situación de los padres">
+			<option selected disabled>Situación</option>
+			<option value="juntos">Viven juntos</option>
+			<option value="separados">Separados</option>
+			<option value="viudo">Viudo (a)</option>
+			<option value="soltero">Madre o padre soltero (a)</option>
+		</select>
 	</div>
+</div>
 
-	<!-- INICIO ROW #2 -->
-	<div class="dropdown-divider"></div>
-	<div class="row" style="margin: 0px 0px 0px 15px">
-		<div class="col-12 font-weight-bold">
-			<span>DATOS DEL PADRE O TUTOR</span>
-		</div>
-		<div class="col-4 input-group input-group-sm mb-3">
-			<input type="text" formControlName="nombrepadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nombrepadre.errors }"
-				placeholder="Nombre del padre biológico o tutor legal">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="text" formControlName="fechaylugarpadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.fechaylugarpadre.errors }"
-				placeholder="Fecha y lugar de nacimiento">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="number" formControlName="edadpadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.edadpadre.errors }" placeholder="Edad">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<select formControlName="nacionalidadpadre" class="custom-select" placeholder="Nacionalidad"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidadpadre.errors }" data-toggle="tooltip"
-				data-placement="top" title="Selecciona una nacionalidad">
-				<option selected disabled>Nacionalidad</option>
-				<option value="Mexicano">Mexicano</option>
-				<option value="Extranjero">Extranjero</option>
-			</select>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<select formControlName="escolaridadpadre" class="custom-select" placeholder="Nacionalidad"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.escolaridadpadre.errors }" data-toggle="tooltip"
-				data-placement="top" title="Selecciona una escolaridad">
-				<option selected disabled>Escolaridad</option>
-				<option value="Preescolar">Preescolar</option>
-				<option value="Primaria">Primaria</option>
-				<option value="Secundaria">Secundaria</option>
-				<option value="Preparatoria">Preparatoria</option>
-				<option value="Licenciatura">Licenciatura</option>
-				<option value="Ingenieria">Ingenieria</option>
-				<option value="Maestria">Maestria</option>
-				<option value="Posgrado">Posgrado</option>
-			</select>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="text" formControlName="ocupacionpadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.ocupacionpadre.errors }" placeholder="Ocupación">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="text" formControlName="lugartrabajopadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.lugartrabajopadre.errors }" placeholder="Lugar de trabajo">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="tel" formControlName="telparticularpadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.telparticularpadre.errors }"
-				placeholder="Telefono particular">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="tel" formControlName="teltrabajopadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.teltrabajopadre.errors }" placeholder="Telefono de trabajo">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="tel" formControlName="celularpadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.celularpadre.errors }" placeholder="Celular">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="email" formControlName="emailpadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.emailpadre.errors }" placeholder="Email">
-		</div>
+<!-- INICIO ROW #2 -->
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 0px 0px 0px 15px">
+	<div class="col-12 font-weight-bold">
+		<span>DATOS DEL PADRE O TUTOR</span>
 	</div>
+	<div class="col-4 form-group input-group-sm mb-3">
+		<label for="nombrepadre" style="padding: 0px; font-size: 13px;">Nombre del padre biológico o tutor legal</label>
+		<input type="text" id="nombrepadre" formControlName="nombrepadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.nombrepadre.errors }" style="margin-top: -10px;"/>
+	</div>
+	<div class="col-3 form-group input-group-sm mb-3">
+		<label for="fechaylugarpadre" style="padding: 0px; font-size: 13px;">Fecha y lugar de nacimiento</label>
+		<input type="text" id="fechaylugarpadre" formControlName="fechaylugarpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fechaylugarpadre.errors }" style="margin-top: -10px;"/>
+	</div>
+	<div class="col-1 form-group input-group-sm mb-3">
+		<label for="edadpadre" style="padding: 0px; font-size: 13px;">Edad</label>
+		<input type="number" id="edadpadre" formControlName="edadpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.edadpadre.errors }" style="margin-top: -10px;"/>
+	</div>
+	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+		<label for="nacionalidadpadre" style="padding: 0px;">Nacionalidad</label>
+		<select formControlName="nacionalidadpadre" class="custom-select" id="nacionalidadpadre"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidadpadre.errors }" 
+		data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+		<option selected disabled></option>
+		<option value="Mexicano">Mexicano</option>
+		<option value="Extranjero">Extranjero</option>
+	</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+	<label for="escolaridadpadre" style="padding: 0px;">Escolaridad</label>
+	<select formControlName="escolaridadpadre" class="custom-select" id="escolaridadpadre"
+	[ngClass]="{ 'is-invalid': submitted2 && f2.escolaridadpadre.errors }" 
+	data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+	<option selected disabled></option>
+	<option value="Preescolar">Preescolar</option>
+	<option value="Primaria">Primaria</option>
+	<option value="Secundaria">Secundaria</option>
+	<option value="Preparatoria">Preparatoria</option>
+	<option value="Licenciatura">Licenciatura</option>
+	<option value="Ingenieria">Ingenieria</option>
+	<option value="Maestria">Maestria</option>
+	<option value="Posgrado">Posgrado</option>
+</select>
+</div>
 
-	<!-- INICIO ROW #3 -->
-	<div class="dropdown-divider"></div>
-	<div class="row" style="margin: 15px 0px 0px 15px">
-		<div class="col-12 font-weight-bold">
-			<span>DATOS DEL MADRE O TUTORA</span>
-		</div>
-		<div class="col-4 input-group input-group-sm mb-3">
-			<input type="text" formControlName="nombremadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nombremadre.errors }"
-				placeholder="Nombre del madre biológico o tutor legal">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="text" formControlName="fechaylugarmadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.fechaylugarmadre.errors }"
-				placeholder="Fecha y lugar de nacimiento">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="number" formControlName="edadmadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.edadmadre.errors }" placeholder="Edad">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<select formControlName="nacionalidadmadre" class="custom-select" placeholder="Nacionalidad"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidadmadre.errors }" data-toggle="tooltip"
-				data-placement="top" title="Selecciona una nacionalidad">
-				<option selected disabled>Nacionalidad</option>
-				<option value="Mexicana">Mexicana</option>
-				<option value="Extranjera">Extranjera</option>
-			</select>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<select formControlName="escolaridadmadre" class="custom-select" placeholder="Nacionalidad"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.escolaridadmadre.errors }" data-toggle="tooltip"
-				data-placement="top" title="Selecciona una escolaridad">
-				<option selected disabled>Escolaridad</option>
-				<option value="Preescolar">Preescolar</option>
-				<option value="Primaria">Primaria</option>
-				<option value="Secundaria">Secundaria</option>
-				<option value="Preparatoria">Preparatoria</option>
-				<option value="Licenciatura">Licenciatura</option>
-				<option value="Ingenieria">Ingenieria</option>
-				<option value="Maestria">Maestria</option>
-				<option value="Posgrado">Posgrado</option>
-			</select>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="text" formControlName="ocupacionmadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.ocupacionmadre.errors }" placeholder="Ocupación">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="text" formControlName="lugartrabajomadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.lugartrabajomadre.errors }" placeholder="Lugar de trabajo">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="tel" formControlName="telparticularmadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.telparticularmadre.errors }"
-				placeholder="Telefono particular">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="tel" formControlName="teltrabajomadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.teltrabajomadre.errors }" placeholder="Telefono de trabajo">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="tel" formControlName="celularmadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.celularmadre.errors }" placeholder="Celular">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="email" formControlName="emailmadre" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.emailmadre.errors }" placeholder="Email">
-		</div>
-	</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="ocupacionpadre" style="padding: 0px; font-size: 13px;">Ocupación</label>
+	<input type="text" id="ocupacionpadre" formControlName="ocupacionpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.ocupacionpadre.errors }" style="margin-top: -10px;"/>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="lugartrabajopadre" style="padding: 0px; font-size: 13px;">Lugar de trabajo</label>
+	<input type="text" id="lugartrabajopadre" formControlName="lugartrabajopadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.lugartrabajopadre.errors }" style="margin-top: -10px;"/>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="telparticularpadre" style="padding: 0px; font-size: 13px;">Telefono particular</label>
+	<input type="tel" id="telparticularpadre" formControlName="telparticularpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.telparticularpadre.errors }" style="margin-top: -10px;"/>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="teltrabajopadre" style="padding: 0px; font-size: 13px;">Telefono de trabajo</label>
+	<input type="tel" id="teltrabajopadre" formControlName="teltrabajopadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.teltrabajopadre.errors }" style="margin-top: -10px;"/>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="celularpadre" style="padding: 0px; font-size: 13px;">Celular</label>
+	<input type="tel" id="celularpadre" formControlName="celularpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.celularpadre.errors }" style="margin-top: -10px;"/>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="emailpadre" style="padding: 0px; font-size: 13px;">Email</label>
+	<input type="email" id="emailpadre" formControlName="emailpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.emailpadre.errors }" style="margin-top: -10px;"/>
+</div>
+</div>
 
-	<!-- INICIO ROW #4 -->
-	<div class="dropdown-divider"></div>
-	<div class="row" style="margin: 15px 0px 0px 15px">
-		<div class="col-4 font-weight-bold">
-			<span>DATOS DEL PADRE O MADRE SUSTITUTA</span>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="text" formControlName="tutorsustituto" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.tutorsustituto.errors }"
-				placeholder="Nombre del padre o  madre sustituta">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="number" formControlName="edadtutor" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.edadtutor.errors }" placeholder="Edad">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="text" formControlName="ocupaciontutor" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.ocupaciontutor.errors }" placeholder="Ocupación">
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<input type="tel" formControlName="teltutor" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.teltutor.errors }" placeholder="Telefono particular">
-		</div>
+<!-- INICIO ROW #3 -->
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 0px 0px 15px">
+	<div class="col-12 font-weight-bold">
+		<span>DATOS DEL MADRE O TUTORA</span>
 	</div>
+	<div class="col-4 form-group input-group-sm mb-3">
+		<label for="nombremadre" style="padding: 0px; font-size: 13px;">Nombre del madre biológico o tutor legal</label>
+		<input type="text" id="nombremadre" formControlName="nombremadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.nombremadre.errors }" style="margin-top: -10px;"/>
+	</div>
+	<div class="col-3 form-group input-group-sm mb-3">
+		<label for="fechaylugarmadre" style="padding: 0px; font-size: 13px;">Fecha y lugar de nacimiento</label>
+		<input type="text" id="fechaylugarmadre" formControlName="fechaylugarmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fechaylugarmadre.errors }" style="margin-top: -10px;"/>
+	</div>
+	<div class="col-1 form-group input-group-sm mb-3">
+		<label for="edadmadre" style="padding: 0px; font-size: 13px;">Edad</label>
+		<input type="number" id="edadmadre" formControlName="edadmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.edadmadre.errors }" style="margin-top: -10px;"/>
+	</div>
+	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+		<label for="nacionalidadmadre" style="padding: 0px;">Nacionalidad</label>
+		<select formControlName="nacionalidadmadre" class="custom-select" id="nacionalidadmadre"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidadmadre.errors }" 
+		data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+		<option selected disabled></option>
+		<option value="Mexicana">Mexicana</option>
+		<option value="Extranjera">Extranjera</option>
+	</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+	<label for="escolaridadmadre" style="padding: 0px;">Escolaridad</label>
+	<select formControlName="escolaridadmadre" class="custom-select" id="escolaridadmadre"
+	[ngClass]="{ 'is-invalid': submitted2 && f2.escolaridadmadre.errors }" 
+	data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+	<option selected disabled></option>
+	<option value="Preescolar">Preescolar</option>
+	<option value="Primaria">Primaria</option>
+	<option value="Secundaria">Secundaria</option>
+	<option value="Preparatoria">Preparatoria</option>
+	<option value="Licenciatura">Licenciatura</option>
+	<option value="Ingenieria">Ingenieria</option>
+	<option value="Maestria">Maestria</option>
+	<option value="Posgrado">Posgrado</option>
+</select>
+</div>
 
-	<!-- INICIO ROW #5 -->
-	<div class="dropdown-divider"></div>
-	<div class="row" style="margin: 15px 0px 15px 15px">
-		<div class="col-3">
-			<span>Nombre</span>
-		</div>
-		<div class="col-2">
-			<span>Edad</span>
-		</div>
-		<div class="col-6">
-			<span>Grado escolar al que asiste. Actividad a la que se dedica</span>
-		</div>
-		<div class=" col-12 input-group">
-			<input type="text" formControlName="nucleofamiliarnombre1" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre1.errors }" class="form-control col-3">
-			<input type="number" formControlName="nucleofamiliaredad1" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad1.errors }" class="form-control col-2">
-			<input type="text" formControlName="nucleofamiliargrado1" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado1.errors }" class="form-control col-7">
-		</div>
-		<div class=" col-12 input-group">
-			<input type="text" formControlName="nucleofamiliarnombre2" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre2.errors }" class="form-control col-3">
-			<input type="number" formControlName="nucleofamiliaredad2" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad2.errors }" class="form-control col-2">
-			<input type="text" formControlName="nucleofamiliargrado2" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado2.errors }" class="form-control col-7">
-		</div>
-		<div class=" col-12 input-group">
-			<input type="text" formControlName="nucleofamiliarnombre3" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre3.errors }" class="form-control col-3">
-			<input type="number" formControlName="nucleofamiliaredad3" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad3.errors }" class="form-control col-2">
-			<input type="text" formControlName="nucleofamiliargrado3" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado3.errors }" class="form-control col-7">
-		</div>
-	</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="ocupacionmadre" style="padding: 0px; font-size: 13px;">Ocupación</label>
+	<input type="text" id="ocupacionmadre" formControlName="ocupacionmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.ocupacionmadre.errors }" style="margin-top: -10px;"/>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="lugartrabajomadre" style="padding: 0px; font-size: 13px;">Lugar de trabajo</label>
+	<input type="text" id="lugartrabajomadre" formControlName="lugartrabajomadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.lugartrabajomadre.errors }" style="margin-top: -10px;"/>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="telparticularmadre" style="padding: 0px; font-size: 13px;">Telefono particular</label>
+	<input type="tel" id="telparticularmadre" formControlName="telparticularmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.telparticularmadre.errors }" style="margin-top: -10px;"/>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="teltrabajomadre" style="padding: 0px; font-size: 13px;">Telefono de trabajo</label>
+	<input type="tel" id="teltrabajomadre" formControlName="teltrabajomadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.teltrabajomadre.errors }" style="margin-top: -10px;"/>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="celularmadre" style="padding: 0px; font-size: 13px;">Celular</label>
+	<input type="tel" id="celularmadre" formControlName="celularmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.celularmadre.errors }" style="margin-top: -10px;"/>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="emailmadre" style="padding: 0px; font-size: 13px;">Email</label>
+	<input type="email" id="emailmadre" formControlName="emailmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.emailmadre.errors }" style="margin-top: -10px;"/>
+</div>
 
-	<!-- INICIO ROW #7 -->
-	<div class="dropdown-divider"></div>
-	<div class="row" style="margin: 15px 0px 0px 15px">
-		<div class="col-12 font-weight-bold">
-			<span>CIRCUNSTANCIAS ESPECIALES DE LA FAMILIA (en el último año)</span>
-		</div>
-	</div>
-	<div class="row" style="margin: 0px 0px 0px 28px; font-size: 15px;">
-		<div class="col-2 custom-control custom-checkbox">
-			<input type="checkbox" id="desintegracionfamiliar" formControlName="desintegracionfamiliar"
-				class="custom-control-input"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.desintegracionfamiliar.errors}" />
-			<label class="custom-control-label" for="desintegracionfamiliar">Desintegración familiar</label>
-		</div>
-		<div class="col-2 custom-control custom-checkbox" style="width: 200px;">
-			<input type="checkbox" id="fallecimientos" formControlName="fallecimientos" class="custom-control-input"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.fallecimientos.errors}" />
-			<label class="custom-control-label" for="fallecimientos">Fallecimientos</label>
-		</div>
-		<div class="col-3 custom-control custom-checkbox">
-			<input type="checkbox" id="nacimientos" formControlName="nacimientos" class="custom-control-input"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.nacimientos.errors}" />
-			<label class="custom-control-label" for="nacimientos">Nacimiento de un nuevo hermano</label>
-		</div>
-		<div class="col custom-control custom-checkbox">
-			<input type="checkbox" id="situacion_economica" formControlName="situacion_economica"
-				class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.situacion_economica.errors}" />
-			<label class="custom-control-label" for="situacion_economica">Situación económica</label>
-		</div>
-		<div class="col custom-control custom-checkbox">
-			<input type="checkbox" id="cambiosrutina" formControlName="cambiosrutina" class="custom-control-input"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.cambiosrutina.errors}" />
-			<label class="custom-control-label" for="cambiosrutina">Cambio de rutina</label>
-		</div>
-	</div>
+</div>
 
-	<!-- INICIO ROW #8 -->
-	<div class="dropdown-divider"></div>
-	<div class="row" style="margin: 15px 0px 0px 15px">
-		<div class="col-12 font-weight-bold">
-			<span>PARTICIPACIÓN DE LOS PADRES EN:</span>
-		</div>
+<!-- INICIO ROW #4 -->
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 0px 0px 15px">
+	<div class="col-4 font-weight-bold">
+		<span>DATOS DEL PADRE O MADRE SUSTITUTA</span>
 	</div>
-	<div class="row" style="margin: 0px 0px 0px 28px;">
-		<div class="col-2 input-group input-group-sm mb-3">
-			<select formControlName="disciplica" class="custom-select" placeholder="Nacionalidad"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.disciplica.errors }" data-toggle="tooltip"
-				data-placement="top" title="Diciplina">
-				<option selected disabled>Diciplina</option>
-				<option value="mamá">Mamá</option>
-				<option value="papá">Papá</option>
-				<option value="Ambos">Ambos</option>
-			</select>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<select formControlName="alacostarse" class="custom-select" placeholder="Nacionalidad"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.alacostarse.errors }" data-toggle="tooltip"
-				data-placement="top" title="Al acostarse">
-				<option selected disabled>Al acostarse</option>
-				<option value="mamá">Mamá</option>
-				<option value="papá">Papá</option>
-				<option value="Ambos">Ambos</option>
-			</select>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<select formControlName="allevantarse" class="custom-select" placeholder="Nacionalidad"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.allevantarse.errors }" data-toggle="tooltip"
-				data-placement="top" title="Al levantarse">
-				<option selected disabled>Al Levantarse</option>
-				<option value="mamá">Mamá</option>
-				<option value="papá">Papá</option>
-				<option value="Ambos">Ambos</option>
-			</select>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<select formControlName="juegos" class="custom-select" placeholder="Nacionalidad"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.juegos.errors }" data-toggle="tooltip" data-placement="top"
-				title="Juegos">
-				<option selected disabled>Juegos</option>
-				<option value="mamá">Mamá</option>
-				<option value="papá">Papá</option>
-				<option value="Ambos">Ambos</option>
-			</select>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<select formControlName="horaalimentos" class="custom-select" placeholder="Nacionalidad"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.horaalimentos.errors }" data-toggle="tooltip"
-				data-placement="top" title="Hora de alimentos">
-				<option selected disabled>Hora de alimentos</option>
-				<option value="mamá">Mamá</option>
-				<option value="papá">Papá</option>
-				<option value="Ambos">Ambos</option>
-			</select>
-		</div>
-		<div class="col-2 input-group input-group-sm mb-3">
-			<select formControlName="horabano" class="custom-select" placeholder="Nacionalidad"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.horabano.errors }" data-toggle="tooltip"
-				data-placement="top" title="Hora de ir al baño">
-				<option selected disabled>Hora del baño</option>
-				<option value="mamá">Mamá</option>
-				<option value="papá">Papá</option>
-				<option value="Ambos">Ambos</option>
-			</select>
-		</div>
+	<div class="col-3 form-group input-group-sm mb-3">
+		<label for="tutorsustituto" style="padding: 0px; font-size: 13px;">Nombre del padre o  madre sustituta</label>
+		<input type="text" id="tutorsustituto" formControlName="tutorsustituto" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.tutorsustituto.errors }" style="margin-top: -10px;"/>
 	</div>
-	<div class="row" style="margin: 0px 0px 15px 15px">
-		<div class="col-10"></div>
-		<div class="col-2">
-			<button name="NF_btn_guardar" class="btn btn-club btn-sm"
-				style="width:100%; margin-top: 20px; height: 50px;" type="submit">
-				<span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-					hidden></span>
-				Guardar
-			</button>
-		</div>
+	<div class="col-1 form-group input-group-sm mb-3">
+		<label for="edadtutor" style="padding: 0px; font-size: 13px;">Edad</label>
+		<input type="number" id="edadtutor" formControlName="edadtutor" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.edadtutor.errors }" style="margin-top: -10px;"/>
 	</div>
+	<div class="col-2 form-group input-group-sm mb-3">
+		<label for="ocupaciontutor" style="padding: 0px; font-size: 13px;">Ocupación</label>
+		<input type="text" id="ocupaciontutor" formControlName="ocupaciontutor" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.ocupaciontutor.errors }" style="margin-top: -10px;"/>
+	</div>
+	<div class="col-2 form-group input-group-sm mb-3">
+		<label for="teltutor" style="padding: 0px; font-size: 13px;">Telefono particular</label>
+		<input type="tel" id="teltutor" formControlName="teltutor" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.teltutor.errors }" style="margin-top: -10px;"/>
+	</div>
+</div>
+
+<!-- INICIO ROW #5 -->
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 0px 15px 15px">
+	<div class="col-3">
+		<span>Nombre</span>
+	</div>
+	<div class="col-2">
+		<span>Edad</span>
+	</div>
+	<div class="col-6">
+		<span>Grado escolar al que asiste. Actividad a la que se dedica</span>
+	</div>
+	<div class=" col-12 input-group">
+		<input type="text" formControlName="nucleofamiliarnombre1" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre1.errors }" class="form-control col-3">
+		<input type="number" formControlName="nucleofamiliaredad1" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad1.errors }" class="form-control col-2">
+		<input type="text" formControlName="nucleofamiliargrado1" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado1.errors }" class="form-control col-7">
+	</div>
+	<div class=" col-12 input-group">
+		<input type="text" formControlName="nucleofamiliarnombre2" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre2.errors }" class="form-control col-3">
+		<input type="number" formControlName="nucleofamiliaredad2" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad2.errors }" class="form-control col-2">
+		<input type="text" formControlName="nucleofamiliargrado2" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado2.errors }" class="form-control col-7">
+	</div>
+	<div class=" col-12 input-group">
+		<input type="text" formControlName="nucleofamiliarnombre3" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre3.errors }" class="form-control col-3">
+		<input type="number" formControlName="nucleofamiliaredad3" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad3.errors }" class="form-control col-2">
+		<input type="text" formControlName="nucleofamiliargrado3" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado3.errors }" class="form-control col-7">
+	</div>
+</div>
+
+<!-- INICIO ROW #7 -->
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 0px 0px 15px">
+	<div class="col-12 font-weight-bold">
+		<span>CIRCUNSTANCIAS ESPECIALES DE LA FAMILIA (en el último año)</span>
+	</div>
+</div>
+<div class="row" style="margin: 0px 0px 0px 28px; font-size: 15px;">
+	<div class="col-2 custom-control custom-checkbox">
+		<input type="checkbox" id="desintegracionfamiliar" formControlName="desintegracionfamiliar"
+		class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.desintegracionfamiliar.errors}" />
+		<label class="custom-control-label" for="desintegracionfamiliar">Desintegración familiar</label>
+	</div>
+	<div class="col-2 custom-control custom-checkbox" style="width: 200px;">
+		<input type="checkbox" id="fallecimientos" formControlName="fallecimientos" class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.fallecimientos.errors}" />
+		<label class="custom-control-label" for="fallecimientos">Fallecimientos</label>
+	</div>
+	<div class="col-3 custom-control custom-checkbox">
+		<input type="checkbox" id="nacimientos" formControlName="nacimientos" class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nacimientos.errors}" />
+		<label class="custom-control-label" for="nacimientos">Nacimiento de un nuevo hermano</label>
+	</div>
+	<div class="col custom-control custom-checkbox">
+		<input type="checkbox" id="situacion_economica" formControlName="situacion_economica"
+		class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.situacion_economica.errors}" />
+		<label class="custom-control-label" for="situacion_economica">Situación económica</label>
+	</div>
+	<div class="col custom-control custom-checkbox">
+		<input type="checkbox" id="cambiosrutina" formControlName="cambiosrutina" class="custom-control-input"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.cambiosrutina.errors}" />
+		<label class="custom-control-label" for="cambiosrutina">Cambio de rutina</label>
+	</div>
+</div>
+
+<!-- INICIO ROW #8 -->
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 30	px 0px 15px">
+	<div class="col-12 font-weight-bold">
+		<span>PARTICIPACIÓN DE LOS PADRES EN:</span>
+	</div>
+</div>
+<div class="row" style="margin: 0px 0px 0px 15px;">
+	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+		<label for="disciplica" style="padding: 0px;">Diciplina</label>
+		<select formControlName="disciplica" class="custom-select" id="disciplica"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.disciplica.errors }" 
+			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+			<option value="mamá">Mamá</option>
+			<option value="papá">Papá</option>
+			<option value="Ambos">Ambos</option>
+		</select>
+	</div>
+	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+		<label for="alacostarse" style="padding: 0px;">Al acostarse</label>
+		<select formControlName="alacostarse" class="custom-select" id="alacostarse"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.alacostarse.errors }" 
+			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+			<option value="mamá">Mamá</option>
+			<option value="papá">Papá</option>
+			<option value="Ambos">Ambos</option>
+		</select>
+	</div>
+	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+		<label for="allevantarse" style="padding: 0px;">Al levantarse</label>
+		<select formControlName="allevantarse" class="custom-select" id="allevantarse"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.allevantarse.errors }" 
+			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+			<option value="mamá">Mamá</option>
+			<option value="papá">Papá</option>
+			<option value="Ambos">Ambos</option>
+		</select>
+	</div>
+	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+		<label for="juegos" style="padding: 0px;">Juegos</label>
+		<select formControlName="juegos" class="custom-select" id="juegos"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.juegos.errors }" 
+			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+			<option value="mamá">Mamá</option>
+			<option value="papá">Papá</option>
+			<option value="Ambos">Ambos</option>
+		</select>
+	</div>
+	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+		<label for="horaalimentos" style="padding: 0px;">Hora de alimentos</label>
+		<select formControlName="horaalimentos" class="custom-select" id="horaalimentos"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.horaalimentos.errors }" 
+			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+			<option value="mamá">Mamá</option>
+			<option value="papá">Papá</option>
+			<option value="Ambos">Ambos</option>
+		</select>
+	</div>
+	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+		<label for="horabano" style="padding: 0px;">Horade ir al baño</label>
+		<select formControlName="horabano" class="custom-select" id="horabano"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.horabano.errors }" 
+			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+			<option value="mamá">Mamá</option>
+			<option value="papá">Papá</option>
+			<option value="Ambos">Ambos</option>
+		</select>
+	</div>
+</div>
+<div class="row" style="margin: 0px 0px 15px 15px">
+	<div class="col-10"></div>
+	<div class="col-2">
+		<button name="NF_btn_guardar" class="btn btn-club btn-sm"
+		style="width:100%; margin-top: 20px; height: 50px;" type="submit">
+		<span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+		hidden></span>
+		Guardar
+	</button>
+</div>
+</div>
 </form>
