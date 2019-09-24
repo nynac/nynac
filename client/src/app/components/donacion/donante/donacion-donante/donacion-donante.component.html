@@ -1,33 +1,34 @@
-<form [formGroup]="form_buscar" (ngSubmit)="buscar_donante()">
+<form [formGroup] = "form_buscar" (ngSubmit)="buscar_donante()">
 	<div class="row" style="margin: 15px 0px 0px 0px">
-		<div class="col-2 text-right font-weight-bold">
-			<span>QUÉ VAS A HACER? </span>
+		<div class="col-2 text-right font-weight-bold" >
+			<span>Opción:</span>
 		</div>
 		<div class="col-5">
 			<div class="custom-control custom-radio custom-control-inline">
-				<input id="DContacto_Nuevo" type="radio" class="custom-control-input" name="DContacto_opcion" checked>
-				<label class="custom-control-label" for="DContacto_Nuevo">Nuevo</label>
+				<input id="donacion_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion" value="nuevo" (change)="radioChange($event)" [checked] = "true">
+				<label class="custom-control-label" for="donacion_Nuevo">Nuevo</label>
 			</div>
 			<div class="custom-control custom-radio custom-control-inline">
-				<input id="DContacto_Modificar" type="radio" class="custom-control-input" name="DContacto_opcion">
-				<label class="custom-control-label" for="DContacto_Modificar">Modificar</label>
+				<input id="donacion_Modificar" type="radio" class="custom-control-input" name="donacion_opcion" value="modificar" (change)="radioChange($event)">
+				<label class="custom-control-label" for="donacion_Modificar">Modificar</label>
 			</div>
 		</div>
 		<div class="input-group input-group-sm mb-3 col-3 aling-right">
 			<div class="input-group-prepend">
-				<span class="input-group-text">ID Donante:</span>
+				<span class="input-group-text">No. Miembro:</span>
 			</div>
-			<input type="text" formControlName="buscarID" class="form-control"
-				[ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
+			<input type="number" formControlName="buscarID"  class="form-control" [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-			<button class="btn btn-primary mr-1" style="width:100%;">buscar</button>
-		</div>
+			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="donacion_btn_buscar" [disabled] = "true">
+				<span id="spinner_buscar_donacion" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+			Buscar</button>
+		</div> 
 	</div>
 </form>
 
 <div class="dropdown-divider"></div>
-<form [formGroup]="form_agregar" (ngSubmit)="agregar_donante()">
+<form [formGroup]="form_agregar" (ngSubmit)="opcion_donante()">
 	<!-- INICIO ROW #1 -->
 	<div class="dropdown-divider"></div>
 	<div class="row" style="margin: 15px 0px 0px 15px">
@@ -35,7 +36,7 @@
 			<span>Datos Donante</span>
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<input type="text" formControlName="donacionID" class="form-control" placeholder="ID Donante"
+			<input type="number" formControlName="donacionID" class="form-control" placeholder="ID Donante"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }">
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
@@ -76,24 +77,58 @@
 			</select>
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<label for="fechanacimiento" style="margin-right: 10px">Fecha Nacimiento: </label>
-			<input type="date" formControlName="fechanacimiento" class="form-control"
-				[ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento.errors }">
+			<div class="col-11 input-group input-group-sm mb-3" style="padding-right: 0px;">
+				<label>Fecha Nacimiento: </label>
+                <input type="text" formControlName="fechanacimiento" class="form-control"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento.errors }"  value="{{ fecha1 | date:'yyyy/MM/dd'  }}">
+            </div>
+            <div class="col-1" style="padding: 0px;">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" type="hidden"
+                            name="d1" #c1="ngModel" [(ngModel)]="fecha1" ngbDatepicker #d1="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary btn-sm calendar" (click)="d1.toggle()" type="button" style="padding: 0px;">
+                                    <img src="./assets/img/calendario.png"   style="height: 25px; padding: 0px;"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
 		</div>
 		<div class="col-2 input-group input-group-sm mb-3">
 			<input type="number" formControlName="edad" class="form-control" placeholder="Edad"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.edad.errors }">
 		</div>
 		<div class="col-3 input-group input-group-sm mb-3">
-			<label for="fechadonacion" style="margin-right: 10px">Fecha Donacion </label>
-			<input type="date" formControlName="fechadonacion" class="form-control" placeholder="Fecha Donación"
-				[ngClass]="{ 'is-invalid': submit_agregar && f_A.fechadonacion.errors }">
+			<div class="col-11 input-group input-group-sm mb-3" style="padding-right: 0px;">
+				<label>Fecha Donacion: </label>
+                <input type="text" formControlName="fechadonacion" class="form-control"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechadonacion.errors }"  value="{{ fecha2 | date:'yyyy/MM/dd'  }}">
+            </div>
+            <div class="col-1" style="padding: 0px;">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" type="hidden"
+                            name="d2" #c2="ngModel" [(ngModel)]="fecha2" ngbDatepicker #d2="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary btn-sm calendar" (click)="d2.toggle()" type="button" style="padding: 0px;">
+                                    <img src="./assets/img/calendario.png"   style="height: 25px; padding: 0px;"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
 			<label for="lider" style="margin-right: 10px">Lider: </label>
 			<select formControlName="liderID" class="custom-select"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.liderID.errors }">
-				<option value="Empresa">Empresa</option>
+				<option value="1">1</option>
 				<option value="Fundacion">Fundacion</option>
 				<option value="Gobierno">Gobierno</option>
 				<option value="Individuo">Individuo</option>
@@ -103,7 +138,7 @@
 			<label for="campanaID" style="margin-right: 10px">Campaña: </label>
 			<select formControlName="campanaID" class="custom-select"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.campanaID.errors }">
-				<option value="Empresa">Empresa</option>
+				<option value="1">1</option>
 				<option value="Fundacion">Fundacion</option>
 				<option value="Gobierno">Gobierno</option>
 				<option value="Individuo">Individuo</option>
@@ -113,7 +148,7 @@
 			<label for="Evento" style="margin-right: 10px">Evento: </label>
 			<select formControlName="eventoID" class="custom-select"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.eventoID.errors }">
-				<option value="Empresa">Empresa</option>
+				<option value="1">1</option>
 				<option value="Fundacion">Fundacion</option>
 				<option value="Gobierno">Gobierno</option>
 				<option value="Individuo">Individuo</option>
@@ -133,8 +168,10 @@
 		<div class="col"></div>
 		<div class="col"></div>
 		<div class="col-2">
-			<button name="Don_btn_guardar" type="submit" class="btn btn-club btn-sm"
-				style="width:100%; height: 50px;">Guardar</button>
+			 <button name="donacion_btn_guardar"  class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
+                <span id="spinner_agregar_donacion" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                Guardar
+            </button>
 		</div>
 		<div class="col-2">
 				<button class="btn btn-secondary" style="width:100%; height: 50px;" type="reset"

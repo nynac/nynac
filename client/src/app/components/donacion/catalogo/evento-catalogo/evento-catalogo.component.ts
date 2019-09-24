@@ -61,7 +61,7 @@ export class EventoCatalogoComponent implements OnInit {
 
   buscar_evento() {
     //spinner
-    var spinner_buscar = document.getElementById("spinner_buscar");
+    var spinner_buscar_evento = document.getElementById("spinner_buscar_evento");
 
     this.submit_buscar = true;
     if (this.form_buscar.invalid) {
@@ -69,7 +69,7 @@ export class EventoCatalogoComponent implements OnInit {
     }
     else {
 
-      spinner_buscar.removeAttribute("hidden");
+      spinner_buscar_evento.removeAttribute("hidden");
       //select mediante el id
       var response = this.http.get(this.url + "Eventoe/" + this.form_buscar.value.buscarID);
       response.subscribe((data: any[]) => {
@@ -81,10 +81,10 @@ export class EventoCatalogoComponent implements OnInit {
         this.form_agregar.get('eventoID').setValue(this.resultado.eventoID);
         this.form_agregar.get('descripcion').setValue(this.resultado.descripcion);
         this.form_agregar.get('fecha').setValue(this.resultado.fecha);
-        spinner_buscar.setAttribute("hidden", "true");
+        spinner_buscar_evento.setAttribute("hidden", "true");
       },
         error => {
-          spinner_buscar.setAttribute("hidden", "true");
+          spinner_buscar_evento.setAttribute("hidden", "true");
           console.log("Error", error)
         });
     }

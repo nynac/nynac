@@ -82,7 +82,7 @@ export class LiderCatalogoComponent implements OnInit {
       return;
     }
     else {
-      var r = confirm("¿Esta seguro que desea " + this.agregar_o_modificar + " Evento?");
+      var r = confirm("¿Esta seguro que desea " + this.agregar_o_modificar + " Lider?");
       if (r == false) {
         return;
       }
@@ -104,9 +104,9 @@ export class LiderCatalogoComponent implements OnInit {
     //Spiner
     var spinner_agregar = document.getElementById("spinner_agregar");
     spinner_agregar.removeAttribute("hidden");
-    this.http.post(this.url + "Eventoe", this.form_agregar.value).subscribe(data => {
+    this.http.post(this.url + "Lider", this.form_agregar.value).subscribe(data => {
       spinner_agregar.setAttribute("hidden", "true");
-      alert("Evento Guardado");
+      alert("Lider Guardado");
       this.clean_Agregar();
     },
       error => {

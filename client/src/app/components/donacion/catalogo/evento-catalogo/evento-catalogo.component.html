@@ -17,11 +17,11 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">No. Miembro:</span>
 			</div>
-			<input type="number" formControlName="buscarID"  class="form-control" [ngClass]="{ 'is-invalid': submit_buscar && f_A.buscarID.errors }">
+			<input type="number" formControlName="buscarID"  class="form-control" [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
 		</div>
 		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
 			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="evento_btn_buscar" [disabled] = "true">
-				<span id="spinner_buscar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+				<span id="spinner_buscar_evento" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
 			Buscar</button>
 		</div> 
 	</div>

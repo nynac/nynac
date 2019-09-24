@@ -28,6 +28,8 @@ ngOnInit() {
   })
 //agregar
 this.form_agregar = this.formBuilder.group({
+  formadonacionID: [''],
+  donacionID:[''],
   tipodonacion: ['', Validators.required],
   monto: ['', Validators.required],
   banco: [''],
