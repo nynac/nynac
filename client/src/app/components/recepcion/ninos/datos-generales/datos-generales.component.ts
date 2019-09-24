@@ -93,7 +93,6 @@ export class DatosGeneralesComponent  implements OnInit {
 
 		});
 
-
 		WebcamUtil.getAvailableVideoInputs()
 		.then((mediaDevices: MediaDeviceInfo[]) => {
 			this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
@@ -292,6 +291,7 @@ export class DatosGeneralesComponent  implements OnInit {
 			this.guardar_miembro_en_tabla("Nino_ED", "idNinosED", this.form_guardar.value.idNinosDG); //educación
 			this.guardar_miembro_en_tabla("Nino_Dep", "idNinosDep", this.form_guardar.value.idNinosDG); //deporte
 			this.guardar_miembro_en_tabla("Nino_Art", "idNinosArt", this.form_guardar.value.idNinosDG); //arte
+			this.guardar_miembro_en_tabla("Nino_DH", "idNinosDH", this.form_guardar.value.idNinosDG); //desarrollo humano
 
 			this.limpiar_form_guardar();
 			this.limpiar_form_buscar();

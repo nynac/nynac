@@ -1,722 +1,771 @@
-<form action="">
+<form [formGroup]="form_buscar" (ngSubmit)="DH_busq_Form()">
     <div class="row" style="margin: 15px 0px 0px 0px">
-        <div class="col-2 text-right font-weight-bold">
-            <span>QUÉ VAS A HACER?</span>
+        <div class="col-6">
         </div>
-        <div class="col-5">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input id="DH_nuevo" type="radio" class="custom-control-input" name="DH_opcion">
-                <label class="custom-control-label" for="DH_nuevo">Nuevo</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input id="DH_Modificar" type="radio" class="custom-control-input" name="DH_opcion">
-                <label class="custom-control-label" for="DH_Modificar">Modificar</label>
-            </div>
-        </div>
-        <div class="input-group input-group-sm mb-3 col-3 aling-right">
+        <div class="col-4 input-group input-group-sm mb-3 aling-left">
             <div class="input-group-prepend">
                 <span class="input-group-text">No. Miembro:</span>
             </div>
-            <input id="DH_busc_miembro" type="text" class="form-control">
+            <input type="number" formControlName="miembroID" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
+            <div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
+                <div *ngIf="f.miembroID.errors.required">Completa este campo</div>
+            </div>
         </div>
         <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-            <button id="DH_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+            <button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar">
+                <span id="spinner_buscarDH" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                hidden></span>
+                Buscar
+            </button>
         </div>
     </div>
 </form>
 
 <!--Inicio-->
 <div class="dropdown-divider"></div>
-<form>
-    <div class="col-12">
-        <span class="font-weight-bold">DESCRIBA EL COMPORTAMIENTO DEL NIÑO(A): </span>
-        <div>
-
-            <div class="dropdown-divider"></div>
-            <div class="col-2 custom-control-inline">
-                <span>Alegre:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_alegre" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3 custom-control-inline">
-                <span>Hace berrinches:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_berrinche" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3 custom-control-inline">
-                <span>Tolerante:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_tolerante" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3 custom-control-inline">
-                <span>Persistentes:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_persistente" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div>
-            <div class="col-2 custom-control-inline">
-                <span>Amigable:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_amigable" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3 custom-control-inline">
-                <span>Independiente:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_Independiente" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3 custom-control-inline">
-                <span>Sociable:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_Sociable" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3 custom-control-inline">
-                <span>Timido:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_Timido" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="dropdown-divider"></div>
-        <div>
-            <div class="col-2 custom-control-inline">
-                <span>Callado:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_Callado" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3 custom-control-inline">
-                <span>Imaginativo:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_Imaginativo" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3 custom-control-inline">
-                <span>Responsable:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_Responsable" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-3 custom-control-inline">
-                <span>Hace su Tarea:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_comp_Hace_Tarea" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Siempre</option>
-                        <option value="separados">A veces</option>
-                        <option value="viudo">Nunca</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div class="col-2 custom-control-inline">
-            <span>Coope- rador:</span>
-            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_Cooperador" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-3 custom-control-inline">
-            <span>Irritable:</span>
-            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_Irritable" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-3 custom-control-inline">
-            <span>Ordenado:</span>
-            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_Ordenado" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-3 custom-control-inline">
-            <span>Uso de sustancias:</span>
-            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_Uso de sustancias" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div class="col-2 custom-control-inline">
-            <span>Curioso:</span>
-            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_Curioso" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-3 custom-control-inline">
-            <span>Siente miedo:</span>
-            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_Siente_miedo" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-3 custom-control-inline">
-            <span>Se chupa el dedo:</span>
-            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_chupa_dedo" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-3 custom-control-inline">
-            <span>Sale del salon:</span>
-            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_Sale_salon" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="dropdown-divider"></div>
-        <div class="col-2 custom-control-inline">
-            <span>Comparte sus cosas:</span>
-            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_Comparte" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-3 custom-control-inline">
-            <span>Moja la cama:</span>
-            <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_Moja_cama" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-4 custom-control-inline">
-            <span>Golpea, muerde, grita:</span>
-            <div class="col-8 input-group input-group-sm mb-3" style="margin-left: 10px;">
-                <select id="DH_comp_Golpea" class="custom-select">
-                    <option selected disabled>Elige</option>
-                    <option value="juntos">Siempre</option>
-                    <option value="separados">A veces</option>
-                    <option value="viudo">Nunca</option>
-                </select>
-            </div>
-        </div>
-        <div class="dropdown-divider"></div>
+<form [formGroup]="form_guardar" (ngSubmit)="guardar_DH()">
+    <div class="row" style="margin: 0px 15px 0px 15px;">
         <div class="col-12">
-            <div class="col-lg-4 custom-control-inline">
-                <span>Interaccion Padre:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_padre" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-4 custom-control-inline">
-                <span>Interaccion Abuelos Paternos:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_abuelos_paternos" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-3 custom-control-inline">
-                <span>Interaccion tios:</span>
-                <div class="col-10 input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_tios" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="col-lg-4 custom-control-inline">
-                <span>Interaccion Madre:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_madre" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-4 custom-control-inline">
-                <span>Interaccion Abuelos Maternos:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_abuelos_maternos" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-3 custom-control-inline">
-                <span>Interaccion primos:</span>
-                <div class="col-10 input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_primos" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="col-lg-4 custom-control-inline">
-                <span>Interaccion hermanos:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_hermanos" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-4 custom-control-inline">
-                <span>Interaccion vecinos:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_vecinos" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-3 custom-control-inline">
-                <span>Interaccion amigos de su edad:</span>
-                <div class="col-10 input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_amigos" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="col-lg-4 custom-control-inline">
-                <span>Problemas con la ley:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_ley" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-4 custom-control-inline">
-                <span>Interaccion maestros:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_maestros" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-3 custom-control-inline">
-                <span>Interaccion amigos mas grandes:</span>
-                <div class="col-10 input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_amigos_mayores" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="col-lg-4 custom-control-inline">
-                <span>Adaptacion a situaciones nuevas:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_adaptacion" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-4 custom-control-inline">
-                <span>Otras:</span>
-                <div class="input-group input-group-sm mb-3" style="margin-left: 10px;">
-                    <select id="DH_interac_otras" class="custom-select">
-                        <option selected disabled>Elige</option>
-                        <option value="juntos">Estable</option>
-                        <option value="separados">Inestable</option>
-                        <option value="viudo">Conflicto</option>
-                    </select>
-                </div>
-            </div>
+            <span class="font-weight-bold">DESCRIBA EL COMPORTAMIENTO DEL NIÑO(A): </span>
         </div>
+        <div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+            <label for="alegre" style="padding: 0px;">Alegre</label>
+            <select formControlName="alegre" class="custom-select" id="alegre"
+            [ngClass]="{ 'is-invalid': submitted2 && f2.alegre.errors }" 
+            data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+
+            <option selected disabled></option>
+            <option value="Siempre">Siempre</option>
+            <option value="Aveces">Aveces</option>
+            <option value="Nunca">Nunca</option>
+        </select>
     </div>
-    <div class="dropdown-divider"></div>
+    <div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+        <label for="amigable" style="padding: 0px;">Amigable</label>
+        <select formControlName="amigable" class="custom-select" id="amigable"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.amigable.errors }" 
+        data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+        <option selected disabled></option>
+        <option value="Siempre">Siempre</option>
+        <option value="Aveces">Aveces</option>
+        <option value="Nunca">Nunca</option>
+    </select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="cooperador" style="padding: 0px;">Cooperador</label>
+    <select formControlName="cooperador" class="custom-select" id="cooperador"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.cooperador.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="curioso" style="padding: 0px;">Curioso</label>
+    <select formControlName="curioso" class="custom-select" id="curioso"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.curioso.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="callado" style="padding: 0px;">Callado</label>
+    <select formControlName="callado" class="custom-select" id="callado"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.callado.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="comparte" style="padding: 0px;">Comparte</label>
+    <select formControlName="comparte" class="custom-select" id="comparte"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.comparte.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+</div>
+
+<div class="row" style="margin: 0px 15px 0px 15px;">
+    <div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+        <label for="berrinches" style="padding: 0px;">Hace berrinches</label>
+        <select formControlName="berrinches" class="custom-select" id="berrinches"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.berrinches.errors }" 
+        data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+        <option selected disabled></option>
+        <option value="Siempre">Siempre</option>
+        <option value="Aveces">Aveces</option>
+        <option value="Nunca">Nunca</option>
+    </select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="independiente" style="padding: 0px;">Independiente</label>
+    <select formControlName="independiente" class="custom-select" id="independiente"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.independiente.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="imaginativo" style="padding: 0px;">Imaginativo</label>
+    <select formControlName="imaginativo" class="custom-select" id="imaginativo"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.imaginativo.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="irritable" style="padding: 0px;">Irritable</label>
+    <select formControlName="irritable" class="custom-select" id="irritable"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.irritable.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="miedo" style="padding: 0px;">Siente miedo</label>
+    <select formControlName="miedo" class="custom-select" id="miedo"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.miedo.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="mojacama" style="padding: 0px;">Moja la cama</label>
+    <select formControlName="mojacama" class="custom-select" id="mojacama"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.mojacama.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+</div>
+
+<div class="row" style="margin: 0px 15px 0px 15px;">
+    <div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+        <label for="tolerante" style="padding: 0px;">Es tolerante</label>
+        <select formControlName="tolerante" class="custom-select" id="tolerante"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.tolerante.errors }" 
+        data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+        <option selected disabled></option>
+        <option value="Siempre">Siempre</option>
+        <option value="Aveces">Aveces</option>
+        <option value="Nunca">Nunca</option>
+    </select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="sociable" style="padding: 0px;">Es sociable</label>
+    <select formControlName="sociable" class="custom-select" id="sociable"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.sociable.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="responsable" style="padding: 0px;">Es responsable</label>
+    <select formControlName="responsable" class="custom-select" id="responsable"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.responsable.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="ordendo" style="padding: 0px;">Es ordendo</label>
+    <select formControlName="ordendo" class="custom-select" id="ordendo"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.ordendo.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="chupadedo" style="padding: 0px;">Se chupa el dedo</label>
+    <select formControlName="chupadedo" class="custom-select" id="chupadedo"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.chupadedo.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="golpea" style="padding: 0px;">Golpea, muerde</label>
+    <select formControlName="golpea" class="custom-select" id="golpea"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.golpea.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+</div>
+
+<div class="row" style="margin: 0px 15px 0px 15px;">
+    <div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+        <label for="persistente" style="padding: 0px;">Es persistente</label>
+        <select formControlName="persistente" class="custom-select" id="persistente"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.persistente.errors }" 
+        data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+        <option selected disabled></option>
+        <option value="Siempre">Siempre</option>
+        <option value="Aveces">Aveces</option>
+        <option value="Nunca">Nunca</option>
+    </select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="timido" style="padding: 0px;">Es timido</label>
+    <select formControlName="timido" class="custom-select" id="timido"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.timido.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="hacetarea" style="padding: 0px;">Hace su tarea</label>
+    <select formControlName="hacetarea" class="custom-select" id="hacetarea"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.hacetarea.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="sustanciatoxica" style="padding: 0px;">Usa sustancias tóxicas</label>
+    <select formControlName="sustanciatoxica" class="custom-select" id="sustanciatoxica"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.sustanciatoxica.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+<div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="salirsalon" style="padding: 0px;">Sale del salón constantemente</label>
+    <select formControlName="salirsalon" class="custom-select" id="salirsalon"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.salirsalon.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Siempre">Siempre</option>
+    <option value="Aveces">Aveces</option>
+    <option value="Nunca">Nunca</option>
+</select>
+</div>
+</div>
+
+<div class="dropdown-divider"></div>
+
+<div class="row" style="margin: 15px 15px 0px 15px;">
+    <div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+        <label for="intpadre" style="padding: 0px;">Interacción con padre</label>
+        <select formControlName="intpadre" class="custom-select" id="intpadre"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.intpadre.errors }" 
+        data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+        <option selected disabled></option>
+        <option value="Estable">Estable</option>
+        <option value="Inestable">Inestable</option>
+        <option value="Conflicto">Conflicto</option>
+    </select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="intemadre" style="padding: 0px;">Interacción con madre</label>
+    <select formControlName="intemadre" class="custom-select" id="intemadre"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.intemadre.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Estable">Estable</option>
+    <option value="Inestable">Inestable</option>
+    <option value="Conflicto">Conflicto</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="inteabuelospat" style="padding: 0px;">Interacción con abuelos paternos</label>
+    <select formControlName="inteabuelospat" class="custom-select" id="inteabuelospat"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.inteabuelospat.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Estable">Estable</option>
+    <option value="Inestable">Inestable</option>
+    <option value="Conflicto">Conflicto</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="inteabuelosmat" style="padding: 0px;">Interacción con abuelos maternos</label>
+    <select formControlName="inteabuelosmat" class="custom-select" id="inteabuelosmat"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.inteabuelosmat.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Estable">Estable</option>
+    <option value="Inestable">Inestable</option>
+    <option value="Conflicto">Conflicto</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="intetio" style="padding: 0px;">Interacción con tios</label>
+    <select formControlName="intetio" class="custom-select" id="intetio"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.intetio.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Estable">Estable</option>
+    <option value="Inestable">Inestable</option>
+    <option value="Conflicto">Conflicto</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="inteprimo" style="padding: 0px;">Interacción con primos</label>
+    <select formControlName="inteprimo" class="custom-select" id="inteprimo"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.inteprimo.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Estable">Estable</option>
+    <option value="Inestable">Inestable</option>
+    <option value="Conflicto">Conflicto</option>
+</select>
+</div>
+</div>
+
+<div class="row" style="margin: 0px 15px 0px 15px;">
+    <div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+        <label for="intehermano" style="padding: 0px;">Interacción con hermanos</label>
+        <select formControlName="intehermano" class="custom-select" id="intehermano"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.intehermano.errors }" 
+        data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+        <option selected disabled></option>
+        <option value="Estable">Estable</option>
+        <option value="Inestable">Inestable</option>
+        <option value="Conflicto">Conflicto</option>
+    </select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="inteamigomayor" style="padding: 0px;">Interacción con amigos mayores</label>
+    <select formControlName="inteamigomayor" class="custom-select" id="inteamigomayor"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.inteamigomayor.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Estable">Estable</option>
+    <option value="Inestable">Inestable</option>
+    <option value="Conflicto">Conflicto</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="inteamigoedad" style="padding: 0px;">Interacción con amigos de su edad</label>
+    <select formControlName="inteamigoedad" class="custom-select" id="inteamigoedad"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.inteamigoedad.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Estable">Estable</option>
+    <option value="Inestable">Inestable</option>
+    <option value="Conflicto">Conflicto</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="intevecino" style="padding: 0px;">Interacción con vecinos</label>
+    <select formControlName="intevecino" class="custom-select" id="intevecino"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.intevecino.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Estable">Estable</option>
+    <option value="Inestable">Inestable</option>
+    <option value="Conflicto">Conflicto</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="problemaley" style="padding: 0px;">Problemas con la ley</label>
+    <select formControlName="problemaley" class="custom-select" id="problemaley"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.problemaley.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Estable">Estable</option>
+    <option value="Inestable">Inestable</option>
+    <option value="Conflicto">Conflicto</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+    <label for="intemaestro" style="padding: 0px;">Interacción con maestros</label>
+    <select formControlName="intemaestro" class="custom-select" id="intemaestro"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.intemaestro.errors }" 
+    data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+    <option selected disabled></option>
+    <option value="Estable">Estable</option>
+    <option value="Inestable">Inestable</option>
+    <option value="Conflicto">Conflicto</option>
+</select>
+</div>
+</div>
+<div class="row" style="margin: 0px 15px 0px 15px;">
+    <div class="col-4 form-group input-group-sm mb-3" style="font-size: 14px;">
+        <label for="adaptsituacion" style="padding: 0px;">Adaptación a situaciones nuevas</label>
+        <select formControlName="adaptsituacion" class="custom-select" id="adaptsituacion"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.adaptsituacion.errors }" 
+        data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+        <option selected disabled></option>
+        <option value="Estable">Estable</option>
+        <option value="Inestable">Inestable</option>
+        <option value="Conflicto">Conflicto</option>
+    </select>
+</div>
+<div class="col-8 form-group input-group-sm mb-3">
+    <label for="otro" style="padding: 0px; font-size: 14px;">Otro</label>
+    <input type="text" id="otro" formControlName="otro" class="form-control"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.otro.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+</div>
+</div>
+<div class="row" style="margin: 0px 15px 0px 15px;">
+    <div class="col-3 custom-control custom-checkbox" style="margin: 0px 0px 0px 15px;">
+        <input type="checkbox" id="terapia" formControlName="terapia" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.terapia.errors}"/>
+        <label class="custom-control-label" for="terapia">Ha recibido terapia</label>
+    </div>
+    <div class="col-9 form-group input-group-sm mb-3">
+        <label for="motivoterapia" style="padding: 0px; font-size: 14px;">Motivos</label>
+        <input type="text" id="motivoterapia" formControlName="motivoterapia" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.motivoterapia.errors }" placeholder="Describelo" style="margin-top: -10px;">
+    </div>
+</div>
+<div class="row" style="margin: 0px 15px 0px 15px;">
+    <div class="col-3 form-group input-group-sm mb-3">
+        <label for="tic" style="padding: 0px; font-size: 14px;">Tiene algún TIC (Manía)</label>
+        <input type="text" id="tic" formControlName="tic" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.tic.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+    </div>
+    <div class="col-3 form-group input-group-sm mb-3">
+        <label for="pasatiempo" style="padding: 0px; font-size: 14px;">Pasatiempos que le gustan</label>
+        <input type="text" id="pasatiempo" formControlName="pasatiempo" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.pasatiempo.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+    </div>
+    <div class="col-5 custom-control custom-checkbox" style="margin: 0px 0px 0px 15px;">
+        <input type="checkbox" id="obedece" formControlName="obedece" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.obedece.errors}"/>
+        <label class="custom-control-label" for="obedece">Hace lo que se le ordena sin dicutir o resistir al
+        cumplirlo.</label>
+    </div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 15px 0px 15px;">
+    <div class="col-12 custom-control custom-checkbox" style="margin: 0px 0px 0px 15px;">
+        <input type="checkbox" id="materialpeligroso" formControlName="materialpeligroso" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.materialpeligroso.errors}"/>
+        <label class="custom-control-label" for="materialpeligroso">Juega con materiales peligrosos (quema papeles, enciende cerillos, juega con cuchillos, etc..).
+        </label>
+    </div>
+</div>
+
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 15px 0px 15px;">
+    <div class="col-3 form-group input-group-sm mb-3">
+        <label for="reaccionobscuridad" style="padding: 0px; font-size: 14px;">Reacción ante la obscuridad</label>
+        <input type="text" id="reaccionobscuridad" formControlName="reaccionobscuridad" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.reaccionobscuridad.errors }" placeholder="Describelo" style="margin-top: -10px;">
+    </div>
+    <div class="col-3 form-group input-group-sm mb-3">
+        <label for="fobias" style="padding: 0px; font-size: 14px;">Fobias o miedos</label>
+        <input type="text" id="fobias" formControlName="fobias" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.fobias.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+    </div>
+    <div class="col-6 form-group input-group-sm mb-3" style="font-size: 14px;">
+        <label for="duerme" style="padding: 0px;">Duerme la mayoria de las veces</label>
+        <select formControlName="duerme" class="custom-select" id="duerme"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.duerme.errors }" 
+        data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+        <option selected disabled></option>
+        <option value="solo">Sólo</option>
+        <option value="padres">Con sus padres</option>
+        <option value="hermanos">Con Hermanos</option>
+        <option value="Otros">Otros</option>
+    </select>
+</div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 15px 0px 15px;">
+    <div class="col-6 form-group input-group-sm mb-3">
+        <label for="horassiesta" style="padding: 0px; font-size: 14px;">Hace siesta durante el dia, por cuanto tiempo:</label>
+        <input type="text" id="horassiesta" formControlName="horassiesta" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.horassiesta.errors }" placeholder="Si/NO y cuantas horas" style="margin-top: -10px;">
+    </div>
+    <div class="col-6 form-group input-group-sm mb-3">
+        <label for="horasduerme" style="padding: 0px; font-size: 14px;">Número de horas que duerme por la noche en promedio</label>
+        <input type="text" id="horasduerme" formControlName="horasduerme" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.horasduerme.errors }" placeholder="Cuantas horas" style="margin-top: -10px;">
+    </div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 15px 0px 15px;">
     <div class="col-12">
-        <span>Ha recibido terapia: </span>
-        <div class="col-8 form-check custom-control-inline" style="margin-left: 10px;">
-            <input type="checkbox" class="form-check-input" id="DH_terapia_si">
-            <label class="form-check-label" for="DH_terapia_si">Si</label>
-            <div class="col-12 input-group-sm mb-3">
-                <input id="DH_terapia_cual" style="margin-left: 10px;" type="text" placeholder="Motivo:"
-                    class="col-12 form-control ">
-            </div>
-        </div>
+        <span class="font-weight-bold">PRESENTA ALGUNO DE LOS SIGUIENTES TRANSTORNOS DE SUEÑO </span>
     </div>
+    <div class="col-2 custom-control custom-checkbox" style="margin: 0px 0px 0px 15px;">
+        <input type="checkbox" id="pesadilla" formControlName="pesadilla" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.pesadilla.errors}"/>
+        <label class="custom-control-label" for="pesadilla">Pesadilla</label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="insomnio" formControlName="insomnio" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.insomnio.errors}"/>
+        <label class="custom-control-label" for="insomnio">Insomnio</label>
+    </div>
+    <div class="col-3 custom-control custom-checkbox">
+        <input type="checkbox" id="rechinardiente" formControlName="rechinardiente" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.rechinardiente.errors}"/>
+        <label class="custom-control-label" for="rechinardiente">Rechinar dientes</label>
+    </div>
+    <div class="col-3 custom-control custom-checkbox">
+        <input type="checkbox" id="suenointranquilo" formControlName="suenointranquilo" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.suenointranquilo.errors}"/>
+        <label class="custom-control-label" for="suenointranquilo">Sueño intranquilo</label>
+    </div>
+    <div class="col-1 custom-control custom-checkbox">
+        <input type="checkbox" id="habla" formControlName="habla" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.habla.errors}"/>
+        <label class="custom-control-label" for="habla">Habla</label>
+    </div>
+</div>
+<div class="row" style="margin: 15px 15px 0px 15px;">
+    <div class="col-4 custom-control custom-checkbox"  style="margin: 0px 0px 0px 15px;">
+        <input type="checkbox" id="suenocorto" formControlName="suenocorto" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.suenocorto.errors}"/>
+        <label class="custom-control-label" for="suenocorto">Sueño nocturno por periodos cortos</label>
+    </div>
+    <div class="col-7 form-group input-group-sm mb-3" style="margin: -10px 0px 0px 0px;">
+        <label for="otroproblema" style="padding: 0px; font-size: 14px;">Otro</label>
+        <input type="text" id="otroproblema" formControlName="otroproblema" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.otroproblema.errors }" placeholder="Cuantas horas" style="margin-top: -10px;">
+    </div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 15px 0px 15px;">
     <div class="col-12">
-        <span>Tiene algun TIC (Mania): </span>
-        <div class="col-8 form-check custom-control-inline" style="margin-left: 10px;">
-            <input type="checkbox" class="form-check-input" id="DH_tic_si">
-            <label class="form-check-label" for="DH_tic_si">Si</label>
-            <div class="col-12 input-group-sm mb-3">
-                <input id="DH_tic_cual" style="margin-left: 10px;" type="text" placeholder="Motivo:"
-                    class="col-12 form-control ">
-            </div>
-        </div>
+        <span class="font-weight-bold">Interacción con la TV</span>
     </div>
+    <div class="col-6">
+        <span>Cuantas horas pasa viendo algún programa de televisión.</span>
+    </div>
+    <div class="col-1 form-group input-group-sm mb-3" style="margin: -10px 0px 0px 0px;">
+        <label for="horastv" style="padding: 0px; font-size: 14px;">Horas</label>
+        <input type="text" id="horastv" formControlName="horastv" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.horastv.errors }" placeholder="Horas" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3" style="margin: -10px 0px 0px 0px;">
+        <label for="minutostv" style="padding: 0px; font-size: 14px;">Minutos</label>
+        <input type="text" id="minutostv" formControlName="minutostv" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.minutostv.errors }" placeholder="Minutos" style="margin-top: -10px;">
+    </div>
+    <div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px; margin: -10px 0px 0px 0px;">
+        <label for="companiatv" style="padding: 0px;">Lo ve en compañia de</label>
+        <select formControlName="companiatv" class="custom-select" id="companiatv"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.companiatv.errors }" 
+        data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+        <option selected disabled></option>
+        <option value="solo">Sólo (a)</option>
+        <option value="acompanado">Acompañado (a)</option>
+    </select>
+</div>
+</div>
+
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 15px 15px 0px 15px;">
     <div class="col-12">
-        <span>Pasatiempo que le gustan: </span>
-        <div class="col-8 form-check custom-control-inline" style="margin-left: 10px;">
-            <input type="checkbox" class="form-check-input" id="DH_pasatiempo_si">
-            <label class="form-check-label" for="DH_pasatiempo_si">Si</label>
-            <div class="col-12 input-group-sm mb-3">
-                <input id="DH_pasatiempo_cual" style="margin-left: 10px;" type="text" placeholder="Motivo:"
-                    class="col-12 form-control ">
-            </div>
-        </div>
+        <span class="font-weight-bold">Interacción con la Aparatos eléctronicos</span>
     </div>
-
-    <!--Screen 2-->
-    <div class="dropdown-divider"></div>
-    <div class="col-12">
-        <div class="col-8 form-check custom-control-inline" style="margin-left: 10px;">
-            <input type="checkbox" class="form-check-input" id="DH_ordenes_si">
-            <label class="form-check-label" for="DH_ordenes_si">Hace lo que se le ordena sin dicutir o resistir al
-                cumplirlo.</label>
-        </div>
-        <div class="col-8 form-check custom-control-inline" style="margin-left: 10px;">
-            <input type="checkbox" class="form-check-input" id="DH_materiales_peligrosos">
-            <label class="form-check-label" for="DH_materiales_peligrosos">Juega con materiales peligrosos (quema
-                papeles, enciende cerillos, juega con cuchillos, etc..).</label>
-        </div>
-        <div class="custom-control-inline">
-            <div class="input-group input-group-sm mb-3 col-6 aling-right">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Reaccion ante la obscuridad:</span>
-                </div>
-                <input id="DH_reaccion_obscuridad" type="text" class="col-12 form-control">
-            </div>
-            <div class="input-group input-group-sm mb-3 col-6 aling-right">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Fobias o Miedos:</span>
-                </div>
-                <input id="DH_Fobias" type="text" class="col-12 form-control">
-            </div>
-        </div>
-        <div>
-            <span class="font-weight-bold">Duerme la mayoria de las veces: </span>
-            <input type="checkbox" id="DH_duerme_solo">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_duerme_solo">Solo(a)</label>
-
-            <input type="checkbox" id="DH_duerme_con_padres">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_duerme_con_padres">Con sus Padres</label>
-
-            <input type="checkbox" id="DH_duerme_con_hermanos">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_duerme_con_hermanos">Con hermanos</label>
-
-            <input type="checkbox" id="DH_duerme_otros">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_duerme_otros">Otros</label>
-        </div>
-        <div class="custom-control-inline">
-            <input type="checkbox" id="DH_siesta_dia" style="margin-top: 5px;">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_siesta_dia">Hace siestas durante el
-                dia.</label>
-            <div class="input-group-sm mb-3">
-                <input id="DH_siesta_dia_horas" style="margin-left: 10px;" type="text" placeholder="Horas"
-                    class="form-control ">
-            </div>
-
-            <label style="margin-left: 30px;">Horas que duerme en promedio por la noche: </label>
-            <div class="input-group-sm mb-3">
-                <input id="DH_horas_promedio" style="margin-left: 10px;" type="text" placeholder="Horas"
-                    class="form-control ">
-            </div>
-        </div>
-        <div class="custom-control-inline">
-            <input type="checkbox" id="DH_transtorno_sueno_si" style="margin-top: 5px;">
-            <label class="font-weight-bold" style="margin-left: 10px; margin-right: 10px;"
-                for="DH_transtorno_sueno_si">Presenta algún transtorno de sueño. Cuál:</label>
-
-        </div>
-        <div class="custom-control-inline">
-            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_pesadilla">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_pesadilla">Pesadilla</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_insomnio">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_insomnio">Insomnio</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_rechinar_dientes">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_rechinar_dientes">Rechinar
-                dientes</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_sueño_intranquilo">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_sueño_intranquilo">Sueño
-                intranquilo</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_habla">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_habla">habla</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_sueño_corto">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_sueño_corto">Sueño nocturno en
-                periodos muy cortos</label>
-        </div>
-        <div class="custom-control-inline">
-            <input type="checkbox" style="margin-top: 5px;" id="DH_transtorno_otro">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_transtorno_otro">otro</label>
-            <div class="input-group-sm mb-3">
-                <input style="margin-left: 10px;" type="text" placeholder="Cual" id="DH_transtorno_cual"
-                    class="col-12 form-control ">
-            </div>
-        </div>
-        <div class="col-12 custom-control-inline">
-            <span class="font-weight-bold">Cuantas horas al dia pasa viendo algún programa de televisión: </span>
-            <div class="input-group-sm mb-3">
-                <input style="margin-left: 10px;" type="text" placeholder="Horas" id="DH_tv_horas"
-                    class="col-8 form-control ">
-            </div>
-            <div class="input-group-sm mb-3">
-                <input style="margin-left: 10px;" type="text" placeholder="Minutos" id="DH_tv_minutos"
-                    class="col-8 form-control ">
-            </div>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_solo">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_solo">Solo(a)</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_acompanado">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_acompanado">Acompañado</label>
-        </div>
-
-        <div class="col-12 custom-control-inline">
-            <span class="font-weight-bold">Cuantas horas al día pasa frente a algún aparato tecnológico (Ipod, laptop,
-                PC, etc.): </span>
-            <div class="input-group-sm mb-3">
-                <input style="margin-left: 10px;" type="text" placeholder="Horas" id="DH_pc_horas"
-                    class="col-8 form-control ">
-            </div>
-            <div class="input-group-sm mb-3">
-                <input style="margin-left: 10px;" type="text" placeholder="Minutos" id="DH_pc_minutos"
-                    class="col-8 form-control ">
-            </div>
-        </div>
-
-
-
-        <div class="custom-control-inline">
-            <label class="font-weight-bold" style="margin-left: 10px; margin-right: 10px;">Cuales son sus programas
-                favoritos:</label>
-        </div>
-        <div class="custom-control-inline">
-            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_caricatura">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_caricatura">Caricatura</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_documentales">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_documentales">Documentales</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_policialess">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_policiales">Series policiacas</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_telenovelas">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_telenovelas">Telenovelas</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_Concursos">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_Concursos">Concursos</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_Terror">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_Terror">Terror</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_Video_Musical">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_Video_Musical">Video Musical</label>
-
-            <input type="checkbox" style="margin-top: 5px;" id="DH_tv_Otros">
-            <label style="margin-left: 10px; margin-right: 10px;" for="DH_tv_Otros">Otros</label>
-
-            <div class="input-group-sm mb-3">
-                <input style="margin-left: 10px;" type="text" placeholder="Cual" id="DH_tv_cual" class="form-control ">
-            </div>
-        </div>
-
-        <div class="custom-control-inline">
-                <label class="font-weight-bold" style="margin-left: 10px; margin-right: 10px;">Habilidades:</label>
-            </div>
-            <div class="custom-control-inline">
-                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_come_solo">
-                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_come_solo">Come solo</label>
-    
-                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_asea_baño">
-                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_asea_baño">Se asea despues de ir al baño</label>
-    
-                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_peinar">
-                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_peinar">Se peina solo(a)</label>
-    
-                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_viste_solo">
-                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_viste_solo">Se viste solo(a)</label>
-    
-                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_lava_manos">
-                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_lava_manos">Se lava las manos frecuentemente</label>
-    
-                <input type="checkbox" style="margin-top: 5px;" id="DH_habilidad_lava_dientes">
-                <label style="margin-left: 10px; margin-right: 10px;" for="DH_habilidad_lava_dientes">Se lava los dientes frecuentemente</label>
-            </div>
-
-            <div class="custom-control-inline">
-                    <label class="font-weight-bold" style="margin-left: 10px; margin-right: 10px;">Que actividad realiza regularmente los fines de semana:</label>
-                </div>
-                <div class="custom-control-inline">
-                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Conciertos">
-                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Conciertos">Conciertos</label>
-        
-                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Cine">
-                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Cine">Cine</label>
-                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Redes">
-                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Redes">Redes Sociales</label>
-        
-                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Salidas">
-                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Salidas">Salidas E.U</label>
-        
-                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Deportivas">
-                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Deportivas">Deportivas</label>
-        
-                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Parque">
-                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Parque">Parque de diversiones</label>
-        
-                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_Visitas">
-                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_Visitas">Visitas Familiares</label>
-        
-                    <input type="checkbox" style="margin-top: 5px;" id="DH_actividad_otros">
-                    <label style="margin-left: 10px; margin-right: 10px;" for="DH_actividad_otros">Otros</label>
-        
-                    <div class="input-group-sm mb-3">
-                        <input style="margin-left: 10px;" type="text" placeholder="Cual" id="DH_actividad_cual" class="form-control ">
-                    </div>
-                </div>
-
-
-        <div class="row" style="margin: 15px 0px 15px 15px">
-            <div class="col-10"></div>
-            <div class="col-2">
-                <button id="DH_btn_guardar" type="button" class="btn btn-club btn-sm"
-                    style="width:100%; height: 50px;">Guardar</button>
-            </div>
-        </div>
+    <div class="col-8">
+        <span>Cuantas horas al día pasa frente a algún aparato tecnológico (Ipod, laptop,
+        PC, etc.)</span>
     </div>
+    <div class="col-2 form-group input-group-sm mb-3" style="margin: -10px 0px 0px 0px;">
+        <label for="horasPC" style="padding: 0px; font-size: 14px;">Horas</label>
+        <input type="text" id="horasPC" formControlName="horasPC" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.horasPC.errors }" placeholder="Horas" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3" style="margin: -10px 0px 0px 0px;">
+        <label for="minutosPC" style="padding: 0px; font-size: 14px;">Minutos</label>
+        <input type="text" id="minutosPC" formControlName="minutosPC" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.minutosPC.errors }" placeholder="Minutos" style="margin-top: -10px;">
+    </div>
+</div>
 
+<div class="dropdown-divider"></div>
 
+<div class="row" style="margin: 0px 30px 15px 30px;">
+    <div class=" col-12" style="left: -15px;">
+        <span class="font-weight-bold">Cuáles son sus programas favoritos</span>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="caricatura" formControlName="caricatura" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.caricatura.errors}"/>
+        <label class="custom-control-label" for="caricatura">Caricatura</label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="telenovelas" formControlName="telenovelas" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.telenovelas.errors}"/>
+        <label class="custom-control-label" for="telenovelas">Telenovelas</label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="videomusical" formControlName="videomusical" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.videomusical.errors}"/>
+        <label class="custom-control-label" for="videomusical">Videos musicales</label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="documental" formControlName="documental" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.documental.errors}"/>
+        <label class="custom-control-label" for="documental">Documental</label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="concurso" formControlName="concurso" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.concurso.errors}"/>
+        <label class="custom-control-label" for="concurso">Concurso </label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="politica" formControlName="politica" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.politica.errors}"/>
+        <label class="custom-control-label" for="politica">Series policiacas</label>
+    </div>
+</div>
+
+<div class="row" style="margin: 0px 15px 15px 30px;">
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="terror" formControlName="terror" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.terror.errors}"/>
+        <label class="custom-control-label" for="terror">Series de Terror</label>
+    </div>
+    <div class="col-10 form-group input-group-sm mb-3" style="margin: -10px 0px 0px 0px;">
+        <label for="otroprograma" style="padding: 0px; font-size: 14px;">Otros</label>
+        <input type="text" id="otroprograma" formControlName="otroprograma" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.otroprograma.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+    </div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 0px 15px 15px 30px;">
+    <div class=" col-12" style="left: -15px;">
+        <span class="font-weight-bold">Qué actividades realiza regularmente los fines de semana</span>
+    </div>
+    <div class="col-3 custom-control custom-checkbox">
+        <input type="checkbox" id="visitafamiliar" formControlName="visitafamiliar" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.visitafamiliar.errors}"/>
+        <label class="custom-control-label" for="visitafamiliar">Visitas familiares</label>
+    </div>
+    <div class="col-3 custom-control custom-checkbox">
+        <input type="checkbox" id="cine" formControlName="cine" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.cine.errors}"/>
+        <label class="custom-control-label" for="cine">Cine</label>
+    </div>
+    <div class="col-3 custom-control custom-checkbox">
+        <input type="checkbox" id="parquedivertido" formControlName="parquedivertido" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.parquedivertido.errors}"/>
+        <label class="custom-control-label" for="parquedivertido">Parque de diversiones</label>
+    </div>
+    <div class="col-3 custom-control custom-checkbox">
+        <input type="checkbox" id="concierto" formControlName="concierto" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.concierto.errors}"/>
+        <label class="custom-control-label" for="concierto">Conciertos</label>
+    </div>
+</div>
+<div class="row" style="margin: 0px 15px 15px 30px;">
+    <div class="col-3 custom-control custom-checkbox">
+        <input type="checkbox" id="salidaEU" formControlName="salidaEU" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.salidaEU.errors}"/>
+        <label class="custom-control-label" for="salidaEU">Salida a E.U</label>
+    </div>
+    <div class="col-3 custom-control custom-checkbox">
+        <input type="checkbox" id="deporte" formControlName="deporte" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.deporte.errors}"/>
+        <label class="custom-control-label" for="deporte">Deportivas</label>
+    </div>
+    <div class="col-3 custom-control custom-checkbox">
+        <input type="checkbox" id="redsocial" formControlName="redsocial" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.redsocial.errors}"/>
+        <label class="custom-control-label" for="redsocial">Redes sociales</label>
+    </div>
+    <div class="col-3 form-group input-group-sm mb-3" style="margin: -10px 0px 0px 0px;">
+        <label for="otraactividad" style="padding: 0px; font-size: 14px;">Otros</label>
+        <input type="text" id="otraactividad" formControlName="otraactividad" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.otraactividad.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+    </div>
+</div>
+<div class="dropdown-divider"></div>
+<div class="row" style="margin: 0px 15px 15px 30px;">
+    <div class="col-12" style="left: -15px;">
+        <span class="font-weight-bold">Habilidades</span>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="comesolo" formControlName="comesolo" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.comesolo.errors}"/>
+        <label class="custom-control-label" for="comesolo">Come solo (a)</label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="aseadespuesbano" formControlName="aseadespuesbano" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.aseadespuesbano.errors}"/>
+        <label class="custom-control-label" for="aseadespuesbano">Se asea después de ir al baño solo (a)</label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="peinasolo" formControlName="peinasolo" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.peinasolo.errors}"/>
+        <label class="custom-control-label" for="peinasolo">Se peina solo (a)</label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="lavadientesregular" formControlName="lavadientesregular" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.lavadientesregular.errors}"/>
+        <label class="custom-control-label" for="lavadientesregular">Se lava los dientes regularmente</label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="vistesolo" formControlName="vistesolo" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.vistesolo.errors}"/>
+        <label class="custom-control-label" for="vistesolo">Se viste solo (a)</label>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+        <input type="checkbox" id="lavamanosregular" formControlName="lavamanosregular" class="custom-control-input"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.lavamanosregular.errors}"/>
+        <label class="custom-control-label" for="lavamanosregular">Se lava las manos frecuentemente</label>
+    </div>
+</div>
+<div class="row" style="margin: 15px 15px 15px 15px">
+    <div class="col-10"></div>
+    <div class="col-2">
+        <button name="DH_btn_guardar" class="btn btn-club btn-sm"
+        style="width:100%; height: 50px;" type="submit">
+        <span id="spinner_dh" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+        hidden></span>
+        Guardar
+    </button>
+</div>
+</div>
 </form>
