@@ -32,10 +32,7 @@ export class ArteNinosComponent implements OnInit {
 		this.form_guardar = this.formBuilder.group({
 			idNinosArt : ['', Validators.required],
 			miembroID : ['', Validators.required],
-			
 			actividadartistica : [''],
-			hanotadoparticipar : [''],
-
 			actividadfecha1 : [''],
 			actividadfecha2 : [''],
 			actividadfecha3 : [''],
@@ -53,9 +50,6 @@ export class ArteNinosComponent implements OnInit {
 			canto : [''],
 			musica : [''],
 			otro : [''],
-
-			recibiopremio : [''],
-
 			premioartefecha1 : [''],
 			premioartefecha2 : [''],
 			premioartefecha3 : [''],
@@ -64,7 +58,9 @@ export class ArteNinosComponent implements OnInit {
 			premioartediciplina3 : [''],
 			premioartelugar1 : [''],
 			premioartelugar2 : [''],
-			premioartelugar3 : ['']
+			premioartelugar3 : [''],
+			hanotadoparticipar : [''],
+			recibiopremio : ['']
 
 		})
 	}
