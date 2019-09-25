@@ -36,18 +36,22 @@
 			<span>Datos Donante</span>
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
+				<span style="margin-right: 10px">ID Donante:</span>
 			<input type="number" formControlName="donacionID" class="form-control" placeholder="ID Donante"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }">
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
+				<span style="margin-right: 10px">Nombres:</span>
 			<input type="text" formControlName="nombres" class="form-control" placeholder="Nombres"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.nombres.errors }">
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
+				<span style="margin-right: 10px">Apellidos:</span>
 			<input type="text" formControlName="apellidos" class="form-control" placeholder="Apellidos"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.apellidos.errors }">
 		</div>
 		<div class="col-6 input-group input-group-sm mb-3">
+				<span style="margin-right: 10px">Nombre Fiscal:</span>
 			<input type="text" formControlName="nombrefiscal" class="form-control" placeholder="Nombre Fiscal"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.nombrefiscal.errors }">
 		</div>
@@ -62,6 +66,7 @@
 			</select>
 		</div>
 		<div class="col-3 input-group input-group-sm mb-3">
+				<span style="margin-right: 10px">Email:</span>
 			<input type="text" formControlName="email" class="form-control" placeholder="Email"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.email.errors }">
 		</div>
@@ -99,6 +104,7 @@
             </div>
 		</div>
 		<div class="col-2 input-group input-group-sm mb-3">
+				<span style="margin-right: 10px">Edad:</span>
 			<input type="number" formControlName="edad" class="form-control" placeholder="Edad"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.edad.errors }">
 		</div>
@@ -155,6 +161,7 @@
 			</select>
 		</div>
 		<div class="col-12 input-group input-group-sm mb-3">
+				<span style="margin-right: 10px">Observacion:</span>
 			<input type="text" formControlName="observacion" class="form-control" placeholder="Observación"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion.errors }">
 		</div>
