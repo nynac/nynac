@@ -1,274 +1,337 @@
-<form action="">
+<form [formGroup]="form_buscar" (ngSubmit)="ng_busq_Form()">
   <div class="row" style="margin: 15px 0px 0px 0px">
-    <div class="col-2 text-right font-weight-bold">
-      <span>QUÉ VAS A HACER?</span>
+    <div class="col-6">
     </div>
-    <div class="col-5">
-      <div class="custom-control custom-radio custom-control-inline">
-        <input id="DS_Nuevo" type="radio" class="custom-control-input" name="DS_opcion">
-        <label class="custom-control-label" for="DS_Nuevo">Nuevo</label>
-      </div>
-      <div class="custom-control custom-radio custom-control-inline">
-        <input id="DS_Modificar" type="radio" class="custom-control-input" name="DS_opcion">
-        <label class="custom-control-label" for="DS_Modificar">Modificar</label>
-      </div>
-    </div>
-    <div class="input-group input-group-sm mb-3 col-3 aling-right">
+    <div class="col-4 input-group input-group-sm mb-3 aling-left">
       <div class="input-group-prepend">
         <span class="input-group-text">No. Miembro:</span>
       </div>
-      <input id="DS_busc_miembro" type="text" class="form-control">
+      <input type="number" formControlName="miembroID" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
+      <div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
+        <div *ngIf="f.miembroID.errors.required">Completa este campo</div>
+      </div>
     </div>
     <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-      <button id="DS_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+      <button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar">
+        <span id="spinner_buscarES" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+        hidden></span>
+        Buscar
+      </button>
     </div>
   </div>
 </form>
-<!-- INICIO DE COL 12 DERECHOHABIENCIA -->
-<div class="dropdown-divider"></div>
-<form>
+
+<div class="dropdown-divider"  style="margin: 10px 0px 0px 0px"></div>
+<form [formGroup]="form_guardar" (ngSubmit)="guardar_ES()">
+  <div class="col-3 input-group input-group-sm mb-3" hidden="true">
+    <input type="text" formControlName="idNinosES" class="form-control"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.idNinosES.errors}" readonly />
+  </div>
+  <div class="col-2 input-group input-group-sm mb-3" hidden="true">
+    <input type="number" formControlName="miembroID" class="form-control"
+    [ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" readonly />
+  </div>
   <div class="row " style="margin: 10px 0px 0px 0px">
     <div class="col-sm-6 border-right text-center">
-      <span class="font-weight-bold">Transporte:</span><br>
-      <span>Para llegar al club utilizara: </span>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_carro_propio">
-        <label class="form-check-label" for="DS_carro_propio">Carro Propio</label>
+      <span class="font-weight-bold">Para llegar al club utilizará: </span><br>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="propio" type="radio" class="custom-control-input" name="transporte" value="Propio" formControlName="transporte">
+        <label class="custom-control-label" for="propio">Carro propio</label>
       </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_trasnporte_publico">
-        <label class="form-check-label" for="DS_trasnporte_publico">Transporte publico</label>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="transporte_publico" type="radio" class="custom-control-input" name="transporte" value="publico" formControlName="transporte">
+        <label class="custom-control-label" for="transporte_publico">Transporte público</label>
       </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_caminando">
-        <label class="form-check-label" for="DS_caminando">Caminando</label>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="caminando" type="radio" class="custom-control-input" name="transporte" value="caminando" formControlName="transporte">
+        <label class="custom-control-label" for="caminando">Caminando</label>
       </div>
     </div>
     <div class="col-sm-6 text-center">
-      <span class="font-weight-bold">Vivienda:</span><br>
-      <span>La casa donde habita es: </span>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_casa_propio">
-        <label class="form-check-label" for="DS_casa_propio">Casa Propio</label>
+      <span  class="font-weight-bold">La casa donde habita es: </span><br>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="propia" type="radio" class="custom-control-input" name="vivienda" value="Propio" formControlName="vivienda">
+        <label class="custom-control-label" for="propia">Casa Propia</label>
       </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_casa_rentada">
-        <label class="form-check-label" for="DS_casa_rentada">Casa Rentada</label>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="rentada" type="radio" class="custom-control-input" name="vivienda" value="Rentada" formControlName="vivienda">
+        <label class="custom-control-label" for="rentada">Casa Rentada</label>
       </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_casa_prestada">
-        <label class="form-check-label" for="DS_casa_prestada">Prestada</label>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="prestada" type="radio" class="custom-control-input" name="vivienda" value="prestada" formControlName="vivienda">
+        <label class="custom-control-label" for="prestada">Prestada</label>
       </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_casa_pagando">
-        <label class="form-check-label" for="DS_casa_pagando">Se esta pagando</label>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="pagando" type="radio" class="custom-control-input" name="vivienda" value="pagando" formControlName="vivienda">
+        <label class="custom-control-label" for="pagando">Se esta pagando</label>
       </div>
     </div>
   </div>
   <!-- INICIO DE COL 12 DERECHOHABIENCIA -->
   <div class="dropdown-divider "></div>
-  <div class=" col-6">
-    <span class="font-weight-bold">Su casa cuenta con:</span><br>
-  </div>
-  <div class=" col-12 input-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text">Cantidad</span>
-    </div>
-    <input id="DS_cocina" type="number" placeholder="Cocina" class="form-control">
-    <input id="DS_comedor" type="number" placeholder="Comedor" class="form-control">
-    <input id="DS_sala" type="number" placeholder="Sala" class="form-control">
-    <input id="DS_bano" type="number" placeholder="Baño" class="form-control">
-    <input id="DS_dormitorio" type="number" placeholder="Dormitorios" class="form-control">
-    <input id="DS_jardin" type="number" placeholder="Jardin" class="form-control">
-    <input id="DS_patio" type="number" placeholder="Patio" class="form-control">
-    <input id="DS_terraza" type="number" placeholder="Terraza" class="form-control">
-    <input id="DS_alberca" type="number" placeholder="Alberca" class="form-control">
-    <input id="DS_estacionamiento" type="number" placeholder="Estacionamiento" class="form-control">
-    <input id="DS_cuarto_lavado" type="number" placeholder="Cuarto de lavado" class="form-control">
-
-  </div>
-  <div class=" col-12 input-group">
-    <div class="col-sm-6"><br>
-      <span>La construcción es de: </span>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_construccion_madera">
-        <label class="form-check-label" for="DS_construccion_madera">Madera</label>
-      </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_construccion_bloque">
-        <label class="form-check-label" for="DS_construccion_bloque">Bloque</label>
-      </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_construccion_ladrillo">
-        <label class="form-check-label" for="DS_construccion_ladrillo">Ladrillo</label>
-      </div>
-      <div class="form-check custom-control-inline">
-        <div class="input-group mb-6">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input id="otro_contruccion" type="checkbox">
-              <label class="form-check-label" for="otro_contruccion">Otro</label>
-            </div>
-          </div>
-          <input id="DS_construccion_otro" type="text" class="form-control">
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6"><br>
-      <span>El techo es de: </span>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_techo_madera">
-        <label class="form-check-label" for="DS_techo_madera">Madera</label>
-      </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_techo_lamina">
-        <label class="form-check-label" for="DS_techo_lamina">Lamina</label>
-      </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_techo_cemento">
-        <label class="form-check-label" for="DS_techo_cemento">Cemento</label>
-      </div>
-      <div class="form-check custom-control-inline">
-        <div class="input-group mb-6">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input id="otro_techo" type="checkbox">
-              <label class="form-check-label" for="otro_techo">Otro</label>
-            </div>
-          </div>
-          <input id="DS_techo_otro" type="text" class="form-control">
-        </div>
-      </div>
+  <div class="row" style="margin: 0px 0px 0px 15px">
+    <div class="col-12">
+      <span class="font-weight-bold">
+        Ingresa la cantidad con la que cuenta su casa:
+      </span><br>
     </div>
   </div>
-  <div class=" col-12 input-group">
-    <div class="col-sm-6"><br>
-      <span>El piso es de: </span>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_piso_madera">
-        <label class="form-check-label" for="DS_piso_madera">Madera</label>
+  <div class="row" style="margin: 0px 0px 0px 0px">
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="cocina" style="padding: 0px; font-size: 13px;">Cocina</label>
+      <input type="number" id="cocina" formControlName="cocina" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.cocina.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="comedor" style="padding: 0px; font-size: 13px;">Comedor</label>
+      <input type="number" id="comedor" formControlName="comedor" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.comedor.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="sala" style="padding: 0px; font-size: 13px;">Sala</label>
+      <input type="number" id="sala" formControlName="sala" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.sala.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="bano" style="padding: 0px; font-size: 13px;">Baño</label>
+      <input type="number" id="bano" formControlName="bano" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.bano.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="dormitorio" style="padding: 0px; font-size: 13px;">Dormitorio</label>
+      <input type="number" id="dormitorio" formControlName="dormitorio" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.dormitorio.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="cuartolavado" style="padding: 0px; font-size: 13px;">Cuarto de lavado</label>
+      <input type="number" id="cuartolavado" formControlName="cuartolavado" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.cuartolavado.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+  </div>
+  <div class="row" style="margin: 0px 0px 0px 0px">
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="jardin" style="padding: 0px; font-size: 13px;">Jardin</label>
+      <input type="number" id="jardin" formControlName="jardin" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.jardin.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="patio" style="padding: 0px; font-size: 13px;">Patio</label>
+      <input type="number" id="patio" formControlName="patio" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.patio.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="terraza" style="padding: 0px; font-size: 13px;">Terraza</label>
+      <input type="number" id="terraza" formControlName="terraza" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.terraza.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="alberca" style="padding: 0px; font-size: 13px;">Alberca</label>
+      <input type="number" id="alberca" formControlName="alberca" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.alberca.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="estacionamiento" style="padding: 0px; font-size: 13px;">Estacionamiento</label>
+      <input type="number" id="estacionamiento" formControlName="estacionamiento" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.estacionamiento.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+  </div>
+  <div class="col-12 input-group">
+    <div class="col-sm-4 border-right text-center">
+      <span class="font-weight-bold">La construcción es de: </span><br>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="Madera" type="radio" class="custom-control-input" name="tipovivienda" value="Madera" formControlName="tipovivienda">
+        <label class="custom-control-label" for="Madera">Madera</label>
       </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_piso_loseta">
-        <label class="form-check-label" for="DS_piso_loseta">Loseta</label>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="Bloque" type="radio" class="custom-control-input" name="tipovivienda" value="Bloque" formControlName="tipovivienda">
+        <label class="custom-control-label" for="Bloque">Bloque</label>
       </div>
-      <div class="form-check custom-control-inline">
-        <input type="checkbox" class="form-check-input" id="DS_piso_cemento">
-        <label class="form-check-label" for="DS_piso_cemento">Cemento</label>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="Ladrillo" type="radio" class="custom-control-input" name="tipovivienda" value="Ladrillo" formControlName="tipovivienda">
+        <label class="custom-control-label" for="Ladrillo">Ladrillo</label>
       </div>
-      <div class="form-check custom-control-inline">
-        <div class="input-group mb-6">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input id="otro_piso" type="checkbox">
-              <label class="form-check-label" for="otro_piso">Otro</label>
-            </div>
-          </div>
-          <input id="DS_piso_otro" type="text" class="form-control">
-        </div>
+    </div>
+    <div class="col-sm-4 border-right text-center">
+      <span class="font-weight-bold">El techo es de: </span><br>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="Madera_T" type="radio" class="custom-control-input" name="techovivienda" value="Madera" formControlName="techovivienda">
+        <label class="custom-control-label" for="Madera_T">Madera</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="Lamina" type="radio" class="custom-control-input" name="techovivienda" value="Lamina" formControlName="techovivienda">
+        <label class="custom-control-label" for="Lamina">Lamina</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="Cemento" type="radio" class="custom-control-input" name="techovivienda" value="Cemento" formControlName="techovivienda">
+        <label class="custom-control-label" for="Cemento">Cemento</label>
+      </div>
+    </div>
+    <div class="col-sm-4 text-center">
+      <span class="font-weight-bold">El piso es de: </span><br>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="Madera_P" type="radio" class="custom-control-input" name="pisovivienda" value="Madera" formControlName="pisovivienda">
+        <label class="custom-control-label" for="Madera_P">Madera</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="Loseta" type="radio" class="custom-control-input" name="pisovivienda" value="Loseta" formControlName="pisovivienda">
+        <label class="custom-control-label" for="Loseta">Loseta</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input id="Cemento_firme" type="radio" class="custom-control-input" name="pisovivienda" value="Cemento" formControlName="pisovivienda">
+        <label class="custom-control-label" for="Cemento_firme">Cemento</label>
       </div>
     </div>
   </div>
   <!-- INICIO DE COL 12 DERECHOHABIENCIA -->
   <div class="dropdown-divider"></div>
-  <div class=" col-6">
-    <span class="font-weight-bold">Servicios con los que cuenta el hogar:</span><br>
+  <div class="col-6">
+    <span class="font-weight-bold">Servicios con los que cuenta el hogar:</span>
   </div>
   <div class=" col-12 input-group">
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DS_servicio_luz">
-      <label class="form-check-label" for="DS_servicio_luz">Luz</label>
+    <div class="col-1 custom-control custom-checkbox" style="width: 200px;">
+      <input type="checkbox" id="luz" formControlName="luz" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.luz.errors}" />
+      <label class="custom-control-label" for="luz">Luz</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DS_servicio_agua">
-      <label class="form-check-label" for="DS_servicio_agua">Agua</label>
+    <div class="col-1 custom-control custom-checkbox" style="width: 200px;">
+      <input type="checkbox" id="agua" formControlName="agua" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.agua.errors}" />
+      <label class="custom-control-label" for="agua">Agua</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DS_servicio_drenaje">
-      <label class="form-check-label" for="DS_servicio_drenaje">Drenaje</label>
+    <div class="col-1 custom-control custom-checkbox" style="width: 200px;">
+      <input type="checkbox" id="drenaje" formControlName="drenaje" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.drenaje.errors}" />
+      <label class="custom-control-label" for="drenaje">Drenaje</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DS_servicio_pavimento">
-      <label class="form-check-label" for="DS_servicio_pavimento">Pavimento</label>
+    <div class="col-1 custom-control custom-checkbox" style="width: 200px;">
+      <input type="checkbox" id="gas" formControlName="gas" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gas.errors}" />
+      <label class="custom-control-label" for="gas">Gas</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DS_servicio_gas">
-      <label class="form-check-label" for="DS_servicio_gas">Gas</label>
+    <div class="col-1 custom-control custom-checkbox" style="width: 200px;">
+      <input type="checkbox" id="telefono" formControlName="telefono" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.telefono.errors}" />
+      <label class="custom-control-label" for="telefono">Telefono</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DS_servicio_basura">
-      <label class="form-check-label" for="DS_servicio_basura">Recoleccion de basura</label>
+    <div class="col-1 custom-control custom-checkbox" style="width: 200px;">
+      <input type="checkbox" id="tvcable" formControlName="tvcable" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.tvcable.errors}" />
+      <label class="custom-control-label" for="tvcable">TV</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DS_servicio_alumbrado">
-      <label class="form-check-label" for="DS_servicio_alumbrado">Alumbrado publico</label>
+    <div class="col-2 custom-control custom-checkbox" style="width: 200px;">
+      <input type="checkbox" id="recoleccionbasura" formControlName="recoleccionbasura" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.recoleccionbasura.errors}" />
+      <label class="custom-control-label" for="recoleccionbasura">Recolección de basura</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DS_servicio_telefono">
-      <label class="form-check-label" for="DS_servicio_telefono">Telefono</label>
+    <div class="col-2 custom-control custom-checkbox" style="width: 200px;">
+      <input type="checkbox" id="alumbradopublico" formControlName="alumbradopublico" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.alumbradopublico.errors}" />
+      <label class="custom-control-label" for="alumbradopublico">Alumbrado público</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DS_servicio_tv">
-      <label class="form-check-label" for="DS_servicio_tv">TV por cable</label>
+    <div class="col-1 custom-control custom-checkbox" style="width: 200px;">
+      <input type="checkbox" id="pavimento" formControlName="pavimento" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.pavimento.errors}" />
+      <label class="custom-control-label" for="pavimento">Pavimento</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DS_servicio_areasrecreativas">
-      <label class="form-check-label" for="DS_servicio_areasrecreativas">Areas Recreativas</label>
+    <div class="col-2 custom-control custom-checkbox" style="width: 200px;">
+      <input type="checkbox" id="areasrecreativas" formControlName="areasrecreativas" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.areasrecreativas.errors}" />
+      <label class="custom-control-label" for="areasrecreativas">Áreas Recreativas</label>
     </div>
   </div>
-  <div class=" col-12 input-group">
-    <div class=" col-6">
-      <div class=" col-6">
-        <span class="font-weight-bold">Gastos Mensuales:</span><br>
-      </div>
-      <div class=" col-12 input-group">
 
-        <input id="DS_gasto_vivienda" type="number" placeholder="Vivienda" class="form-control">
+  <div class="dropdown-divider"></div>
 
-        <input id="DS_gasto_basura" type="number" placeholder="Recoleccion Basura" class="form-control">
-
-        <input id="DS_gasto_luz" type="number" placeholder="Luz" class="form-control">
-      </div>
-      <div class=" col-12 input-group">
-
-        <input id="DS_gasto_transporte" type="number" placeholder="Trasnporte" class="form-control">
-
-        <input id="DS_gasto_agua" type="number" placeholder="Agua" class="form-control">
-
-        <input id="DS_gasto_despensa" type="number" placeholder="Despensa" class="form-control">
-      </div>
-      <div class=" col-12 input-group">
-
-        <input id="DS_gasto_gas" type="number" placeholder="Gas" class="form-control">
-
-        <input id="DS_gasto_telefono" type="number" placeholder="Telefono" class="form-control">
-
-        <input id="DS_gasto_tv" type="number" placeholder="TV" class="form-control">
-      </div>
-      <div class=" col-12 input-group">
-
-        <input id="DS_gasto_deudas" type="number" placeholder="Deudas" class="form-control">
-
-        <input id="DS_gasto_entretenimiento" type="number" placeholder="Entretenimiento" class="form-control">
-
-        <input id="DS_gasto_total" type="number" placeholder="Total Gasto Mensual" class="form-control">
-      </div>
+  <div class="row" style="margin: 0px 0px 0px 0px">
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastovivienda" style="padding: 0px; font-size: 13px;">Gasto de vivienda</label>
+      <input type="number" id="gastovivienda" formControlName="gastovivienda" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastovivienda.errors }" placeholder="$" style="margin-top: -10px;">
     </div>
-    <div class=" col-6">
-      <br>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastoluz" style="padding: 0px; font-size: 13px;">Gasto de luz</label>
+      <input type="number" id="gastoluz" formControlName="gastoluz" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastoluz.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastoagua" style="padding: 0px; font-size: 13px;">Gasto de agua</label>
+      <input type="number" id="gastoagua" formControlName="gastoagua" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastoagua.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastogas" style="padding: 0px; font-size: 13px;">Gasto de Gas</label>
+      <input type="number" id="gastogas" formControlName="gastogas" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastogas.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastobasura" style="padding: 0px; font-size: 13px;">Gasto de basúra</label>
+      <input type="number" id="gastobasura" formControlName="gastobasura" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastobasura.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastotelefono" style="padding: 0px; font-size: 13px;">Gasto de teléfono</label>
+      <input type="number" id="gastotelefono" formControlName="gastotelefono" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastotelefono.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+  </div>
+  <div class="row" style="margin: 0px 0px 0px 0px">
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastotv" style="padding: 0px; font-size: 13px;">Gasto de TV</label>
+      <input type="number" id="gastotv" formControlName="gastotv" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastotv.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastotrasnporte" style="padding: 0px; font-size: 13px;">Gasto de transporte</label>
+      <input type="number" id="gastotrasnporte" formControlName="gastotrasnporte" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastotrasnporte.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastodespensa" style="padding: 0px; font-size: 13px;">Gasto de despensa</label>
+      <input type="number" id="gastodespensa" formControlName="gastodespensa" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastodespensa.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastodeudas" style="padding: 0px; font-size: 13px;">Gasto de deudas</label>
+      <input type="number" id="gastodeudas" formControlName="gastodeudas" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastodeudas.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastoentretenimiento" style="padding: 0px; font-size: 13px;">Gasto de entretenimiento</label>
+      <input type="number" id="gastoentretenimiento" formControlName="gastoentretenimiento" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastoentretenimiento.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="gastomensual" style="padding: 0px; font-size: 13px;">Gasto de mensual</label>
+      <input type="number" id="gastomensual" formControlName="gastomensual" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.gastomensual.errors }" placeholder="$" style="margin-top: -10px;">
+    </div>
+  </div>
+  <div class="dropdown-divider"></div>
+  <div class="row" style="margin: 0px 0px 0px 0px;">
+    <div class="col-12">
       <span class="font-weight-bold">Para uso exclusivo del Club:</span><br>
-      <div class=" col-12 input-group">
-        <input id="DS_tipo_familia" type="text" placeholder="Tipo de Familia" class="form-control">
-        <input id="DS_nivel_ingreso" type="number" placeholder="Nivel de ingreso mensual" class="form-control">
-      </div>
-      <div class="col-4 float-right">
-        <button id="DS_btn_guardar" type="button" class="btn btn-club btn-sm"
-          style="width:100%; margin-top: 50px; height: 80px;">Guardar</button>
-        <br><br><br>
-      </div>
-      <br><br><br>
     </div>
-    <br><br><br>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="tipofamilia" style="padding: 0px; font-size: 13px;">Tipo de familia</label>
+      <input type="text" id="tipofamilia" formControlName="tipofamilia" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.tipofamilia.errors }" placeholder="Ingresa" style="margin-top: -10px;">
+    </div>
+    <div class="col-3 form-group input-group-sm mb-3">
+      <label for="nivelingresomensual" style="padding: 0px; font-size: 13px;">Nivel de ingreso mensual: </label>
+      <input type="number" id="nivelingresomensual" formControlName="nivelingresomensual" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.nivelingresomensual.errors }" placeholder="Ingresa" style="margin-top: -10px;">
+    </div>
+    <div class="col-5">
 
+    </div>
+    <div class="col-2">
+      <button name="DG_btn_guardar" class="btn btn-club btn-sm"
+      style="width:100%; height: 50px;" type="submit">
+      <span id="ES_spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+      hidden></span>
+      Guardar
+    </button>
   </div>
+</div>
 </form>

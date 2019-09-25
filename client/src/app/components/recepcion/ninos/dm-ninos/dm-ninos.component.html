@@ -1,37 +1,37 @@
-<form action="">
+<form [formGroup]="form_buscar" (ngSubmit)="ng_busq_Form()">
   <div class="row" style="margin: 15px 0px 0px 0px">
-    <div class="col-2 text-right font-weight-bold">
-      <span>QUÉ VAS A HACER?</span>
+    <div class="col-6">
     </div>
-    <div class="col-5">
-      <div class="custom-control custom-radio custom-control-inline">
-        <input id="DM_Nuevo" type="radio" class="custom-control-input" name="DM_opcion">
-        <label class="custom-control-label" for="DM_Nuevo">Nuevo</label>
-      </div>
-      <div class="custom-control custom-radio custom-control-inline">
-        <input id="DM_Modificar" type="radio" class="custom-control-input" name="DM_opcion">
-        <label class="custom-control-label" for="DM_Modificar">Modificar</label>
-      </div>
-    </div>
-    <div class="input-group input-group-sm mb-3 col-3 aling-right">
+    <div class="col-4 input-group input-group-sm mb-3 aling-left">
       <div class="input-group-prepend">
         <span class="input-group-text">No. Miembro:</span>
       </div>
-      <input id="DM_busc_miembro" type="text" class="form-control">
+      <input type="number" formControlName="miembroID" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
+      <div *ngIf="submitted && f.miembroID.errors" class="invalid-feedback">
+        <div *ngIf="f.miembroID.errors.required">Completa este campo</div>
+      </div>
     </div>
     <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-      <button id="DM_btn_buscar" type="button" class="btn btn-club btn-sm" style="width:100%;">Buscar</button>
+      <button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar">
+        <span id="spinner_buscarDM" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+        hidden></span>
+        Buscar
+      </button>
     </div>
   </div>
 </form>
 
+
+
 <div class="dropdown-divider"></div>
-<form>
+<form [formGroup]="form_guardar" (ngSubmit)="guardar_DM()">
   <div class="row " style="margin: 10px 0px 0px 0px">
     <div class="col-12 custom-control-inline">
       <span>Padece alguna alergia a alimentos, medicamentos, plantas u otros. </span>
       <div class="input-group-sm col-6">
-        <input id="DM_alergia" type="text" placeholder=" ¿Cúales?" class="form-control ">
+        <input type="text" id="alergia" formControlName="alergia" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted2 && f2.alergia.errors }" placeholder="¿Cúales?">
       </div>
     </div>
   </div>
@@ -39,11 +39,13 @@
   <div class="col-12 custom-control-inline">
     <span>Toma medicamentos de forma permanente.</span>
     <div class="input-group-sm">
-      <input id="DM_medicamentos" type="text" style="margin-left: 10px" placeholder="¿Cúales?" class="form-control">
+      <input type="text" id="medicamento" formControlName="medicamento" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.medicamento.errors }" placeholder="¿Cúales?" style="margin-left: 10px">
     </div>
     <span style="padding: 0px 0px 0px 30px;">Requiere algun cuidado especial.</span>
     <div class="input-group-sm">
-      <input id="DM_cuidados" type="text" style="margin-left: 10px" placeholder="¿Cúales?" class="form-control">
+      <input type="text" id="cuidadoespecial" formControlName="cuidadoespecial" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.cuidadoespecial.errors }" placeholder="¿Cúales?" style="margin-left: 10px">
     </div>
   </div>
   <!-- INICIO DE COL 12 -->
@@ -52,172 +54,176 @@
     <span class="font-weight-bold">Qué enfermedad a padecido: </span><br>
   </div>
   <div class=" col-12 input-group">
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_rubeola">
-      <label class="form-check-label" for="DM_rubeola">Rubéola</label>
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="rebeola" formControlName="rebeola" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.rebeola.errors}" />
+      <label class="custom-control-label" for="rebeola">Rebeola</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_varicela">
-      <label class="form-check-label" for="DM_varicela">Varicela</label>
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="varicela" formControlName="varicela" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.varicela.errors}" />
+      <label class="custom-control-label" for="varicela">Varicela</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Escarlatina">
-      <label class="form-check-label" for="DM_Escarlatina">Escarlatina</label>
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="escarlatina" formControlName="escarlatina" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.escarlatina.errors}" />
+      <label class="custom-control-label" for="escarlatina">Escarlatina</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Hepatitis">
-      <label class="form-check-label" for="DM_Hepatitis">Hepatitis</label>
+
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="hepatitis" formControlName="hepatitis" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.hepatitis.errors}" />
+      <label class="custom-control-label" for="hepatitis">Hepatitis</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Influenza">
-      <label class="form-check-label" for="DM_Influenza">Influenza</label>
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="influenza" formControlName="influenza" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.influenza.errors}" />
+      <label class="custom-control-label" for="influenza">Influenza</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Tifoidea">
-      <label class="form-check-label" for="DM_Tifoidea">Tifoidea</label>
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="tifoidea" formControlName="tifoidea" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.tifoidea.errors}" />
+      <label class="custom-control-label" for="tifoidea">Tifoidea</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Paperas">
-      <label class="form-check-label" for="DM_Paperas">Paperas</label>
+  </div>
+  <div class="row" style="margin: 0px 0px 0px 15px;">
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="paperas" formControlName="paperas" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.paperas.errors}" />
+      <label class="custom-control-label" for="paperas">Paperas</label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Tosferina">
-      <label class="form-check-label" for="DM_Tosferina">Tosferina</label>
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="tosferina" formControlName="tosferina" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.tosferina.errors}" />
+      <label class="custom-control-label" for="tosferina">Tosferina</label>
     </div>
-    <div class="input-group-sm custom-control-inline">
-      <div>
-        <input id="DM_otro_enfermedad" type="checkbox">
-        <label class="form-check-label" for="DM_otro_enfermedad">Otro</label></div>
-      <div class="input-group-sm">
-        <input id="DM_otro_enfermedad" type="text" placeholder="¿Cúales?" class="form-control">
-      </div>
+    <div class="col-8 form-group input-group-sm mb-3">
+      <input type="text" id="otraenfermedad" formControlName="otraenfermedad" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.otraenfermedad.errors }" placeholder="Otra enfermedad">
     </div>
   </div>
 
   <br>
-  <!-- INICIO DE COL 12 -->
-  <div class=" col-12 input-group">
-    <div class="input-group-sm custom-control-inline">
-      <div>
-        <input id="DM_frecuencia_epilep" type="checkbox">
-        <label class="form-check-label" for="DM_frecuencia_epilep" style="margin-left: 10px">Ha tenido ataques
-          epilécticos.</label></div>
-      <div class="input-group-sm">
-        <input id="DM_frecuencia_epilep" type="text" style="margin-left: 10px" placeholder="Frecuencia"
-          class="form-control">
-      </div>
+
+  <div class="row" style="margin: 0px 0px 0px 5px;">
+    <div class="col-4 form-group input-group-sm mb-3">
+      <label for="ataquesepilepticos" style="padding: 0px;">Ha tenido ataques epilécticos.</label>
+      <input type="text" id="ataquesepilepticos" formControlName="ataquesepilepticos" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.ataquesepilepticos.errors }" placeholder="Frecuencia" style="margin-top: -10px;">
     </div>
-    <div class="input-group-sm custom-control-inline">
-      <div>
-        <input id="DM_padece_enfermedad" style="margin-left: 25px;" type="checkbox">
-        <label class="form-check-label" for="DM_padece_enfermedad" style="margin-left: 10px">Padece alguna enfermedad
-          cronica. </label></div>
-      <div class="input-group-sm">
-        <input id="DM_padece_enfermedad" type="text" style="margin-left: 10px" placeholder="Cual" class="form-control">
-        <br>
-      </div>
+    <div class="col-4 form-group input-group-sm mb-3">
+      <label for="enfermedadcronica" style="padding: 0px;">Padece alguna enfermedadcronica. </label>
+      <input type="text" id="enfermedadcronica" formControlName="enfermedadcronica" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.enfermedadcronica.errors }" placeholder="¿Cuál?" style="margin-top: -10px;">
     </div>
-    <div class="input-group-sm custom-control-inline">
-      <div>
-        <input id="DM_accidente" type="checkbox">
-        <label class="form-check-label" for="DM_accidente" style="margin-left: 10px">Ha sufrido accidentes graves.
-        </label></div>
-      <div class="input-group-sm">
-        <input id="DM_accidente" type="text" style="margin-left: 10px" placeholder="Cual" class="form-control">
-      </div>
+    <div class="col-4 form-group input-group-sm mb-3">
+      <label for="accidentesgraves" style="padding: 0px;">Ha sufrido accidentes graves. </label>
+      <input type="text" id="accidentesgraves" formControlName="accidentesgraves" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.accidentesgraves.errors }" placeholder="¿Cuál?" style="margin-top: -10px;">
     </div>
   </div>
-  <br>
-  <div class="col-12">
-    <div class="input-group-sm custom-control-inline">
-      <div>
-        <input id="DM_operacion" type="checkbox">
-        <label class="form-check-label" for="DM_operacion" style="margin-left: 10px">Ha sido operado. </label></div>
-      <div class="input-group-sm custom-control-inline">
-        <input id="DM_operacion_tipo" type="text" style="margin-left: 10px" placeholder="Tipo de operacion"
-          class="form-control">
-        <input id="DM_operacion_veces" type="number" style="margin-left: 10px" placeholder="Cuantas veces"
-          class="form-control">
-        <input id="DM_operacion_fecha" type="date" style="margin-left: 10px" placeholder="Fecha" class="form-control">
-      </div>
+  <div class="row" style="margin: 0px 0px 0px 15px;">
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="hasidooperado" formControlName="hasidooperado" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.hasidooperado.errors}" />
+      <label class="custom-control-label" for="hasidooperado">Ha sido operado. </label>
+    </div>
+    <div class="col-4 form-group input-group-sm mb-3">
+      <label for="tipooperacion" style="padding: 0px;">Tipo de operación</label>
+      <input type="text" id="tipooperacion" formControlName="tipooperacion" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.tipooperacion.errors }" placeholder="Describela" style="margin-top: -10px;">
+    </div>
+    <div class="col-3 form-group input-group-sm mb-3">
+      <label for="cantidadoperaciones" style="padding: 0px;">Cantidad de operaciones</label>
+      <input type="number" id="cantidadoperaciones" formControlName="cantidadoperaciones" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.cantidadoperaciones.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+    </div>
+    <div class="col-3 form-group input-group-sm mb-3">
+      <label for="fechaoperacion" style="padding: 0px;">Fecha de operación</label>
+      <input type="date" id="fechaoperacion" formControlName="fechaoperacion" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.fechaoperacion.errors }" placeholder="Cantidad" style="margin-top: -10px;">
     </div>
   </div>
-  <br>
-  <div class="input-group-sm custom-control-inline">
-    <div>
-      <input style="margin-left: 13px" id="DM_piojos" type="checkbox">
-      <label class="form-check-label" for="DM_piojos" style="margin-left: 10px">Se ha infectado de piojos/liendres.
-      </label></div>
-    <div class="input-group-sm">
-      <input id="DM_piojos" type="text" style="margin-left: 10px" placeholder="Frecuencia" class="form-control">
+  <div class="row" style="margin: 0px 0px 0px 15px;">
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="piojos" formControlName="piojos" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.piojos.errors}" />
+      <label class="custom-control-label" for="piojos">Se ha infectado de piojos/liendres. </label>
+    </div>
+    <div class="col-2 form-group input-group-sm mb-3">
+      <label for="frecpiojos" style="padding: 0px;">Frecuencia</label>
+      <input type="text" id="frecpiojos" formControlName="frecpiojos" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.frecpiojos.errors }" placeholder="Frecuencia" style="margin-top: -10px;">
     </div>
   </div>
-  <br>
-  <!-- INICIO DE COL 12 -->
   <div class="dropdown-divider"></div>
-  <div class=" col-6">
-    <span class="font-weight-bold">Tiene algun problema fisico relacionado con: </span><br>
-  </div>
-  <div class=" col-12 input-group">
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Habla">
-      <label class="form-check-label" for="DM_Habla">Habla</label>
+  <div class="row" style="margin: 0px 0px 0px 15px;">
+    <div class="col-12">
+      <span  class="font-weight-bold">Tiene algún problema físico relacionado con:  </span>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Vista">
-      <label class="form-check-label" for="DM_Vista">Vista</label>
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="problemahabla" formControlName="problemahabla" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.problemahabla.errors}" />
+      <label class="custom-control-label" for="problemahabla">Habla </label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Oido">
-      <label class="form-check-label" for="DM_Oido">Oido</label>
+     <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="problemavista" formControlName="problemavista" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.problemavista.errors}" />
+      <label class="custom-control-label" for="problemavista">Vista </label>
     </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_TonoMuscular">
-      <label class="form-check-label" for="DM_TonoMuscular">Tono Muscular</label>
+     <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="problemaoido" formControlName="problemaoido" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.problemaoido.errors}" />
+      <label class="custom-control-label" for="problemaoido">Oído </label>
     </div>
-    <div class="input-group-sm custom-control-inline">
-      <div>
-        <input id="DM_otro_problema" type="checkbox">
-        <label class="form-check-label" for="DM_otro_problema">Otro</label></div>
-      <div class="input-group-sm">
-        <input id="DM_otro_problema" type="text" style="margin-left: 10px" placeholder="¿Cúales?" class="form-control">
-      </div>
+     <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="problematonomuscular" formControlName="problematonomuscular" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.problematonomuscular.errors}" />
+      <label class="custom-control-label" for="problematonomuscular">Tono muscular </label>
     </div>
-  </div>
-  <!-- INICIO DE COL 12 -->
-  <div class="dropdown-divider"></div>
-  <div class=" col-6">
-    <span class="font-weight-bold">Usa algún tipo de aparato: </span><br>
-  </div>
-  <div class=" col-12 input-group">
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Dental">
-      <label class="form-check-label" for="DM_Dental">Dental</label>
-    </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Anteojos">
-      <label class="form-check-label" for="DM_Anteojos">Anteojos</label>
-    </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Auditivo">
-      <label class="form-check-label" for="DM_Auditivo">Auditivo</label>
-    </div>
-    <div class="form-check custom-control-inline">
-      <input type="checkbox" class="form-check-input" id="DM_Ortopédico">
-      <label class="form-check-label" for="DM_Ortopédicos">Ortopédico</label>
-    </div>
-    <div class="input-group-sm custom-control-inline">
-      <div>
-        <input id="DM_otro_aparato" type="checkbox">
-        <label class="form-check-label" for="DM_otro_aparato">Otro</label></div>
-      <div class="input-group-sm">
-        <input id="DM_otro_aparato" style="margin-left: 10px" type="text" placeholder="¿Cúales?" class="form-control">
-      </div>
-    </div>
-    <div class="col-2 " style="margin-left: 20%;">
-      <button id="DS_btn_guardar" type="button" class="btn btn-club btn-sm"
-        style="width:100%; margin-top: 50px; height: 80px;">Guardar</button>
-      <br><br><br>
+
+    <div class="col-2 form-group input-group-sm mb-3">
+      <input type="text" id="otroproblema" formControlName="otroproblema" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.otroproblema.errors }" placeholder="otro problema">
     </div>
   </div>
+  <div class="row" style="margin: 0px 0px 0px 15px;">
+     <div class="col-12">
+      <span  class="font-weight-bold">Usa algún tipo de aparato:  </span>
+    </div>
+    <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="aparatodental" formControlName="aparatodental" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.aparatodental.errors}" />
+      <label class="custom-control-label" for="aparatodental">Dental </label>
+    </div>
+     <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="aparatoanteojos" formControlName="aparatoanteojos" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.aparatoanteojos.errors}" />
+      <label class="custom-control-label" for="aparatoanteojos">Anteojos </label>
+    </div>
+     <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="aparatoauditivo" formControlName="aparatoauditivo" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.aparatoauditivo.errors}" />
+      <label class="custom-control-label" for="aparatoauditivo">Auditivo </label>
+    </div>
+     <div class="col-2 custom-control custom-checkbox">
+      <input type="checkbox" id="aparatoortopedico" formControlName="aparatoortopedico" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.aparatoortopedico.errors}" />
+      <label class="custom-control-label" for="aparatoortopedico">Ortopédico </label>
+    </div>
+
+    <div class="col-2 form-group input-group-sm mb-3">
+      <input type="text" id="otroaparato" formControlName="otroaparato" class="form-control"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.otroaparato.errors }" placeholder="otro aparato">
+    </div>
+    <div class="col-2">
+      <button name="DM_btn_guardar" class="btn btn-club btn-sm"
+        style="width:100%; margin-top: -20px; height: 50px;" type="submit">
+        <span id="DM_spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+          hidden></span>
+        Guardar
+      </button>
+    </div>
+  </div>
+
 </form>
