@@ -8,6 +8,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./direccion-donante.component.css']
 })
 export class DireccionDonanteComponent implements OnInit {
+  //busqueda
+  resultado: any;
+  //fechas
+  fecha1: any;
+  fecha2: any;
+  //Tabla
+  arreglo: any;
+
+  //radio Option
+  agregar_o_modificar: string = 'nuevo';
+
 //Formularios
 form_buscar: FormGroup;
 form_agregar: FormGroup;
@@ -29,6 +40,7 @@ ngOnInit() {
 
   //agregar
   this.form_agregar = this.formBuilder.group({
+    direcciondonanteID: [''],
     donacionID: ['', Validators.required],
     tipodireccion1 :['', Validators.required],	
     calle1	:['', Validators.required],		
@@ -71,25 +83,75 @@ get f_A() {
 }
 
 buscar_direccion() {
+  //spinner
+  var spinner_buscar_direccion = document.getElementById("spinner_buscar_direccion");
   this.submit_buscar = true;
+
   if (this.form_buscar.invalid) {
     return;
   }
   else {
-    alert("Boton buscar");
+    spinner_buscar_direccion.removeAttribute("hidden");
+    //select mediante el id
+    var response = this.http.get(this.url + "DireccionDonante/" + this.form_buscar.value.buscarID);
+    response.subscribe((data: any[]) => {
+      this.resultado = data;
+
+      this.form_agregar.get('direcciondonanteID').setValue(this.resultado.direcciondonanteID);
+      this.form_agregar.get('donacionID').setValue(this.resultado.donacionID);
+      this.form_agregar.get('tipodireccion1').setValue(this.resultado.tipodireccion1);
+      this.form_agregar.get('calle1').setValue(this.resultado.calle1);
+      this.form_agregar.get('noexterior1').setValue(this.resultado.noexterior1);
+      this.form_agregar.get('nointerior1').setValue(this.resultado.nointerior1);
+      this.form_agregar.get('colonia1').setValue(this.resultado.colonia1);
+      this.form_agregar.get('cp1').setValue(this.resultado.cp1);
+      this.form_agregar.get('pais1').setValue(this.resultado.pais1);
+      this.form_agregar.get('estado1').setValue(this.resultado.estado1);
+      this.form_agregar.get('municipio2').setValue(this.resultado.municipio2);
+      this.form_agregar.get('tipodireccion2').setValue(this.resultado.tipodireccion2);
+      this.form_agregar.get('calle2').setValue(this.resultado.calle2);
+      this.form_agregar.get('noexterior2').setValue(this.resultado.noexterior2);
+      this.form_agregar.get('nointerior2').setValue(this.resultado.nointerior2);
+      this.form_agregar.get('colonia2').setValue(this.resultado.colonia2);
+      this.form_agregar.get('cp2').setValue(this.resultado.cp2);
+      this.form_agregar.get('pais2').setValue(this.resultado.pais2);
+      this.form_agregar.get('estado2').setValue(this.resultado.estado2);
+      this.form_agregar.get('municipio2').setValue(this.resultado.municipio2);
+      this.form_agregar.get('tipodireccion3').setValue(this.resultado.tipodireccion3);
+      this.form_agregar.get('calle3').setValue(this.resultado.calle3);
+      this.form_agregar.get('noexterior3').setValue(this.resultado.noexterior3);
+      this.form_agregar.get('nointerior3').setValue(this.resultado.nointerior3);
+      this.form_agregar.get('colonia3').setValue(this.resultado.colonia3);
+      this.form_agregar.get('cp3').setValue(this.resultado.cp3);
+      this.form_agregar.get('pais3').setValue(this.resultado.pais3);
+      this.form_agregar.get('estado3').setValue(this.resultado.estado3);
+      this.form_agregar.get('municipio3').setValue(this.resultado.municipio3);
+      spinner_buscar_direccion.setAttribute("hidden", "true");
+    },
+      error => {
+        spinner_buscar_direccion.setAttribute("hidden", "true");
+        console.log("Error", error)
+      });
   }
 }
 
-agregar_direccion() {
-  this.submit_agregar = true;
-  if (this.form_agregar.invalid) {
-    return;
-  }
-  else {
-    console.log(this.form_agregar.value);
-    alert("Boton agregar");
-  }
+modificar_direccion() {
+  var spinner_agregar_direccion = document.getElementById("spinner_agregar_direccion");
+  spinner_agregar_direccion.removeAttribute("hidden");
+
+  //Update mediante el id y los campos de agregar
+  this.http.put(this.url + "DireccionDonante/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
+    spinner_agregar_direccion.setAttribute("hidden", "true");
+    alert("DireccionDonante Modificado");
+    this.clean_Agregar();
+    this.clean_Buscar();
+  },
+    error => {
+      spinner_agregar_direccion.setAttribute("hidden", "true");
+      console.log("Error", error);
+    });
 }
+
 
 //reset buscar
 clean_Buscar() {
