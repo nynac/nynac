@@ -13,6 +13,7 @@ import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstr
 export class DonacionDonanteComponent implements OnInit {
   //busqueda
   resultado: any;
+  miembro:any;
   //fechas
   fecha1: any;
   fecha2: any;
@@ -232,7 +233,7 @@ export class DonacionDonanteComponent implements OnInit {
         this.resultado.fechanacimiento = datePipe.transform(this.resultado.fechanacimiento, 'yyyy/MM/dd');
         this.resultado.fechadonacion = datePipe.transform(this.resultado.fechadonacion, 'yyyy/MM/dd');
 
-        this.form_agregar.get('donacionID').setValue(this.resultado.donacionID);
+        this.form_agregar.get('donacionID').setValue((this.resultado.donacionID));
         this.form_agregar.get('nombres').setValue(this.resultado.nombres);
         this.form_agregar.get('apellidos').setValue(this.resultado.apellidos);
         this.form_agregar.get('nombrefiscal').setValue(this.resultado.nombrefiscal);
@@ -280,6 +281,17 @@ export class DonacionDonanteComponent implements OnInit {
     }
   }
 
+  get_nuevo_miembro(){
+		var response = this.http.get(this.url + "Donacion");
+		response.subscribe((data)=> { 
+      this.miembro = data;
+      this.form_agregar.get('donacionID').setValue((this.miembro[this.miembro.length -1].donacionID + 1));
+      console.log(this.form_agregar.value.donacionID);
+		},
+		error =>{
+			console.log("Error", error)
+		});
+	}
 
   agregar_donante() {
     //Spiner
@@ -301,8 +313,11 @@ export class DonacionDonanteComponent implements OnInit {
     this.form_formadonacion.get('donacionID').setValue(this.form_agregar.value.donacionID);
     this.form_dirrecciondonante.get('direcciondonanteID').setValue(this.form_agregar.value.donacionID);
     this.form_dirrecciondonante.get('donacionID').setValue(this.form_agregar.value.donacionID);
+
+    //cambiar el valor por un id unico de la tabla
     this.form_dfiscal.get('datosfiscalesID').setValue(this.form_agregar.value.donacionID);
     this.form_dfiscal.get('donacionID').setValue(this.form_agregar.value.donacionID);
+
     this.form_notasdonantes.get('notaID').setValue(this.form_agregar.value.donacionID);
     this.form_notasdonantes.get('donacionID').setValue(this.form_agregar.value.donacionID);
 
@@ -349,7 +364,7 @@ export class DonacionDonanteComponent implements OnInit {
               spinner_agregar_donacion.setAttribute("hidden", "true");
               console.log("Error", error);
             });
-          //Datos fiscales
+          //Datos fiscal
           this.http.post(this.url + "DFiscal", this.form_dfiscal.value).subscribe(data => {
             console.log('DFiscal ');
           },

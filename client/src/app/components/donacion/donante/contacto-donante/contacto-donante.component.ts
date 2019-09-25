@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -58,8 +58,8 @@ export class ContactoDonanteComponent implements OnInit {
       estado1: ['', Validators.required],
       municipio1: ['', Validators.required],
       email1: ['', Validators.required],
-      fechanacimiento1: [this.fecha1, Validators.required],
-      telefono1: ['', Validators.required],
+      fechanacimiento1: [this.fecha1],
+      telefono1: ['',],
       lada1: [''],
       observacion1: [''],
       nombre2: [''],
@@ -75,7 +75,7 @@ export class ContactoDonanteComponent implements OnInit {
       estado2: [''],
       municipio2: [''],
       email2: [''],
-      fechanacimiento2: [this.fecha2,],
+      fechanacimiento2: [this.fecha2],
       telefono2: [''],
       lada2: [''],
       observacion2: [''],
@@ -110,7 +110,6 @@ export class ContactoDonanteComponent implements OnInit {
         var datePipe = new DatePipe("en-US");
         this.resultado.fechanacimiento1 = datePipe.transform(this.resultado.fechanacimiento1, 'yyyy/MM/dd');
         this.resultado.fechanacimiento2 = datePipe.transform(this.resultado.fechanacimiento2, 'yyyy/MM/dd');
-
         this.form_agregar.get('contactoID').setValue(this.resultado.contactoID);
         this.form_agregar.get('donacionID').setValue(this.resultado.donacionID);
         this.form_agregar.get('nombre1').setValue(this.resultado.nombre1);
@@ -156,6 +155,8 @@ export class ContactoDonanteComponent implements OnInit {
     }
   }
   modificar_evento() {
+    this.form_agregar.get('fechanacimiento1').setValue(this.fecha1);
+    this.form_agregar.get('fechanacimiento2').setValue(this.fecha2);
     var spinner_agregar_contacto = document.getElementById("spinner_agregar_contacto");
     spinner_agregar_contacto.removeAttribute("hidden");
 

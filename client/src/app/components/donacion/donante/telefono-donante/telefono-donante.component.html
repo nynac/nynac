@@ -1,18 +1,5 @@
 <form [formGroup]="form_buscar" (ngSubmit)="buscar_telefono()">
     <div class="row" style="margin: 15px 0px 0px 0px">
-        <div class="col-2 text-right font-weight-bold">
-            <span>QUÉ VAS A HACER? </span>
-        </div>
-        <div class="col-5">
-            <div class="custom-control custom-radio custom-control-inline">
-                <input id="DContacto_Nuevo" type="radio" class="custom-control-input" name="DContacto_opcion" checked>
-                <label class="custom-control-label" for="DContacto_Nuevo">Nuevo</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input id="DContacto_Modificar" type="radio" class="custom-control-input" name="DContacto_opcion">
-                <label class="custom-control-label" for="DContacto_Modificar">Modificar</label>
-            </div>
-        </div>
         <div class="input-group input-group-sm mb-3 col-3 aling-right">
             <div class="input-group-prepend">
                 <span class="input-group-text">ID Donante:</span>
@@ -21,12 +8,14 @@
                 [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
         </div>
         <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-            <button class="btn btn-primary mr-1" style="width:100%;">buscar</button>
-        </div>
+			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="telefono_btn_buscar">
+				<span id="spinner_buscar_telefono" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+			Buscar</button>
+		</div> 
     </div>
 </form>
 <div class="dropdown-divider"></div>
-<form [formGroup]="form_agregar" (ngSubmit)="agregar_telefono()">
+<form [formGroup]="form_agregar" (ngSubmit)="modificar_telefono()">
     <!-- INICIO ROW #1 -->
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
@@ -34,8 +23,9 @@
             <label for="donacionID" style="margin-right: 10px">ID Donante</label>
             <input type="text" formControlName="donacionID" class="form-control" placeholder="ID Donante"
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }">
-            <label for="nombrefiscal" style="margin-right: 10px; margin-left: 10px;">Nombre Fiscal </label>
-            <input id="info" type="text" class="form-control" placeholder="Nombre Fiscal">
+            <label for="nombrefiscal" style="margin-right: 10px; margin-left: 10px;">ID Telefono </label>
+            <input  type="text" formControlName="telefonoID" class="form-control" placeholder="telefonoID"
+            [ngClass]="{ 'is-invalid': submit_agregar && f_A.telefonoID.errors }">
             <div class="dropdown-divider"></div>
             <div class="dropdown-divider"></div>
         </div>
@@ -158,8 +148,10 @@
         <div class="col"></div>
         <div class="col"></div>
         <div class="col-2">
-            <button name="NF_btn_guardar" type="submit" class="btn btn-club btn-sm"
-                style="width:100%; height: 50px;">Guardar</button>
+            <button name="telefono_btn_guardar"  class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
+                <span id="spinner_agregar_telefono" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                Guardar
+            </button>
         </div>
         <div class="col-2">
             <button class="btn btn-secondary" style="width:100%; height: 50px;" type="reset"

@@ -96,9 +96,9 @@
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.email1.errors }">
         </div>
 
-        <label for="fechanacimiento1" style="margin-right: 10px">Fecha Nacimiento: </label>
-        <div class="col-3 input-group input-group-sm mb-3">
-			<div class="col-10 input-group input-group-sm mb-3" style="padding-right: 0px;">
+        <div class="col-4 input-group input-group-sm mb-3">
+			<div class="col-11 input-group input-group-sm mb-3" style="padding-right: 0px;">
+				<label>Fecha Nacimiento: </label>
                 <input type="text" formControlName="fechanacimiento1" class="form-control"
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento1.errors }"  value="{{ fecha1 | date:'yyyy/MM/dd'  }}">
             </div>
@@ -117,7 +117,7 @@
                     </div>
                 </form>
             </div>
-		</div>
+		</div>	
 
         <div class="col-3 input-group input-group-sm mb-3">
             <input type="number" formControlName="telefono1" class="form-control" placeholder="Telefono"
@@ -138,10 +138,9 @@
     <div class="row" style="margin: 15px 0px 0px 15px">
         <div class="col-12 font-weight-bold">
             <span>Contactos Donante 2</span>
-        </div>
-        <label>Fecha Nacimiento:</label>
-        <div class="col-3 input-group input-group-sm mb-3">
+        </div><div class="col-3 input-group input-group-sm mb-3">
 			<div class="col-11 input-group input-group-sm mb-3" style="padding-right: 0px;">
+				<label>Fecha Nacimiento: </label>
                 <input type="text" formControlName="fechanacimiento2" class="form-control"
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento2.errors }"  value="{{ fecha2 | date:'yyyy/MM/dd'  }}">
             </div>
@@ -161,6 +160,7 @@
                 </form>
             </div>
 		</div>
+        
         <div class="col-2 input-group input-group-sm mb-3">
             <input type="text" formControlName="nombre2" class="form-control" placeholder="Nombres"
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.nombre2.errors }">
@@ -249,7 +249,7 @@
         <div class="col"></div>
         <div class="col-2">
             <button name="evento_btn_guardar"  class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
-                <span id="spinner_agregar_contacto" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+                <span id="spinner_agregar_fdonante" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
                 Guardar
             </button>
         </div>
