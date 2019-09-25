@@ -42,7 +42,7 @@
 	<div class="row" *ngIf="agregar_o_modificar=='nuevo'">
 		<div class="col-12 text-center" style="color: #00AAE7;">
 			<small id="passwordHelpInline" class="text-center">
-				El número de miembro se generará el completar formulario
+				El número de miembro se generará al completar formulario
 			</small>
 		</div>
 	</div>
@@ -139,7 +139,7 @@
 		<label for="edad" style="padding: 0px; font-size: 14px;">Edad</label>
 		<input type="number" id="edad" formControlName="edad" class="form-control"
 		[ngClass]="{ 'is-invalid': submitted2 && f2.edad.errors }"style="margin-top: -10px;">
-	</div>R
+	</div>
 	<div class="col-4 form-group input-group-sm mb-3">
 		<label for="lugarnacimiento" style="padding: 0px; font-size: 14px;">Lugar de nacimiento</label>
 		<input type="text" id="lugarnacimiento" formControlName="lugarnacimiento" class="form-control"
