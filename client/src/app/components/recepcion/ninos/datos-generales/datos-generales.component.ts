@@ -97,7 +97,7 @@ export class DatosGeneralesComponent  implements OnInit {
 		.then((mediaDevices: MediaDeviceInfo[]) => {
 			this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
 		});
-		this.get_nuevo_miembro();
+		//this.get_nuevo_miembro();
 	}
 
 	get f(){ return this.form_buscar.controls;}

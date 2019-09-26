@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter,ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,ViewChild,OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
@@ -8,7 +8,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 	templateUrl: './nucleo-familiar.component.html',
 	styleUrls: ['./nucleo-familiar.component.css']
 })
-export class NucleoFamiliarComponent implements OnInit {
+export class NucleoFamiliarComponent implements OnInit, OnChanges{
+	@Input('global') global: any;
+	@Input() prop!:number;
+
 	url = "https://api-remota.conveyor.cloud/api/";
 
 	//form buscar
@@ -23,7 +26,7 @@ export class NucleoFamiliarComponent implements OnInit {
 		private formBuilder: FormBuilder
 		){}
 
-	@Input('miembro') miembro: any;
+	
 
 	ngOnInit() {
 		this.form_buscar = this.formBuilder.group({
@@ -84,6 +87,14 @@ export class NucleoFamiliarComponent implements OnInit {
 			horabano: [''],
 		});
 	}
+	ngOnChanges(changes: SimpleChanges){
+		if(this.form_buscar != undefined){
+			this.form_buscar.get("miembroID").setValue(this.global);
+			this.ng_busq_Form();
+		}
+
+
+	}
 
 	get f(){ return this.form_buscar.controls;}
 	get f2(){ return this.form_guardar.controls;}
@@ -136,7 +147,7 @@ export class NucleoFamiliarComponent implements OnInit {
 			return;
 		}
 		else{
-	
+
 			var r = confirm("Estas seguro que deseas completar esta acción");
 			if (r== false) {
 				return;
@@ -150,7 +161,7 @@ export class NucleoFamiliarComponent implements OnInit {
 					alert("Se han guardado las modificaciones correctamente");
 					this.limpiar_form_guardar();
 					this.limpiar_form_buscar();
-		
+
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
 				},

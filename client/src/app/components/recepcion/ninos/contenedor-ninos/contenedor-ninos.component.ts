@@ -9,17 +9,23 @@ import { HttpClient } from '@angular/common/http';
 export class ContenedorNinosComponent implements OnInit {
 	
 	mensaje: any;
-	miembros: number = 33;
 	url = "https://api-remota.conveyor.cloud/api/";
 
 	constructor(private http : HttpClient) {
-		
 	}
 
-	exampleMethodParent($event){
-		this.miembros=$event;
+
+	global: number = 33;
+
+	asig_hijo_a_padre($event){
+		this.global = $event;
 	}
 
 	ngOnInit() {
+	}
+
+	onClickMe(){
+		this.global = 31;
+		console.log("entró");
 	}
 }
