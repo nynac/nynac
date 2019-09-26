@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter,ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,ViewChild, OnChanges, SimpleChange } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
@@ -8,7 +8,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 	templateUrl: './deporte-ninos.component.html',
 	styleUrls: ['./deporte-ninos.component.css']
 })
-export class DeporteNinosComponent implements OnInit {
+export class DeporteNinosComponent implements OnInit, OnChanges {
+	
+	@Input('var_global') var_global: any;
+	@Input() prop!:number;
+
+	
+
 	url = "https://api-remota.conveyor.cloud/api/";
 
 	//form buscar
@@ -23,7 +29,10 @@ export class DeporteNinosComponent implements OnInit {
 		private formBuilder: FormBuilder
 		){}
 
-	@Input('miembro') miembro: any;
+	mostrar(){
+		console.log(this.var_global);
+	}
+
 	ngOnInit() {
 		this.form_buscar = this.formBuilder.group({
 			miembroID: ['', Validators.required]
@@ -74,6 +83,13 @@ export class DeporteNinosComponent implements OnInit {
 			lugarpremiodeporte3 : ['']
 
 		})
+	}
+	ngOnChanges(changes:SimpleChange)
+	{
+		console.log("Hola");
+		this.form_buscar.get('miembroID').setValue(this.var_global);
+ this.dep_busq_Form();
+ console.log("negro");
 	}
 	get f(){ return this.form_buscar.controls;}
 	get f2(){ return this.form_guardar.controls;}

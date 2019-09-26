@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { DatePipe } from '@angular/common';
 
-
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
@@ -28,22 +27,24 @@ export class DatosGeneralesComponent  implements OnInit {
 	form_guardar : FormGroup
 	submitted2 = false;
 
-	exampleChild: number=2;
+	new_Var_global: number=2;
 	//Obtener variable de Padre
-	@Input('miembro') miembro: any;
+	@Input('var_global') var_global: any;
 	//Pasar variable a padre
-	@Output() exampleOutput= new EventEmitter<number>();
-	exampleMethodChild(){
-		this.exampleOutput.emit(this.exampleChild);
+	@Output() padre_variable= new EventEmitter<number>();
+	envio_valorPadre(){
+		this.padre_variable.emit(this.new_Var_global);
 	}
 
 	constructor(
 		private http : HttpClient, 
 		private sanitazor: DomSanitizer,
 		private formBuilder: FormBuilder
-		) { }
+		) { this.var_global=15;
+		}
 
 	ngOnInit(){
+		this.var_global=15;
 		//Se rellena los campos al formulario 
 		this.form_buscar = this.formBuilder.group({
 			miembroID: ['', Validators.required]
@@ -100,11 +101,15 @@ export class DatosGeneralesComponent  implements OnInit {
 		this.get_nuevo_miembro();
 	}
 
+	mostrar(){
+		console.log(this.var_global);
+	}
+
 	get f(){ return this.form_buscar.controls;}
 	get f2(){ return this.form_guardar.controls;}
 
 	ng_busq_Form(){
-
+		
 		var spinner_buscar = document.getElementById("spinner_buscar");
 		spinner_buscar.removeAttribute("hidden");
 
@@ -127,6 +132,8 @@ export class DatosGeneralesComponent  implements OnInit {
 
 				spinner_buscar.setAttribute("hidden", "true");
 				this.form_buscar.enable();
+				
+		this.var_global=15;
 			},
 			error =>{
 				console.log("Error", error);

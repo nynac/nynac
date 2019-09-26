@@ -23,7 +23,7 @@ export class DHNinosComponent implements OnInit {
 		private formBuilder: FormBuilder
 		){}
 
-	@Input('miembro') miembro: any;
+	@Input('var_global') var_global: any;
 	ngOnInit() {
 		this.form_buscar = this.formBuilder.group({
 			miembroID: ['', Validators.required]

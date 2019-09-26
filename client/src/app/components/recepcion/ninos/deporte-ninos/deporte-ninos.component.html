@@ -22,9 +22,12 @@
     </div>
 </form>
 
+
 <div class="dropdown-divider"></div>
 <form [formGroup]="form_guardar" (ngSubmit)="guardar_DEP()">
     <!-- INICIO  -->
+{{var_global}}
+<button (click)="mostrar()">Mostrar</button>
     <div class="row" style="margin: 0px 15px 15px 15px">
         <div class="col-2 font-weight-bold">
             <span>Edad</span>

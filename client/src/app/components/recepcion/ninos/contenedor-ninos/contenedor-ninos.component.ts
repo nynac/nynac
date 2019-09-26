@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -9,15 +9,24 @@ import { HttpClient } from '@angular/common/http';
 export class ContenedorNinosComponent implements OnInit {
 	
 	mensaje: any;
-	miembros: number = 33;
+	variablex: number=2;
+	var_global: number = 25;
 	url = "https://api-remota.conveyor.cloud/api/";
 
 	constructor(private http : HttpClient) {
 		
 	}
 
-	exampleMethodParent($event){
-		this.miembros=$event;
+	asignacion_valor_variables_padre($event){
+		this.var_global=$event;
+	}
+
+	papu(){
+		this.var_global=31;
+	}
+	nopasa(){
+		this.variablex=50;
+		console.log("Noooo el carbon nos quemaaaa");
 	}
 
 	ngOnInit() {
