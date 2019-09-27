@@ -14,6 +14,8 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 @Component({ selector: 'datos-generales', templateUrl: './datos-generales.component.html', styleUrls: ['./datos-generales.component.css']})
 
 export class DatosGeneralesComponent  implements OnInit, OnChanges {
+	@Output('padre_var') padre_var = new EventEmitter<any>();
+
 	@Input('global') global: any; 
 	@Input() prop!:any;
 
@@ -23,6 +25,8 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	url = "https://api-remota.conveyor.cloud/api/";
 	miembros : any; datos_miembro : any; aux_datos : any;
 	foto : any;
+
+	contador_guardar_ids : number = 0;
 
 	//form guardar
 	form_guardar : FormGroup
@@ -75,7 +79,6 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			emergencia3 : [''],
 			parentemergencia3 : [''],
 			telefonoemergencia3 : [''],
-
 		});
 
 		WebcamUtil.getAvailableVideoInputs()
@@ -99,6 +102,10 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			this.get_nuevo_miembro();
 	}
 
+	prueba(){
+		this.padre_var.emit(10);
+	}
+
 	get f2(){ return this.form_guardar.controls;}
 
 	limpiar_form_guardar(){
@@ -119,15 +126,13 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		else{
 
 			var r = confirm("Estas seguro que deseas completar esta acción");
-			if (r== false) {
+			if (r== false) 
 				return;
-			}
-			
 			spinner.removeAttribute("hidden");
 
 			if (this.agregar_o_modificar == "nuevo"){
 				console.log("Creando ...");
-				this.nuevo();
+				this.nuevo_miembro();
 			}
 			else if (this.agregar_o_modificar == "modificar"){
 				console.log("Modificando ...");
@@ -155,7 +160,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		});
 	}
 
-	nuevo(){
+	nuevo_miembro(){
 		this.form_guardar.disable();
 		var spinner = document.getElementById("spinner");
 		//1. Recalcula el número de miembro, en dado caso que ya hayan registrado uno mientras estaba en proceso
@@ -171,18 +176,8 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 
 		this.http.post(this.url + 'miembroes', this.datos_miembro).subscribe(data  => {
 			alert(this.form_guardar.value.nombres + " se agregó correctamente. Su No. Miembro es: " + this.form_guardar.value.miembroID);
-		},
-		error  => {
-			console.log("Error al guardar en la tabla miembro", error);
-		});
 
-		if (this.webcamImage != null) {
-			this.form_guardar.get("foto").setValue(this.webcamImage.imageAsBase64);
-		}
-		
-		this.http.post(this.url + "Nino_DG1", this.form_guardar.value).subscribe(data  => {
-			alert(this.form_guardar.value.nombres + " se han guardado sus datos generales");
-
+			this.guardar_miembro_en_tabla("Nino_DG", "idNinosDG", this.form_guardar.value.idNinosDG); //Datos generales
 			this.guardar_miembro_en_tabla("Nino_NF", "idNinosNF", this.form_guardar.value.idNinosDG); //Nucleo familiar
 			this.guardar_miembro_en_tabla("Nino_ES", "idNinosES", this.form_guardar.value.idNinosDG); //Socioeconomico
 			this.guardar_miembro_en_tabla("Nino_DM", "idNinosDM", this.form_guardar.value.idNinosDG); //Medicos
@@ -191,21 +186,19 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			this.guardar_miembro_en_tabla("Nino_Art", "idNinosArt", this.form_guardar.value.idNinosDG); //arte
 			this.guardar_miembro_en_tabla("Nino_DH", "idNinosDH", this.form_guardar.value.idNinosDG); //desarrollo humano
 
-			spinner.setAttribute("hidden", "true");
-			this.form_guardar.enable();
+			this.modificar();
+			this.contador_guardar_ids = 0;
+			
 		},
 		error  => {
-			console.log("Error al guardar datos generales.", error);
-			spinner.setAttribute("hidden", "true");
-			this.form_guardar.enable();
+			console.log("Error al guardar en la tabla miembro", error);
+			this.contador_guardar_ids = 0;
 		});
 	}
 
 	modificar(){
 		this.form_guardar.disable();
-		//GUARDAR DATOS GENERALES MIEMBRO
 		var spinner = document.getElementById("spinner");
-
 		if (this.webcamImage != null) {
 			this.form_guardar.get("foto").setValue(this.webcamImage.imageAsBase64);
 		}
@@ -222,18 +215,21 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			this.form_guardar.enable();
 		});
 	}
+
 	guardar_miembro_en_tabla(tabla : string, columnaID : string, valorID : number){
 		
 		var datos_aux = JSON.parse('{"'+columnaID+'":'+valorID+', "miembroID":'+valorID+'}');
+		console.log(datos_aux);
 
 		this.http.post(this.url + tabla, datos_aux).subscribe(data  => {
 			console.log("Se han guardado: " + tabla);
+			this.contador_guardar_ids += 1;
 		},
 		error  => {
-			console.log("Error al guardar en la tabla: " + tabla, error);
+			console.log("Error al guardar en la tabla: " + tabla + "\n Se está volviendo a intentar", error);
+			this.guardar_miembro_en_tabla(tabla, columnaID, this.form_guardar.value.idNinosDG);
 		});
 	}
-
 
 	// toggle webcam on/off
 	public showWebcam = false;
