@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContenedorDonanteComponent implements OnInit {
 
+  gl_donante: number=2;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  asignacion_valor_donante($event){
+    console.log('Cambiamos elvalor...');
+		this.gl_donante=$event;
   }
 
 }

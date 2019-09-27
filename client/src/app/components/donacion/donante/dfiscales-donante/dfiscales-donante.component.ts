@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -7,7 +7,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './dfiscales-donante.component.html',
   styleUrls: ['./dfiscales-donante.component.css']
 })
-export class DFiscalesDonanteComponent implements OnInit {
+export class DFiscalesDonanteComponent implements OnInit, OnChanges {
+  @Input('gl_donante') gl_donante: any;
+  @Input() prop!: number;
+  
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("A cambiado");
+    if (this.form_buscar !== undefined) {
+      this.form_buscar.get('buscarID').setValue(this.gl_donante);
+      this.buscar_dfiscales();
+    }
+  }
+  
+  @Output() donante_variable= new EventEmitter<number>();
+  
+//Cambio a padre
+cambiar_valor_Padre(){
+  this.donante_variable.emit(this.form_buscar.value.buscarID);
+}
    //busqueda
   resultado: any;
   //fechas

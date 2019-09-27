@@ -1,4 +1,4 @@
-<form [formGroup] = "form_buscar" (ngSubmit)="buscar_donante()">
+<form [formGroup] = "form_buscar" (ngSubmit)="cambiar_valor_Padre()">
 	<div class="row" style="margin: 15px 0px 0px 0px">
 		<div class="col-2 text-right font-weight-bold" >
 			<span>Opción:</span>
@@ -15,7 +15,7 @@
 		</div>
 		<div class="input-group input-group-sm mb-3 col-3 aling-right">
 			<div class="input-group-prepend">
-				<span class="input-group-text">No. Miembro:</span>
+				<span class="input-group-text">ID Donante:</span>
 			</div>
 			<input type="number" formControlName="buscarID"  class="form-control" [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
 		</div>
@@ -26,7 +26,6 @@
 		</div> 
 	</div>
 </form>
-
 <div class="dropdown-divider"></div>
 <form [formGroup]="form_agregar" (ngSubmit)="opcion_donante()">
 	<!-- INICIO ROW #1 -->
@@ -37,7 +36,7 @@
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
 				<span style="margin-right: 10px">ID Donante:</span>
-			<input type="number" formControlName="donacionID" class="form-control" placeholder="ID Donante"
+			<input type="number" formControlName="donacionID" class="form-control" placeholder="ID Donante" readonly
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }">
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
@@ -82,8 +81,26 @@
 			</select>
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<label for="fechanacimiento" style="padding: 0px; font-size: 13px;">Fecha nacimiento:</label>
-		<input formControlName="fechanacimiento" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechanacimiento.errors }" id="fechanacimiento" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" style="margin-top: -10px;">
+			<div class="col-11 input-group input-group-sm mb-3" style="padding-right: 0px;">
+				<label>Fecha Donacion: </label>
+                <input type="text" formControlName="fechanacimiento" class="form-control"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento.errors }"  value="{{ fecha1 | date:'yyyy/MM/dd'  }}">
+            </div>
+            <div class="col-1" style="padding: 0px;">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" type="hidden"
+                            name="d1" #c1="ngModel" [(ngModel)]="fecha1" ngbDatepicker #d1="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary btn-sm calendar" (click)="d2.toggle()" type="button" style="padding: 0px;">
+                                    <img src="./assets/img/calendario.png"   style="height: 25px; padding: 0px;"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
 		</div>
 		<div class="col-2 input-group input-group-sm mb-3">
 				<span style="margin-right: 10px">Edad:</span>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter,ViewChild, OnChanges, SimpleChange} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,ViewChild, OnChanges, SimpleChanges} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
@@ -88,7 +88,7 @@ export class NucleoFamiliarComponent implements OnInit , OnChanges {
 			horabano: [''],
 		});
 	}
-	ngOnChanges(changes:SimpleChange)
+	ngOnChanges(changes:SimpleChanges)
 	{
 		console.log("Hola");
 		this.form_buscar.get('miembroID').setValue(this.var_global);
