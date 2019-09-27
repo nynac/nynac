@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter,ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
@@ -8,16 +8,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 	templateUrl: './arte-ninos.component.html',
 	styleUrls: ['./arte-ninos.component.css']
 })
-export class ArteNinosComponent implements OnInit {
+export class ArteNinosComponent implements OnInit, OnChanges {
+	@Input('global') global: any;
+	@Input() prop!:any;
+
 	url = "https://api-remota.conveyor.cloud/api/";
 
-	//form buscar
-	form_buscar : FormGroup;
-	submitted = false;
-
-	//form guardar A File Icon
+	//form guardar
 	form_guardar : FormGroup
 	submitted2 = false;
+
 	constructor(
 		private http : HttpClient,
 		private formBuilder: FormBuilder
@@ -25,10 +25,6 @@ export class ArteNinosComponent implements OnInit {
 
 	@Input('miembro') miembro: any;
 	ngOnInit() {
-		this.form_buscar = this.formBuilder.group({
-			miembroID: ['', Validators.required]
-		})
-
 		this.form_guardar = this.formBuilder.group({
 			idNinosArt : ['', Validators.required],
 			miembroID : ['', Validators.required],
@@ -61,50 +57,22 @@ export class ArteNinosComponent implements OnInit {
 			premioartelugar3 : [''],
 			hanotadoparticipar : [''],
 			recibiopremio : ['']
-
 		})
 	}
-	get f(){ return this.form_buscar.controls;}
-	get f2(){ return this.form_guardar.controls;}
 
-	limpiar_form_buscar(){
-		this.submitted =false;
-		this.form_buscar.reset();
+	ngOnChanges(changes: SimpleChanges){
+		if (this.global != undefined) {
+			this.form_guardar.patchValue(this.global["Nino_Art"][0]);	
+		}else if(this.global == null && this.form_guardar != undefined){
+			this.limpiar_form_guardar();
+		}
 	}
+
+	get f2(){ return this.form_guardar.controls;}
 
 	limpiar_form_guardar(){
 		this.submitted2 =false;
 		this.form_guardar.reset();
-	}
-
-	art_busq_Form(){
-
-		var spinner_buscar = document.getElementById("spinner_buscarART");
-		spinner_buscar.removeAttribute("hidden");
-
-		this.submitted = true;
-
-		if (this.form_buscar.invalid) {
-			spinner_buscar.setAttribute("hidden", "true");
-			return;
-		}
-		else{
-			this.form_buscar.disable();
-
-			var response = this.http.get(this.url + "Nino_Art/" + this.form_buscar.value.miembroID);
-			response.subscribe((resultado : any[])=> {
-				console.log(resultado)
-				this.form_guardar.patchValue(resultado);
-				spinner_buscar.setAttribute("hidden", "true");
-				this.form_buscar.enable();
-			},
-			error =>{
-				console.log("Error", error);
-				alert("No se encontraron resultados");
-				spinner_buscar.setAttribute("hidden", "true");
-				this.form_buscar.enable();
-			});
-		}
 	}
 
 	guardar_ART(){
@@ -129,9 +97,7 @@ export class ArteNinosComponent implements OnInit {
 
 				this.http.put(this.url + "Nino_Art/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
 					alert("Se han guardado las modificaciones correctamente");
-					this.limpiar_form_guardar();
-					this.limpiar_form_buscar();
-
+					
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
 				},

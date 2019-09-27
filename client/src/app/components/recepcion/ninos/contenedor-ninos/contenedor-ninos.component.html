@@ -1,11 +1,4 @@
 <navbar></navbar>
-<br>
-<p>
-</p>
-
-{{global}}
-<button (click)="onClickMe()">Click me!</button>
-
 <div class="container border rounded">
 	<ul class="nav nav-tabs">
 		<li class="nav-item">
@@ -34,29 +27,61 @@
 		</li>
 	</ul>
 	<div class="tab-content">
+		<form [formGroup] = "form_buscar" (ngSubmit)="busq_Form()">
+			<div class="row" style="margin: 15px 0px 0px 0px">
+				<div class="col-2 text-right font-weight-bold" >
+					<span>QUÉ VAS A HACER?</span>
+				</div>
+				<div class="col-5">
+					<div class="custom-control custom-radio custom-control-inline">
+						<input id="DG_Nuevo" type="radio" class="custom-control-input" name="DG_opcion" value="nuevo" (change)="radioChange($event)" [checked] = "true">
+						<label class="custom-control-label" for="DG_Nuevo">Nuevo</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline">
+						<input id="DG_Modificar" type="radio" class="custom-control-input" name="DG_opcion" value="modificar" (change)="radioChange($event)">
+						<label class="custom-control-label" for="DG_Modificar">Modificar</label>
+					</div>
+				</div>
+				<div class="input-group input-group-sm mb-3 col-3 aling-right">
+					<div class="input-group-prepend">
+						<span class="input-group-text">No. Miembro:</span>
+					</div>
+					<input type="number" formControlName="miembroID"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
+				</div>
+				<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+					<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar" [disabled] = "true">
+						<span id="spinner_buscar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+						Buscar
+					</button>
+				</div> 
+			</div>
+		</form>
+	</div>
+	<div class="dropdown-divider"></div>
+	<div class="tab-content">
 		<div class="tab-pane active" id="generales">
-			<datos-generales></datos-generales>
+			<datos-generales [global] = "global" [agregar_o_modificar] = "agregar_o_modificar" (padre_var)="asig_hijo_a_padre($event)"></datos-generales>
 		</div>
 		<div class="tab-pane" id="familia">
 			<nucleo-familiar [global] = "global" (padre_var)="asig_hijo_a_padre($event)"></nucleo-familiar>
 		</div>
 		<div class="tab-pane" id="socioeconomico">
-			<ds-ninos></ds-ninos>
+			<ds-ninos [global] = "global" (padre_var)="asig_hijo_a_padre($event)"></ds-ninos>
 		</div>
 		<div class="tab-pane" id="medico">
-			<dm-ninos></dm-ninos>
+			<dm-ninos [global] = "global" (padre_var)="asig_hijo_a_padre($event)"></dm-ninos>
 		</div>
 		<div class="tab-pane" id="educacion">
-			<educacion-ninos></educacion-ninos>
+			<educacion-ninos [global] = "global" (padre_var)="asig_hijo_a_padre($event)"></educacion-ninos>
 		</div>
 		<div class="tab-pane" id="deporte">
-			<deporte-ninos></deporte-ninos>
+			<deporte-ninos [global] = "global" (padre_var)="asig_hijo_a_padre($event)"></deporte-ninos>
 		</div>
 		<div class="tab-pane" id="arte">
-			<arte-ninos></arte-ninos>
+			<arte-ninos [global] = "global" (padre_var)="asig_hijo_a_padre($event)"></arte-ninos>
 		</div>
 		<div class="tab-pane " id="desarrollo">
-			<dh-ninos></dh-ninos>
+			<dh-ninos [global] = "global" (padre_var)="asig_hijo_a_padre($event)"></dh-ninos>
 		</div>
 	</div>
 

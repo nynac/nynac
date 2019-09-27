@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter,ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { DatePipe } from '@angular/common';
-
 
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -14,28 +13,20 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({ selector: 'datos-generales', templateUrl: './datos-generales.component.html', styleUrls: ['./datos-generales.component.css']})
 
-export class DatosGeneralesComponent  implements OnInit {
+export class DatosGeneralesComponent  implements OnInit, OnChanges {
+	@Input('global') global: any; 
+	@Input() prop!:any;
+
+	@Input('agregar_o_modificar') agregar_o_modificar: any; 
+	@Input() prop2!:any;
+
 	url = "https://api-remota.conveyor.cloud/api/";
-	agregar_o_modificar: string = 'nuevo';
 	miembros : any; datos_miembro : any; aux_datos : any;
 	foto : any;
-
-	//form buscar
-	form_buscar : FormGroup;
-	submitted = false;
 
 	//form guardar
 	form_guardar : FormGroup
 	submitted2 = false;
-
-	exampleChild: number=2;
-	//Obtener variable de Padre
-	@Input('miembro') miembro: any;
-	//Pasar variable a padre
-	@Output() exampleOutput= new EventEmitter<number>();
-	exampleMethodChild(){
-		this.exampleOutput.emit(this.exampleChild);
-	}
 
 	constructor(
 		private http : HttpClient, 
@@ -44,12 +35,6 @@ export class DatosGeneralesComponent  implements OnInit {
 		) { }
 
 	ngOnInit(){
-		//Se rellena los campos al formulario 
-		this.form_buscar = this.formBuilder.group({
-			miembroID: ['', Validators.required]
-		})
-
-		
 		this.form_guardar = this.formBuilder.group({
 			sede: ['', Validators.required],
 			foto : [''],
@@ -97,56 +82,29 @@ export class DatosGeneralesComponent  implements OnInit {
 		.then((mediaDevices: MediaDeviceInfo[]) => {
 			this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
 		});
-		//this.get_nuevo_miembro();
 	}
 
-	get f(){ return this.form_buscar.controls;}
+	ngOnChanges(changes: SimpleChanges){
+		if (this.global != undefined) {
+			this.form_guardar.patchValue(this.global["Nino_DG"][0]);
+			this.form_guardar.patchValue(this.global);
+			
+			this.foto =  this.sanitazor.bypassSecurityTrustUrl("data:image/png;base64," + this.global["Nino_DG"][0]['foto']);
+		}else if(this.global == null && this.form_guardar != undefined){
+			this.limpiar_form_guardar();
+			this.foto = "";
+		}
+
+		if(this.agregar_o_modificar == "nuevo")
+			this.get_nuevo_miembro();
+	}
+
 	get f2(){ return this.form_guardar.controls;}
-
-	ng_busq_Form(){
-
-		var spinner_buscar = document.getElementById("spinner_buscar");
-		spinner_buscar.removeAttribute("hidden");
-
-		this.submitted = true;
-
-		if (this.form_buscar.invalid) {
-			spinner_buscar.setAttribute("hidden", "true");
-			return;
-		}
-		else{
-			this.form_buscar.disable();
-
-			var response = this.http.get(this.url + "Nino_DG1/" + this.form_buscar.value.miembroID);
-			response.subscribe((resultado : any[])=> {
-				this.form_guardar.patchValue(resultado['Miembro']);
-				this.form_guardar.patchValue(resultado);
-				
-				this.foto =  this.sanitazor.bypassSecurityTrustUrl("data:image/png;base64," + resultado['foto']);
-				
-
-				spinner_buscar.setAttribute("hidden", "true");
-				this.form_buscar.enable();
-			},
-			error =>{
-				console.log("Error", error);
-				alert("No se encontraron resultados");
-				spinner_buscar.setAttribute("hidden", "true");
-				this.form_buscar.enable();
-			});
-		}
-	}
-
-	limpiar_form_buscar(){
-		this.submitted =false;
-		this.form_buscar.reset();
-	}
 
 	limpiar_form_guardar(){
 		this.submitted2 =false;
 		this.form_guardar.reset();
 	}
-
 
 	guardar_DG(){
 		this.submitted2 = true;
@@ -165,7 +123,6 @@ export class DatosGeneralesComponent  implements OnInit {
 				return;
 			}
 			
-			
 			spinner.removeAttribute("hidden");
 
 			if (this.agregar_o_modificar == "nuevo"){
@@ -179,29 +136,6 @@ export class DatosGeneralesComponent  implements OnInit {
 			else{
 				console.log("se fue a ninguno")
 			}
-		}
-	}
-
-	radioChange(event: any){
-
-		this.agregar_o_modificar = event.target.value;
-
-		var eleccion = document.getElementById("btn_buscar");
-
-		if (this.agregar_o_modificar == "nuevo"){
-			this.limpiar_form_guardar();
-			this.limpiar_form_buscar();
-			this.foto = "";
-
-			eleccion.setAttribute("disabled", "true");
-		}
-		else if(this.agregar_o_modificar == "modificar"){
-			eleccion.removeAttribute("disabled");
-			eleccion.setAttribute("enable", "true");
-
-			this.limpiar_form_guardar();
-			this.limpiar_form_buscar();
-			this.foto = "";
 		}
 	}
 
@@ -257,10 +191,6 @@ export class DatosGeneralesComponent  implements OnInit {
 			this.guardar_miembro_en_tabla("Nino_Art", "idNinosArt", this.form_guardar.value.idNinosDG); //arte
 			this.guardar_miembro_en_tabla("Nino_DH", "idNinosDH", this.form_guardar.value.idNinosDG); //desarrollo humano
 
-			this.limpiar_form_guardar();
-			this.limpiar_form_buscar();
-			this.foto = "";
-
 			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
 		},
@@ -282,9 +212,6 @@ export class DatosGeneralesComponent  implements OnInit {
 		
 		this.http.put(this.url + "Nino_DG1/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
 			alert("Se han guardado las modificaciones correctamente");
-			this.limpiar_form_guardar();
-			this.limpiar_form_buscar();
-			this.foto = "";
 
 			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
@@ -304,7 +231,6 @@ export class DatosGeneralesComponent  implements OnInit {
 		},
 		error  => {
 			console.log("Error al guardar en la tabla: " + tabla, error);
-			
 		});
 	}
 

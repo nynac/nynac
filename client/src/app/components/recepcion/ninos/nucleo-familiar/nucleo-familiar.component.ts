@@ -10,13 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 })
 export class NucleoFamiliarComponent implements OnInit, OnChanges{
 	@Input('global') global: any;
-	@Input() prop!:number;
+	@Input() prop!:any;
 
 	url = "https://api-remota.conveyor.cloud/api/";
-
-	//form buscar
-	form_buscar : FormGroup;
-	submitted = false;
 
 	//form guardar
 	form_guardar : FormGroup
@@ -26,13 +22,7 @@ export class NucleoFamiliarComponent implements OnInit, OnChanges{
 		private formBuilder: FormBuilder
 		){}
 
-	
-
 	ngOnInit() {
-		this.form_buscar = this.formBuilder.group({
-			miembroID: ['', Validators.required]
-		})
-
 		this.form_guardar = this.formBuilder.group({
 			idNinosNF : ['', Validators.required],
 			miembroID : ['', Validators.required],
@@ -87,51 +77,17 @@ export class NucleoFamiliarComponent implements OnInit, OnChanges{
 			horabano: [''],
 		});
 	}
+
 	ngOnChanges(changes: SimpleChanges){
-		if(this.form_buscar != undefined){
-			this.form_buscar.get("miembroID").setValue(this.global);
-			this.ng_busq_Form();
+		if (this.global != undefined) {
+			this.form_guardar.patchValue(this.global["Nino_NF"][0]);	
+		}else if(this.global == null && this.form_guardar != undefined){
+			this.limpiar_form_guardar();
 		}
-
-
 	}
 
-	get f(){ return this.form_buscar.controls;}
 	get f2(){ return this.form_guardar.controls;}
-
-	ng_busq_Form(){
-		var spinner_buscar = document.getElementById("spinner_buscarNF");
-		spinner_buscar.removeAttribute("hidden");
-
-		this.submitted = true;
-
-		if (this.form_buscar.invalid) {
-			spinner_buscar.setAttribute("hidden", "true");
-			return;
-		}
-		else{
-			this.form_buscar.disable();
-
-			var response = this.http.get(this.url + "Nino_NF/" + this.form_buscar.value.miembroID);
-			response.subscribe((resultado : any[])=> {
-				this.form_guardar.patchValue(resultado);
-
-				spinner_buscar.setAttribute("hidden", "true");
-				this.form_buscar.enable();
-			},
-			error =>{
-				console.log("Error", error);
-				alert("No se encontraron resultados");
-				spinner_buscar.setAttribute("hidden", "true");
-				this.form_buscar.enable();
-			});
-		}
-	}
-
-	limpiar_form_buscar(){
-		this.submitted =false;
-		this.form_buscar.reset();
-	}
+	
 	limpiar_form_guardar(){
 		this.submitted2 =false;
 		this.form_guardar.reset();
@@ -139,7 +95,7 @@ export class NucleoFamiliarComponent implements OnInit, OnChanges{
 
 	guardar_NF(){
 		this.submitted2 = true;
-		var spinner = document.getElementById("spinner");
+		var spinner = document.getElementById("spinner_NF");
 
 		if (this.form_guardar.invalid) {
 			console.log("Formato incorrecto del formulario");
@@ -159,8 +115,6 @@ export class NucleoFamiliarComponent implements OnInit, OnChanges{
 
 				this.http.put(this.url + "Nino_NF/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
 					alert("Se han guardado las modificaciones correctamente");
-					this.limpiar_form_guardar();
-					this.limpiar_form_buscar();
 
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
