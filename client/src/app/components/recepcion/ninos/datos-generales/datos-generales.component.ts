@@ -28,6 +28,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	guardando : boolean = false;
 	porcentaje_sumar = 0;
 	porcentaje_actual = 0;
+	tipo_progress = "success";
 
 	//Todo para el alert
 	visible : boolean = false;
@@ -192,10 +193,10 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			this.guardar_miembro_en_tabla("Nino_DH", "idNinosDH", this.form_guardar.value.idNinosDG, "Desarrollo humano"); //desarrollo humano
 
 			this.modificar();
-			//this.padre_var.emit(this.form_guardar.value.miembroID);
+			this.tipo_progress = "success";
 			this.mensaje = this.form_guardar.value.nombres + " se agregó correctamente. NÚMERO DE MIEMBRO: " + this.form_guardar.value.miembroID;
 			this.mostrar_alert(this.mensaje, 'success', 60000, "compleado");
-
+			//this.padre_var.emit(this.form_guardar.value.miembroID);
 		},
 		error  => {
 			this.mostrar_alert("Ocurrió un error, inténtalo mas tarde", 'danger', 5000, null);
@@ -235,6 +236,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		},
 		error  => {
 			console.log(error);
+			this.tipo_progress = "warning";
 			this.mensaje = "Reintentando guardar en: " + descripcion;
 			this.mostrar_alert(this.mensaje, 'warning', 3000, "reintentar");
 
