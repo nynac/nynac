@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { Subject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { DomSanitizer } from '@angular/platform-browser'
 
-import {FormBuilder, FormGroup, Validators} from '@angular/forms'
-import { timeout, catchError } from 'rxjs/operators' 
+import {FormBuilder, FormGroup, Validators} from '@angular/forms' 
+
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({ selector: 'datos-generales', templateUrl: './datos-generales.component.html', styleUrls: ['./datos-generales.component.css']})
@@ -101,10 +101,15 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		}else if(this.global == null && this.form_guardar != undefined){
 			this.limpiar_form_guardar();
 			this.foto = "";
+			this.cerrar_alert();
 		}
 
-		if(this.agregar_o_modificar == "nuevo")
+		if(this.agregar_o_modificar == "nuevo"){
 			this.obtener_ultimo_miembro();
+			this.mostrar_alert("Usted está creando un nuevo miembro, para ello sólo deberá agregar información en el apartado de 'DATOS GENERALES', una vez completado este paso " 
+				+ "usted deberá seleccionar la opción MODIFICAR y deberá ingresar el número de miembro que se generó al finalizar datos generales, apartir de ahí "
+				+ "usted podrá agregar la información faltante en los demás apartados.","info",90000, null);
+		}
 	}
 
 	/*prueba(){
@@ -189,7 +194,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			this.modificar();
 			//this.padre_var.emit(this.form_guardar.value.miembroID);
 			this.mensaje = this.form_guardar.value.nombres + " se agregó correctamente. NÚMERO DE MIEMBRO: " + this.form_guardar.value.miembroID;
-			this.mostrar_alert(this.mensaje, 'success', 60000, null);
+			this.mostrar_alert(this.mensaje, 'success', 60000, "compleado");
 
 		},
 		error  => {
@@ -255,7 +260,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 
 		setTimeout(() => { 
 			this.cerrar_alert();
-			if (accion!="reintentar") 
+			if (accion=="compleado") 
 				this.limpiar_form_guardar();
 		}, duracion
 		);

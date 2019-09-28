@@ -1,5 +1,4 @@
-<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
-
+<ngb-alert style="margin: 0px 15px 0px 15px;" *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
 <ngb-progressbar animated="true" showValue="true" striped="true" value="{{porcentaje_actual}}" *ngIf="guardando == true"></ngb-progressbar>
 
 <form [formGroup] = "form_guardar" (ngSubmit)="press_guardar()">
@@ -37,17 +36,17 @@
 			</select>
 		</div>
 
-		<div class="col-1 custom-control form-check" style="margin: 0px 10px 0px 10px;">
+		<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
 			<input type="checkbox" id="estado" formControlName="estado" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.estado.errors}"/>
 			<label class="custom-control-label" for="estado">Estado&nbsp;</label>
 		</div>
 
-		<div class="col-1 custom-control form-check" >
+		<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
 			<input type="checkbox" id="visa" formControlName="visa" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.visa.errors }"/>
 			<label class="custom-control-label" for="visa">Visa</label>
 		</div>
 
-		<div class="col-2 form-group input-group-sm mb-3">
+		<div class="col-2 form-group input-group-sm mb-3" style="margin: 0px 0px 0px -20px;">
 			<label for="religion" style="padding: 0px; font-size: 13px;">Religión</label>
 			<input type="text" id="religion" formControlName="religion" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.religion.errors }" style="margin-top: -10px;"/>
 		</div>
@@ -232,7 +231,7 @@
 				<option value="Vespertino">Vespertino</option>
 			</select>
 		</div>
-</div>
+	</div>
 </div>
 <div class="col-6" style="margin: 0px 0px 0px -15px">
 	<div class="col-12 font-weight-bold" >

@@ -82,7 +82,7 @@ export class NucleoFamiliarComponent implements OnInit, OnChanges{
 		if (this.global != undefined) {
 			this.form_guardar.patchValue(this.global["Nino_NF"][0]);	
 		}else if(this.global == null && this.form_guardar != undefined){
-			this.limpiar_form_guardar();
+			this.form_guardar.disable();
 		}
 	}
 

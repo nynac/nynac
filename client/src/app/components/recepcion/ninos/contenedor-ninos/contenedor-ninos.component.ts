@@ -13,7 +13,7 @@ export class ContenedorNinosComponent implements OnInit {
 	//Variables globales
 	global: any = undefined;
 	agregar_o_modificar: string = 'nuevo';
-
+	
 	//form buscar
 	form_buscar : FormGroup;
 	submitted = false;
