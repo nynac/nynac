@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { DatePipe } from '@angular/common';
-
 import { Subject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
@@ -14,11 +12,10 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 @Component({ selector: 'datos-generales', templateUrl: './datos-generales.component.html', styleUrls: ['./datos-generales.component.css']})
 
 export class DatosGeneralesComponent  implements OnInit, OnChanges {
+	//Todo para las variables globales
 	@Output('padre_var') padre_var = new EventEmitter<any>();
-
 	@Input('global') global: any; 
 	@Input() prop!:any;
-
 	@Input('agregar_o_modificar') agregar_o_modificar: any; 
 	@Input() prop2!:any;
 
@@ -26,13 +23,19 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	miembros : any; datos_miembro : any; aux_datos : any;
 	foto : any;
 
+	//Todo para el progressbar
 	guardando : boolean = false;
 	porcentaje_sumar = 0;
 	porcentaje_actual = 0;
 
+	//Todo para el alert
+	visible : boolean = false;
+	tipo : string = null;
+	mensaje : string = "holaasdasa";
+
+
 	//form guardar
 	form_guardar : FormGroup
-	submitted2 = false;
 
 	constructor(
 		private http : HttpClient, 
@@ -55,7 +58,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			appaterno : ['', Validators.required],
 			apmaterno : ['', Validators.required],
 			fechanacimiento : [''],
-			edad : ['',(Validators.required, Validators.min(6), Validators.max(16))],
+			edad : ['',Validators.required],
 			lugarnacimiento : [''],
 			nacionalidad : [''],
 			sexo : ['',],
@@ -101,28 +104,20 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		}
 
 		if(this.agregar_o_modificar == "nuevo")
-			this.get_nuevo_miembro();
+			this.obtener_ultimo_miembro();
 	}
 
-	prueba(){
+	/*prueba(){
 		this.padre_var.emit(10);
-	}
+	}*/
 
 	get f2(){ return this.form_guardar.controls;}
 
-	limpiar_form_guardar(){
-		this.submitted2 =false;
-		this.form_guardar.reset();
-	}
-
-	guardar_DG(){
-		this.submitted2 = true;
-
+	press_guardar(){
 		var spinner = document.getElementById("spinner");
 
 		if (this.form_guardar.invalid) {
 			console.log("Formato incorrecto del formulario");
-			console.log(this.form_guardar.value);
 			spinner.setAttribute("hidden", "true");
 			return;
 		}
@@ -130,14 +125,13 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			var r = confirm("Estas seguro que deseas completar esta acción");
 			if (r== false) 
 				return;
+
 			spinner.removeAttribute("hidden");
 
 			if (this.agregar_o_modificar == "nuevo"){
-				console.log("Creando ...");
 				this.nuevo_miembro();
 			}
 			else if (this.agregar_o_modificar == "modificar"){
-				console.log("Modificando ...");
 				this.modificar();
 			}
 			else{
@@ -147,7 +141,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	}
 
 	//Obtener nuevo miembro MÉTODO AUXILIAR
-	get_nuevo_miembro(){
+	obtener_ultimo_miembro(){
 		var response = this.http.get(this.url + "ultimoMiembro");
 		response.subscribe((resultado : number)=> {
 			this.form_guardar.get('estado').setValue(true);
@@ -162,13 +156,14 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		});
 	}
 
+	//Guarda nuevo miembro y después internamente guarda los IDs para cada tabla del niño
 	nuevo_miembro(){
 		this.form_guardar.disable();
 		this.guardando = true;
 		var spinner = document.getElementById("spinner");
 		
 		//1. Recalcula el número de miembro, en dado caso que ya hayan registrado uno mientras estaba en proceso
-		this.get_nuevo_miembro()
+		this.obtener_ultimo_miembro()
 		
 		//2. Guardamos al niño en la tabla miembros
 		this.datos_miembro = {
@@ -178,11 +173,9 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			sede: this.form_guardar.value.sede
 		}
 
-		this.http.post(this.url + 'miembroes', this.datos_miembro).subscribe(data  => {
-			alert(this.form_guardar.value.nombres + " se agregó correctamente. Su No. Miembro es: " + this.form_guardar.value.miembroID);
+		this.http.post(this.url + 'miembro', this.datos_miembro).subscribe(data  => {
 			this.porcentaje_actual = 20;
 			this.porcentaje_sumar = 100/10;
-
 
 			this.guardar_miembro_en_tabla("Nino_DG", "idNinosDG", this.form_guardar.value.idNinosDG); //Datos generales 
 			this.guardar_miembro_en_tabla("Nino_NF", "idNinosNF", this.form_guardar.value.idNinosDG); //Nucleo familiar
@@ -198,13 +191,14 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			/*this.guardando = false;
 			this.porcentaje_actual = 0;
 			this.porcentaje_sumar = 0;*/
-			
+			alert(this.form_guardar.value.nombres + " se agregó correctamente. Su No. Miembro es: " + this.form_guardar.value.miembroID);
 		},
 		error  => {
 			console.log("Error al guardar en la tabla miembro", error);
 		});
 	}
 
+	//Modifica los valores
 	modificar(){
 		this.form_guardar.disable();
 		var spinner = document.getElementById("spinner");
@@ -221,9 +215,9 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
 		});
-
 	}
 
+	//Método auxiliar que guarda para cada tabla sólo el ID y el miembroID
 	guardar_miembro_en_tabla(tabla : string, columnaID : string, valorID : number){
 		
 		var datos_aux = JSON.parse('{"'+columnaID+'":'+valorID+', "miembroID":'+valorID+'}');
@@ -238,7 +232,20 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		});
 	}
 
-	// toggle webcam on/off
+	limpiar_form_guardar(){
+		this.form_guardar.reset();
+	}
+
+	mostrar(msg : string, tipo : string, duracion : number){
+		this.visible = true;
+		this.mensaje = msg;
+		this.tipo = tipo;
+
+		setTimeout(() => this.visible = false, duracion);
+	}
+
+
+	// TODO PARA LA CÁMARA
 	public showWebcam = false;
 	public allowCameraSwitch = true;
 	public multipleWebcamsAvailable = false;

@@ -1,6 +1,10 @@
+
+<button (click)="mostrar('Hola mundoooo', 'info', 3000)">mostrar</button>
+<ngb-alert *ngIf="visible==true" (close)="visible = true" type="{{tipo}}">{{mensaje}}</ngb-alert>
+
 <ngb-progressbar animated="true" showValue="true" striped="true" value="{{porcentaje_actual}}" *ngIf="guardando == true"></ngb-progressbar>
 
-<form [formGroup] = "form_guardar" (ngSubmit)="guardar_DG()">
+<form [formGroup] = "form_guardar" (ngSubmit)="press_guardar()">
 	<div class="row" *ngIf="agregar_o_modificar=='nuevo'">
 		<div class="col-12 text-center" style="color: #00AAE7;">
 			<small id="passwordHelpInline" class="text-center">
