@@ -1,6 +1,4 @@
-
-<button (click)="mostrar('Hola mundoooo', 'info', 3000)">mostrar</button>
-<ngb-alert *ngIf="visible==true" (close)="visible = true" type="{{tipo}}">{{mensaje}}</ngb-alert>
+<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
 
 <ngb-progressbar animated="true" showValue="true" striped="true" value="{{porcentaje_actual}}" *ngIf="guardando == true"></ngb-progressbar>
 
@@ -82,7 +80,7 @@
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3">
 		<label for="nombres" style="padding: 0px; font-size: 13px;">Nombre(s)</label>
-		<input type="text" id="nombres" formControlName="nombres" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.nombres.errors }" style="margin-top: -10px;"/>
+		<input type="text" id="nombres" formControlName="nombres" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.nombres.errors }" style="margin-top: -10px;"/>
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3">
 		<label for="appaterno" style="padding: 0px; font-size: 14px;">Apellido Paterno</label>
@@ -159,7 +157,7 @@
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="otroseguro" style="padding: 0px; font-size: 14px;">Otro servicio</label>
 	<input type="text" id="otroseguro" formControlName="otroseguro" class="form-control"
-	[ngClass]="{ 'is-invalid': submitted2 && f2.otroseguro.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+	[ngClass]="{ 'is-invalid': submitted2 && f2.otroseguro.errors }" style="margin-top: -10px;">
 </div>
 <div class="col-7 custom-control-inline" style="margin: 0px 0px 0px -15px">
 	<div class="col-8 form-group input-group-sm mb-3">

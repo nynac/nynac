@@ -7,6 +7,7 @@ import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { DomSanitizer } from '@angular/platform-browser'
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
+import { timeout, catchError } from 'rxjs/operators' 
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({ selector: 'datos-generales', templateUrl: './datos-generales.component.html', styleUrls: ['./datos-generales.component.css']})
@@ -31,8 +32,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	//Todo para el alert
 	visible : boolean = false;
 	tipo : string = null;
-	mensaje : string = "holaasdasa";
-
+	mensaje : string = null;
 
 	//form guardar
 	form_guardar : FormGroup
@@ -177,23 +177,25 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			this.porcentaje_actual = 20;
 			this.porcentaje_sumar = 100/10;
 
-			this.guardar_miembro_en_tabla("Nino_DG", "idNinosDG", this.form_guardar.value.idNinosDG); //Datos generales 
-			this.guardar_miembro_en_tabla("Nino_NF", "idNinosNF", this.form_guardar.value.idNinosDG); //Nucleo familiar
-			this.guardar_miembro_en_tabla("Nino_ES", "idNinosES", this.form_guardar.value.idNinosDG); //Socioeconomico
-			this.guardar_miembro_en_tabla("Nino_DM", "idNinosDM", this.form_guardar.value.idNinosDG); //Medicos
-			this.guardar_miembro_en_tabla("Nino_ED", "idNinosED", this.form_guardar.value.idNinosDG); //educación
-			this.guardar_miembro_en_tabla("Nino_Dep", "idNinosDep", this.form_guardar.value.idNinosDG); //deporte
-			this.guardar_miembro_en_tabla("Nino_Art", "idNinosArt", this.form_guardar.value.idNinosDG); //arte
-			this.guardar_miembro_en_tabla("Nino_DH", "idNinosDH", this.form_guardar.value.idNinosDG); //desarrollo humano
+			this.guardar_miembro_en_tabla("Nino_DG", "idNinosDG", this.form_guardar.value.idNinosDG, "Datos generales"); //Datos generales 
+			this.guardar_miembro_en_tabla("Nino_NF", "idNinosNF", this.form_guardar.value.idNinosDG, "Núcleo familiar"); //Nucleo familiar
+			this.guardar_miembro_en_tabla("Nino_ES", "idNinosES", this.form_guardar.value.idNinosDG, "Datos socioecónomicos"); //Socioeconomico
+			this.guardar_miembro_en_tabla("Nino_DM", "idNinosDM", this.form_guardar.value.idNinosDG, "Datos médicos"); //Medicos
+			this.guardar_miembro_en_tabla("Nino_ED", "idNinosED", this.form_guardar.value.idNinosDG, "Educación"); //educación
+			this.guardar_miembro_en_tabla("Nino_Dep", "idNinosDep", this.form_guardar.value.idNinosDG, "Deporte"); //deporte
+			this.guardar_miembro_en_tabla("Nino_Art", "idNinosArt", this.form_guardar.value.idNinosDG, "Arte"); //arte
+			this.guardar_miembro_en_tabla("Nino_DH", "idNinosDH", this.form_guardar.value.idNinosDG, "Desarrollo humano"); //desarrollo humano
 
 			this.modificar();
 			//this.padre_var.emit(this.form_guardar.value.miembroID);
-			/*this.guardando = false;
-			this.porcentaje_actual = 0;
-			this.porcentaje_sumar = 0;*/
-			alert(this.form_guardar.value.nombres + " se agregó correctamente. Su No. Miembro es: " + this.form_guardar.value.miembroID);
+			this.mensaje = this.form_guardar.value.nombres + " se agregó correctamente. NÚMERO DE MIEMBRO: " + this.form_guardar.value.miembroID;
+			this.mostrar_alert(this.mensaje, 'success', 60000, null);
+
 		},
 		error  => {
+			this.mostrar_alert("Ocurrió un error, inténtalo mas tarde", 'danger', 5000, null);
+			spinner.setAttribute("hidden", "true");
+			this.form_guardar.enable();
 			console.log("Error al guardar en la tabla miembro", error);
 		});
 	}
@@ -218,7 +220,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	}
 
 	//Método auxiliar que guarda para cada tabla sólo el ID y el miembroID
-	guardar_miembro_en_tabla(tabla : string, columnaID : string, valorID : number){
+	guardar_miembro_en_tabla(tabla : string, columnaID : string, valorID : number, descripcion : string){
 		
 		var datos_aux = JSON.parse('{"'+columnaID+'":'+valorID+', "miembroID":'+valorID+'}');
 
@@ -227,21 +229,41 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			this.porcentaje_actual += this.porcentaje_sumar;;
 		},
 		error  => {
-			console.log("Error al guardar en la tabla: " + tabla + "\n Se está volviendo a intentar", error);
-			this.guardar_miembro_en_tabla(tabla, columnaID, this.form_guardar.value.idNinosDG);
+			console.log(error);
+			this.mensaje = "Reintentando guardar en: " + descripcion;
+			this.mostrar_alert(this.mensaje, 'warning', 3000, "reintentar");
+
+			setTimeout(() => { 
+				this.guardar_miembro_en_tabla(tabla, columnaID, this.form_guardar.value.idNinosDG, descripcion);
+			}, 3000
+			);
+			
 		});
 	}
 
 	limpiar_form_guardar(){
 		this.form_guardar.reset();
+		this.guardando = false;
+		this.porcentaje_actual = 0;
+		this.porcentaje_sumar = 0;
 	}
 
-	mostrar(msg : string, tipo : string, duracion : number){
+	mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
 		this.visible = true;
 		this.mensaje = msg;
 		this.tipo = tipo;
 
-		setTimeout(() => this.visible = false, duracion);
+		setTimeout(() => { 
+			this.cerrar_alert();
+			if (accion!="reintentar") 
+				this.limpiar_form_guardar();
+		}, duracion
+		);
+	}
+	cerrar_alert(){
+		this.visible = false;
+		this.mensaje = null;
+		this.tipo = null;
 	}
 
 
