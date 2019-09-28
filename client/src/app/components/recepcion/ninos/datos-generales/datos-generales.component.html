@@ -1,6 +1,4 @@
-<div class="progress" *ngIf="guardando  == true">
-  <div id="progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="width: 0%"></div>
-</div>
+<ngb-progressbar animated="true" showValue="true" striped="true" value="{{porcentaje_actual}}" *ngIf="guardando == true"></ngb-progressbar>
 
 <form [formGroup] = "form_guardar" (ngSubmit)="guardar_DG()">
 	<div class="row" *ngIf="agregar_o_modificar=='nuevo'">
