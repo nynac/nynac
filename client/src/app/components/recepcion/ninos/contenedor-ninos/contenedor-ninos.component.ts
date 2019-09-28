@@ -31,7 +31,9 @@ export class ContenedorNinosComponent implements OnInit {
 	}
 
 	asig_hijo_a_padre($event){
-		this.global = null;
+		this.agregar_o_modificar = "modificar";
+		this.form_buscar.get('miembroID').setValue($event);
+		this.busq_Form();
 	}
 
 	radioChange(event: any){

@@ -26,7 +26,9 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	miembros : any; datos_miembro : any; aux_datos : any;
 	foto : any;
 
-	contador_guardar_ids : number = 0;
+	guardando : boolean = false;
+	porcentaje : number;
+	porcentaje_actual = 0;
 
 	//form guardar
 	form_guardar : FormGroup
@@ -115,6 +117,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 
 	guardar_DG(){
 		this.submitted2 = true;
+
 		var spinner = document.getElementById("spinner");
 
 		if (this.form_guardar.invalid) {
@@ -124,7 +127,6 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			return;
 		}
 		else{
-
 			var r = confirm("Estas seguro que deseas completar esta acción");
 			if (r== false) 
 				return;
@@ -163,6 +165,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	nuevo_miembro(){
 		this.form_guardar.disable();
 		var spinner = document.getElementById("spinner");
+
 		//1. Recalcula el número de miembro, en dado caso que ya hayan registrado uno mientras estaba en proceso
 		this.get_nuevo_miembro()
 		
@@ -176,23 +179,25 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 
 		this.http.post(this.url + 'miembroes', this.datos_miembro).subscribe(data  => {
 			alert(this.form_guardar.value.nombres + " se agregó correctamente. Su No. Miembro es: " + this.form_guardar.value.miembroID);
+			this.guardando = true;
+			this.porcentaje = 100/9;
 
-			this.guardar_miembro_en_tabla("Nino_DG", "idNinosDG", this.form_guardar.value.idNinosDG); //Datos generales
-			this.guardar_miembro_en_tabla("Nino_NF", "idNinosNF", this.form_guardar.value.idNinosDG); //Nucleo familiar
-			this.guardar_miembro_en_tabla("Nino_ES", "idNinosES", this.form_guardar.value.idNinosDG); //Socioeconomico
-			this.guardar_miembro_en_tabla("Nino_DM", "idNinosDM", this.form_guardar.value.idNinosDG); //Medicos
-			this.guardar_miembro_en_tabla("Nino_ED", "idNinosED", this.form_guardar.value.idNinosDG); //educación
-			this.guardar_miembro_en_tabla("Nino_Dep", "idNinosDep", this.form_guardar.value.idNinosDG); //deporte
-			this.guardar_miembro_en_tabla("Nino_Art", "idNinosArt", this.form_guardar.value.idNinosDG); //arte
-			this.guardar_miembro_en_tabla("Nino_DH", "idNinosDH", this.form_guardar.value.idNinosDG); //desarrollo humano
+
+			this.guardar_miembro_en_tabla("Nino_DG", "idNinosDG", this.form_guardar.value.idNinosDG, this.porcentaje); //Datos generales 
+			this.guardar_miembro_en_tabla("Nino_NF", "idNinosNF", this.form_guardar.value.idNinosDG, this.porcentaje); //Nucleo familiar
+			this.guardar_miembro_en_tabla("Nino_ES", "idNinosES", this.form_guardar.value.idNinosDG, this.porcentaje); //Socioeconomico
+			this.guardar_miembro_en_tabla("Nino_DM", "idNinosDM", this.form_guardar.value.idNinosDG, this.porcentaje); //Medicos
+			this.guardar_miembro_en_tabla("Nino_ED", "idNinosED", this.form_guardar.value.idNinosDG, this.porcentaje); //educación
+			this.guardar_miembro_en_tabla("Nino_Dep", "idNinosDep", this.form_guardar.value.idNinosDG, this.porcentaje); //deporte
+			this.guardar_miembro_en_tabla("Nino_Art", "idNinosArt", this.form_guardar.value.idNinosDG, this.porcentaje); //arte
+			this.guardar_miembro_en_tabla("Nino_DH", "idNinosDH", this.form_guardar.value.idNinosDG, this.porcentaje); //desarrollo humano
 
 			this.modificar();
-			this.contador_guardar_ids = 0;
+			//this.padre_var.emit(this.form_guardar.value.miembroID);
 			
 		},
 		error  => {
 			console.log("Error al guardar en la tabla miembro", error);
-			this.contador_guardar_ids = 0;
 		});
 	}
 
@@ -204,9 +209,8 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		}
 		
 		this.http.put(this.url + "Nino_DG1/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
-			alert("Se han guardado las modificaciones correctamente");
-
 			spinner.setAttribute("hidden", "true");
+			this.guardando = false;
 			this.form_guardar.enable();
 		},
 		error  => {
@@ -214,21 +218,31 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
 		});
+
 	}
 
-	guardar_miembro_en_tabla(tabla : string, columnaID : string, valorID : number){
+	guardar_miembro_en_tabla(tabla : string, columnaID : string, valorID : number, porcentaje : any){
 		
 		var datos_aux = JSON.parse('{"'+columnaID+'":'+valorID+', "miembroID":'+valorID+'}');
-		console.log(datos_aux);
 
 		this.http.post(this.url + tabla, datos_aux).subscribe(data  => {
 			console.log("Se han guardado: " + tabla);
-			this.contador_guardar_ids += 1;
+			this.progreso(porcentaje);
 		},
 		error  => {
 			console.log("Error al guardar en la tabla: " + tabla + "\n Se está volviendo a intentar", error);
-			this.guardar_miembro_en_tabla(tabla, columnaID, this.form_guardar.value.idNinosDG);
+			this.guardar_miembro_en_tabla(tabla, columnaID, this.form_guardar.value.idNinosDG, porcentaje);
 		});
+	}
+
+	progreso(sumar_porcentaje){
+		var progress = document.getElementById("progress");
+		progress.removeAttribute("aria-valuemin");
+		progress.removeAttribute("style");
+
+		this.porcentaje_actual += sumar_porcentaje;
+		progress.setAttribute("aria-valuemin", this.porcentaje_actual.toString());
+		progress.setAttribute("style","width:" + this.porcentaje_actual + "%;");
 	}
 
 	// toggle webcam on/off

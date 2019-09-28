@@ -1,3 +1,7 @@
+<div class="progress" *ngIf="guardando  == true">
+  <div id="progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="width: 0%"></div>
+</div>
+
 <form [formGroup] = "form_guardar" (ngSubmit)="guardar_DG()">
 	<div class="row" *ngIf="agregar_o_modificar=='nuevo'">
 		<div class="col-12 text-center" style="color: #00AAE7;">
