@@ -96,7 +96,7 @@ export class EducacionNinosComponent implements OnInit, OnChanges {
 
 
 	ngOnChanges(changes: SimpleChanges){
-		if (this.global != undefined) {
+		if (this.global != undefined && this.global["Nino_ED"][0] != undefined) {
 			this.form_guardar.patchValue(this.global["Nino_ED"][0]);	
 		}else if(this.global == null && this.form_guardar != undefined){
 			this.limpiar_form_guardar();
