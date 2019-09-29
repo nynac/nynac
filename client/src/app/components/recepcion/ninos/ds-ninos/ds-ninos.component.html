@@ -1,3 +1,7 @@
+<div style="margin: 0px 30px 0px 15px;" class="text-center">
+  <ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+</div>
+
 <form [formGroup]="form_guardar" (ngSubmit)="guardar_ES()">
   <div class="col-3 input-group input-group-sm mb-3" hidden="true">
     <input type="text" formControlName="idNinosES" class="form-control"

@@ -1,3 +1,7 @@
+<div style="margin: 0px 30px 0px 15px;" class="text-center">
+  <ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+</div>
+
 <form [formGroup]="form_guardar" (ngSubmit)="guardar_DM()">
   <div class="row " style="margin: 10px 0px 0px 0px">
     <div class="col-12 custom-control-inline">

@@ -128,7 +128,10 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			return;
 		}
 		else{
-			var r = confirm("Estas seguro que deseas completar esta acción");
+			if(this.guardando == true)
+				return;
+
+			var r = confirm("¿Deseas continuar?");
 			if (r== false) 
 				return;
 
@@ -209,6 +212,8 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	//Modifica los valores
 	modificar(){
 		this.form_guardar.disable();
+		this.guardando = true;
+
 		var spinner = document.getElementById("spinner");
 		if (this.webcamImage != null) {
 			this.form_guardar.get("foto").setValue(this.webcamImage.imageAsBase64);
@@ -216,12 +221,15 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		
 		this.http.put(this.url + "Nino_DG1/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
 			spinner.setAttribute("hidden", "true");
+			this.porcentaje_actual = 100;
 			this.form_guardar.enable();
+			this.mostrar_alert("Se guardó correctamente", "success", 5000, null);	
 		},
 		error  => {
-			console.log(error);
 			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
+			this.mostrar_alert("Ocurrió un error al guardar los datos, vuelve a intentarlo", "danger", 5000, null);
+			console.log(error);
 		});
 	}
 
@@ -271,6 +279,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		this.visible = false;
 		this.mensaje = null;
 		this.tipo = null;
+		this.guardando = false;
 	}
 
 

@@ -87,6 +87,7 @@ export class ContenedorNinosComponent implements OnInit {
 		}
 		else{
 			this.form_buscar.disable();
+			this.global = undefined;
 			this.buscando = true;
 
 			var response = this.http.get(this.url + "Miembro/" + this.form_buscar.value.miembroID);

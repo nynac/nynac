@@ -14,9 +14,15 @@ export class DsNinosComponent implements OnInit, OnChanges {
 
 	url = "https://api-remota.conveyor.cloud/api/";
 
+	//Todo para el alert
+	visible : boolean = false;
+	tipo : string = null;
+	mensaje : string = null;
+	guardando : boolean = false;
+
 	//form guardar
 	form_guardar : FormGroup
-	submitted2 = false;
+
 	constructor(
 		private http : HttpClient,
 		private formBuilder: FormBuilder
@@ -87,12 +93,10 @@ export class DsNinosComponent implements OnInit, OnChanges {
 	get f2(){ return this.form_guardar.controls;}
 
 	limpiar_form_guardar(){
-		this.submitted2 =false;
 		this.form_guardar.reset();
 	}
 
 	guardar_ES(){
-		this.submitted2 = true;
 		var spinner = document.getElementById("ES_spinner");
 		
 		if (this.form_guardar.invalid) {
@@ -101,28 +105,48 @@ export class DsNinosComponent implements OnInit, OnChanges {
 			return;
 		}
 		else{
+			if(this.guardando == true)
+				return;
 
 			var r = confirm("¿Deseas continuar?");
 			if (r== false) {
 				return;
 			}else{
 				this.form_guardar.disable();
-
+				this.guardando = true;
 				spinner.removeAttribute("hidden");
-				console.log("Actualizando ...");
 
 				this.http.put(this.url + "Nino_ES/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
-					alert("Se han guardado las modificaciones correctamente");
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
+
+					this.mostrar_alert("Se guardó correctamente", "success", 5000, null);
 				},
 				error  => {
-					console.log(error);
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
+					this.mostrar_alert("Ocurrió un error al guardar los datos, vuelve a intentarlo", "danger", 5000, null);
+					console.log(error);
 				});
 			}
 
 		}
+
+	}
+	mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
+		this.visible = true;
+		this.mensaje = msg;
+		this.tipo = tipo;
+
+		setTimeout(() => { 
+			this.cerrar_alert();
+		}, duracion
+		);
+	}
+	cerrar_alert(){
+		this.visible = false;
+		this.mensaje = null;
+		this.tipo = null;
+		this.guardando = false;
 	}
 }

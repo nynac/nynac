@@ -1,3 +1,7 @@
+<div style="margin: 0px 30px 0px 15px;" class="text-center">
+	<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+</div>
+
 <form [formGroup]="form_guardar" (ngSubmit)="guardar_NF()">
 	<div class="col-3 input-group input-group-sm mb-3" hidden="true">
 		<input type="text" formControlName="idNinosNF" class="form-control"
@@ -291,63 +295,63 @@
 	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
 		<label for="disciplica" style="padding: 0px;">Diciplina</label>
 		<select formControlName="disciplica" class="custom-select" id="disciplica"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.disciplica.errors }" 
-			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
-			<option value="mamá">Mamá</option>
-			<option value="papá">Papá</option>
-			<option value="Ambos">Ambos</option>
-		</select>
-	</div>
-	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
-		<label for="alacostarse" style="padding: 0px;">Al acostarse</label>
-		<select formControlName="alacostarse" class="custom-select" id="alacostarse"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.alacostarse.errors }" 
-			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
-			<option value="mamá">Mamá</option>
-			<option value="papá">Papá</option>
-			<option value="Ambos">Ambos</option>
-		</select>
-	</div>
-	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
-		<label for="allevantarse" style="padding: 0px;">Al levantarse</label>
-		<select formControlName="allevantarse" class="custom-select" id="allevantarse"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.allevantarse.errors }" 
-			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
-			<option value="mamá">Mamá</option>
-			<option value="papá">Papá</option>
-			<option value="Ambos">Ambos</option>
-		</select>
-	</div>
-	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
-		<label for="juegos" style="padding: 0px;">Juegos</label>
-		<select formControlName="juegos" class="custom-select" id="juegos"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.juegos.errors }" 
-			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
-			<option value="mamá">Mamá</option>
-			<option value="papá">Papá</option>
-			<option value="Ambos">Ambos</option>
-		</select>
-	</div>
-	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
-		<label for="horaalimentos" style="padding: 0px;">Hora de alimentos</label>
-		<select formControlName="horaalimentos" class="custom-select" id="horaalimentos"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.horaalimentos.errors }" 
-			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
-			<option value="mamá">Mamá</option>
-			<option value="papá">Papá</option>
-			<option value="Ambos">Ambos</option>
-		</select>
-	</div>
-	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
-		<label for="horabano" style="padding: 0px;">Horade ir al baño</label>
-		<select formControlName="horabano" class="custom-select" id="horabano"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.horabano.errors }" 
-			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
-			<option value="mamá">Mamá</option>
-			<option value="papá">Papá</option>
-			<option value="Ambos">Ambos</option>
-		</select>
-	</div>
+		[ngClass]="{ 'is-invalid': submitted2 && f2.disciplica.errors }" 
+		data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+		<option value="mamá">Mamá</option>
+		<option value="papá">Papá</option>
+		<option value="Ambos">Ambos</option>
+	</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+	<label for="alacostarse" style="padding: 0px;">Al acostarse</label>
+	<select formControlName="alacostarse" class="custom-select" id="alacostarse"
+	[ngClass]="{ 'is-invalid': submitted2 && f2.alacostarse.errors }" 
+	data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+	<option value="mamá">Mamá</option>
+	<option value="papá">Papá</option>
+	<option value="Ambos">Ambos</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+	<label for="allevantarse" style="padding: 0px;">Al levantarse</label>
+	<select formControlName="allevantarse" class="custom-select" id="allevantarse"
+	[ngClass]="{ 'is-invalid': submitted2 && f2.allevantarse.errors }" 
+	data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+	<option value="mamá">Mamá</option>
+	<option value="papá">Papá</option>
+	<option value="Ambos">Ambos</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+	<label for="juegos" style="padding: 0px;">Juegos</label>
+	<select formControlName="juegos" class="custom-select" id="juegos"
+	[ngClass]="{ 'is-invalid': submitted2 && f2.juegos.errors }" 
+	data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+	<option value="mamá">Mamá</option>
+	<option value="papá">Papá</option>
+	<option value="Ambos">Ambos</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+	<label for="horaalimentos" style="padding: 0px;">Hora de alimentos</label>
+	<select formControlName="horaalimentos" class="custom-select" id="horaalimentos"
+	[ngClass]="{ 'is-invalid': submitted2 && f2.horaalimentos.errors }" 
+	data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+	<option value="mamá">Mamá</option>
+	<option value="papá">Papá</option>
+	<option value="Ambos">Ambos</option>
+</select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+	<label for="horabano" style="padding: 0px;">Horade ir al baño</label>
+	<select formControlName="horabano" class="custom-select" id="horabano"
+	[ngClass]="{ 'is-invalid': submitted2 && f2.horabano.errors }" 
+	data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+	<option value="mamá">Mamá</option>
+	<option value="papá">Papá</option>
+	<option value="Ambos">Ambos</option>
+</select>
+</div>
 </div>
 <div class="row" style="margin: 0px 0px 15px 15px">
 	<div class="col-10"></div>

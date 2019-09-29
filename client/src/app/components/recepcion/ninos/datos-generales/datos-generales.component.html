@@ -1,4 +1,4 @@
-<div style="margin: 0px 30px 0px 15px">
+<div style="margin: 0px 30px 0px 15px;" class="text-center">
 	<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
 	<ngb-progressbar type="{{tipo_progress}}" animated="true" showValue="true" striped="true" value="{{porcentaje_actual}}" *ngIf="guardando == true"></ngb-progressbar>
 </div>
