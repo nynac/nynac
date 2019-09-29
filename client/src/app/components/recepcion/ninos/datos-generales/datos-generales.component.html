@@ -13,18 +13,18 @@
 	</div>
 	<div class="row">
 		<!-- CÁMARA -->
-		<div class="col-2 text-center" >
-			<div class="col-12"  > 
-				<img [src]="foto" height="130px;" width="130px;" class=" border border-primary rounded"/>
+		<div class="col-2 text-center" style="padding-right: 0px;">
+			<div class="col-12" style="margin: 30px 0px 0px 0px;"> 
+				<img [src]="foto" style="width: 100%" 	class=" border border-primary rounded img-fluid"/>
 			</div>
-			<div class="col-12">
+			<div class="col-12"  style="margin: 5px 0px 0px 0px;">
 				<button type="button" class="btn btn-club btn-sm" data-toggle="modal" data-target="#modal_foto" style="width:100%;" (click)="toggleWebcam();" >Abrir cámara
 				</button>
 			</div>
 		</div>
 <!-- ESTADO, VISA, RELIGION, TALLA, F.INSCR, NOMBRES, APPAT, APMAT.
 	F.NAC, EDAD, LUG. NAC, NACIONALIDAD, SEXO-->
-	<div class="col-10" style="margin: 15px 0px 0px 0px">
+	<div class="col-10" style="margin: 15px 0px 0px 0px; padding-left: 0px;">
 		<div class="col-12 custom-control-inline">
 			<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
 				<label for="sede" style="padding: 0px;">Sede</label>
@@ -44,12 +44,12 @@
 		</div>
 
 		<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
-			<input type="checkbox" id="visa" formControlName="visa" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.visa.errors }"/>
+			<input type="checkbox" id="visa" formControlName="visa" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.visa.errors}"/>
 			<label class="custom-control-label" for="visa">Visa</label>
 		</div>
 
-		<div class="col-2 form-group input-group-sm mb-3" style="margin: 0px 0px 0px -20px;">
-			<label for="religion" style="padding: 0px; font-size: 13px;">Religión</label>
+		<div class="col-3 form-group input-group-sm mb-3" style="margin: 0px 0px 0px -20px;">
+			<label for="religion" style="padding: 0px; font-size: 1px;">Religión</label>
 			<input type="text" id="religion" formControlName="religion" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.religion.errors }" style="margin-top: -10px;"/>
 		</div>
 
@@ -67,7 +67,7 @@
 			<option value="XXL">XXL</option>
 		</select>
 	</div>
-	<div class="col-4 form-group input-group-sm mb-3" >
+	<div class="col-3 form-group input-group-sm mb-3" >
 		<label for="fechainscripcion" style="padding: 0px; font-size: 13px;">Fecha de inscripción</label>
 		<input formControlName="fechainscripcion" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechainscripcion.errors }" id="fechainscripcion" data-toggle="tooltip" data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
 	</div>
@@ -115,10 +115,10 @@
 		<select formControlName="nacionalidad" class="custom-select" id="nacionalidad"
 		[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidad.errors }" 
 		data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
-		<option selected disabled></option>
-		<option value="Mexicano">Mexicano</option>
-		<option value="Extranjero">Extranjero</option>
-	</select>
+			<option selected disabled></option>
+			<option value="Mexicano">Mexicano</option>
+			<option value="Extranjero">Extranjero</option>
+		</select>
 </div>
 <div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px;">
 	<label for="sexo" style="padding: 0px;">Sexo</label>
@@ -191,7 +191,7 @@
 			<input type="text" id="domcolonia" formControlName="domcolonia" class="form-control"
 			[ngClass]="{ 'is-invalid': submitted2 && f2.domcolonia.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
-		<div class="col-1 form-group input-group-sm mb-3">
+		<div class="col-2 form-group input-group-sm mb-3">
 			<label for="domcodpost" style="padding: 0px; font-size: 14px;">C.P</label>
 			<input type="number" id="domcodpost" formControlName="domcodpost" class="form-control"
 			[ngClass]="{ 'is-invalid': submitted2 && f2.domcodpost.errors }" placeholder="" style="margin-top: -10px;">
@@ -201,7 +201,7 @@
 			<input type="text" id="domdelegacion" formControlName="domdelegacion" class="form-control"
 			[ngClass]="{ 'is-invalid': submitted2 && f2.domdelegacion.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
-		<div class="col-3 form-group input-group-sm mb-3">
+		<div class="col-2 form-group input-group-sm mb-3">
 			<label for="dommunicipio" style="padding: 0px; font-size: 14px;">Municipio</label>
 			<input type="text" id="dommunicipio" formControlName="dommunicipio" class="form-control"
 			[ngClass]="{ 'is-invalid': submitted2 && f2.dommunicipio.errors }" placeholder="" style="margin-top: -10px;">
@@ -212,18 +212,18 @@
 <!-- INICIO DE COL 12 ESCOLARES y PERSONAS AUTORIZADAS -->
 <div class="dropdown-divider"></div>
 <div class="row" style="margin: 0px 0px 0px 0px">
-	<div class="col-6" style="margin: 0px 0px 0px -15px">
+	<div class="col-6">
 		<div class="col-12 font-weight-bold" >
 			<span>DATOS ESCOLARES</span>
 		</div>
 		<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px">
-			<div class="col-6 form-group input-group-sm mb-3">
-				<label for="escuela" style="padding: 0px; font-size: 14px;">Nombre de la escuela</label>
+			<div class="col-8 form-group input-group-sm mb-3">
+				<label for="escuela" style="font-size: 14px;">Nombre de la escuela</label>
 				<input type="text" id="escuela" formControlName="escuela" class="form-control"
 				[ngClass]="{ 'is-invalid': submitted2 && f2.escuela.errors }" placeholder="" style="margin-top: -10px;">
 			</div>
-			<div class="col-6 form-group input-group-sm mb-3" style="font-size: 14px;">
-				<label for="escuelaturno" style="padding: 0px;">Turno escolar</label>
+			<div class="col-4 form-group input-group-sm mb-3" style="font-size: 14px;">
+				<label for="escuelaturno">Turno escolar</label>
 				<select formControlName="escuelaturno" class="custom-select" id="escuelaturno"
 				[ngClass]="{ 'is-invalid': submitted2 && f2.escuelaturno.errors }" 
 				data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
@@ -235,18 +235,18 @@
 		</div>
 	</div>
 </div>
-<div class="col-6" style="margin: 0px 0px 0px -15px">
+<div class="col-6">
 	<div class="col-12 font-weight-bold" >
 		<span>PERSONAS AUTORIZADAS A RECOGERLO</span>
 	</div>
-	<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px 0px">
+	<div class="col-12 custom-control-inline">
 		<div class="col-6 form-group input-group-sm mb-3">
-			<label for="recoge1nino" style="padding: 0px; font-size: 14px;">Nombre</label>
+			<label for="recoge1nino" style="font-size: 14px;">Nombre</label>
 			<input type="text" id="recoge1nino" formControlName="recoge1nino" class="form-control"
 			[ngClass]="{ 'is-invalid': submitted2 && f2.recoge1nino.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
 		<div class="col-6 form-group input-group-sm mb-3">
-			<label for="parentrecoge1" style="padding: 0px; font-size: 14px;">Parentesco</label>
+			<label for="parentrecoge1" style="font-size: 14px;">Parentesco</label>
 			<input type="text" id="parentrecoge1" formControlName="parentrecoge1" class="form-control"
 			[ngClass]="{ 'is-invalid': submitted2 && f2.parentrecoge1.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
