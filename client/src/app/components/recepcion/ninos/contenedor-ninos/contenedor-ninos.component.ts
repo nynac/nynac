@@ -18,6 +18,17 @@ export class ContenedorNinosComponent implements OnInit {
 	form_buscar : FormGroup;
 	submitted = false;
 
+	//Todo para el progressbar
+	buscando : boolean = false;
+	porcentaje_actual = 0;
+	tipo_progress = "info";
+
+	//Todo para el alert
+	visible : boolean = false;
+	tipo : string = null;
+	mensaje : string = null;
+
+
 	constructor(
 		private http : HttpClient, 
 		private formBuilder: FormBuilder
@@ -60,7 +71,12 @@ export class ContenedorNinosComponent implements OnInit {
 	get f(){ return this.form_buscar.controls;}
 
 	busq_Form(){
+		if (this.buscando == true){
+			return;
+		} 
+
 		var spinner_buscar = document.getElementById("spinner_buscar");
+
 		spinner_buscar.removeAttribute("hidden");
 
 		this.submitted = true;
@@ -71,20 +87,28 @@ export class ContenedorNinosComponent implements OnInit {
 		}
 		else{
 			this.form_buscar.disable();
+			this.buscando = true;
 
 			var response = this.http.get(this.url + "Miembro/" + this.form_buscar.value.miembroID);
 			response.subscribe((resultado : any[])=> {
 				this.global = resultado;
 				
 				spinner_buscar.setAttribute("hidden", "true");
+
 				this.form_buscar.enable();
+				this.porcentaje_actual = 100;
+				
+				this.cerrar_progress();
 			},
 			error =>{
 				this.global = null;
-				console.log("Error", error);
-				alert("No se encontraron resultados");
+				this.buscando = false;
+				
 				spinner_buscar.setAttribute("hidden", "true");
 				this.form_buscar.enable();
+
+				this.mostrar_alert("No se encontraron resultados", "danger", 3000, null);
+				console.log("Error", error);
 			});
 		}
 	}
@@ -92,5 +116,30 @@ export class ContenedorNinosComponent implements OnInit {
 	limpiar_form_buscar(){
 		this.submitted =false;
 		this.form_buscar.reset();
+	}
+
+	mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
+		this.visible = true;
+		this.mensaje = msg;
+		this.tipo = tipo;
+
+		setTimeout(() => { 
+			this.cerrar_alert();
+		}, duracion
+		);
+	}
+	cerrar_alert(){
+		this.visible = false;
+		this.mensaje = null;
+		this.tipo = null;
+	}
+	cerrar_progress(){
+		setTimeout(() => {
+			//Todo para el progressbar
+			this.buscando  = false;
+			this.porcentaje_actual = 0;
+			this.tipo_progress = "info";
+		}, 1500
+		);
 	}
 }
