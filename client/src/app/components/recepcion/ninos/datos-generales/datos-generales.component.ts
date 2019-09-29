@@ -59,7 +59,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			appaterno : ['', Validators.required],
 			apmaterno : ['', Validators.required],
 			fechanacimiento : [''],
-			edad : ['',Validators.required],
+			edad : [null,Validators.required],
 			lugarnacimiento : [''],
 			nacionalidad : [''],
 			sexo : ['',],
@@ -94,9 +94,14 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges){
+		var datepipe  = new DatePipe("en-US");
+
 		if (this.global != undefined) {
 			this.form_guardar.patchValue(this.global["Nino_DG"][0]);
 			this.form_guardar.patchValue(this.global);
+
+			this.form_guardar.get("fechanacimiento").setValue(datepipe.transform(this.global["Nino_DG"][0]['fechanacimiento'], 'yyyy-MM-dd'));
+			this.form_guardar.get("fechainscripcion").setValue(datepipe.transform(this.global["Nino_DG"][0]['fechainscripcion'], 'yyyy-MM-dd'));
 			
 			this.foto =  this.sanitazor.bypassSecurityTrustUrl("data:image/png;base64," + this.global["Nino_DG"][0]['foto']);
 		}else if(this.global == null && this.form_guardar != undefined){
