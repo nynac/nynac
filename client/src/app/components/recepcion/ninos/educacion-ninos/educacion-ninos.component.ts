@@ -102,8 +102,12 @@ export class EducacionNinosComponent implements OnInit, OnChanges {
 
 
 	ngOnChanges(changes: SimpleChanges){
-		if (this.global != undefined && this.global["Nino_ED"][0] != undefined) {
-			this.form_guardar.patchValue(this.global["Nino_ED"][0]);	
+		var datepipe  = new DatePipe("en-US");
+		if (this.global != undefined) {
+			this.form_guardar.patchValue(this.global["Nino_ED"][0]);
+			this.form_guardar.get("datoBecafecha1").setValue(datepipe.transform(this.global["Nino_ED"][0]['datoBecafecha1'], 'yyyy-MM-dd'));	
+			this.form_guardar.get("datoBecafecha2").setValue(datepipe.transform(this.global["Nino_ED"][0]['datoBecafecha2'], 'yyyy-MM-dd'));	
+			this.form_guardar.get("datoBecafecha3").setValue(datepipe.transform(this.global["Nino_ED"][0]['datoBecafecha3'], 'yyyy-MM-dd'));	
 		}else if(this.global == null && this.form_guardar != undefined){
 			this.limpiar_form_guardar();
 		}
@@ -138,12 +142,13 @@ export class EducacionNinosComponent implements OnInit, OnChanges {
 				this.http.put(this.url + "Nino_ED/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
-
+					window.scroll(0,0);
 					this.mostrar_alert("Se guardó correctamente", "success", 5000, null);	
 				},
 				error  => {
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
+					window.scroll(0,0);
 					this.mostrar_alert("Ocurrió un error al guardar los datos, vuelve a intentarlo", "danger", 5000, null);
 					console.log(error);
 				});

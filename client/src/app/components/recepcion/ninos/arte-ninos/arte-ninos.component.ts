@@ -66,8 +66,18 @@ export class ArteNinosComponent implements OnInit, OnChanges {
 	}
 
 	ngOnChanges(changes: SimpleChanges){
+		var datepipe  = new DatePipe("en-US");
+
 		if (this.global != undefined && this.global["Nino_Art"][0] != undefined) {
 			this.form_guardar.patchValue(this.global["Nino_Art"][0]);	
+			this.form_guardar.get("actividadfecha1").setValue(datepipe.transform(this.global["Nino_Art"][0]['actividadfecha1'], 'yyyy-MM-dd'));
+			this.form_guardar.get("actividadfecha2").setValue(datepipe.transform(this.global["Nino_Art"][0]['actividadfecha2'], 'yyyy-MM-dd'));
+			this.form_guardar.get("actividadfecha3").setValue(datepipe.transform(this.global["Nino_Art"][0]['actividadfecha3'], 'yyyy-MM-dd'));
+
+			this.form_guardar.get("premioartefecha1").setValue(datepipe.transform(this.global["Nino_Art"][0]['premioartefecha1'], 'yyyy-MM-dd'));
+			this.form_guardar.get("premioartefecha2").setValue(datepipe.transform(this.global["Nino_Art"][0]['premioartefecha2'], 'yyyy-MM-dd'));
+			this.form_guardar.get("premioartefecha3").setValue(datepipe.transform(this.global["Nino_Art"][0]['premioartefecha3'], 'yyyy-MM-dd'));
+			
 		}else if(this.global == null && this.form_guardar != undefined){
 			this.limpiar_form_guardar();
 		}
@@ -102,12 +112,13 @@ export class ArteNinosComponent implements OnInit, OnChanges {
 				this.http.put(this.url + "Nino_Art/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
-
+					window.scroll(0,0);
 					this.mostrar_alert("Se guardó correctamente", "success", 5000, null);	
 				},
 				error  => {
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
+					window.scroll(0,0);
 					this.mostrar_alert("Ocurrió un error al guardar los datos, vuelve a intentarlo", "danger", 5000, null);
 					console.log(error);
 				});

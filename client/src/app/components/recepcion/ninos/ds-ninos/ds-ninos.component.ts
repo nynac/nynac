@@ -119,12 +119,13 @@ export class DsNinosComponent implements OnInit, OnChanges {
 				this.http.put(this.url + "Nino_ES/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
-
+					window.scroll(0,0);
 					this.mostrar_alert("Se guardó correctamente", "success", 5000, null);
 				},
 				error  => {
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
+					window.scroll(0,0);
 					this.mostrar_alert("Ocurrió un error al guardar los datos, vuelve a intentarlo", "danger", 5000, null);
 					console.log(error);
 				});

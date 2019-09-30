@@ -122,11 +122,13 @@ export class NucleoFamiliarComponent implements OnInit, OnChanges{
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
 
+					window.scroll(0,0);
 					this.mostrar_alert("Se guardó correctamente", "success", 5000, null);	
 				},
 				error  => {
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
+					window.scroll(0,0);
 					this.mostrar_alert("Ocurrió un error al guardar los datos, vuelve a intentarlo", "danger", 5000, null);
 					console.log(error);
 				});

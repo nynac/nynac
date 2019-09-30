@@ -200,6 +200,8 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			this.guardar_miembro_en_tabla("Nino_Art", "idNinosArt", this.form_guardar.value.idNinosDG, "Arte"); //arte
 			this.guardar_miembro_en_tabla("Nino_DH", "idNinosDH", this.form_guardar.value.idNinosDG, "Desarrollo humano"); //desarrollo humano
 
+			window.scroll(0,0);
+
 			this.modificar();
 			this.tipo_progress = "success";
 			this.mensaje = this.form_guardar.value.nombres + " se agregó correctamente. NÚMERO DE MIEMBRO: " + this.form_guardar.value.miembroID;
@@ -227,12 +229,16 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		this.http.put(this.url + "Nino_DG1/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
 			spinner.setAttribute("hidden", "true");
 			this.porcentaje_actual = 100;
+			
+			window.scroll(0,0);
+
 			this.form_guardar.enable();
-			this.mostrar_alert("Se guardó correctamente", "success", 5000, null);	
+			this.mostrar_alert(this.form_guardar.value.nombres + " se guardó correctamente con el NÚMERO DE MIEMBRO: " + this.form_guardar.value.miembroID, "success", 15000, null);	
 		},
 		error  => {
 			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
+			window.scroll(0,0);
 			this.mostrar_alert("Ocurrió un error al guardar los datos, vuelve a intentarlo", "danger", 5000, null);
 			console.log(error);
 		});
@@ -249,6 +255,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		},
 		error  => {
 			console.log(error);
+			window.scroll(0,0);
 			this.tipo_progress = "warning";
 			this.mensaje = "Reintentando guardar en: " + descripcion;
 			this.mostrar_alert(this.mensaje, 'warning', 3000, "reintentar");
@@ -286,7 +293,6 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		this.tipo = null;
 		this.guardando = false;
 	}
-
 
 	// TODO PARA LA CÁMARA
 	public showWebcam = false;

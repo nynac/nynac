@@ -13,8 +13,6 @@ export class DmNinosComponent implements OnInit, OnChanges {
 	@Input() prop!:any;
 
 	url = "https://api-remota.conveyor.cloud/api/";
-
-
 	
 	//Todo para el alert
 	visible : boolean = false;
@@ -74,10 +72,12 @@ export class DmNinosComponent implements OnInit, OnChanges {
 			otroaparato : ['']
 		})
 	}
-
+	
 	ngOnChanges(changes: SimpleChanges){
-		if (this.global != undefined && this.global["Nino_DM"][0] != undefined) {
+		var datepipe  = new DatePipe("en-US");
+		if (this.global != undefined) {
 			this.form_guardar.patchValue(this.global["Nino_DM"][0]);	
+			this.form_guardar.get("fechaoperacion").setValue(datepipe.transform(this.global["Nino_DM"][0]['fechaoperacion'], 'yyyy-MM-dd'));
 		}else if(this.global == null && this.form_guardar != undefined){
 			this.limpiar_form_guardar();
 		}
@@ -112,12 +112,13 @@ export class DmNinosComponent implements OnInit, OnChanges {
 				this.http.put(this.url + "Nino_DM/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
-
+					window.scroll(0,0);
 					this.mostrar_alert("Se guardó correctamente", "success", 5000, null);	
 				},
 				error  => {
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
+					window.scroll(0,0);
 					this.mostrar_alert("Ocurrió un error al guardar los datos, vuelve a intentarlo", "danger", 5000, null);
 					console.log(error);
 				});

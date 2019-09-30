@@ -29,7 +29,7 @@
 			<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
 				<label for="sede" style="padding: 0px;">Sede</label>
 				<select formControlName="sede" class="custom-select" id="sede"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.sede.errors }" 
+				[ngClass]="{ 'is-invalid': guardando && f2.sede.errors }" 
 				data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
 				<option selected disabled></option>
 				<option value="LomaDorada">Loma Dorada</option>
@@ -39,24 +39,24 @@
 		</div>
 
 		<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
-			<input type="checkbox" id="estado" formControlName="estado" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.estado.errors}"/>
+			<input type="checkbox" id="estado" formControlName="estado" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.estado.errors}"/>
 			<label class="custom-control-label" for="estado">Estado&nbsp;</label>
 		</div>
 
 		<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
-			<input type="checkbox" id="visa" formControlName="visa" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted2 && f2.visa.errors}"/>
+			<input type="checkbox" id="visa" formControlName="visa" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.visa.errors}"/>
 			<label class="custom-control-label" for="visa">Visa</label>
 		</div>
 
 		<div class="col-3 form-group input-group-sm mb-3" style="margin: 0px 0px 0px -20px;">
-			<label for="religion" style="padding: 0px; font-size: 1px;">Religión</label>
-			<input type="text" id="religion" formControlName="religion" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.religion.errors }" style="margin-top: -10px;"/>
+			<label for="religion" style="padding: 0px; font-size: 14px;">Religión</label>
+			<input type="text" id="religion" formControlName="religion" class="form-control" [ngClass]="{ 'is-invalid': guardando && f2.religion.errors }" style="margin-top: -10px;"/>
 		</div>
 
 		<div class="col-2 input-group input-group-sm mb-3" style="font-size: 14px;">
 			<label for="tallacamisa" style="padding: 0px;">Talla de camisa</label>
 			<select formControlName="tallacamisa" class="custom-select" id="tallacamisa"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.tallacamisa.errors }" 
+			[ngClass]="{ 'is-invalid': guardando && f2.tallacamisa.errors }" 
 			data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
 			<option selected disabled></option>
 			<option value="XS">XS</option>
@@ -69,51 +69,51 @@
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3" >
 		<label for="fechainscripcion" style="padding: 0px; font-size: 13px;">Fecha de inscripción</label>
-		<input formControlName="fechainscripcion" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechainscripcion.errors }" id="fechainscripcion" data-toggle="tooltip" data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
+		<input formControlName="fechainscripcion" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': guardando && f2.fechainscripcion.errors }" id="fechainscripcion" data-toggle="tooltip" data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
 	</div>
 </div>
 <div class="col-12 custom-control-inline">
 	<div class="col-3 input-group input-group-sm mb-3" hidden="true">
-		<input type="text" formControlName="idNinosDG" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.idNinosDG.errors}" readonly/>
+		<input type="text" formControlName="idNinosDG" class="form-control" [ngClass]="{ 'is-invalid': guardando && f2.idNinosDG.errors}" readonly/>
 	</div>
 	<div class="col-2 input-group input-group-sm mb-3" hidden="true">
-		<input type="number" formControlName="miembroID" class="form-control" placeholder="No. Miembro" [ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" readonly/>
+		<input type="number" formControlName="miembroID" class="form-control" placeholder="No. Miembro" [ngClass]="{ 'is-invalid': guardando && f2.miembroID.errors }" readonly/>
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3">
 		<label for="nombres" style="padding: 0px; font-size: 13px;">Nombre(s)</label>
-		<input type="text" id="nombres" formControlName="nombres" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.nombres.errors }" style="margin-top: -10px;"/>
+		<input type="text" id="nombres" formControlName="nombres" class="form-control" [ngClass]="{ 'is-invalid': guardando && f2.nombres.errors }" style="margin-top: -10px;"/>
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3">
 		<label for="appaterno" style="padding: 0px; font-size: 14px;">Apellido Paterno</label>
 		<input type="text" id="appaterno" formControlName="appaterno" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.appaterno.errors }"style="margin-top: -10px;">
+		[ngClass]="{ 'is-invalid': guardando && f2.appaterno.errors }"style="margin-top: -10px;">
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3">
 		<label for="apmaterno" style="padding: 0px; font-size: 14px;">Apellido Materno</label>
 		<input type="text" id="apmaterno" formControlName="apmaterno" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.apmaterno.errors }"style="margin-top: -10px;">
+		[ngClass]="{ 'is-invalid': guardando && f2.apmaterno.errors }"style="margin-top: -10px;">
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3" >
 		<label for="fechanacimiento" style="padding: 0px; font-size: 13px;">Fecha de nacimiento</label>
-		<input formControlName="fechanacimiento" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': submitted2 && f2.fechanacimiento.errors }" id="fechanacimiento" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" style="margin-top: -10px;">
+		<input formControlName="fechanacimiento" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': guardando && f2.fechanacimiento.errors }" id="fechanacimiento" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" style="margin-top: -10px;">
 	</div>
 </div>
 <div class="col-12 custom-control-inline">
 	<div class="col-2 form-group input-group-sm mb-3">
 		<label for="edad" style="padding: 0px; font-size: 14px;">Edad</label>
 		<input type="number" id="edad" formControlName="edad" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.edad.errors }"style="margin-top: -10px;">
+		[ngClass]="{ 'is-invalid': guardando && f2.edad.errors }"style="margin-top: -10px;">
 	</div>
 	<div class="col-4 form-group input-group-sm mb-3">
 		<label for="lugarnacimiento" style="padding: 0px; font-size: 14px;">Lugar de nacimiento</label>
 		<input type="text" id="lugarnacimiento" formControlName="lugarnacimiento" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.lugarnacimiento.errors }"style="margin-top: -10px;">
+		[ngClass]="{ 'is-invalid': guardando && f2.lugarnacimiento.errors }"style="margin-top: -10px;">
 	</div>
 
 	<div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px;">
 		<label for="nacionalidad" style="padding: 0px;">Nacionalidad</label>
 		<select formControlName="nacionalidad" class="custom-select" id="nacionalidad"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nacionalidad.errors }" 
+		[ngClass]="{ 'is-invalid': guardando && f2.nacionalidad.errors }" 
 		data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
 			<option selected disabled></option>
 			<option value="Mexicano">Mexicano</option>
@@ -123,7 +123,7 @@
 <div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px;">
 	<label for="sexo" style="padding: 0px;">Sexo</label>
 	<select formControlName="sexo" class="custom-select" id="sexo"
-	[ngClass]="{ 'is-invalid': submitted2 && f2.sexo.errors }" 
+	[ngClass]="{ 'is-invalid': guardando && f2.sexo.errors }" 
 	data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
 	<option selected disabled></option>
 	<option value="M">Masculino</option>
@@ -144,7 +144,7 @@
 	<div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px;">
 		<label for="derechohabiencia" style="padding: 0px;">Tipo de derechohabiencia</label>
 		<select formControlName="derechohabiencia" class="custom-select" id="derechohabiencia"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.derechohabiencia.errors }" 
+		[ngClass]="{ 'is-invalid': guardando && f2.derechohabiencia.errors }" 
 		data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
 		<option selected disabled></option>
 		<option value="IMSS">IMSS</option>
@@ -158,18 +158,18 @@
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="otroseguro" style="padding: 0px; font-size: 14px;">Otro servicio</label>
 	<input type="text" id="otroseguro" formControlName="otroseguro" class="form-control"
-	[ngClass]="{ 'is-invalid': submitted2 && f2.otroseguro.errors }" style="margin-top: -10px;">
+	[ngClass]="{ 'is-invalid': guardando && f2.otroseguro.errors }" style="margin-top: -10px;">
 </div>
 <div class="col-7 custom-control-inline" style="margin: 0px 0px 0px -15px">
 	<div class="col-8 form-group input-group-sm mb-3">
 		<label for="vivecon" style="padding: 0px; font-size: 14px;">Con quién vive el niño (a) adolecente</label>
 		<input type="text" id="vivecon" formControlName="vivecon" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.vivecon.errors }" placeholder="" style="margin-top: -10px;">
+		[ngClass]="{ 'is-invalid': guardando && f2.vivecon.errors }" placeholder="" style="margin-top: -10px;">
 	</div>
 	<div class="col-4 form-group input-group-sm mb-3">
 		<label for="telefono" style="padding: 0px; font-size: 14px;">Teléfono</label>
 		<input type="tel" id="telefono" formControlName="telefono" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.telefono.errors }" placeholder="" style="margin-top: -10px;">
+		[ngClass]="{ 'is-invalid': guardando && f2.telefono.errors }" placeholder="" style="margin-top: -10px;">
 	</div>
 </div>
 </div>
@@ -184,27 +184,27 @@
 		<div class="col-3 form-group input-group-sm mb-3">
 			<label for="domcalle" style="padding: 0px; font-size: 14px;">Calle y número</label>
 			<input type="text" id="domcalle" formControlName="domcalle" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.domcalle.errors }" placeholder="" style="margin-top: -10px;">
+			[ngClass]="{ 'is-invalid': guardando && f2.domcalle.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
 		<div class="col-3 form-group input-group-sm mb-3">
 			<label for="domcolonia" style="padding: 0px; font-size: 14px;">Colonia</label>
 			<input type="text" id="domcolonia" formControlName="domcolonia" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.domcolonia.errors }" placeholder="" style="margin-top: -10px;">
+			[ngClass]="{ 'is-invalid': guardando && f2.domcolonia.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
 		<div class="col-2 form-group input-group-sm mb-3">
 			<label for="domcodpost" style="padding: 0px; font-size: 14px;">C.P</label>
 			<input type="number" id="domcodpost" formControlName="domcodpost" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.domcodpost.errors }" placeholder="" style="margin-top: -10px;">
+			[ngClass]="{ 'is-invalid': guardando && f2.domcodpost.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
 		<div class="col-2 form-group input-group-sm mb-3">
 			<label for="domdelegacion" style="padding: 0px; font-size: 14px;">Delegación</label>
 			<input type="text" id="domdelegacion" formControlName="domdelegacion" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.domdelegacion.errors }" placeholder="" style="margin-top: -10px;">
+			[ngClass]="{ 'is-invalid': guardando && f2.domdelegacion.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
 		<div class="col-2 form-group input-group-sm mb-3">
 			<label for="dommunicipio" style="padding: 0px; font-size: 14px;">Municipio</label>
 			<input type="text" id="dommunicipio" formControlName="dommunicipio" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.dommunicipio.errors }" placeholder="" style="margin-top: -10px;">
+			[ngClass]="{ 'is-invalid': guardando && f2.dommunicipio.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
 	</div>
 </div>	
@@ -220,12 +220,12 @@
 			<div class="col-8 form-group input-group-sm mb-3">
 				<label for="escuela" style="font-size: 14px;">Nombre de la escuela</label>
 				<input type="text" id="escuela" formControlName="escuela" class="form-control"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.escuela.errors }" placeholder="" style="margin-top: -10px;">
+				[ngClass]="{ 'is-invalid': guardando && f2.escuela.errors }" placeholder="" style="margin-top: -10px;">
 			</div>
 			<div class="col-4 form-group input-group-sm mb-3" style="font-size: 14px;">
 				<label for="escuelaturno">Turno escolar</label>
 				<select formControlName="escuelaturno" class="custom-select" id="escuelaturno"
-				[ngClass]="{ 'is-invalid': submitted2 && f2.escuelaturno.errors }" 
+				[ngClass]="{ 'is-invalid': guardando && f2.escuelaturno.errors }" 
 				data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
 				<option selected disabled></option>
 				<option value="Matutino">Matutino</option>
@@ -243,12 +243,12 @@
 		<div class="col-6 form-group input-group-sm mb-3">
 			<label for="recoge1nino" style="font-size: 14px;">Nombre</label>
 			<input type="text" id="recoge1nino" formControlName="recoge1nino" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.recoge1nino.errors }" placeholder="" style="margin-top: -10px;">
+			[ngClass]="{ 'is-invalid': guardando && f2.recoge1nino.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
 		<div class="col-6 form-group input-group-sm mb-3">
 			<label for="parentrecoge1" style="font-size: 14px;">Parentesco</label>
 			<input type="text" id="parentrecoge1" formControlName="parentrecoge1" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.parentrecoge1.errors }" placeholder="" style="margin-top: -10px;">
+			[ngClass]="{ 'is-invalid': guardando && f2.parentrecoge1.errors }" placeholder="" style="margin-top: -10px;">
 		</div>
 	</div>
 </div>
@@ -265,25 +265,25 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Contacto 1</span>
 			</div>
-			<input type="text" formControlName="emergencia1" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.emergencia1.errors }"/>
-			<input type="text" formControlName="parentemergencia1" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': submitted2 && f2.parentemergencia1.errors }"/>
-			<input type="tel" formControlName="telefonoemergencia1" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': submitted2 && f2.telefonoemergencia1.errors }"/>
+			<input type="text" formControlName="emergencia1" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': guardando && f2.emergencia1.errors }"/>
+			<input type="text" formControlName="parentemergencia1" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': guardando && f2.parentemergencia1.errors }"/>
+			<input type="tel" formControlName="telefonoemergencia1" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': guardando && f2.telefonoemergencia1.errors }"/>
 		</div>
 		<div class=" col-12 input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Contacto 2</span>
 			</div>
-			<input type="text" formControlName="emergencia2" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.emergencia2.errors }"/>
-			<input type="text" formControlName="parentemergencia2" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': submitted2 && f2.parentemergencia2.errors }"/>
-			<input type="tel" formControlName="telefonoemergencia2" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': submitted2 && f2.telefonoemergencia2.errors }"/>
+			<input type="text" formControlName="emergencia2" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': guardando && f2.emergencia2.errors }"/>
+			<input type="text" formControlName="parentemergencia2" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': guardando && f2.parentemergencia2.errors }"/>
+			<input type="tel" formControlName="telefonoemergencia2" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': guardando && f2.telefonoemergencia2.errors }"/>
 		</div>
 		<div class=" col-12 input-group">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Contacto 3</span>
 			</div>
-			<input type="text" formControlName="emergencia3" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted2 && f2.emergencia3.errors }"/>
-			<input type="text" formControlName="parentemergencia3" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': submitted2 && f2.parentemergencia3.errors }"/>
-			<input type="tel" formControlName="telefonoemergencia3" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': submitted2 && f2.telefonoemergencia3.errors }"/>
+			<input type="text" formControlName="emergencia3" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': guardando && f2.emergencia3.errors }"/>
+			<input type="text" formControlName="parentemergencia3" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': guardando && f2.parentemergencia3.errors }"/>
+			<input type="tel" formControlName="telefonoemergencia3" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': guardando && f2.telefonoemergencia3.errors }"/>
 		</div>
 	</div>
 	<div class="col-2 text-right">
