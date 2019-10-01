@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter,ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter,ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
@@ -8,28 +8,27 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 	templateUrl: './ds-ninos.component.html',
 	styleUrls: ['./ds-ninos.component.css']
 })
-export class DsNinosComponent implements OnInit {
+export class DsNinosComponent implements OnInit, OnChanges {
+	@Input('global') global: any;
+	@Input() prop!:any;
+
 	url = "https://api-remota.conveyor.cloud/api/";
 
-	//form buscar
-	form_buscar : FormGroup;
-	submitted = false;
+	//Todo para el alert
+	visible : boolean = false;
+	tipo : string = null;
+	mensaje : string = null;
+	guardando : boolean = false;
 
 	//form guardar
 	form_guardar : FormGroup
-	submitted2 = false;
+
 	constructor(
 		private http : HttpClient,
 		private formBuilder: FormBuilder
 		){}
 
-	@Input('miembro') miembro: any;
-
 	ngOnInit() {
-		this.form_buscar = this.formBuilder.group({
-			miembroID: ['', Validators.required]
-		})
-
 		this.form_guardar = this.formBuilder.group({
 			idNinosES : ['', Validators.required],
 			miembroID : ['', Validators.required],
@@ -83,50 +82,21 @@ export class DsNinosComponent implements OnInit {
 		})
 	}
 
-	get f(){ return this.form_buscar.controls;}
-	get f2(){ return this.form_guardar.controls;}
-
-	limpiar_form_buscar(){
-		this.submitted =false;
-		this.form_buscar.reset();
+	ngOnChanges(changes: SimpleChanges){
+		if (this.global != undefined && this.global["Nino_ES"][0] != undefined) {
+			this.form_guardar.patchValue(this.global["Nino_ES"][0]);	
+		}else if(this.global == null && this.form_guardar != undefined){
+			this.limpiar_form_guardar();
+		}
 	}
 
+	get f2(){ return this.form_guardar.controls;}
+
 	limpiar_form_guardar(){
-		this.submitted2 =false;
 		this.form_guardar.reset();
 	}
 
-	ng_busq_Form(){
-
-		var spinner_buscar = document.getElementById("spinner_buscarES");
-		spinner_buscar.removeAttribute("hidden");
-
-		this.submitted = true;
-
-		if (this.form_buscar.invalid) {
-			spinner_buscar.setAttribute("hidden", "true");
-			return;
-		}
-		else{
-			this.form_buscar.disable();
-
-			var response = this.http.get(this.url + "Nino_ES/" + this.form_buscar.value.miembroID);
-			response.subscribe((resultado : any[])=> {
-				this.form_guardar.patchValue(resultado);
-				spinner_buscar.setAttribute("hidden", "true");
-				this.form_buscar.enable();
-			},
-			error =>{
-				console.log("Error", error);
-				alert("No se encontraron resultados");
-				spinner_buscar.setAttribute("hidden", "true");
-				this.form_buscar.enable();
-			});
-		}
-	}
-
 	guardar_ES(){
-		this.submitted2 = true;
 		var spinner = document.getElementById("ES_spinner");
 		
 		if (this.form_guardar.invalid) {
@@ -135,31 +105,49 @@ export class DsNinosComponent implements OnInit {
 			return;
 		}
 		else{
+			if(this.guardando == true)
+				return;
 
 			var r = confirm("¿Deseas continuar?");
 			if (r== false) {
 				return;
 			}else{
 				this.form_guardar.disable();
-
+				this.guardando = true;
 				spinner.removeAttribute("hidden");
-				console.log("Actualizando ...");
 
 				this.http.put(this.url + "Nino_ES/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
-					alert("Se han guardado las modificaciones correctamente");
-					this.limpiar_form_guardar();
-					this.limpiar_form_buscar();
-
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
+					window.scroll(0,0);
+					this.mostrar_alert("Se guardó correctamente", "success", 5000, null);
 				},
 				error  => {
-					console.log(error);
 					spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
+					window.scroll(0,0);
+					this.mostrar_alert("Ocurrió un error al guardar los datos, vuelve a intentarlo", "danger", 5000, null);
+					console.log(error);
 				});
 			}
 
 		}
+
+	}
+	mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
+		this.visible = true;
+		this.mensaje = msg;
+		this.tipo = tipo;
+
+		setTimeout(() => { 
+			this.cerrar_alert();
+		}, duracion
+		);
+	}
+	cerrar_alert(){
+		this.visible = false;
+		this.mensaje = null;
+		this.tipo = null;
+		this.guardando = false;
 	}
 }
