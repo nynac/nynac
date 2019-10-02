@@ -13,6 +13,8 @@ import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstr
 export class EventoCatalogoComponent implements OnInit {
   //busqueda
   resultado: any;
+  arrayEvento: any;
+
   //fechas
   model2: any;
   //Tabla
@@ -31,7 +33,10 @@ export class EventoCatalogoComponent implements OnInit {
 
   url = "https://api-remota.conveyor.cloud/api/";
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) { }
+  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+    this.get_nuevo_evento();
+    this.get_Eventos();
+   }
 
   ngOnInit() {
     //Se rellena los campos al formulario 
@@ -45,7 +50,6 @@ export class EventoCatalogoComponent implements OnInit {
       eventoID: ['', Validators.required],
       descripcion: ['', Validators.required],
       fecha: [this.model2,],
-
     })
   }
 
@@ -114,6 +118,27 @@ export class EventoCatalogoComponent implements OnInit {
     }
   }
 
+  //Obtener nuevo Lider
+  get_nuevo_evento() {
+    var response = this.http.get(this.url + "ultimoEventoe");
+    response.subscribe((resultado: number) => {
+      this.form_agregar.get('eventoID').setValue(resultado + 1);
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
+  //List Lider
+  get_Eventos() {
+    var response = this.http.get(this.url + "Eventoe/");
+    response.subscribe((data: any[]) => {
+      this.arrayEvento = data;
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
+
   agregar_evento() {
     //Spiner
     var spinner_agregar = document.getElementById("spinner_agregar");
@@ -127,6 +152,8 @@ export class EventoCatalogoComponent implements OnInit {
       spinner_agregar.setAttribute("hidden", "true");
       alert("Evento Guardado");
       this.clean_Agregar();
+      this.get_Eventos();
+      this.get_nuevo_evento();
     },
       error => {
         spinner_agregar.setAttribute("hidden", "true");
@@ -142,32 +169,13 @@ export class EventoCatalogoComponent implements OnInit {
     this.http.put(this.url + "Eventoe/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
       spinner_agregar.setAttribute("hidden", "true");
       alert("Evento Modificado");
-      this.clean_Agregar();
-      this.clean_Buscar();
+      this.get_Eventos();
     },
       error => {
         spinner_agregar.setAttribute("hidden", "true");
         console.log("Error", error);
       });
   }
-
-
-  // //get all
-  // select_todo() {
-  //   //select mediante el id
-  //   var response = this.http.get(this.url + "Eventoe");
-  //   response.subscribe((data: any[]) => {
-  //     this.arreglo = data;
-  //     //transformar fecha formato
-  //     var datePipe = new DatePipe("en-US");
-  //     this.arreglo.fecha = datePipe.transform(this.arreglo.fecha, 'dd/MM/yyyy');
-  //     console.log(this.arreglo[0]);
-
-  //   },
-  //     error => {
-  //       console.log("Error", error)
-  //     });
-  // }
 
   //reset buscar
   clean_Buscar() {
@@ -187,7 +195,8 @@ export class EventoCatalogoComponent implements OnInit {
 
 		if (this.agregar_o_modificar == "nuevo"){
 			this.clean_Agregar();
-			this.clean_Buscar();
+      this.clean_Buscar();
+      this.get_nuevo_evento();
 
 			evento_btn_buscar.setAttribute("disabled", "true");
 		}
@@ -198,5 +207,23 @@ export class EventoCatalogoComponent implements OnInit {
 			this.clean_Agregar();
 			this.clean_Buscar();
 		}
-	}
+  }
+
+  eliminar_eventoe(id: any) {
+    var r = confirm("¿Esta seguro que desea eliminar el Evento: "+id+" ?");
+    if (r == false) {
+      return;
+    }
+    else {
+      var response = this.http.delete(this.url + "Eventoe/" + id);
+      response.subscribe((data: any[]) => {
+        alert("Se a eliminado el Evento: " + id);
+        this.get_Eventos();
+        this.get_nuevo_evento();
+      },
+        error => {
+          console.log("Error", error)
+        });
+    }
+  }
 }

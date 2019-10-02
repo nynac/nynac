@@ -1,18 +1,20 @@
 import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'nota-donante',
   templateUrl: './nota-donante.component.html',
-  styleUrls: ['./nota-donante.component.css']
+  styleUrls: ['./nota-donante.component.css'],
+  providers: [{ provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }]
 })
 export class NotaDonanteComponent implements OnInit, OnChanges {
   @Input('gl_donante') gl_donante: any;
   @Input() prop!: number;
   
   ngOnChanges(changes: SimpleChanges) {
-    console.log("A cambiado");
     if (this.form_buscar !== undefined) {
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
       this.buscar_nota();
@@ -29,7 +31,6 @@ cambiar_valor_Padre(){
   resultado: any;
   //fechas
   fecha1: any;
-  fecha2: any;
   //Tabla
   arreglo: any;
 
@@ -61,7 +62,7 @@ this.form_agregar = this.formBuilder.group({
   donacionID: ['', Validators.required],
   nota 	:['',Validators.required],	
   statusnota :['',Validators.required],	
-  programar :['',Validators.required],	
+  programar :[this.fecha1,Validators.required],	
   responsable :['',Validators.required],
 
 })
@@ -89,8 +90,11 @@ buscar_nota() {
       spinner_buscar_nota.removeAttribute("hidden");
       //select mediante el id
       var response = this.http.get(this.url + "NotasDonantes/" + this.form_buscar.value.buscarID);
-      response.subscribe((data: any[]) => {
+      response.subscribe((data: any[]) => { 
         this.resultado = data;
+        //transformar fecha formato
+        var datePipe = new DatePipe("en-US");
+        this.resultado.programar = datePipe.transform(this.resultado.programar, 'yyyy/MM/dd');
         
         this.form_agregar.get('notaID').setValue(this.resultado.notaID);
         this.form_agregar.get('donacionID').setValue(this.resultado.donacionID);
@@ -119,6 +123,7 @@ else {
 }
 
 modificar_nota() {
+  this.form_agregar.get('programar').setValue(this.fecha1);
   var spinner_agregar_nota = document.getElementById("spinner_agregar_nota");
   spinner_agregar_nota.removeAttribute("hidden");
 
@@ -126,8 +131,6 @@ modificar_nota() {
   this.http.put(this.url + "NotasDonantes/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
     spinner_agregar_nota.setAttribute("hidden", "true");
     alert("NotasDonantes Modificado");
-    this.clean_Agregar();
-    this.clean_Buscar();
   },
     error => {
       spinner_agregar_nota.setAttribute("hidden", "true");

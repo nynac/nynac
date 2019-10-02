@@ -19,13 +19,11 @@
     <!-- INICIO ROW #1 -->
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
-        <div class="col-8 input-group input-group-sm mb-3">
+        <div class="col-4 input-group input-group-sm mb-3">
             <label for="donacionID" style="margin-right: 10px">ID Donante</label>
             <input type="number" formControlName="donacionID" class="form-control" readonly
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }" >
-                <label for="contactoID" style="margin-right: 10px">ID Contacto</label>
-                <input type="number" formControlName="contactoID" class="form-control"
-                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.contactoID.errors }" >
+            
         </div>
         <div class="col-12 font-weight-bold">
             <div class="dropdown-divider"></div>

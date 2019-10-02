@@ -12,7 +12,6 @@ export class DFiscalesDonanteComponent implements OnInit, OnChanges {
   @Input() prop!: number;
   
   ngOnChanges(changes: SimpleChanges) {
-    console.log("A cambiado");
     if (this.form_buscar !== undefined) {
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
       this.buscar_dfiscales();
@@ -131,8 +130,6 @@ modificar_dfiscales() {
   this.http.put(this.url + "DFiscal/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
     spinner_agregar_dfiscales.setAttribute("hidden", "true");
     alert("Datos Fiscales Modificado");
-    this.clean_Agregar();
-    this.clean_Buscar();
   },
     error => {
       spinner_agregar_dfiscales.setAttribute("hidden", "true");

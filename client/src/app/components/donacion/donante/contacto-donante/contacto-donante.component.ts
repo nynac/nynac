@@ -15,7 +15,6 @@ export class ContactoDonanteComponent implements OnInit, OnChanges {
   @Input() prop!: number;
   
   ngOnChanges(changes: SimpleChanges) {
-    console.log("A cambiado");
     if (this.form_buscar !== undefined) {
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
       this.buscar_contacto();
@@ -182,8 +181,6 @@ cambiar_valor_Padre(){
     this.http.put(this.url + "Contacto/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
       spinner_agregar_fdonante.setAttribute("hidden", "true");
       alert("Contacto Modificado");
-      this.clean_Agregar();
-      this.clean_Buscar();
     },
       error => {
         spinner_agregar_fdonante.setAttribute("hidden", "true");

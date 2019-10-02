@@ -14,22 +14,23 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
   @Input('gl_donante') gl_donante: any;
   @Input() prop!: number;
 
-  new_Var_global: number = 0;
-
   ngOnChanges(changes: SimpleChanges) {
-    console.log("3");
     if (this.form_buscar !== undefined) {
+      var donacion_Nuevo = document.getElementById("donacion_Nuevo");
+      donacion_Nuevo.setAttribute("checked", "True");
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
       this.buscar_donante();
     }
   }
 
   @Output() donante_variable = new EventEmitter<number>();
-
   //busqueda
   resultado: any;
+  arrayLideres: any;
+  arrayCampanas: any;
+  arrayEventos: any;
   miembro: any;
-  //fechas
+  //fechas 
   fecha1: any;
   fecha2: any;
   //Tabla
@@ -48,12 +49,17 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
 
   url = "https://api-remota.conveyor.cloud/api/";
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) { 
-   }
+  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+
+    this.get_nuevo_donacion();
+    this.get_Lider();
+    this.get_Eventoe();
+    
+    this.get_Campana();
+  }
 
   ngOnInit() {
-    this.get_nuevo_donacion();
-        //Se rellena los campos al formulario 
+    //Se rellena los campos al formulario 
     //buscar
     this.form_buscar = this.formBuilder.group({
       buscarID: ['', Validators.required],
@@ -61,7 +67,7 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
 
     //agregar
     this.form_agregar = this.formBuilder.group({
-      donacionID: ['', Validators.required],
+      donacionID: [''],
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
       nombrefiscal: ['', Validators.required],
@@ -71,9 +77,9 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
       fechanacimiento: [this.fecha1],
       edad: [''],
       fechadonacion: [this.fecha2],
-      liderID: [''],
-      campanaID: [''],
-      eventoID: [''],
+      liderID: [],
+      campanaID: [],
+      eventoID: [],
       observacion: [''],
     })
   }
@@ -87,13 +93,18 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
   get f_A() {
     return this.form_agregar.controls;
   }
-  
+
   //Cambio a padre
   cambiar_valor_Padre() {
     this.donante_variable.emit(this.form_buscar.value.buscarID);
+    this.buscar_donante();
   }
 
   buscar_donante() {
+    
+    // this.get_Lider();
+    // this.get_Eventoe();
+    // this.get_Campana();
     //spinner
     var spinner_buscar_donacion = document.getElementById("spinner_buscar_donacion");
     this.submit_buscar = true;
@@ -103,8 +114,27 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     else {
       this.form_buscar.disable();
       var response = this.http.get(this.url + "Donacion/" + this.form_buscar.value.buscarID);
-      response.subscribe((resultado: any[]) => {
-        this.form_agregar.patchValue(resultado);
+      response.subscribe((data: any[]) => {
+        this.resultado = data;
+        //transformar fecha formato
+        var datePipe = new DatePipe("en-US");
+        this.resultado.fechanacimiento = datePipe.transform(this.resultado.fechanacimiento, 'yyyy/MM/dd');
+        this.resultado.fechadonacion = datePipe.transform(this.resultado.fechadonacion, 'yyyy/MM/dd');
+
+        this.form_agregar.get('donacionID').setValue((this.resultado.donacionID));
+        this.form_agregar.get('nombres').setValue(this.resultado.nombres);
+        this.form_agregar.get('apellidos').setValue(this.resultado.apellidos);
+        this.form_agregar.get('nombrefiscal').setValue(this.resultado.nombrefiscal);
+        this.form_agregar.get('status').setValue(this.resultado.status);
+        this.form_agregar.get('email').setValue(this.resultado.email);
+        this.form_agregar.get('tipodonante').setValue(this.resultado.tipodonante);
+        this.form_agregar.get('fechanacimiento').setValue(this.resultado.fechanacimiento);
+        this.form_agregar.get('fechadonacion').setValue(this.resultado.fechadonacion);
+        this.form_agregar.get('edad').setValue(this.resultado.edad);
+        this.form_agregar.get('liderID').setValue(this.resultado.liderID);
+        this.form_agregar.get('campanaID').setValue(this.resultado.campanaID);
+        this.form_agregar.get('eventoID').setValue(this.resultado.eventoID);
+        this.form_agregar.get('observacion').setValue(this.resultado.observacion);
 
         spinner_buscar_donacion.setAttribute("hidden", "true");
         this.form_buscar.enable();
@@ -115,7 +145,6 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
         });
     }
   }
-
 
   opcion_donante() {
     this.submit_agregar = true;
@@ -141,34 +170,19 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     }
   }
 
-   //Obtener nuevo miembro 
-	get_nuevo_donacion(){
-		var response = this.http.get(this.url + "ultimoDonacion");
-		response.subscribe((resultado : number)=> {
-      
-//nombres
-// apellidos
-// nombrefiscal
-// status
-// email
-// tipodonante
-// fechanacimiento
-// edad
-// fechadonacion
-// liderID
-// campanaID
-// eventoID
-// observacion
-			this.form_agregar.get('donacionID').setValue(resultado + 1);
-
-			console.log(resultado + 1);
-		},
-		error =>{
-			console.log("Error", error)
-		});
-	}
+  //Obtener nuevo Donante 
+  get_nuevo_donacion() {
+    var response = this.http.get(this.url + "ultimoDonacion");
+    response.subscribe((resultado: number) => {
+      this.form_agregar.get('donacionID').setValue(resultado + 1);
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
 
   agregar_donante() {
+    this.get_nuevo_donacion();
     //Spiner
     var spinner_agregar_donacion = document.getElementById("spinner_agregar_donacion");
     spinner_agregar_donacion.removeAttribute("hidden");
@@ -176,20 +190,20 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     var datePipe = new DatePipe("en-US");
     this.fecha1 = datePipe.transform(this.fecha1, 'yyyy/MM/dd');
     this.form_agregar.get('fechanacimiento').setValue(this.fecha1);
+
     this.fecha2 = datePipe.transform(this.fecha2, 'yyyy/MM/dd');
     this.form_agregar.get('fechadonacion').setValue(this.fecha2);
-
     //Donacion
     this.http.post(this.url + "Donacion", this.form_agregar.value).subscribe(data => {
-      this.crear_tabla("Contacto", "contactoID", this.form_agregar.value.donacionID);
       this.crear_tabla("Telefonodonante", "telefonoID", this.form_agregar.value.donacionID);
-      this.crear_tabla("FormaDonacion", "formadonacionID", this.form_agregar.value.donacionID);
       this.crear_tabla("DireccionDonante", "direcciondonanteID", this.form_agregar.value.donacionID);
+      this.crear_tabla("Contacto", "contactoID", this.form_agregar.value.donacionID);
       this.crear_tabla("NotasDonantes", "notaID", this.form_agregar.value.donacionID);
       this.crear_tabla("DFiscal", "datosfiscalesID", this.form_agregar.value.donacionID);
-      alert("Donacion Agregada");
+      alert("Se a registrado los Datos del Donante correctamente.\n ID: " + this.form_agregar.value.donacionID);
+      this.form_buscar.get('buscarID').setValue(this.form_agregar.value.donacionID);
       spinner_agregar_donacion.setAttribute("hidden", "true");
-      this.clean_Agregar();
+      this.cambiar_valor_Padre();
     },
       error => {
         spinner_agregar_donacion.setAttribute("hidden", "true");
@@ -207,6 +221,7 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
         console.log("Error al guardar en la tabla: " + tabla, error);
       });
   }
+
   modificar_donante() {
     var spinner_agregar_donacion = document.getElementById("spinner_agregar_donacion");
     spinner_agregar_donacion.removeAttribute("hidden");
@@ -215,8 +230,6 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     this.http.put(this.url + "Donacion/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
       spinner_agregar_donacion.setAttribute("hidden", "true");
       alert("Donacion Modificado");
-      this.clean_Agregar();
-      this.clean_Buscar();
     },
       error => {
         spinner_agregar_donacion.setAttribute("hidden", "true");
@@ -241,17 +254,49 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     var donacion_btn_buscar = document.getElementById("donacion_btn_buscar");
 
     if (this.agregar_o_modificar == "nuevo") {
-      this.clean_Agregar();
+      this.get_nuevo_donacion();
       this.clean_Buscar();
+      this.clean_Agregar();
 
       donacion_btn_buscar.setAttribute("disabled", "true");
     }
     else if (this.agregar_o_modificar == "modificar") {
+      this.clean_Buscar();
+      this.clean_Agregar();
       donacion_btn_buscar.removeAttribute("disabled");
       donacion_btn_buscar.setAttribute("enable", "true");
 
-      this.clean_Agregar();
-      this.clean_Buscar();
     }
+  }
+
+  get_Lider() {
+    var response = this.http.get(this.url + "Lider/");
+    response.subscribe((data: any[]) => {
+    this.arrayLideres = data;  
+    console.log(data);  
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
+  get_Campana() {
+    var response = this.http.get(this.url + "Campana/");
+    response.subscribe((data: any[]) => {
+    this.arrayCampanas = (data);   
+    console.log(this.arrayCampanas);   
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
+  get_Eventoe() {
+    var response = this.http.get(this.url + "Eventoe/");
+    response.subscribe((data: any[]) => {
+    this.arrayEventos = (data);    
+    console.log(this.arrayEventos); 
+    },
+      error => {
+        console.log("Error", error)
+      });
   }
 }

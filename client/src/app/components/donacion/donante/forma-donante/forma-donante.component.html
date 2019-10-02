@@ -1,18 +1,5 @@
 <form [formGroup] = "form_buscar" (ngSubmit)="cambiar_valor_Padre()">
 	<div class="row" style="margin: 15px 0px 0px 0px">
-		<!-- <div class="col-2 text-right font-weight-bold" >
-			<span>Opción:</span>
-		</div>
-		<div class="col-5">
-			<div class="custom-control custom-radio custom-control-inline">
-				<input id="fdonacion_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion" value="nuevo" (change)="radioChange($event)" [checked] = "true">
-				<label class="custom-control-label" for="fdonacion_Nuevo">Nuevo</label>
-			</div>
-			<div class="custom-control custom-radio custom-control-inline">
-				<input id="fdonacion_Modificar" type="radio" class="custom-control-input" name="donacion_opcion" value="modificar" (change)="radioChange($event)">
-				<label class="custom-control-label" for="fdonacion_Modificar">Modificar</label>
-			</div>
-		</div> -->
 		<div class="input-group input-group-sm mb-3 col-3 aling-right">
 			<div class="input-group-prepend">
 				<span class="input-group-text">ID Donante:</span>
@@ -20,15 +7,30 @@
 			<input type="number" formControlName="buscarID"  class="form-control" [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
 		</div>
         <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-            <!-- [disabled] = "true" -->
 			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="fdonacion_btn_buscar" >
 				<span id="spinner_buscar_fdonante" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
 			Buscar</button>
 		</div> 
-	</div>
+    </div>
+    <div>
+            <div class="dropdown-divider"></div>
+            <div class="font-weight-bold" >
+                    <span>Opción:</span>
+                </div>
+                <div class="col-5">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input id="fdonacion_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion" value="nuevo" (change)="radioChange($event)" [checked] = "true">
+                        <label class="custom-control-label" for="fdonacion_Nuevo">Nuevo</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input id="fdonacion_Modificar" type="radio" class="custom-control-input" name="donacion_opcion" value="modificar" (change)="radioChange($event)">
+                        <label class="custom-control-label" for="fdonacion_Modificar">Modificar</label>
+                    </div>
+                </div>
+    </div>
 </form>
 <div class="dropdown-divider"></div>
-<form [formGroup]="form_agregar" (ngSubmit)="modificar_fdonante()">
+<form [formGroup]="form_agregar" (ngSubmit)="opcion_fdonacion()">
     <!-- INICIO ROW #1 -->
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
@@ -36,8 +38,8 @@
             <label for="donacionID" style="margin-right: 10px">ID Donante</label>
             <input type="number" formControlName="donacionID" class="form-control" readonly
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }" >
-                <label for="formadonacionID" style="margin-right: 10px">ID Contacto</label>
-                <input type="number" formControlName="formadonacionID" class="form-control"
+                <label for="formadonacionID" style="margin-right: 10px">ID Forma</label>
+                <input type="number" formControlName="formadonacionID" class="form-control" readonly
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.formadonacionID.errors }" >
         </div>
         <div class="col-12 font-weight-bold">
@@ -207,59 +209,45 @@
     </div>
 </form>
 <div class="container border rounded">
-    <div class="row" style="margin: 15px 15px 0px 0px">
-        <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-            <label class="font-weight-bold">Resultados</label>
-        </div>
-        <div class="col-12">
-            <form action="">
-                <table class="table text-center table-bordered table-sm rounded">
-                    <thead style="background-color: #00AAE7; color: white;">
-                        <tr>
-                            <th scope="col">Numero Aportación</th>
-                            <th scope="col">Tipo Donación</th>
-                            <th scope="col">Monto</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Vence</th>
-                            <th scope="col">Banco</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-
-                            <th scope="row">1</th>
-                            <td>Efectivo</td>
-                            <td>$ 25,000</td>
-                            <td>Cobrado</td>
-                            <td>07/08/2014</td>
-                            <td>HSBC</td>
-                            <td>
-                                <button id="BUSQ_btn_modificar" type="button"
-                                    class="btn btn-info btn-sm">Modificar</button>
-                                <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                            background-color: rgb(224, 8, 8); " type="button"
-                                    class="btn btn-info btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Efectivo</td>
-                            <td>$ 25,000</td>
-                            <td>Cobrado</td>
-                            <td>07/08/2014</td>
-                            <td>HSBC</td>
-                            <td>
-                                <button id="BUSQ_btn_modificar" type="button"
-                                    class="btn btn-info btn-sm">Modificar</button>
-                                <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                            background-color: rgb(224, 8, 8); " type="button"
-                                    class="btn btn-info btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+        <div class="row" style="margin: 15px 15px 0px 0px">
+            <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+                <label class="font-weight-bold">EVENTO: </label>
+            </div>
+            <div class="col-12">
+                <form>
+                    <table class="table text-center table-bordered table-sm rounded">
+                        <thead style="background-color: #00AAE7; color: white;">
+                            <tr>
+                                <th scope="col">ID Donante</th>
+                                <th scope="col">tipodonacion</th>
+                                <th scope="col">monto</th>
+                                <th scope="col">banco</th>
+                                <th scope="col">estatus</th>
+                                <th scope="col">primerpago</th>
+                                <th scope="col">frecuencia</th>
+                                <th scope="col">observacion</th>
+                                <th scope="col">Opción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let fdonacion of arrayFdonacion; let i=index">
+    
+                                <th scope="row">{{fdonacion.donacionID}}</th>
+                                <td>{{fdonacion.tipodonacion}}</td>
+                                <td>{{fdonacion.monto}}</td>
+                                <td>{{fdonacion.banco}}</td>
+                                <td>{{fdonacion.estatus}}</td>
+                                <td>{{fdonacion.primerpago | date:'yyyy/MM/dd'}}</td>
+                                <td>{{fdonacion.frecuencia }}</td>
+                                <td>{{fdonacion.observacion }}</td>
+                                <td>
+                                    <button id="BUSQ_btn_modificar" type="button" class="btn btn-info btn-sm"
+                                    (click)="buscar_fdonante(fdonacion.formadonacionID)">Modificar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
         </div>
     </div>
-</div>

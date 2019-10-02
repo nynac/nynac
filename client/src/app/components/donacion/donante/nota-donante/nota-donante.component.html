@@ -36,7 +36,7 @@
             <label for="donacionID" style="margin-right: 10px">ID Donante</label>
             <input type="number" formControlName="donacionID" class="form-control" readonly
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }" >
-                <label for="notaID" style="margin-right: 10px">ID Contacto</label>
+                <label for="notaID" style="margin-right: 10px">ID Nota</label>
                 <input type="number" formControlName="notaID" class="form-control"
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.notaID.errors }" >
         </div>
@@ -61,10 +61,27 @@
             </select>
         </div>
         <div class="col-4 input-group input-group-sm mb-3">
-            <label for="programar" style="margin-right: 10px">Programar: </label>
-            <input type="text" formControlName="programar" class="form-control" placeholder="programar"
-                [ngClass]="{ 'is-invalid': submit_agregar && f_A.programar.errors }">
-        </div>
+			<div class="col-11 input-group input-group-sm mb-3" style="padding-right: 0px;">
+				<label>Fecha Donacion: </label>
+                <input type="text" formControlName="programar" class="form-control"
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.programar.errors }"  value="{{ fecha1 | date:'yyyy/MM/dd'  }}">
+            </div>
+            <div class="col-1" style="padding: 0px;">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" type="hidden"
+                            name="d1" #c1="ngModel" [(ngModel)]="fecha1" ngbDatepicker #d1="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary btn-sm calendar" (click)="d1.toggle()" type="button" style="padding: 0px;">
+                                    <img src="./assets/img/calendario.png"   style="height: 25px; padding: 0px;"/>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+		</div>
         <div class="col-4 input-group input-group-sm mb-3">
             <label for="responsable" style="margin-right: 10px">Responsable: </label>
             <select formControlName="responsable" class="custom-select"

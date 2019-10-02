@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContenedorDonanteComponent implements OnInit {
 
-  gl_donante: number=2;
+  gl_donante: number=undefined;
   constructor() { }
 
   ngOnInit() {

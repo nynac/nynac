@@ -38,7 +38,7 @@
             <span>Campaña</span>
         </div>
         <div class="col-4 input-group input-group-sm mb-3">
-            <input type="text" formControlName="campanaID" class="form-control" placeholder="CampañaID"
+            <input type="text" formControlName="campanaID" class="form-control" placeholder="CampañaID" readonly
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.campanaID.errors }">
             <div *ngIf="submit_agregar && f_A.campanaID.errors" class="invalid-feedback">
                 <div *ngIf="f_A.campanaID.errors.required">*Favor de llenar el campo</div>
@@ -92,52 +92,37 @@
         </div>
     </div>
 </form>
-
 <div class="container border rounded">
-    <div class="row" style="margin: 15px 15px 0px 0px">
-        <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-            <label class="font-weight-bold">Campañas</label>
-        </div>
-        <div class="col-12">
-            <form action="">
-                <table class="table text-center table-bordered table-sm rounded">
-                    <thead style="background-color: #00AAE7; color: white;">
-                        <tr>
-                            <th scope="col">Campaña ID</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-
-                            <th scope="row">1</th>
-                            <td>Perla Winzard</td>
-                            <th>02/02/2014</th>
-                            <td>
-                                <button id="BUSQ_btn_modificar" type="button"
-                                    class="btn btn-info btn-sm">Modificar</button>
-                                <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                            background-color: rgb(224, 8, 8); " type="button"
-                                    class="btn btn-info btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Efectivo</td>
-                            <th>02/02/2014</th>
-                            <td>
-                                <button id="BUSQ_btn_modificar" type="button"
-                                    class="btn btn-info btn-sm">Modificar</button>
-                                <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                            background-color: rgb(224, 8, 8); " type="button"
-                                    class="btn btn-info btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+        <div class="row" style="margin: 15px 15px 0px 0px">
+            <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+                <label class="font-weight-bold">EVENTO: </label>
+            </div>
+            <div class="col-12">
+                <form>
+                    <table class="table text-center table-bordered table-sm rounded">
+                        <thead style="background-color: #00AAE7; color: white;">
+                            <tr>
+                                <th scope="col">Evento ID</th>
+                                <th scope="col">Descripcion</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let campana of arrayCampana; let i=index">
+    
+                                <th scope="row">{{campana.campanaID}}</th>
+                                <td>{{campana.descripcion}}</td>
+                                <td>{{campana.fecha | date:'yyyy/MM/dd'}}</td>
+                                <td>
+                                    <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
+                                                    background-color: rgb(224, 8, 8); " type="button"
+                                        class="btn btn-info btn-sm" (click)="eliminar_campana(campana.campanaID)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
         </div>
     </div>
-</div>

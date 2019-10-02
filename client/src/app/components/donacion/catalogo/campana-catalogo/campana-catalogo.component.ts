@@ -13,6 +13,7 @@ import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstr
 export class CampanaCatalogoComponent implements OnInit {
 //busqueda
 resultado: any;
+arrayCampana: any;
 //fechas
 model2: any;
 //Tabla
@@ -36,7 +37,10 @@ agregar_o_modificar: string = 'nuevo';
     private http: HttpClient,
     private formBuilder: FormBuilder
 
-  ) { }
+  ) { 
+    this.get_nuevo_campana();
+    this.get_Campana();
+  }
 
   ngOnInit() {
     //Se rellena los campos al formulario 
@@ -49,7 +53,7 @@ agregar_o_modificar: string = 'nuevo';
     this.form_agregar = this.formBuilder.group({
       campanaID: ['', Validators.required],
       descripcion: ['', Validators.required],
-      fecha: ['', Validators.required],
+      fecha: [this.model2],
       
 		})
 
@@ -120,6 +124,27 @@ agregar_o_modificar: string = 'nuevo';
     }
   }
 
+  //Obtener nuevo Lider
+  get_nuevo_campana() {
+    var response = this.http.get(this.url + "ultimoCampana");
+    response.subscribe((resultado: number) => {
+      this.form_agregar.get('campanaID').setValue(resultado + 1);
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
+  //List Lider
+  get_Campana() {
+    var response = this.http.get(this.url + "Campana/");
+    response.subscribe((data: any[]) => {
+      this.arrayCampana = data;
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
+
   agregar_campana(){
 	//Spiner
   var spinner_agregar_campana = document.getElementById("spinner_agregar_campana");
@@ -133,6 +158,8 @@ agregar_o_modificar: string = 'nuevo';
     spinner_agregar_campana.setAttribute("hidden", "true");
     alert("Campaña Guardado");
     this.clean_Agregar();
+    this.get_nuevo_campana();
+    this.get_Campana();
   },
     error => {
       spinner_agregar_campana.setAttribute("hidden", "true");
@@ -149,8 +176,7 @@ agregar_o_modificar: string = 'nuevo';
     this.http.put(this.url + "Campana/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
       spinner_agregar_campana.setAttribute("hidden", "true");
       alert("Campaña Modificado");
-      this.clean_Agregar();
-      this.clean_Buscar();
+      this.get_Campana();
     },
       error => {
         spinner_agregar_campana.setAttribute("hidden", "true");
@@ -178,7 +204,8 @@ agregar_o_modificar: string = 'nuevo';
 
 		if (this.agregar_o_modificar == "nuevo"){
 			this.clean_Agregar();
-			this.clean_Buscar();
+      this.clean_Buscar();
+      this.get_nuevo_campana();
 
 			campana_btn_buscar.setAttribute("disabled", "true");
 		}
@@ -189,5 +216,22 @@ agregar_o_modificar: string = 'nuevo';
 			this.clean_Agregar();
 			this.clean_Buscar();
 		}
-	}
+  }
+  eliminar_campana(id: any) {
+    var r = confirm("¿Esta seguro que desea eliminar la Campaña: "+id+" ?");
+    if (r == false) {
+      return;
+    }
+    else {
+      var response = this.http.delete(this.url + "Campana/" + id);
+      response.subscribe((data: any[]) => {
+        alert("Se a eliminado la Campaña: " + id);
+        this.get_Campana();
+        this.get_nuevo_campana();
+      },
+        error => {
+          console.log("Error", error)
+        });
+    }
+  }
 }

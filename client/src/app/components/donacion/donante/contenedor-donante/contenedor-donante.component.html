@@ -26,10 +26,16 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="donantes">
-                <donacion-donante [gl_donante]="gl_donante" (donante_variable)="asignacion_valor_donante($event)"></donacion-donante>
+                <donacion-donante 
+                [gl_donante]="gl_donante" 
+                (donante_variable)="asignacion_valor_donante($event)">
+            </donacion-donante>
             </div>
             <div class="tab-pane " id="Contacto">
-               <contacto-donante [gl_donante]="gl_donante" (donante_variable)="asignacion_valor_donante($event)"></contacto-donante>
+               <contacto-donante 
+               [gl_donante]="gl_donante" 
+               (donante_variable)="asignacion_valor_donante($event)">
+                </contacto-donante>
             </div>
             <div class="tab-pane" id="Telefono">
                     <telefono-donante [gl_donante]="gl_donante" (donante_variable)="asignacion_valor_donante($event)"></telefono-donante>
