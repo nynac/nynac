@@ -16,11 +16,12 @@ export class RegistroComponent implements OnInit {
 	visible : boolean = false;
 	tipo : string = "";
 	mensaje : string = "";
+	duracion: number = 1500;
 	miembroID : number;
 
 	//form guardar
 	form_guardar : FormGroup
-	guardando : boolean = false;
+	submited : boolean = true;
 	hora : any;
 
 	constructor(
@@ -41,10 +42,11 @@ export class RegistroComponent implements OnInit {
 		this.miembroID = this.form_guardar.value.miembroID;
 		var response = this.http.get(this.url + "esta_activo?id=" + this.form_guardar.value.miembroID);
 		response.subscribe((resultado : number)=> {
-			resultado > 0 ? this.ya_registro_entrada() : this.mostrar_alert("Verifica el número de miembro", "danger", 3000);
+			//Resultado = 1 signifuca que si está activo, Resultado = 0 significa que no está activo
+			resultado > 0 ? this.ya_registro_entrada() : this.mostrar_alert("Verifica el número de miembro", "danger");
 		},
 		error =>{
-			console.log("Error", error)
+			this.mostrar_alert("Verifica el número de miembro", "warning");
 		});
 	}
 
@@ -63,8 +65,10 @@ export class RegistroComponent implements OnInit {
 	obtener_ultima_entrada(){
 		var response = this.http.get(this.url + "ultima_entrada");
 		response.subscribe((resultado : number)=> {
+			//Obtiene el último ID y incrementa el nuevo.
 			this.form_guardar.get('idRegistroentrada').setValue(resultado + 1);
 
+			//Registrará la nueva entrada
 			this.entrada();
 		},
 		error =>{
@@ -74,50 +78,69 @@ export class RegistroComponent implements OnInit {
 
 	//Si no ha registrado su entrada se ejecutará este método
 	entrada(){
-
-		console.log(this.form_guardar.value)
+		var spinner = document.getElementById("spinner");
+		
+		spinner.removeAttribute("hidden");
 		this.form_guardar.disable();
 
 		this.http.post(this.url + "CheckNinos", this.form_guardar.value).subscribe(data  => {
 			this.form_guardar.enable();
-			this.mostrar_alert("Se ha guardado la entrada", "success", 2000)
+			spinner.setAttribute("hidden", "true");
+			this.mostrar_alert("Se ha guardado la entrada", "success")
 		},
 		error  => {
 			this.form_guardar.enable();
-			console.log(error);
+			spinner.setAttribute("hidden", "true");
+			this.mostrar_alert("Error guardar la entrada", "danger")
+			//console.log(error);
 		});
 	}
 
 	//Si registrará su salida cuando previamente se haya realizado una entrada
 	salida(id : number, miembro : number, fecha_entrada : any){
-		console.log("salida")
+		var spinner = document.getElementById("spinner");
+		
+		spinner.removeAttribute("hidden");
+		this.form_guardar.disable();
+
 		this.form_guardar.get('idRegistroentrada').setValue(id);
 		this.form_guardar.get('miembroID').setValue(miembro);
 		this.form_guardar.get('fechaentrada').setValue(fecha_entrada);
-		this.form_guardar.get('fechasalida').setValue(null);
+		this.form_guardar.get('fechasalida').setValue(null); //La fecha y hora de salida se agregará enla API
 
 		this.http.put(this.url + "CheckNinos/" + id, this.form_guardar.value).subscribe(data  => {
-			this.mostrar_alert("Se ha guardado la salida", "success", 2000)	
+			this.form_guardar.enable();
+			spinner.setAttribute("hidden", "true");
+			this.mostrar_alert("Se ha guardado la salida", "success")	
 		},
 		error  => {
 			this.form_guardar.enable();
+			spinner.setAttribute("hidden", "true");
+			this.mostrar_alert("Error guardar la salida", "danger")	
 			console.log(error);
 		});
 	}
 
-	mostrar_alert(msg : string, tipo : string, duracion : number){
+	mostrar_alert(msg : string, tipo : string){
 		this.visible = true;
 		this.mensaje = msg;
 		this.tipo = tipo;
 		setTimeout(() => { 
+			var input = document.getElementById("miembroID");
+			input.focus();
 			this.cerrar_alert();
-		}, duracion
+			this.form_guardar.reset();
+		}, this.duracion
 		);
 	}
 	cerrar_alert(){
 		this.visible = false;
 		this.mensaje = null;
 		this.tipo = null;
-		this.guardando = false;
+		this.submited = false;
+
+		var input = document.getElementById("miembroID");
+		input.focus();
+		this.form_guardar.reset();
 	}
 }
