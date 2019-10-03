@@ -16,7 +16,7 @@ export class RegistroComponent implements OnInit {
 	visible : boolean = false;
 	tipo : string = "";
 	mensaje : string = "";
-	duracion: number = 1500;
+	duracion: number = 1500; //1000 es 1 SEG
 	miembroID : number;
 
 	//form guardar
@@ -125,6 +125,7 @@ export class RegistroComponent implements OnInit {
 		this.visible = true;
 		this.mensaje = msg;
 		this.tipo = tipo;
+		
 		setTimeout(() => { 
 			var input = document.getElementById("miembroID");
 			input.focus();

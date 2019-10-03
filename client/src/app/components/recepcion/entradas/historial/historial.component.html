@@ -1,51 +1,55 @@
-<form action="" style="margin: 0px 0px 30px 0px">
-	<div class="row" style="margin: 30px 0px 15px 0px">
-		<div class=" col-5 aling-right input-group input-group">
-			<div class="input-group-prepend">
-				<span class="input-group-text">No. Miembro:</span>
+<form [formGroup]="form_buscar" (ngSubmit)="obtener_historial()" class="text-center" style="margin: 0px 0px 30px 0px">
+	<div class="row">
+		<div class="col-12">
+			<div *ngIf="visible==true" style="margin: 0px 30px 0px 15px;" class="text-center">
+				<ngb-alert  (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
 			</div>
-			<input id="historial_busc_miembro" type="number" class="form-control" placeholder="Ingresa aquí el número de miembro" autofocus>
 		</div>
-		<div class="col-2" style="text-align: center;">
-			<button id="historial_btn_buscar" type="button" class="btn btn-club" style="width:100%;">Consultar</button>
-		</div> 
-		<div class="col-5"></div>
+		<div class="col-4" style="margin:15px 0px 0px 0px;">
+			<div class="col-12 font-weight-bold" >
+				<h5>NO. MIEMBRO</h5>
+			</div>
+			<div class="col-12">
+				<input type="number" formControlName="miembroID" id="miembroID" class="form-control" placeholder="Ingresa aquí el número de miembro" [ngClass]="{ 'is-invalid': guardando && f2.miembroID.errors }" autofocus="true">
+			</div>
+			<div class="col-12 custom-control-inline" style="margin: 10px 0px 0px 0px;">
+				<div class="col-4">
+				</div>
+				<div class="col-4" style="text-align: center;" style="padding-right: 5px;">
+					<button id="limbiar" type="button" class="btn btn-danger" style="width:100%; padding: 0px; padding-top: 3px; padding-bottom: 3px;" (click)= "limpiar(true);">
+						Limpiar
+					</button>
+				</div>
+				<div class="col-4" style="text-align: center;" style="padding: 0px; padding-left: 5px;">
+					<button id="REG_btn_buscar" type="submit" class="btn btn-club" style="width:100%; padding: 0px; padding-top: 3px; padding-bottom: 3px;">
+						<span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+						Buscar
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-8" style="margin:15px 0px 0px 0px;">
+			<div class="col-12 font-weight-bold" >
+				<h5>HISTORIAL</h5>
+			</div>
+			<div class="col-12">
+				<table class="table text-center table-bordered table-sm rounded">
+					<thead style="background-color: #00AAE7; color: white;">
+						<tr>
+							<th scope="col">Fecha</th>
+							<th scope="col">Entrada</th>
+							<th scope="col">Salida</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let registro of historial">
+							<td>{{registro.fechaentrada | date}}</td>
+							<td>{{registro.fechaentrada | date:'mediumTime'}}</td>
+							<td>{{registro.fechasalida  | date:'mediumTime'}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </form>
-<div class="row" style="margin: 15px 15px 0px 0px">
-	<div class="col-12 text-left "  style="margin: 0px 0px 0px 0px;">
-		<label>Resultados</label>
-	</div>
-	<div class="col-12">
-		<table class="table text-center table-bordered table-sm rounded">
-			<thead style="background-color: #00AAE7; color: white;">
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Fecha</th>
-					<th scope="col">Entrada</th>
-					<th scope="col">Salida</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>1/1/12</td>
-					<td>10:00</td>
-					<td>14:00</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>2/3/12</td>
-					<td>12:00</td>
-					<td>16:00</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>2/5/17</td>
-					<td>10:00</td>
-					<td>14:00</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
