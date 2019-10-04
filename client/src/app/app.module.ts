@@ -46,6 +46,10 @@ import { ReportesComponent } from './components/donacion/reportes/reportes.compo
 import { ContenedorDonanteComponent } from './components/donacion/donante/contenedor-donante/contenedor-donante.component';
 import { ContenedorCatalogoComponent } from './components/donacion/catalogo/contenedor-catalogo/contenedor-catalogo.component';
 
+//COMPONENTES DONACION
+import { EventoCatalogoComponent } from './components/donacion/catalogo/evento-catalogo/evento-catalogo.component';
+import { CampanaCatalogoComponent } from './components/donacion/catalogo/campana-catalogo/campana-catalogo.component';
+
 //COMPONENTES DE ENTRADAS
 import { RegistroComponent } from './components/recepcion/entradas/registro/registro.component';
 import { HistorialComponent } from './components/recepcion/entradas/historial/historial.component';
@@ -54,14 +58,21 @@ import { HistorialComponent } from './components/recepcion/entradas/historial/hi
 import { ContenedorNinosComponent } from './components/recepcion/ninos/contenedor-ninos/contenedor-ninos.component';
 import { ContenedorEntradasComponent } from './components/recepcion/entradas/contenedor-entradas/contenedor-entradas.component';
 import { ContenedorBuscadorComponent } from './components/recepcion/ninos/contenedor-buscador/contenedor-buscador.component';
-import { EventoCatalogoComponent } from './components/donacion/catalogo/evento-catalogo/evento-catalogo.component';
-import { CampanaCatalogoComponent } from './components/donacion/catalogo/campana-catalogo/campana-catalogo.component';
+
+//CONTENEDORES DESARROLLO HUMANO
+import { ContenedorDHComponent } from './components/desarrollo_humano/contenedor-dh/contenedor-dh.component';
+
+//COMPONENTES DESARROLLO HUMANO
+import { NavbarDHComponent } from './components/desarrollo_humano/navbar-dh/navbar-dh.component';
+import { CrearIncidenciaComponent } from './components/desarrollo_humano/crear-incidencia/crear-incidencia.component';
+import { HistorialIncidenciasComponent } from './components/desarrollo_humano/historial-incidencias/historial-incidencias.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
   { path: 'agregar-modificar', component: ContenedorNinosComponent },
   { path: 'entradas-salidas', component: ContenedorEntradasComponent },
   { path: 'buscar-niño', component: ContenedorBuscadorComponent },
+
   { path: '', component: NavbarComponent },
   { path: 'donacion', component: NavbarDonanteComponent },
   { path: 'donacion/agregar-donante', component: ContenedorDonanteComponent },
@@ -70,6 +81,7 @@ const appRoutes: Routes = [
   { path: 'donacion/Catalogo', component: ContenedorCatalogoComponent },
   { path: 'agenda', component: AgendaComponent },
   { path: 'reporte', component: ReportesComponent },
+  { path: 'desarrollo_humano', component: ContenedorDHComponent },
 ];
 
 @NgModule({
@@ -106,6 +118,10 @@ const appRoutes: Routes = [
     CampanaCatalogoComponent,
     AgendaComponent,
     ReportesComponent,
+    NavbarDHComponent,
+    ContenedorDHComponent,
+    CrearIncidenciaComponent,
+    HistorialIncidenciasComponent,
   ],
   imports: [
     RouterModule.forRoot(
