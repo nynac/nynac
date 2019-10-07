@@ -116,7 +116,7 @@ cambiar_valor_Padre(){
         this.form_agregar.get('telefono2').setValue(this.resultado.telefono2);
         this.form_agregar.get('lada2').setValue(this.resultado.lada2);
         this.form_agregar.get('extension2').setValue(this.resultado.extension2);
-        this.form_agregar.get('observacion2').setValue(this.resultado.relacion2);
+        this.form_agregar.get('observacion2').setValue(this.resultado.observacion2);
         this.form_agregar.get('tipo3').setValue(this.resultado.tipo3);
         this.form_agregar.get('telefono3').setValue(this.resultado.telefono3);
         this.form_agregar.get('lada3').setValue(this.resultado.lada3);

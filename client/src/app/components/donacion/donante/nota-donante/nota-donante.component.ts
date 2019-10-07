@@ -17,7 +17,8 @@ export class NotaDonanteComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.form_buscar !== undefined) {
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
-      this.buscar_nota();
+      this.form_agregar.get('donacionID').setValue(this.gl_donante);
+      this.get_nota();      
     }
   }
   
@@ -29,6 +30,7 @@ cambiar_valor_Padre(){
 }
   //busqueda
   resultado: any;
+  arraynota: any;
   //fechas
   fecha1: any;
   //Tabla
@@ -41,7 +43,7 @@ cambiar_valor_Padre(){
 form_buscar : FormGroup;
 form_agregar : FormGroup;
 
-//validacion
+//validacion 
 submit_buscar = false;
 submit_agregar= false;
 
@@ -50,6 +52,7 @@ url = "https://api-remota.conveyor.cloud/api/";
 constructor(private http : HttpClient, private formBuilder: FormBuilder) { }
 
 ngOnInit() {
+  this.get_nuevo_nota();
 //Se rellena los campos al formulario 
 //buscar
 this.form_buscar = this.formBuilder.group({
@@ -62,9 +65,8 @@ this.form_agregar = this.formBuilder.group({
   donacionID: ['', Validators.required],
   nota 	:['',Validators.required],	
   statusnota :['',Validators.required],	
-  programar :[this.fecha1,Validators.required],	
+  programar :[this.fecha1],	
   responsable :['',Validators.required],
-
 })
 }
 
@@ -78,18 +80,34 @@ get f_A() {
 return this.form_agregar.controls;
 }
 
-buscar_nota() {
-//spinner
-    var spinner_buscar_nota = document.getElementById("spinner_buscar_nota");
-    this.submit_buscar = true;
 
-    if (this.form_buscar.invalid) {
+opcion_nota() {
+  this.submit_agregar = true;
+  if (this.form_agregar.invalid) {
+    return;
+  }
+  else {
+    var r = confirm("¿Esta seguro que desea " + this.agregar_o_modificar + " donacion?");
+    if (r == false) {
       return;
     }
+    if (this.agregar_o_modificar == "nuevo") {
+      console.log("Creando ...");
+      this.agregar_nota();
+    }
+    else if (this.agregar_o_modificar == "modificar") {
+      console.log("Modificando ...");
+      this.modificar_nota();
+    }
     else {
-      spinner_buscar_nota.removeAttribute("hidden");
+      console.log("se fue a ninguno")
+    }
+  }
+}
+
+buscar_nota(id: any) {
       //select mediante el id
-      var response = this.http.get(this.url + "NotasDonantes/" + this.form_buscar.value.buscarID);
+      var response = this.http.get(this.url + "NotasDonantes/" + id);
       response.subscribe((data: any[]) => { 
         this.resultado = data;
         //transformar fecha formato
@@ -102,35 +120,48 @@ buscar_nota() {
         this.form_agregar.get('statusnota').setValue(this.resultado.statusnota);
         this.form_agregar.get('programar').setValue(this.resultado.programar);
         this.form_agregar.get('responsable').setValue(this.resultado.responsable);
-        spinner_buscar_nota.setAttribute("hidden", "true");
       },
         error => {
-          spinner_buscar_nota.setAttribute("hidden", "true");
           console.log("Error", error)
         });
-    }
 }
 
 agregar_nota() {
-this.submit_agregar = true;
-if (this.form_agregar.invalid) {
-  return;
-}
-else {
-  console.log(this.form_agregar.value);
-  alert("Boton agregar");
-}
+  console.log("metodo agregar");
+  this.get_nuevo_nota();
+  //Spiner
+  var spinner_agregar_nota = document.getElementById("spinner_agregar_nota");
+  spinner_agregar_nota.removeAttribute("hidden");
+  //fecha
+  var datePipe = new DatePipe("en-US");
+  this.fecha1 = datePipe.transform(this.fecha1, 'yyyy/MM/dd');
+  this.form_agregar.get('programar').setValue(this.fecha1);
+
+  //Donacion
+  this.http.post(this.url + "NotasDonantes", this.form_agregar.value).subscribe(data => {
+    alert("Se a registrado la Nota correctamente. ");
+
+    spinner_agregar_nota.setAttribute("hidden", "true");
+this.clean_Agregar();
+    this.get_nuevo_nota();
+    this.get_nota();
+  },
+    error => {
+      spinner_agregar_nota.setAttribute("hidden", "true");
+      console.log("Error", error);
+    });
 }
 
 modificar_nota() {
+  console.log("metodo modificar")
   this.form_agregar.get('programar').setValue(this.fecha1);
   var spinner_agregar_nota = document.getElementById("spinner_agregar_nota");
   spinner_agregar_nota.removeAttribute("hidden");
 
-  //Update mediante el id y los campos de agregar
-  this.http.put(this.url + "NotasDonantes/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
+  this.http.put(this.url + "NotasDonantes/" + this.form_agregar.value.notaID, this.form_agregar.value).subscribe(data => {
     spinner_agregar_nota.setAttribute("hidden", "true");
-    alert("NotasDonantes Modificado");
+    alert("Nota Modificada");
+    this.get_nota();
   },
     error => {
       spinner_agregar_nota.setAttribute("hidden", "true");
@@ -152,21 +183,37 @@ this.form_agregar.reset();
 
 radioChange(event: any){
   this.agregar_o_modificar = event.target.value;
-  var nota_btn_buscar = document.getElementById("nota_btn_buscar");
 
   if (this.agregar_o_modificar == "nuevo"){
     this.clean_Agregar();
-    this.clean_Buscar();
+    this.get_nuevo_nota();
+    this.form_agregar.get('donacionID').setValue(this.gl_donante);
+  }
+  else if(this.agregar_o_modificar == "modificar"){ 
+    this.clean_Agregar();   
+    this.form_agregar.get('donacionID').setValue(this.gl_donante);
+  }
+}
+//hacer metodo get ultimo y traer por id
+get_nuevo_nota(){
+  var response = this.http.get(this.url + "ultimoNota");
+  response.subscribe((resultado: number) => {
+    this.form_agregar.get('notaID').setValue(resultado + 1);
+  },
+    error => {
+      console.log("Error", error)
+    });
+}
 
-    nota_btn_buscar.setAttribute("disabled", "true");
-  }
-  else if(this.agregar_o_modificar == "modificar"){
-    nota_btn_buscar.removeAttribute("disabled");
-    nota_btn_buscar.setAttribute("enable", "true");
-    
-    this.clean_Agregar();
-    this.clean_Buscar();
-  }
+get_nota(){
+  var response = this.http.get(this.url + "Nota/notaespecifica?id="+this.form_buscar.value.buscarID);
+  response.subscribe((data: any[]) => {
+    this.arraynota = data;
+    console.log(this.arraynota);
+  },
+    error => {
+      console.log("Error", error)
+    });
 }
 
 }

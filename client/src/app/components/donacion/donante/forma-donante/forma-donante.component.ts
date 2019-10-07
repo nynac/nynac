@@ -118,11 +118,7 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
 
   buscar_fdonante(id: any) {
     this.submit_buscar = true;
-    if (this.form_buscar.invalid) {
-      return;
-    }
-    else {
-      //select mediante el id
+          //select mediante el id
       var response = this.http.get(this.url + "FormaDonacion/" + id);
       response.subscribe((data: any[]) => {
         this.resultado = data;
@@ -150,7 +146,7 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
         error => {
           console.log("Error", error)
         });
-    }
+    
   }
 
   agregar_fdonante() {

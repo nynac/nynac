@@ -54,7 +54,6 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     this.get_nuevo_donacion();
     this.get_Lider();
     this.get_Eventoe();
-    
     this.get_Campana();
   }
 
@@ -225,10 +224,13 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
   modificar_donante() {
     var spinner_agregar_donacion = document.getElementById("spinner_agregar_donacion");
     spinner_agregar_donacion.removeAttribute("hidden");
+    console.log(this.form_agregar.value.campanaID);
 
     //Update mediante el id y los campos de agregar
     this.http.put(this.url + "Donacion/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
       spinner_agregar_donacion.setAttribute("hidden", "true");
+      
+    console.log(this.form_agregar.value.campanaID);
       alert("Donacion Modificado");
     },
       error => {

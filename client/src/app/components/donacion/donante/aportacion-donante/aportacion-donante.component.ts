@@ -12,6 +12,9 @@ import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstr
 })
 
 export class AportacionDonanteComponent implements OnInit {
+
+  estado_radio: any=true;
+
     //busqueda
   resultado: any;
   arrayFdonacion: any;
@@ -39,13 +42,14 @@ export class AportacionDonanteComponent implements OnInit {
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {
     this.get_Fdonacion();
     this.get_nuevo_Fdonacion();
+    console.log(this.estado_radio);
   }
 
   ngOnInit() {
     //Se rellena los campos al formulario 
     //buscar
     this.form_buscar = this.formBuilder.group({
-      buscarID: ['', Validators.required],
+      buscarID: [''],
     })
     //agregar
     this.form_agregar = this.formBuilder.group({
@@ -86,17 +90,26 @@ export class AportacionDonanteComponent implements OnInit {
         return;
       }
       if (this.agregar_o_modificar == "nuevo") {
-        console.log("Creando ...");
         this.agregar_fdonante();
       }
       else if (this.agregar_o_modificar == "modificar") {
-        console.log("Modificando ...");
         this.modificar_fdonante();
       }
       else {
         console.log("se fue a ninguno")
       }
     }
+  }
+
+  llenar(){
+    var response = this.http.get(this.url + "FormaDonacion/EspecificaID?id="+this.form_buscar.value.buscarID);
+    response.subscribe((data: any[]) => {
+      this.arrayFdonacion = data;
+      this.form_agregar.get('donacionID').setValue(this.form_buscar.value.buscarID);
+    },
+      error => {
+        console.log("Error", error)
+      });
   }
 
   buscar_fdonante(id: any) {
@@ -137,7 +150,6 @@ export class AportacionDonanteComponent implements OnInit {
   }
 
   agregar_fdonante() {
-    console.log("metodo agregar");
     this.get_nuevo_Fdonacion();
     //Spiner
     var spinner_agregar_contacto = document.getElementById("spinner_agregar_contacto");
@@ -159,7 +171,7 @@ export class AportacionDonanteComponent implements OnInit {
       spinner_agregar_contacto.setAttribute("hidden", "true");
 
       this.get_nuevo_Fdonacion();
-      this.get_Fdonacion();
+      this.llenar();
     },
       error => {
         spinner_agregar_contacto.setAttribute("hidden", "true");
@@ -169,17 +181,17 @@ export class AportacionDonanteComponent implements OnInit {
   }
 
   modificar_fdonante() {
-    console.log("metodo modificar");
-    var spinner_agregar_donacion = document.getElementById("spinner_agregar_donacion");
-    spinner_agregar_donacion.removeAttribute("hidden");
+    var spinner_agregar_contacto = document.getElementById("spinner_agregar_contacto");
+    spinner_agregar_contacto.removeAttribute("hidden");
 
     //Update mediante el id y los campos de agregar
     this.http.put(this.url + "FormaDonacion/" + this.form_agregar.value.formadonacionID, this.form_agregar.value).subscribe(data => {
-      spinner_agregar_donacion.setAttribute("hidden", "true");
+      spinner_agregar_contacto.setAttribute("hidden", "true");
       alert("Donacion Modificada");
+      this.llenar();
     },
       error => {
-        spinner_agregar_donacion.setAttribute("hidden", "true");
+        spinner_agregar_contacto.setAttribute("hidden", "true");
         console.log("Error", error);
       });
   }
@@ -201,15 +213,14 @@ export class AportacionDonanteComponent implements OnInit {
     this.agregar_o_modificar = event.target.value;
     if (this.agregar_o_modificar == "nuevo") {
       this.clean_Agregar();
+      this.get_nuevo_Fdonacion();
       //this.get_nuevo_Fdonacion();
     }
     else if (this.agregar_o_modificar == "modificar") {
       //this.modificar_fdonante();
-
     }
   }
 
-  //Obtener nuevo Lider
   get_nuevo_Fdonacion() {
     var response = this.http.get(this.url + "ultimoFormaDonacion");
     response.subscribe((resultado: number) => {
@@ -219,15 +230,21 @@ export class AportacionDonanteComponent implements OnInit {
         console.log("Error", error)
       });
   }
-
-  //List Lider
   get_Fdonacion() {
-    var response = this.http.get(this.url + "FormaDonacion/");
+    var response = this.http.get(this.url + "Aportacion/");
     response.subscribe((data: any[]) => {
       this.arrayFdonacion = data;
+      console.log(this.arrayFdonacion);
     },
       error => {
         console.log("Error", error)
       });
+  }
+
+  cancelar(){
+    this.clean_Agregar();
+    this.clean_Buscar();
+    this.get_nuevo_Fdonacion();
+    this.get_Fdonacion();
   }
 }

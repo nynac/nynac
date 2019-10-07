@@ -202,37 +202,31 @@
                 Guardar
             </button>
             </div>
-            <div class="col-2">
-                <button class="btn btn-secondary" style="width:100%; height: 50px;" type="reset"
-                    (click)="clean_Agregar()">Cancelar</button>
-            </div>
+            
     </div>
 </form>
 <div class="container border rounded">
         <div class="row" style="margin: 15px 15px 0px 0px">
             <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-                <label class="font-weight-bold">EVENTO: </label>
+                <label class="font-weight-bold">Aportacion: </label>
             </div>
             <div class="col-12">
                 <form>
                     <table class="table text-center table-bordered table-sm rounded">
                         <thead style="background-color: #00AAE7; color: white;">
                             <tr>
-                                <th scope="col">ID Donante</th>
-                                <th scope="col">tipodonacion</th>
-                                <th scope="col">monto</th>
-                                <th scope="col">banco</th>
-                                <th scope="col">estatus</th>
-                                <th scope="col">primerpago</th>
-                                <th scope="col">frecuencia</th>
-                                <th scope="col">observacion</th>
+                                <th scope="col">Tipodonacion</th>
+                                <th scope="col">Monto</th>
+                                <th scope="col">Banco</th>
+                                <th scope="col">Estatus</th>
+                                <th scope="col">Primerpago</th>
+                                <th scope="col">Frecuencia</th>
+                                <th scope="col">Observacion</th>
                                 <th scope="col">Opción</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let fdonacion of arrayFdonacion; let i=index">
-    
-                                <th scope="row">{{fdonacion.donacionID}}</th>
                                 <td>{{fdonacion.tipodonacion}}</td>
                                 <td>{{fdonacion.monto}}</td>
                                 <td>{{fdonacion.banco}}</td>

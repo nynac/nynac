@@ -123,7 +123,7 @@ buscar_direccion() {
       this.form_agregar.get('cp1').setValue(this.resultado.cp1);
       this.form_agregar.get('pais1').setValue(this.resultado.pais1);
       this.form_agregar.get('estado1').setValue(this.resultado.estado1);
-      this.form_agregar.get('municipio2').setValue(this.resultado.municipio2);
+      this.form_agregar.get('municipio1').setValue(this.resultado.municipio1);
       this.form_agregar.get('tipodireccion2').setValue(this.resultado.tipodireccion2);
       this.form_agregar.get('calle2').setValue(this.resultado.calle2);
       this.form_agregar.get('noexterior2').setValue(this.resultado.noexterior2);
