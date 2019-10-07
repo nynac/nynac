@@ -1,53 +1,96 @@
 <navbar-donante></navbar-donante>
 <br>
-<p>Agenda</p>
-<div class="row" style="margin: 15px 15px 0px 0px">
-    <div class="col-12 text-left "  style="margin: 0px 0px 0px 0px;">
-        <label class="font-weight-bold">Resultados</label>
-    </div>
-    <div class="col-12">
-        <form action="">
-            <table class="table text-center table-bordered table-sm rounded">
-                <thead style="background-color: #00AAE7; color: white;">
-                    <tr>
-                        <th scope="col">No. donante</th>
-                        <th scope="col">Nombre (s)</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">F. Nacimiento</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+<div class="container border rounded">
+    <p class="font-weight-bold">Agenda</p>
+    <form [formGroup]="form_buscar" (ngSubmit)="buscar_agenda()">
+        <div class="row" style="margin: 15px 0px 0px 0px">
+            <div class="col-2 text-right font-weight-bold">
+                <span>Opción:</span>
+            </div>
+            <div class="col-5">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input id="donacion_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion"
+                        value="nuevo" (change)="radioChange($event)">
+                    <label class="custom-control-label" for="donacion_Nuevo">Nuevo</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input id="donacion_Modificar" type="radio" class="custom-control-input" name="donacion_opcion"
+                        value="modificar" (change)="radioChange($event)">
+                    <label class="custom-control-label" for="donacion_Modificar">Modificar</label>
+                </div>
+            </div>
+            <div class="input-group input-group-sm mb-3 col-3 aling-right">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">ID Donante:</span>
+                </div>
+                <input type="number" formControlName="buscarID" class="form-control"
+                    [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
+            </div>
+            <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
+                <button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="donacion_btn_buscar"
+                    [disabled]="true">
+                    <span id="spinner_buscar_donacion" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true" hidden></span>
+                    Buscar</button>
+            </div>
+        </div>
+    </form>
 
-                        <th scope="row">1</th>
-                        <td>Cristian Nicolas</td>
-                        <td>Hernandez Hernandez</td>
-                        <td>02/07/96</td>
-                        <td>6644860637</td>
-                        <td>
-                            <button id="BUSQ_btn_buscar" type="button" class="btn btn-info btn-sm">Modificar</button>
-                            <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                        background-color: rgb(224, 8, 8); " type="button"
-                                    class="btn btn-info btn-sm">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Victor Angel</td>
-                        <td>Sanchez Calderon</td>
-                        <td>05/07/96</td>
-                        <td>6641112225</td>
-                        <td>
-                            <button id="BUSQ_btn_buscar" type="button" class="btn btn-info btn-sm">Modificar</button>
-                            <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                        background-color: rgb(224, 8, 8); " type="button"
-                                    class="btn btn-info btn-sm">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
+    <form [formGroup]="form_agregar" (ngSubmit)="opcion_donante()">
+        <!-- INICIO ROW #1 -->
+        <div class="dropdown-divider"></div>
+        <div class="row" style="margin: 15px 0px 0px 15px">
+            <div class="col-12 font-weight-bold">
+                <span>Datos Agenda</span>
+            </div>
+            <div class="col-4 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">ID Agenda:</span>
+                <input type="number" formControlName="agendaID" class="form-control" placeholder="ID Donante" readonly
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.agendaID.errors }">
+            </div>
+            <div class="col-4 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">titulo:</span>
+                <input type="text" formControlName="titulo" class="form-control" placeholder="titulo"
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.titulo.errors }">
+            </div> 
+            <div class="col-3 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Email:</span>
+                <input type="text" formControlName="descripcion" class="form-control" placeholder="descripcion"
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.descripcion.errors }">
+            </div>
+
+            <div class="col-3 input-group input-group-sm mb-3">
+
+                <label for="tiempo" style="margin-right: 10px">tiempo</label>
+                <select formControlName="tiempo" class="custom-select"
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.tiempo.errors }">
+                    <option value="tiempo">tiempo</option>
+                </select>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="row" style="margin: 0px 0px 15px 15px">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col-6">
+                    <button name="donacion_btn_guardar" class="btn btn-primary mr-1" style="width:100%; height: 50px;"
+                        type="submit">
+                        <span id="spinner_agregar_donacion" class="spinner-border spinner-border-sm" role="status"
+                            aria-hidden="true" hidden></span>
+                        Guardar
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-secondary" style="width:100%; height: 50px;" type="reset"
+                        (click)="clean_Agregar()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div>
+        <button (click)="updateEvents()">Agregar evento </button>
+        <full-calendar defaultView="dayGridMonth" [editable]="true" [plugins]="calendarPlugins"
+            [header]="options.header" [customButtons]="options.customButtons" (eventDragStop)="eventDragStop($event)"
+            (eventClick)="eventClick($event)" (dateClick)="dateClick($event)" [events]="eventsModel"></full-calendar>
     </div>
 </div>
+
