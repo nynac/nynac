@@ -1,39 +1,4 @@
-<div style="margin: 0px 30px 0px 15px;" class="text-center">
-	<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
-</div>
-<form [formGroup] = "form_buscar" (ngSubmit)="busq_Form()">
-	<div class="row" style="margin: 15px 0px 0px 0px">
-		<div class="col-2 text-right font-weight-bold" >
-			<span>QUÉ VAS A HACER?</span>
-		</div>
-		<div class="col-5">
-			<div class="custom-control custom-radio custom-control-inline">
-				<input id="DG_Nuevo" type="radio" class="custom-control-input" name="DG_opcion" value="nuevo" (change)="radioChange($event)" [checked] = "true">
-				<label class="custom-control-label" for="DG_Nuevo">Nuevo</label>
-			</div>
-			<div class="custom-control custom-radio custom-control-inline">
-				<input id="DG_Modificar" type="radio" class="custom-control-input" name="DG_opcion" value="modificar" (change)="radioChange($event)">
-				<label class="custom-control-label" for="DG_Modificar">Modificar</label>
-			</div>
-		</div>
-		<div class="input-group input-group-sm mb-3 col-3 aling-right">
-			<div class="input-group-prepend">
-				<span class="input-group-text">No. Miembro:</span>
-			</div>
-			<input type="number" formControlName="miembroID"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
-		</div>
-		<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar" [disabled] = "true">
-				<span id="spinner_buscar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
-				Buscar
-			</button>
-		</div> 
-	</div>
-</form>
-
-<div class="dropdown-divider"></div>
-
-<form [formGroup]="form_guardar" (ngSubmit)="guardar_incidencia()">
+<form [formGroup]="form_guardar" (ngSubmit)="obtener_ultima_incidencia()">
 	<div class=" col-12">
 		<span class="font-weight-bold">Datos del niño (a): </span><br>
 	</div>
@@ -41,7 +6,7 @@
 		<div class="col-1 form-group input-group-sm mb-3 text-center">
 			<label for="miembroID" style="padding: 0px;">#</label>
 			<input type="text" id="miembroID" formControlName="miembroID" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" style="margin-top: -10px;"  (input)="buscar_nombres($event.target.value)">
+			[ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" style="margin-top: -10px;"  (input)="obtener_datos($event.target.value, 'datos_nino_incidencia')" autocomplete="off" autofocus="true">
 		</div>
 		<div class="col-2 form-group input-group-sm mb-3">
 			<label for="nombres" style="padding: 0px;">Nombres (s).</label>
@@ -61,7 +26,7 @@
 		<div class="col-1 form-group input-group-sm mb-3">
 			<label for="grupo" style="padding: 0px;">Grupo</label>
 			<input type="text" id="grupo" formControlName="grupo" class="form-control"
-			[ngClass]="{ 'is-invalid': submitted2 && f2.grupo.errors }" style="margin-top: -10px;">
+			[ngClass]="{ 'is-invalid': submitted2 && f2.grupo.errors }" style="margin-top: -10px;" autocomplete="off">
 		</div>
 		<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
 			<label for="con_hermanos_primos" style="padding: 0px;">Con hermanos o primos</label>
@@ -90,27 +55,27 @@
 	<div class="col-1 form-group input-group-sm mb-3 text-center">
 		<label for="quien_detecto" style="padding: 0px;">#</label>
 		<input type="text" id="quien_detecto" formControlName="quien_detecto" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.quien_detecto.errors }" style="margin-top: -10px;"  (input)="buscar_nombres_instructor($event.target.value)">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.quien_detecto.errors }" style="margin-top: -10px;"  (input)="obtener_datos($event.target.value, 'datos_instructor_incidencia')" autocomplete="off">
 	</div>
 	<div class="col-2 form-group input-group-sm mb-3">
-		<label for="nombres_guia" style="padding: 0px;">Nombres (s).</label>
-		<input type="text" id="nombres_guia" formControlName="nombres_guia" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nombres_guia.errors }" style="margin-top: -10px;" readonly>
+		<label for="nombre" style="padding: 0px;">Nombres (s).</label>
+		<input type="text" id="nombre" formControlName="nombre" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nombre.errors }" style="margin-top: -10px;" readonly>
 	</div>
 	<div class="col-2 form-group input-group-sm mb-3">
-		<label for="appaterno_guia" style="padding: 0px;">Apellido Paterno </label>
-		<input type="text" id="appaterno_guia" formControlName="appaterno_guia" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.appaterno_guia.errors }" style="margin-top: -10px;" readonly>
+		<label for="ap_paterno" style="padding: 0px;">Apellido Paterno </label>
+		<input type="text" id="ap_paterno" formControlName="ap_paterno" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.ap_paterno.errors }" style="margin-top: -10px;" readonly>
 	</div>
 	<div class="col-2 form-group input-group-sm mb-3">
-		<label for="apmaterno_guia" style="padding: 0px;">Apellido Materno</label>
-		<input type="text" id="apmaterno_guia" formControlName="apmaterno_guia" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.apmaterno_guia.errors }" style="margin-top: -10px;" readonly>
+		<label for="ap_materno" style="padding: 0px;">Apellido Materno</label>
+		<input type="text" id="ap_materno" formControlName="ap_materno" class="form-control"
+		[ngClass]="{ 'is-invalid': submitted2 && f2.ap_materno.errors }" style="margin-top: -10px;" readonly>
 	</div>
 	<div class="col-5 form-group input-group-sm mb-3">
 		<label for="area_actividad" style="padding: 0px;">¿Cuál?</label>
 		<input type="text" id="area_actividad" formControlName="area_actividad" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.area_actividad.errors }" style="margin-top: -10px;">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.area_actividad.errors }" style="margin-top: -10px;" autocomplete="off">
 	</div>
 </div>	
 <div class="dropdown-divider"></div>
@@ -132,7 +97,7 @@
 <div class="col-8 form-group input-group-sm mb-3" style="font-size: 14px;">
 	<label for="descripcion" style="padding: 0px;">Descripción</label>
 	<textarea class="form-control" formControlName="descripcion"
-	[ngClass]="{ 'is-invalid': submitted2 && f2.descripcion.errors }" id="descripcion" style="margin-top: -10px;"></textarea>
+	[ngClass]="{ 'is-invalid': submitted2 && f2.descripcion.errors }" id="descripcion" style="margin-top: -10px;" maxlength="390"></textarea>
 </div>
 </div>	
 <div class="dropdown-divider"></div>
@@ -143,12 +108,12 @@
 	<div class="col-5 form-group input-group-sm mb-3">
 		<label for="canaliza" style="padding: 0px;">Canaliza a</label>
 		<input type="text" id="canaliza" formControlName="canaliza" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.canaliza.errors }" style="margin-top: -10px;">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.canaliza.errors }" style="margin-top: -10px;" autocomplete="off">
 	</div>
 	<div class="col-5 form-group input-group-sm mb-3">
 		<label for="solucion" style="padding: 0px;">Solución</label>
 		<input type="text" id="solucion" formControlName="solucion" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.solucion.errors }" style="margin-top: -10px;">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.solucion.errors }" style="margin-top: -10px;" autocomplete="off">
 	</div>
 	<div class="col-2">
 		<button name="inc_btn_guardar" class="btn btn-club btn-sm" style="width:100%; height: 50px;" type="submit">

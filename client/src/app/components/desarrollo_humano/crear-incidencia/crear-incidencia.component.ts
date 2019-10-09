@@ -38,23 +38,23 @@ export class CrearIncidenciaComponent implements OnInit {
 		})
 
 		this.form_guardar = this.formBuilder.group({
-			no_incidencia:[''],
-			quien_detecto	 : [''],
+			no_incidencia:['', ],
+			quien_detecto	 : ['', Validators.required],
 			area_actividad : [''],
-			miembroID : [''], //del niño
-			fecha_incidencia : [''],
+			miembroID : ['', Validators.required], //del niño
+			fecha_incidencia : ['', Validators.required],
 			grupo : [''],
 			con_hermanos_primos : [''],
-			conducta_problema : [''],
-			descripcion : [''],
+			conducta_problema : ['', Validators.required],
+			descripcion : ['', Validators.required],
 			canaliza : [''],
 			solucion : [''],
-			nombres: [''],
+			nombres: ['', Validators.required],
 			appaterno: [''],
 			apmaterno: [''],
-			nombres_guia: [''],
-			appaterno_guia: [''],
-			apmaterno_guia: ['']
+			nombre: ['', Validators.required], //nombre del instructor
+			ap_paterno: [''], // apellido p del instructor
+			ap_materno: [''] // apellido m del instructor
 		});
 	}
 
@@ -64,38 +64,16 @@ export class CrearIncidenciaComponent implements OnInit {
 		this.form_guardar.reset();
 	}
 
-	buscar_nombres(miembroID: string): void {
+	obtener_datos(miembroID: string, controlador : string): void {
 		if (miembroID == "") 
 			return;
 
-		var response = this.http.get(this.url + "datos_nino_incidencia?id=" + miembroID);
+		var response = this.http.get(this.url + controlador+ "?id=" + miembroID);
 		response.subscribe((resultado : any)=> {
-			if (resultado == null) {
-				this.form_guardar.reset();
-			}
-			this.form_guardar.get('nombres').setValue(resultado["nombres"]);
-			this.form_guardar.get('appaterno').setValue(resultado["appaterno"]);
-			this.form_guardar.get('apmaterno').setValue(resultado["apmaterno"]);
+			this.form_guardar.patchValue(resultado);
 		},
 		error =>{
-			
-		});
-	}
-	buscar_nombres_instructor(miembroID: string): void {
-		if (miembroID == "") 
-			return;
-
-		var response = this.http.get(this.url + "datos_instructor_incidencia?id=" + miembroID);
-		response.subscribe((resultado : any)=> {
-			if (resultado == null) {
-				this.form_guardar.reset();
-			}
-			this.form_guardar.get('nombres_guia').setValue(resultado["nombre"]);
-			this.form_guardar.get('appaterno_guia').setValue(resultado["ap_paterno"]);
-			this.form_guardar.get('apmaterno_guia').setValue(resultado["ap_materno"]);
-		},
-		error =>{
-			
+			this.form_guardar.reset();
 		});
 	}
 
@@ -104,73 +82,46 @@ export class CrearIncidenciaComponent implements OnInit {
 		this.form_buscar.reset();
 	}
 
-	radioChange(event: any){
-
-		this.agregar_o_modificar = event.target.value;
-
-		var eleccion = document.getElementById("btn_buscar");
-
-		if (this.agregar_o_modificar == "nuevo"){
-			this.limpiar_form_buscar();
-
-			eleccion.setAttribute("disabled", "true");
-		}
-		else if(this.agregar_o_modificar == "modificar"){
-			eleccion.removeAttribute("disabled");
-			eleccion.setAttribute("enable", "true");
-
-			this.limpiar_form_buscar();
-		}
-	}
-
-	//Obtener nuevo miembro MÉTODO AUXILIAR
+	//Obtener nueva incidencia MÉTODO AUXILIAR
 	obtener_ultima_incidencia(){
-		var response = this.http.get(this.url + "ultimaincidencia");
-		response.subscribe((resultado : number)=> {
-			//Obtiene el último ID y incrementa el nuevo.
-			this.form_guardar.get('no_incidencia').setValue(resultado + 1);
-
-			//Registrará la nueva entrada
-			this.guardar_incidencia();
-		},
-		error =>{
-			console.log("Error", error)
-		});
-	}
-
-	guardar_incidencia(){
-		console.log(this.form_guardar.value);
-
-		if (this.form_guardar.invalid) {
-			console.log("Formato incorrecto del formulario");
+		if (this.form_guardar.invalid || this.guardando == true) {
+			this.submitted2 = true;
 			return;
 		}
-		else{
-			if(this.guardando == true)
-				return;
+		else {
+			var resp = confirm("¿Deseas continuar?");
+			if (resp) {
+				var response = this.http.get(this.url + "ultimaincidencia");
+				response.subscribe((resultado : number)=> {
+					//Obtiene el último ID y incrementa el nuevo.
+					this.form_guardar.get('no_incidencia').setValue(resultado + 1);
 
-			var r = confirm("¿Deseas continuar?");
-			if (r== false ) {
-				return;
-			}else{
-				this.form_guardar.disable();
-				this.guardando = true;
-
-				this.http.post(this.url + 'Incidencia1',this.form_guardar.value).subscribe(data  => {
-					this.form_guardar.enable();
-
-					window.scroll(0,0);
-					console.log("Se guardó")	
-					this.guardando = false;
+					//Registrará la nueva incidencia
+					this.guardar_incidencia();
+					this.submitted2 = false;
 				},
-				error  => {
-					this.form_guardar.enable();
-					window.scroll(0,0);
-					console.log("No se guardó")
-					console.log(error);
-					this.guardando = false;
+				error =>{
+					console.log("Error", error)
+					this.submitted2 = false;
 				});
 			}
 		}
 	}
+
+	guardar_incidencia(){
+		this.form_guardar.disable();
+		this.guardando = true;
+
+		this.http.post(this.url + 'Incidencia1',this.form_guardar.value).subscribe(data  => {
+			this.form_guardar.enable();
+			console.log("Se guardó")	
+		},
+		error  => {
+			this.form_guardar.enable();
+			console.log("No se guardó")
+		});
+		this.form_guardar.reset();
+		this.guardando = false;
+	}
+
 }
