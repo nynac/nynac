@@ -8,7 +8,7 @@
 		</div>
         <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
 			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="nota_btn_buscar" >
-				<span id="spinner_buscar_fdonante" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+				<span id="spinner_buscar_nota" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
 			Buscar</button>
 		</div> 
     </div>
@@ -20,12 +20,12 @@
                 <div class="col-5">
                     <div class="custom-control custom-radio custom-control-inline">
                         <input id="nota_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion" 
-                        value="nuevo" (change)="radioChange($event)" [checked] = "$agregar_o_modificar">
+                        value="nuevo" (change)="radioChange($event)" [checked] = "focus">
                         <label class="custom-control-label" for="nota_Nuevo">Nuevo</label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
                         <input id="nota_Modificar" type="radio" class="custom-control-input" name="donacion_opcion" value="modificar" 
-                        (change)="radioChange($event)" [checked] = "agregar_o_modificar">
+                        (change)="radioChange($event)" [checked] = "!focus">
                         <label class="custom-control-label" for="nota_Modificar" >Modificar</label>
                     </div>
                 </div>

@@ -20,6 +20,10 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
       donacion_Nuevo.setAttribute("checked", "True");
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
       this.buscar_donante();
+      if (this.focus==true){
+        this.focus=false;
+        this.agregar_o_modificar='modificar';
+      } 
     }
   }
 
@@ -38,6 +42,7 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
 
   //radio Option
   agregar_o_modificar: string = 'nuevo';
+  focus:boolean=true;
 
   //Formularios
   form_buscar: FormGroup;
@@ -156,11 +161,9 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
         return;
       }
       if (this.agregar_o_modificar == "nuevo") {
-        console.log("Creando ...");
         this.agregar_donante();
       }
       else if (this.agregar_o_modificar == "modificar") {
-        console.log("Modificando ...");
         this.modificar_donante();
       }
       else {
@@ -213,7 +216,7 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
   crear_tabla(tabla: string, columnaID: string, valorID: number) {
     var datos_aux = JSON.parse('{"' + columnaID + '":' + valorID + ', "donacionID":' + valorID + '}');
     this.http.post(this.url + tabla, datos_aux).subscribe(data => {
-      console.log("Se han guardado: " + tabla);
+      // console.log("Se han guardado: " + tabla);
     },
       error => {
         console.log("Error al guardar en la tabla: " + tabla, error);
@@ -223,13 +226,10 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
   modificar_donante() {
     var spinner_agregar_donacion = document.getElementById("spinner_agregar_donacion");
     spinner_agregar_donacion.removeAttribute("hidden");
-    console.log(this.form_agregar.value.campanaID);
 
     //Update mediante el id y los campos de agregar
     this.http.put(this.url + "Donacion/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
       spinner_agregar_donacion.setAttribute("hidden", "true");
-      
-    console.log(this.form_agregar.value.campanaID);
       alert("Donacion Modificado");
     },
       error => {
@@ -258,12 +258,13 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
       this.get_nuevo_donacion();
       this.clean_Buscar();
       this.clean_Agregar();
-
+      this.focus=true;
       donacion_btn_buscar.setAttribute("disabled", "true");
     }
     else if (this.agregar_o_modificar == "modificar") {
       this.clean_Buscar();
       this.clean_Agregar();
+      this.focus=false;
       donacion_btn_buscar.removeAttribute("disabled");
       donacion_btn_buscar.setAttribute("enable", "true");
 
@@ -274,7 +275,6 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     var response = this.http.get(this.url + "Lider/");
     response.subscribe((data: any[]) => {
     this.arrayLideres = data;  
-    console.log(data);  
     },
       error => {
         console.log("Error", error)
@@ -284,7 +284,6 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     var response = this.http.get(this.url + "Campana/");
     response.subscribe((data: any[]) => {
     this.arrayCampanas = (data);   
-    console.log(this.arrayCampanas);   
     },
       error => {
         console.log("Error", error)
@@ -294,7 +293,6 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     var response = this.http.get(this.url + "Eventoe/");
     response.subscribe((data: any[]) => {
     this.arrayEventos = (data);    
-    console.log(this.arrayEventos); 
     },
       error => {
         console.log("Error", error)

@@ -19,11 +19,13 @@
                 </div>
                 <div class="col-5">
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input id="fdonacion_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion" value="nuevo" (change)="radioChange($event)" [checked] = "true">
+                        <input id="fdonacion_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion" 
+                        value="nuevo" (change)="radioChange($event)" [checked] = "focus">
                         <label class="custom-control-label" for="fdonacion_Nuevo">Nuevo</label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input id="fdonacion_Modificar" type="radio" class="custom-control-input" name="donacion_opcion" value="modificar" (change)="radioChange($event)">
+                        <input id="fdonacion_Modificar" type="radio" class="custom-control-input" name="donacion_opcion" 
+                        value="modificar" (change)="radioChange($event)" [checked] = "!focus">
                         <label class="custom-control-label" for="fdonacion_Modificar">Modificar</label>
                     </div>
                 </div>
@@ -215,6 +217,7 @@
                     <table class="table text-center table-bordered table-sm rounded">
                         <thead style="background-color: #00AAE7; color: white;">
                             <tr>
+                                <th scope="col">ID</th>
                                 <th scope="col">Tipodonacion</th>
                                 <th scope="col">Monto</th>
                                 <th scope="col">Banco</th>
@@ -227,6 +230,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let fdonacion of arrayFdonacion; let i=index">
+                                <td>{{fdonacion.formadonacionID}}</td>
                                 <td>{{fdonacion.tipodonacion}}</td>
                                 <td>{{fdonacion.monto}}</td>
                                 <td>{{fdonacion.banco}}</td>

@@ -14,7 +14,6 @@ export class ContenedorDonanteComponent implements OnInit {
   }
 
   asignacion_valor_donante($event){
-    console.log('Cambiamos elvalor...');
 		this.gl_donante=$event;
   }
 

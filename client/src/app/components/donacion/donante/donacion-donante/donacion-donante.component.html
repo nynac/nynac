@@ -6,12 +6,12 @@
 		<div class="col-5">
 			<div class="custom-control custom-radio custom-control-inline">
 				<input id="donacion_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion"
-					value="nuevo" (change)="radioChange($event)">
+					value="nuevo" (change)="radioChange($event)" [checked] = "focus">
 				<label class="custom-control-label" for="donacion_Nuevo">Nuevo</label>
 			</div>
 			<div class="custom-control custom-radio custom-control-inline">
 				<input id="donacion_Modificar" type="radio" class="custom-control-input" name="donacion_opcion"
-					value="modificar" (change)="radioChange($event)">
+					value="modificar" (change)="radioChange($event)" [checked] = "!focus">
 				<label class="custom-control-label" for="donacion_Modificar">Modificar</label>
 			</div>
 		</div>

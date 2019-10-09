@@ -16,9 +16,18 @@ export class NotaDonanteComponent implements OnInit, OnChanges {
   
   ngOnChanges(changes: SimpleChanges) {
     if (this.form_buscar !== undefined) {
+        //Spiner
+  var spinner_buscar_nota = document.getElementById("spinner_buscar_nota");
+  spinner_buscar_nota.removeAttribute("hidden");
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
       this.form_agregar.get('donacionID').setValue(this.gl_donante);
-      this.get_nota();      
+      this.get_nota();   
+      if (this.focus==true){
+        this.focus=false;
+        this.agregar_o_modificar='modificar';
+      }   
+      
+    spinner_buscar_nota.setAttribute("hidden", "true");
     }
   }
   
@@ -37,7 +46,8 @@ cambiar_valor_Padre(){
   arreglo: any;
 
   //radio Option
-  agregar_o_modificar: string = 'nuevo';
+  agregar_o_modificar: string = 'modificar';
+  focus:boolean=false;
 
 //Formularios
 form_buscar : FormGroup;
@@ -52,7 +62,6 @@ url = "https://api-remota.conveyor.cloud/api/";
 constructor(private http : HttpClient, private formBuilder: FormBuilder) { }
 
 ngOnInit() {
-  this.get_nuevo_nota();
 //Se rellena los campos al formulario 
 //buscar
 this.form_buscar = this.formBuilder.group({
@@ -74,13 +83,10 @@ this.form_agregar = this.formBuilder.group({
 get f_B() {
 return this.form_buscar.controls;
 }
-
 //controls Agregar
 get f_A() {
 return this.form_agregar.controls;
 }
-
-
 opcion_nota() {
   this.submit_agregar = true;
   if (this.form_agregar.invalid) {
@@ -127,7 +133,6 @@ buscar_nota(id: any) {
 }
 
 agregar_nota() {
-  console.log("metodo agregar");
   this.get_nuevo_nota();
   //Spiner
   var spinner_agregar_nota = document.getElementById("spinner_agregar_nota");
@@ -153,7 +158,6 @@ this.clean_Agregar();
 }
 
 modificar_nota() {
-  console.log("metodo modificar")
   this.form_agregar.get('programar').setValue(this.fecha1);
   var spinner_agregar_nota = document.getElementById("spinner_agregar_nota");
   spinner_agregar_nota.removeAttribute("hidden");
@@ -182,15 +186,16 @@ this.form_agregar.reset();
 }
 
 radioChange(event: any){
-  this.agregar_o_modificar = event.target.value;
-
+  this.agregar_o_modificar = event.target.value; 
   if (this.agregar_o_modificar == "nuevo"){
     this.clean_Agregar();
     this.get_nuevo_nota();
     this.form_agregar.get('donacionID').setValue(this.gl_donante);
+    this.focus=true;
   }
   else if(this.agregar_o_modificar == "modificar"){ 
     this.clean_Agregar();   
+    this.focus=false;
     this.form_agregar.get('donacionID').setValue(this.gl_donante);
   }
 }
@@ -209,7 +214,6 @@ get_nota(){
   var response = this.http.get(this.url + "Nota/notaespecifica?id="+this.form_buscar.value.buscarID);
   response.subscribe((data: any[]) => {
     this.arraynota = data;
-    console.log(this.arraynota);
   },
     error => {
       console.log("Error", error)

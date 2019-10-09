@@ -20,6 +20,10 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
       this.form_agregar.get('donacionID').setValue(this.gl_donante);
       this.get_Fdonacion();
+      if (this.focus==true){
+        this.focus=false;
+        this.agregar_o_modificar='modificar';
+      } 
 
     }
   }
@@ -33,7 +37,7 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
   //busqueda
   resultado: any;
   arrayFdonacion: any;
-  miembro: any;
+  miembro: any; 
   //fechas
   fecha1: any;
   fecha2: any;
@@ -41,8 +45,9 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
   //Tabla
   arreglo: any;
 
-  //radio Option
-  agregar_o_modificar: string = 'nuevo';
+  //radio Option 
+  agregar_o_modificar: string = 'modificar';
+  focus:boolean=false;
 
   //Formularios
   form_buscar: FormGroup;
@@ -55,7 +60,6 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
   url = "https://api-remota.conveyor.cloud/api/";
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {
-    this.get_nuevo_Fdonacion();
   }
 
   ngOnInit() {
@@ -211,17 +215,18 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
     this.form_agregar.reset();
     this.form_buscar.get('buscarID').setValue(this.gl_donante);
     this.form_agregar.get('donacionID').setValue(this.gl_donante);
-    this.get_nuevo_Fdonacion();
   }
 
   radioChange(event: any) {
     this.agregar_o_modificar = event.target.value;
     if (this.agregar_o_modificar == "nuevo") {
       this.clean_Agregar();
-      //this.get_nuevo_Fdonacion();
+      this.get_nuevo_Fdonacion();
+      this.focus=true;
     }
     else if (this.agregar_o_modificar == "modificar") {
-      //this.modificar_fdonante();
+      this.clean_Agregar();
+      this.focus=false;
 
     }
   }
@@ -242,7 +247,6 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
     var response = this.http.get(this.url + "FormaDonacion/EspecificaID?id="+this.form_buscar.value.buscarID);
     response.subscribe((data: any[]) => {
       this.arrayFdonacion = data;
-      console.log(this.arrayFdonacion);
     },
       error => {
         console.log("Error", error)
