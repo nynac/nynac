@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { OptionsInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,13 +15,9 @@ export class AgendaComponent implements OnInit {
   calendarPlugins = [dayGridPlugin, interactionPlugin]; // important!
   options: OptionsInput;
   eventsModel: any;
-
   //busqueda
   resultado: any;
-  arrayLideres: any;
-  arrayCampanas: any;
-  arrayEventos: any;
-  miembro: any;
+  colors:string='';
   //fechas 
   fecha1: any;
   fecha2: any;
@@ -42,23 +38,14 @@ export class AgendaComponent implements OnInit {
   url = "https://api-remota.conveyor.cloud/api/";
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) { }
+  public color1: string = '#00AAE7';
+  constructor(private http: HttpClient, private formBuilder: FormBuilder,) { }
   ngOnInit() {
     this.options = {
-      //boton extra
-      customButtons: {
-        myCustomButton: {
-          text: 'custom!',
-          click: function () {
-            alert('clicked the custom button!');
-          }
-        }
-      },
       //configuracion estructura header
       header: {
-        left: 'prev,next today myCustomButton',
+        left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth'
       },
     };
     
@@ -72,21 +59,55 @@ export class AgendaComponent implements OnInit {
     this.form_agregar = this.formBuilder.group({
      agendaID:[''],
      titulo:[''],
-     descripcion:[''],
      fechainicio:[''],
      fechaterminacion:[''],
      ubicacion:[''],
      email:[''],
-     tiempo:[''],
-     personal:['']
+     usuarioID:[''],
+     color:[''],
     })
 
   }
 
-  buscar_agenda(){}
+  public onEventLog( data: any): void {
+    this.colors=data;    
+    console.log(this.colors);
+  }
 
-  opcion_donante(){}
+  buscar_agenda(){
+    
+  }
 
+  opcion_donante(){
+    this.submit_agregar = true;
+    if (this.form_agregar.invalid) {
+      return;
+    }
+    else {
+      var r = confirm("¿Esta seguro que desea " + this.agregar_o_modificar + " Campaña?");
+      if (r == false) {
+        return;
+      }
+      if (this.agregar_o_modificar == "nuevo") {
+        console.log("Creando ...");
+        this.agregar_agenda();
+      }
+      else if (this.agregar_o_modificar == "modificar") {
+        console.log("Modificando ...");
+        this.modificar_agenda();
+      }
+      else {
+        console.log("se fue a ninguno")
+      }
+    }
+  }
+
+  agregar_agenda(){
+
+  }
+  modificar_agenda(){
+
+  }
   //clic en evento (azul)
   eventClick(model) {
     console.log(model);
@@ -108,7 +129,14 @@ export class AgendaComponent implements OnInit {
       title: 'Updaten Event',
       start: this.yearMonth + '-08',
       //tomas 1 dia mas del asignado (si es el dia 10 = 11)
-      end: this.yearMonth + '-11'
+      end: this.yearMonth + '-11',
+      descripcion: 'Hola que esta ',
+      color: 'rgba(68,160,145,0.45)',
+    },{
+      title: 'other',
+      start: this.yearMonth + '-08',
+      //tomas 1 dia mas del asignado (si es el dia 10 = 11)
+      end: this.yearMonth + '-15',
     }];
     console.log(this.eventsModel);
   }
@@ -117,6 +145,30 @@ export class AgendaComponent implements OnInit {
   get yearMonth(): string {
     const dateObj = new Date();
     return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1);
+  }
+
+  radioChange(event: any) {
+    this.agregar_o_modificar = event.target.value;
+    var agenda_btn_buscar = document.getElementById("agenda_btn_buscar");
+
+    if (this.agregar_o_modificar == "nuevo") {
+      // this.get_nuevo_agenda();
+      this.clean_Agregar();
+      agenda_btn_buscar.setAttribute("disabled", "true");
+    }
+    else if (this.agregar_o_modificar == "modificar") {
+      this.clean_Agregar();
+      agenda_btn_buscar.removeAttribute("disabled");
+      agenda_btn_buscar.setAttribute("enable", "true");
+
+    }
+  }
+  
+
+  //reset agregar
+  clean_Agregar() {
+    this.submit_agregar = false;
+    this.form_agregar.reset();
   }
   
 }

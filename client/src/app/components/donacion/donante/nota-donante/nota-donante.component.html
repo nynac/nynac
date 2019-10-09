@@ -19,12 +19,14 @@
                 </div>
                 <div class="col-5">
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input id="nota_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion" value="nuevo" (change)="radioChange($event)" [checked] = "true">
+                        <input id="nota_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion" 
+                        value="nuevo" (change)="radioChange($event)" [checked] = "$agregar_o_modificar">
                         <label class="custom-control-label" for="nota_Nuevo">Nuevo</label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input id="nota_Modificar" type="radio" class="custom-control-input" name="donacion_opcion" value="modificar" (change)="radioChange($event)">
-                        <label class="custom-control-label" for="nota_Modificar">Modificar</label>
+                        <input id="nota_Modificar" type="radio" class="custom-control-input" name="donacion_opcion" value="modificar" 
+                        (change)="radioChange($event)" [checked] = "agregar_o_modificar">
+                        <label class="custom-control-label" for="nota_Modificar" >Modificar</label>
                     </div>
                 </div>
     </div>

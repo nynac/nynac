@@ -197,7 +197,6 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
       this.crear_tabla("Telefonodonante", "telefonoID", this.form_agregar.value.donacionID);
       this.crear_tabla("DireccionDonante", "direcciondonanteID", this.form_agregar.value.donacionID);
       this.crear_tabla("Contacto", "contactoID", this.form_agregar.value.donacionID);
-      this.crear_tabla("NotasDonantes", "notaID", this.form_agregar.value.donacionID);
       this.crear_tabla("DFiscal", "datosfiscalesID", this.form_agregar.value.donacionID);
       alert("Se a registrado los Datos del Donante correctamente.\n ID: " + this.form_agregar.value.donacionID);
       this.form_buscar.get('buscarID').setValue(this.form_agregar.value.donacionID);

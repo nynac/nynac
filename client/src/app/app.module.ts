@@ -11,8 +11,9 @@ import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import {WebcamModule} from 'ngx-webcam';
 
-
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ColorPickerModule } from 'ngx-color-picker';
+
 import { NavbarComponent } from './components/recepcion/navbar/navbar.component';
 
 /*COMPONENTES DEL NIÑO*/
@@ -122,6 +123,7 @@ const appRoutes: Routes = [
     NgbModule,
     WebcamModule,
     FullCalendarModule,
+    ColorPickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
