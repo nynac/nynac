@@ -10,7 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LiderCatalogoComponent implements OnInit {
   //busqueda
   resultado: any;
-  
+  arrayLideres: any;
+
   //radio Option
   agregar_o_modificar: string = 'nuevo';
 
@@ -24,7 +25,10 @@ export class LiderCatalogoComponent implements OnInit {
 
   url = "https://api-remota.conveyor.cloud/api/";
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) { }
+  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+    this.get_nuevo_lider();
+    this.get_Liders();
+  }
 
   ngOnInit() {
     //Se rellena los campos al formulario 
@@ -53,7 +57,6 @@ export class LiderCatalogoComponent implements OnInit {
   buscar_lider() {
     //spinner
     var spinner_buscar = document.getElementById("spinner_buscar");
-
     this.submit_buscar = true;
     if (this.form_buscar.invalid) {
       return;
@@ -65,7 +68,7 @@ export class LiderCatalogoComponent implements OnInit {
       var response = this.http.get(this.url + "Lider/" + this.form_buscar.value.buscarID);
       response.subscribe((data: any[]) => {
         this.resultado = data;
-      
+
         this.form_agregar.get('liderID').setValue(this.resultado.liderID);
         this.form_agregar.get('descripcion').setValue(this.resultado.descripcion);
         spinner_buscar.setAttribute("hidden", "true");
@@ -100,6 +103,27 @@ export class LiderCatalogoComponent implements OnInit {
     }
   }
 
+  //Obtener nuevo Lider
+  get_nuevo_lider() {
+    var response = this.http.get(this.url + "ultimoLider");
+    response.subscribe((resultado: number) => {
+      this.form_agregar.get('liderID').setValue(resultado + 1);
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
+  //List Lider
+  get_Liders() {
+    var response = this.http.get(this.url + "Lider/");
+    response.subscribe((data: any[]) => {
+      this.arrayLideres = data;
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
+
   agregar_lider() {
     //Spiner
     var spinner_agregar = document.getElementById("spinner_agregar");
@@ -108,13 +132,15 @@ export class LiderCatalogoComponent implements OnInit {
       spinner_agregar.setAttribute("hidden", "true");
       alert("Lider Guardado");
       this.clean_Agregar();
+      this.get_nuevo_lider();
+      this.get_Liders();
     },
       error => {
         spinner_agregar.setAttribute("hidden", "true");
         console.log("Error", error);
       });
   }
-  
+
   modificar_lider() {
     var spinner_agregar = document.getElementById("spinner_agregar");
     spinner_agregar.removeAttribute("hidden");
@@ -123,8 +149,7 @@ export class LiderCatalogoComponent implements OnInit {
     this.http.put(this.url + "Lider/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
       spinner_agregar.setAttribute("hidden", "true");
       alert("Evento Modificado");
-      this.clean_Agregar();
-      this.clean_Buscar();
+      this.get_Liders();
     },
       error => {
         spinner_agregar.setAttribute("hidden", "true");
@@ -152,6 +177,7 @@ export class LiderCatalogoComponent implements OnInit {
     if (this.agregar_o_modificar == "nuevo") {
       this.clean_Buscar();
       this.clean_Agregar();
+      this.get_nuevo_lider();
 
       lider_btn_buscar.setAttribute("disabled", "true");
     }
@@ -164,4 +190,21 @@ export class LiderCatalogoComponent implements OnInit {
     }
   }
 
+  eliminar_lider(id: any) {
+    var r = confirm("¿Esta seguro que desea eliminar el Lider: "+id+" ?");
+    if (r == false) {
+      return;
+    }
+    else {
+      var response = this.http.delete(this.url + "Lider/" + id);
+      response.subscribe((data: any[]) => {
+        alert("Se a eliminado el Lider: " + id);
+        this.get_Liders();
+        this.get_nuevo_lider();
+      },
+        error => {
+          console.log("Error", error)
+        });
+    }
+  }
 }

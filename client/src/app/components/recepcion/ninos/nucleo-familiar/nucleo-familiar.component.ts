@@ -83,7 +83,7 @@ export class NucleoFamiliarComponent implements OnInit, OnChanges{
 			horabano: [''],
 		});
 	}
-
+	
 	ngOnChanges(changes: SimpleChanges){
 		if (this.global != undefined && this.global["Nino_NF"][0] != undefined) {
 			this.form_guardar.patchValue(this.global["Nino_NF"][0]);	

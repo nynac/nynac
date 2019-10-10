@@ -26,25 +26,31 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="donantes">
-                <donacion-donante></donacion-donante>
+                <donacion-donante 
+                [gl_donante]="gl_donante" 
+                (donante_variable)="asignacion_valor_donante($event)">
+            </donacion-donante>
             </div>
             <div class="tab-pane " id="Contacto">
-               <contacto-donante></contacto-donante>
+               <contacto-donante 
+               [gl_donante]="gl_donante" 
+               (donante_variable)="asignacion_valor_donante($event)">
+                </contacto-donante>
             </div>
             <div class="tab-pane" id="Telefono">
-                    <telefono-donante></telefono-donante>
+                    <telefono-donante [gl_donante]="gl_donante" (donante_variable)="asignacion_valor_donante($event)"></telefono-donante>
             </div>
             <div class="tab-pane" id="Forma">
-                    <forma-donante></forma-donante>
+                    <forma-donante [gl_donante]="gl_donante" (donante_variable)="asignacion_valor_donante($event)"></forma-donante>
             </div>
             <div class="tab-pane" id="Direccion">
-                    <direccion-donante></direccion-donante>
+                    <direccion-donante [gl_donante]="gl_donante" (donante_variable)="asignacion_valor_donante($event)"></direccion-donante>
             </div>
             <div class="tab-pane" id="Fiscales">
-                    <dfiscales-donante></dfiscales-donante>
+                    <dfiscales-donante [gl_donante]="gl_donante" (donante_variable)="asignacion_valor_donante($event)"></dfiscales-donante>
             </div>
             <div class="tab-pane" id="Nota">
-                    <nota-donante></nota-donante>
+                    <nota-donante [gl_donante]="gl_donante" (donante_variable)="asignacion_valor_donante($event)"></nota-donante>
             </div>
         </div>
     

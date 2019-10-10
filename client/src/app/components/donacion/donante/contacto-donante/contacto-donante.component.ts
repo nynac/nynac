@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,12 +10,26 @@ import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstr
   styleUrls: ['./contacto-donante.component.css'],
   providers: [{ provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }]
 })
-export class ContactoDonanteComponent implements OnInit {
+export class ContactoDonanteComponent implements OnInit, OnChanges {
+  @Input('gl_donante') gl_donante: any;
+  @Input() prop!: number;
+  
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.form_buscar !== undefined) {
+      this.form_buscar.get('buscarID').setValue(this.gl_donante);
+      this.buscar_contacto();
+    }
+  }
+  
+  @Output() donante_variable= new EventEmitter<number>();
+  
+//Cambio a padre
+cambiar_valor_Padre(){
+  this.donante_variable.emit(this.form_buscar.value.buscarID);
+}
+
   //busqueda
   resultado: any;
-  //fechas
-  fecha1: any;
-  fecha2: any;
   //Tabla
   arreglo: any;
 
@@ -58,7 +72,7 @@ export class ContactoDonanteComponent implements OnInit {
       estado1: ['', Validators.required],
       municipio1: ['', Validators.required],
       email1: ['', Validators.required],
-      fechanacimiento1: [this.fecha1],
+      fechanacimiento1: [''],
       telefono1: ['',],
       lada1: [''],
       observacion1: [''],
@@ -75,7 +89,7 @@ export class ContactoDonanteComponent implements OnInit {
       estado2: [''],
       municipio2: [''],
       email2: [''],
-      fechanacimiento2: [this.fecha2],
+      fechanacimiento2: [''],
       telefono2: [''],
       lada2: [''],
       observacion2: [''],
@@ -108,8 +122,8 @@ export class ContactoDonanteComponent implements OnInit {
         this.resultado = data;
         //transformar fecha formato
         var datePipe = new DatePipe("en-US");
-        this.resultado.fechanacimiento1 = datePipe.transform(this.resultado.fechanacimiento1, 'yyyy/MM/dd');
-        this.resultado.fechanacimiento2 = datePipe.transform(this.resultado.fechanacimiento2, 'yyyy/MM/dd');
+        this.resultado.fechanacimiento1 = datePipe.transform(this.resultado.fechanacimiento1, 'yyyy-MM-dd');
+        this.resultado.fechanacimiento2 = datePipe.transform(this.resultado.fechanacimiento2, 'yyyy-MM-dd');
         this.form_agregar.get('contactoID').setValue(this.resultado.contactoID);
         this.form_agregar.get('donacionID').setValue(this.resultado.donacionID);
         this.form_agregar.get('nombre1').setValue(this.resultado.nombre1);
@@ -155,24 +169,19 @@ export class ContactoDonanteComponent implements OnInit {
     }
   }
   modificar_evento() {
-    this.form_agregar.get('fechanacimiento1').setValue(this.fecha1);
-    this.form_agregar.get('fechanacimiento2').setValue(this.fecha2);
-    var spinner_agregar_contacto = document.getElementById("spinner_agregar_contacto");
-    spinner_agregar_contacto.removeAttribute("hidden");
+    var spinner_agregar_fdonante = document.getElementById("spinner_agregar_fdonante");
+    spinner_agregar_fdonante.removeAttribute("hidden");
 
     //Update mediante el id y los campos de agregar
-    this.http.put(this.url + "Contacto/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
-      spinner_agregar_contacto.setAttribute("hidden", "true");
+    this.http.put(this.url + "Contacto/" + this.form_agregar.value.donacionID, this.form_agregar.value).subscribe(data => {
+      spinner_agregar_fdonante.setAttribute("hidden", "true");
       alert("Contacto Modificado");
-      this.clean_Agregar();
-      this.clean_Buscar();
     },
       error => {
-        spinner_agregar_contacto.setAttribute("hidden", "true");
+        spinner_agregar_fdonante.setAttribute("hidden", "true");
         console.log("Error", error);
       });
   }
-
 
   //reset buscar
   clean_Buscar() {

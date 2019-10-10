@@ -1,43 +1,47 @@
-<form [formGroup] = "form_buscar" (ngSubmit)="buscar_nota()">
+<form [formGroup] = "form_buscar" (ngSubmit)="cambiar_valor_Padre()">
 	<div class="row" style="margin: 15px 0px 0px 0px">
-		<!-- <div class="col-2 text-right font-weight-bold" >
-			<span>Opción:</span>
-		</div>
-		<div class="col-5">
-			<div class="custom-control custom-radio custom-control-inline">
-				<input id="fdonacion_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion" value="nuevo" (change)="radioChange($event)" [checked] = "true">
-				<label class="custom-control-label" for="fdonacion_Nuevo">Nuevo</label>
-			</div>
-			<div class="custom-control custom-radio custom-control-inline">
-				<input id="fdonacion_Modificar" type="radio" class="custom-control-input" name="donacion_opcion" value="modificar" (change)="radioChange($event)">
-				<label class="custom-control-label" for="fdonacion_Modificar">Modificar</label>
-			</div>
-		</div> -->
 		<div class="input-group input-group-sm mb-3 col-3 aling-right">
 			<div class="input-group-prepend">
-				<span class="input-group-text">No. Miembro:</span>
+				<span class="input-group-text">ID Donante:</span>
 			</div>
 			<input type="number" formControlName="buscarID"  class="form-control" [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
 		</div>
         <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
-            <!-- [disabled] = "true" -->
-			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="fdonacion_btn_buscar" >
+			<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="nota_btn_buscar" >
 				<span id="spinner_buscar_nota" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
 			Buscar</button>
 		</div> 
-	</div>
+    </div>
+    <div>
+            <div class="dropdown-divider"></div>
+            <div class="font-weight-bold" >
+                    <span>Opción:</span>
+                </div>
+                <div class="col-5">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input id="nota_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion" 
+                        value="nuevo" (change)="radioChange($event)" [checked] = "focus">
+                        <label class="custom-control-label" for="nota_Nuevo">Nuevo</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input id="nota_Modificar" type="radio" class="custom-control-input" name="donacion_opcion" value="modificar" 
+                        (change)="radioChange($event)" [checked] = "!focus">
+                        <label class="custom-control-label" for="nota_Modificar" >Modificar</label>
+                    </div>
+                </div>
+    </div>
 </form>
 <div class="dropdown-divider"></div>
-<form [formGroup]="form_agregar" (ngSubmit)="modificar_nota()">
+<form [formGroup]="form_agregar" (ngSubmit)="opcion_nota()">
     <!-- INICIO ROW #1 -->
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
         <div class="col-8 input-group input-group-sm mb-3">
             <label for="donacionID" style="margin-right: 10px">ID Donante</label>
-            <input type="number" formControlName="donacionID" class="form-control"
+            <input type="number" formControlName="donacionID" class="form-control" readonly
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }" >
-                <label for="notaID" style="margin-right: 10px">ID Contacto</label>
-                <input type="number" formControlName="notaID" class="form-control"
+                <label for="notaID" style="margin-right: 10px">ID Nota</label>
+                <input type="number" formControlName="notaID" class="form-control" readonly
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.notaID.errors }" >
         </div>
         <div class="col-12 font-weight-bold">
@@ -60,11 +64,12 @@
                 <option value="Finalizada">Finalizada</option>
             </select>
         </div>
-        <div class="col-4 input-group input-group-sm mb-3">
-            <label for="programar" style="margin-right: 10px">Programar: </label>
-            <input type="text" formControlName="programar" class="form-control" placeholder="programar"
-                [ngClass]="{ 'is-invalid': submit_agregar && f_A.programar.errors }">
-        </div>
+        <div class="col-3 form-group input-group-sm mb-3" >
+			<label for="programar" style="padding: 0px; font-size: 13px;">Programar: </label>
+			<input formControlName="programar" placeholder="Fecha de inscripción" type="date" class="form-control"  
+			[ngClass]="{ 'is-invalid': submit_agregar && f_A.programar.errors }" id="programar" data-toggle="tooltip" 
+			data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
+		</div>
         <div class="col-4 input-group input-group-sm mb-3">
             <label for="responsable" style="margin-right: 10px">Responsable: </label>
             <select formControlName="responsable" class="custom-select"
@@ -80,67 +85,43 @@
         <div class="col"></div>
         <div class="col"></div>
         <div class="col"></div>
+        <div class="col"></div>
         <div class="col-2">
             <button name="fdonante_btn_guardar"  class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
                 <span id="spinner_agregar_nota" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
                 Guardar
             </button>
         </div>
-        <div class="col-2">
-            <button class="btn btn-secondary" style="width:100%; height: 50px;" type="reset"
-                (click)="clean_Agregar()">Cancelar</button>
-        </div>
     </div>
 </form>
 <div class="container border rounded">
     <div class="row" style="margin: 15px 15px 0px 0px">
         <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-            <label class="font-weight-bold">Resultados</label>
+            <label class="font-weight-bold">Notas: </label>
         </div>
         <div class="col-12">
-            <form action="">
+            <form>
                 <table class="table text-center table-bordered table-sm rounded">
                     <thead style="background-color: #00AAE7; color: white;">
                         <tr>
-                            <th scope="col">Numero Aportación</th>
-                            <th scope="col">Tipo Donación</th>
-                            <th scope="col">Monto</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Vence</th>
-                            <th scope="col">Banco</th>
-                            <th scope="col"></th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nota</th>
+                            <th scope="col">Estatus Nota</th>
+                            <th scope="col">Programar</th>
+                            <th scope="col">Responsable</th>
+                            <th scope="col">Opción</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-
-                            <th scope="row">1</th>
-                            <td>Efectivo</td>
-                            <td>$ 25,000</td>
-                            <td>Cobrado</td>
-                            <td>07/08/2014</td>
-                            <td>HSBC</td>
+                        <tr *ngFor="let notas of arraynota; let i=index">
+                            <td>{{notas.notaID}}</td>
+                            <td>{{notas.nota}}</td>
+                            <td>{{notas.statusnota }}</td>
+                            <td>{{notas.programar| date:'yyyy/MM/dd'}}</td>
+                            <td>{{notas.responsable }}</td>
                             <td>
-                                <button id="BUSQ_btn_modificar" type="button"
-                                    class="btn btn-info btn-sm">Modificar</button>
-                                <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                            background-color: rgb(224, 8, 8); " type="button"
-                                    class="btn btn-info btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Efectivo</td>
-                            <td>$ 25,000</td>
-                            <td>Cobrado</td>
-                            <td>07/08/2014</td>
-                            <td>HSBC</td>
-                            <td>
-                                <button id="BUSQ_btn_modificar" type="button"
-                                    class="btn btn-info btn-sm">Modificar</button>
-                                <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
-                                            background-color: rgb(224, 8, 8); " type="button"
-                                    class="btn btn-info btn-sm">Eliminar</button>
+                                <button id="BUSQ_btn_modificar" type="button" class="btn btn-info btn-sm"
+                                (click)="buscar_nota(notas.notaID)">Modificar</button>
                             </td>
                         </tr>
                     </tbody>

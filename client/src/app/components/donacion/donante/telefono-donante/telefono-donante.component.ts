@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,7 +11,23 @@ import { NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter } from '@ng-bootstr
   styleUrls: ['./telefono-donante.component.css'],
   providers: [{ provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }]
 })
-export class TelefonoDonanteComponent implements OnInit {
+export class TelefonoDonanteComponent implements OnInit , OnChanges {
+  @Input('gl_donante') gl_donante: any;
+  @Input() prop!: number;
+  
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.form_buscar !== undefined) {
+      this.form_buscar.get('buscarID').setValue(this.gl_donante);
+      this.buscar_telefono();
+    }
+  }
+  
+  @Output() donante_variable= new EventEmitter<number>();
+  
+//Cambio a padre
+cambiar_valor_Padre(){
+  this.donante_variable.emit(this.form_buscar.value.buscarID);
+}
 
   //busqueda
   resultado: any;
@@ -100,7 +116,7 @@ export class TelefonoDonanteComponent implements OnInit {
         this.form_agregar.get('telefono2').setValue(this.resultado.telefono2);
         this.form_agregar.get('lada2').setValue(this.resultado.lada2);
         this.form_agregar.get('extension2').setValue(this.resultado.extension2);
-        this.form_agregar.get('observacion2').setValue(this.resultado.relacion2);
+        this.form_agregar.get('observacion2').setValue(this.resultado.observacion2);
         this.form_agregar.get('tipo3').setValue(this.resultado.tipo3);
         this.form_agregar.get('telefono3').setValue(this.resultado.telefono3);
         this.form_agregar.get('lada3').setValue(this.resultado.lada3);
@@ -124,8 +140,6 @@ export class TelefonoDonanteComponent implements OnInit {
     this.http.put(this.url + "Telefonodonante/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
       spinner_agregar_telefono.setAttribute("hidden", "true");
       alert("Telefono Modificado");
-      this.clean_Agregar();
-      this.clean_Buscar();
     },
       error => {
         spinner_agregar_telefono.setAttribute("hidden", "true");
