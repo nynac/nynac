@@ -42,7 +42,8 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		private http : HttpClient, 
 		private sanitazor: DomSanitizer,
 		private formBuilder: FormBuilder
-		) { }
+		) { 
+		}
 
 	ngOnInit(){
 		this.form_guardar = this.formBuilder.group({

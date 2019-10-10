@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -7,7 +7,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './direccion-donante.component.html',
   styleUrls: ['./direccion-donante.component.css']
 })
-export class DireccionDonanteComponent implements OnInit {
+export class DireccionDonanteComponent implements OnInit, OnChanges {
+  @Input('gl_donante') gl_donante: any;
+  @Input() prop!: number;
+  
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.form_buscar !== undefined) {
+      this.form_buscar.get('buscarID').setValue(this.gl_donante);
+      this.buscar_direccion();
+    }
+  }
+  
+  @Output() donante_variable= new EventEmitter<number>();
+  
+//Cambio a padre
+cambiar_valor_Padre(){
+  this.donante_variable.emit(this.form_buscar.value.buscarID);
+}
   //busqueda
   resultado: any;
   //fechas
@@ -107,7 +123,7 @@ buscar_direccion() {
       this.form_agregar.get('cp1').setValue(this.resultado.cp1);
       this.form_agregar.get('pais1').setValue(this.resultado.pais1);
       this.form_agregar.get('estado1').setValue(this.resultado.estado1);
-      this.form_agregar.get('municipio2').setValue(this.resultado.municipio2);
+      this.form_agregar.get('municipio1').setValue(this.resultado.municipio1);
       this.form_agregar.get('tipodireccion2').setValue(this.resultado.tipodireccion2);
       this.form_agregar.get('calle2').setValue(this.resultado.calle2);
       this.form_agregar.get('noexterior2').setValue(this.resultado.noexterior2);
@@ -143,8 +159,6 @@ modificar_direccion() {
   this.http.put(this.url + "DireccionDonante/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
     spinner_agregar_direccion.setAttribute("hidden", "true");
     alert("DireccionDonante Modificado");
-    this.clean_Agregar();
-    this.clean_Buscar();
   },
     error => {
       spinner_agregar_direccion.setAttribute("hidden", "true");

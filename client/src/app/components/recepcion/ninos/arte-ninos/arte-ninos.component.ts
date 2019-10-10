@@ -28,7 +28,7 @@ export class ArteNinosComponent implements OnInit, OnChanges {
 		private formBuilder: FormBuilder
 		){}
 
-	@Input('miembro') miembro: any;
+	@Input('var_global') var_global: any;
 	ngOnInit() {
 		this.form_guardar = this.formBuilder.group({
 			idNinosArt : ['', Validators.required],
