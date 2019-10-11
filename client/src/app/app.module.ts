@@ -84,6 +84,7 @@ const appRoutes: Routes = [
   { path: 'donacion/Catalogo', component: ContenedorCatalogoComponent },
   { path: 'agenda', component: AgendaComponent },
   { path: 'reporte', component: ReportesComponent },
+  
   { path: 'desarrollo_humano', component: ContenedorDHComponent },
 ];
 

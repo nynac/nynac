@@ -15,23 +15,15 @@
 				</tr>
 			</thead>
 			<tbody style="cursor: pointer;">
-				<tr>
-					<td>1996/07/02</td>
-					<td>Cristianb Nicolas Hernandez Hernandez</td>
-					<td>Baldur Medina Martinez</td>
-					<td>Tutorias</td>
-					<td>Fallo trading</td>
-					<td>Se corrigio algunos elementos tecnologicos</td>
+				<tr *ngFor="let registro of historial">
+					<td>{{registro.fecha_incidencia | date}}</td>
+					<td>{{registro.alumno.nombres}} {{registro.alumno.appaterno }} {{registro.alumno.apmaterno }}</td>
+					<td>{{registro.instructor.nombre}} {{registro.instructor.ap_paterno }} {{registro.instructor.ap_materno }}</td>
+					<td>{{registro.area_actividad }}</td>
+					<td>{{registro.conducta_problema }}</td>
+					<td>{{registro.solucion }}</td>
 				</tr>
-
-				<tr>
-					<td>1997/07/02</td>
-					<td>Cristianb Nicolas Hernandez Hernandez</td>
-					<td>Baldur Medina Martinez</td>
-					<td>Tutorias</td>
-					<td>Fallo trading</td>
-					<td>Se corrigio algunos elementos tecnologicos</td>
-				</tr>			</tbody>
-			</table>
-		</div>
+			</tbody>
+		</table>
 	</div>
+</div>
