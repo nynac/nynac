@@ -20,6 +20,7 @@ export class AgendaComponent implements OnInit {
   //Tabla
   mievento: any;
   todoseventos: any;
+  calendario:any;
   //radio Option
   agregar_o_modificar: string = 'modificar';
   focus: boolean = false;
@@ -29,6 +30,11 @@ export class AgendaComponent implements OnInit {
   //validacion
   submit_buscar = false;
   submit_agregar = false;
+
+
+  cc:number;
+
+  color1:string='#00AAE7';
 
   url = "https://api-remota.conveyor.cloud/api/";
 
@@ -52,17 +58,17 @@ export class AgendaComponent implements OnInit {
     //agregar
     this.form_agregar = this.formBuilder.group({
       agendaID: [''],
-      titulo: ['',Validators.required],
-      fechainicio: ['',Validators.required],
-      fechaterminacion: [''],
+      title: ['',Validators.required],
+      start: ['',Validators.required],
+      end: [''],
       ubicacion: [''],
       email: [''],
       usuarioID: [0],
       color: ['#00AAE7'],
     })
-    this.get_nuevo_agenda();
     this.get_mieventos();
     this.get_todoseventos();
+    this.get_calendario();
 
   }
 
@@ -88,17 +94,18 @@ get f_B() {
       this.resultado = data;
       //transformar fecha formato
       var datePipe = new DatePipe("en-US");
-      this.resultado.fechainicio = datePipe.transform(this.resultado.fechainicio, 'yyyy-MM-dd');
-      this.resultado.fechaterminacion = datePipe.transform(this.resultado.fechaterminacion, 'yyyy-MM-dd');
+      this.resultado.start = datePipe.transform(this.resultado.start, 'yyyy-MM-dd');
+      this.resultado.end = datePipe.transform(this.resultado.end, 'yyyy-MM-dd');
 
       this.form_agregar.get('agendaID').setValue(this.resultado.agendaID);
-      this.form_agregar.get('titulo').setValue(this.resultado.titulo);
-      this.form_agregar.get('fechainicio').setValue(this.resultado.fechainicio);
-      this.form_agregar.get('fechaterminacion').setValue(this.resultado.fechaterminacion);
+      this.form_agregar.get('title').setValue(this.resultado.title);
+      this.form_agregar.get('start').setValue(this.resultado.start);
+      this.form_agregar.get('end').setValue(this.resultado.end);
       this.form_agregar.get('ubicacion').setValue(this.resultado.ubicacion);
       this.form_agregar.get('email').setValue(this.resultado.email);
       this.form_agregar.get('usuarioID').setValue(this.resultado.usuarioID);
       this.form_agregar.get('color').setValue(this.resultado.color);
+      this.color1=this.form_agregar.value.color;
       if (this.focus == true) {
         this.focus = false;
         this.agregar_o_modificar = 'modificar';
@@ -119,6 +126,7 @@ get f_B() {
         alert("Se a eliminado el Evento: " + id);
         this.get_mieventos();
         this.get_todoseventos();
+        this.get_calendario();
       },
         error => {
           console.log("Error", error)
@@ -152,9 +160,11 @@ get f_B() {
     this.http.post(this.url + "Agenda", this.form_agregar.value).subscribe(data => {
       alert("Se a registrado el Evento correctamente. ");
       this.clean_Agregar();
+      this.form_agregar.get('usuarioID').setValue(0);
       this.get_nuevo_agenda();
       this.get_mieventos();
       this.get_todoseventos();
+      this.get_calendario();
     },
       error => {
         console.log("Error", error);
@@ -165,6 +175,7 @@ get f_B() {
       alert("Evento Modificado");
       this.get_mieventos();
       this.get_todoseventos();
+      this.get_calendario();
     },
       error => {
 
@@ -179,10 +190,12 @@ get f_B() {
       this.clean_Agregar();
       this.get_nuevo_agenda();
       //asignar el id del usuario ??
+      this.form_agregar.get('usuarioID').setValue(0);
       this.focus = true;
     }
     else if (this.agregar_o_modificar == "modificar") {
       this.clean_Agregar();
+      this.form_agregar.get('usuarioID').setValue(0);
       //asignar el id del usuario ??
       this.focus = false;
     }
@@ -216,6 +229,31 @@ get f_B() {
         console.log("Error", error)
       });
   }
+  get_calendario() {
+    var response = this.http.get(this.url + "Calendario/");
+    response.subscribe((data: any[]) => {
+      this.calendario=data
+      //transformar fecha formato
+      var datePipe = new DatePipe("en-US");
+      for (let entry of this.calendario) {
+      entry.start = datePipe.transform(entry.start, 'yyyy-MM-dd');
+      if (entry.end=='')
+      { }
+      else
+      {
+        // console.log(entry.end);
+        var fecha = new Date(entry.end);
+        fecha.setDate(fecha.getDate() + 1);   
+        entry.end=fecha;
+        entry.end = datePipe.transform(entry.end, 'yyyy-MM-dd');        
+      }      
+    }
+      this.eventsModel = this.calendario;
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
 
 
   //reset agregar
@@ -225,34 +263,12 @@ get f_B() {
   }
   //clic en evento (azul)
   eventClick(model) {
-    console.log(model);
-  }
-
-  //Mover el evento
-  eventDragStop(model) {
-    console.log(model);
+    alert("Event: " + model.event.title +"\nFecha Inicio: "+model.event.start+"\nFecha Terminacion: "+ model.event.end);
   }
 
   //clic en las cell del dategrid
   dateClick(model) {
     console.log(model);
-  }
-
-  //asignamos un evento manual
-  updateEvents() {
-    this.eventsModel = [{
-      title: 'Updaten Event',
-      start: '2019-10-08',
-      //tomas 1 dia mas del asignado (si es el dia 10 = 11)
-      color: 'rgba(68,160,145,0.45)',
-    }, {
-      id: '2',
-      title: 'other',
-      start: '2019-10-08',
-      //tomas 1 dia mas del asignado (si es el dia 10 = 11)
-      end: '2019-10-15',
-    }];
-    console.log(this.eventsModel)
   }
 
 }
