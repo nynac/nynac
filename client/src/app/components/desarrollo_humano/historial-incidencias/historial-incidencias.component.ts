@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { DatePipe } from '@angular/common';
@@ -15,7 +15,7 @@ export class HistorialIncidenciasComponent implements OnInit {
 	visible : boolean = false;
 	tipo : string = "";
 	mensaje : string = "";
-	duracion: number = 5000; //1000 es 1 SEG
+	duracion: number = 1500; //1000 es 1 SEG
 
 	//Resultado
 	historial : any;
@@ -24,6 +24,8 @@ export class HistorialIncidenciasComponent implements OnInit {
 	form_guardar : FormGroup
 	guardando : boolean = false;
 	submitted2 = false;
+
+	@ViewChild('closeAddExpenseModal', {static: false} ) closeAddExpenseModal: ElementRef;
 
 	constructor(
 		private http : HttpClient,
@@ -68,11 +70,16 @@ export class HistorialIncidenciasComponent implements OnInit {
 	mostrar_alert(msg : string, tipo : string){
 		if (tipo=="info")
 			this.historial = null
+
 		this.visible = true;
 		this.mensaje = msg;
 		this.tipo = tipo;
 		
 		setTimeout(() => { 
+			if (tipo=="success") {
+			this.closeAddExpenseModal.nativeElement.click();
+			this.obtener_historial();
+		}
 			this.cerrar_alert();
 		}, this.duracion
 		);
@@ -120,18 +127,16 @@ export class HistorialIncidenciasComponent implements OnInit {
 					//spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
 
-					console.log("Se ha modificado")
-					this.cancelar();
-					this.obtener_historial();
+					this.mostrar_alert("Se ha guardado correctamente", "success");
 
 				},
 				error  => {
 					//spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
-					//this.mostrar_alert("Ocurrió un error al modificar los datos, vuelve a intentarlo", "danger", 5000, null);
-					console.log("Ocurrió un error al modificar los datos, vuelve a intentarlo");
+					this.mostrar_alert("Ocurrió un error al modificar los datos, vuelve a intentarlo", "danger");
 				});
 			}
 		}
 	}
+
 }

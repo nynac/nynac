@@ -1,4 +1,8 @@
-<form [formGroup]="form_guardar" (ngSubmit)="obtener_ultima_incidencia()">
+<div *ngIf="visible==true" style="margin: 0px 30px 0px 15px;" class="text-center">
+	<ngb-alert  (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+</div>
+
+<form [formGroup]="form_guardar" (ngSubmit)="obtener_ultima_incidencia()" style="margin: 15px 0px 30px 0px">
 	<div class=" col-12">
 		<span class="font-weight-bold">Datos del niño (a): </span><br>
 	</div>

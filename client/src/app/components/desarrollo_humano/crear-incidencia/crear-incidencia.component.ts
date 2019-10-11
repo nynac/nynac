@@ -11,8 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 export class CrearIncidenciaComponent implements OnInit {
 	url = "https://api-remota.conveyor.cloud/api/";
 
-	agregar_o_modificar: string = 'nuevo';
-
 	//Todo para el alert
 	visible : boolean = false;
 	tipo : string = null;
@@ -27,6 +25,8 @@ export class CrearIncidenciaComponent implements OnInit {
 	form_buscar : FormGroup;
 	submitted = false;
 
+	duracion : number = 3000;
+
 	constructor(
 		private http : HttpClient,
 		private formBuilder: FormBuilder
@@ -34,7 +34,7 @@ export class CrearIncidenciaComponent implements OnInit {
 
 	ngOnInit() {
 		var hoy = new Date();
-		var fech = hoy.getFullYear()+'-'+(hoy.getMonth()+1)+'-'+hoy.getDate();
+		var fech = hoy.getFullYear() + '-' + (hoy.getMonth()+1) + '-' + hoy.getDate();
 
 		this.form_buscar = this.formBuilder.group({
 			miembroID: ['', Validators.required]
@@ -117,14 +117,34 @@ export class CrearIncidenciaComponent implements OnInit {
 
 		this.http.post(this.url + 'Incidencia1',this.form_guardar.value).subscribe(data  => {
 			this.form_guardar.enable();
-			console.log("Se guardó")	
+			this.mostrar_alert("Se ha guardado correctamente", "success");
 		},
 		error  => {
 			this.form_guardar.enable();
-			console.log("No se guardó")
+			this.mostrar_alert("No se pudo guardar, intentalo mas tarde", "danger");
 		});
 		this.form_guardar.reset();
 		this.guardando = false;
 	}
 
+	mostrar_alert(msg : string, tipo : string){
+		this.visible = true;
+		this.mensaje = msg;
+		this.tipo = tipo;
+		
+		setTimeout(() => { 
+			var input = document.getElementById("miembroID");
+			input.focus();
+			this.cerrar_alert();
+		}, this.duracion
+		);
+	}
+	cerrar_alert(){
+		this.visible = false;
+		this.mensaje = null;
+		this.tipo = null;
+
+		var input = document.getElementById("miembroID");
+		input.focus();
+	}
 }

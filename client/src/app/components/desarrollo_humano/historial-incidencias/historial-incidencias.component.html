@@ -9,10 +9,6 @@
 	</div>
 
 </div>
-<div style="margin: 0px 30px 0px 15px;" class="text-center">
-	<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
-	<ngb-progressbar type="{{tipo_progress}}" animated="true" showValue="true" striped="true" value="{{porcentaje_actual}}" *ngIf="guardando == true"></ngb-progressbar>
-</div>
 <div class="col-12" style="font-size: 14px;">
 	<table class="table table-sm  table-hover text-center table-bordered rounded" >
 		<thead style="background-color: #00AAE7; color: white;">
@@ -23,17 +19,20 @@
 				<th scope="col">Área o Actividad</th>
 				<th scope="col">Situación</th>
 				<th scope="col">Solución</th>
+				<th scope="col"></th>
 			</tr>
 		</thead>
-		<tbody style="cursor: pointer;">
+		<tbody>
 			<tr *ngFor="let registro of historial">
-				<td>{{registro.fecha_incidencia | date}}</td>
+				<td>{{registro.fecha_incidencia | date:'dd-MMMM-yyyy'}}</td>
 				<td>{{registro.alumno.nombres}} {{registro.alumno.appaterno }} {{registro.alumno.apmaterno }}</td>
 				<td>{{registro.instructor.nombre}} {{registro.instructor.ap_paterno }} {{registro.instructor.ap_materno }}</td>
 				<td>{{registro.area_actividad }}</td>
 				<td>{{registro.conducta_problema }}</td>
 				<td>{{registro.solucion }}</td>
-				<td><button data-toggle="modal" data-target="#modal" (click)="abrir_modal(registro)">modificar</button></td>
+				<td>
+					<button data-toggle="modal" data-target="#modal" class="btn btn-sm btn-link" style="font-weight: bold;" (click)="abrir_modal(registro)">Ver ó Modificar</button>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -45,14 +44,14 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="modalLabel">Modificando incidencia</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelar();">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelar();" #closeAddExpenseModal>
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				
-
-
+				<div *ngIf="visible==true" style="margin: 0px 30px 0px 15px;" class="text-center">
+					<ngb-alert  (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+				</div>
 				<form [formGroup]="form_guardar" (ngSubmit)="modificar()">
 					<div class=" col-12">
 						<span class="font-weight-bold">Datos del niño (a): </span><br>
@@ -171,7 +170,7 @@
 					[ngClass]="{ 'is-invalid': submitted2 && f2.solucion.errors }" style="margin-top: -10px;" autocomplete="off">
 				</div>
 				<div class="col-2">
-					<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" style="width:100%; height: 50px;" (click)="cancelar();">Cancelar</button>
+					<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" style="width:100%; height: 50px;" (click)="cancelar();">Salir</button>
 				</div>
 				<div class="col-2">
 					<button name="inc_btn_guardar" class="btn btn-club btn-sm" style="width:100%; height: 50px;" type="submit">
@@ -182,13 +181,6 @@
 				</div>
 			</div>	
 		</form>
-
-
-
-
-
-
-
 	</div>
 </div>
 </div>
