@@ -33,6 +33,9 @@ export class CrearIncidenciaComponent implements OnInit {
 		){}
 
 	ngOnInit() {
+		var hoy = new Date();
+		var fech = hoy.getFullYear()+'-'+(hoy.getMonth()+1)+'-'+hoy.getDate();
+
 		this.form_buscar = this.formBuilder.group({
 			miembroID: ['', Validators.required]
 		})
@@ -42,7 +45,7 @@ export class CrearIncidenciaComponent implements OnInit {
 			quien_detecto	 : ['', Validators.required],
 			area_actividad : [''],
 			miembroID : ['', Validators.required], //del niño
-			fecha_incidencia : ['', Validators.required],
+			fecha_incidencia : [fech, Validators.required],
 			grupo : [''],
 			con_hermanos_primos : [''],
 			conducta_problema : ['', Validators.required],
