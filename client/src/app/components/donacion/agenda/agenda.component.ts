@@ -263,7 +263,14 @@ get f_B() {
   }
   //clic en evento (azul)
   eventClick(model) {
-    alert("Event: " + model.event.title +"\nFecha Inicio: "+model.event.start+"\nFecha Terminacion: "+ model.event.end);
+    let fecha1= model.event.start;
+    let fecha2= model.event.end;
+    
+    var datePipe = new DatePipe("en-US");
+    fecha1 = datePipe.transform(fecha1, 'yyyy-MMMM-dd, EEEE');
+    fecha2 = datePipe.transform(fecha2, 'yyyy-MMMM-dd, EEEE');
+
+    alert("Event: " + model.event.title +"\nFecha Inicio: "+fecha1+"\nFecha Terminacion: "+ fecha2);
   }
 
   //clic en las cell del dategrid
