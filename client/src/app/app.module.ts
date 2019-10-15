@@ -72,9 +72,9 @@ import { HistorialIncidenciasComponent } from './components/desarrollo_humano/hi
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
-  { path: 'agregar-modificar', component: ContenedorNinosComponent },
-  { path: 'entradas-salidas', component: ContenedorEntradasComponent },
-  { path: 'buscar-niño', component: ContenedorBuscadorComponent },
+  { path: 'recepcion/agregar-modificar', component: ContenedorNinosComponent },
+  { path: 'recepcion/entradas-salidas', component: ContenedorEntradasComponent },
+  { path: 'recepcion/buscar-niño', component: ContenedorBuscadorComponent },
 
   { path: '', component: NavbarComponent },
   { path: 'donacion', component: NavbarDonanteComponent },
