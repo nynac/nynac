@@ -1,62 +1,52 @@
 <navbar></navbar>
 <div class="container border rounded"  style="margin-top: 15px;">
 	<form [formGroup]="form_buscar" (ngSubmit)="obtener_datos()">
-		<div class="row" style="margin: 15px 15px 0px 15px;">
-			<div class="col-1" style="padding: 0px;">
-				<span>Buscar por: </span>
+		<div class="row" style="margin: 25px 15px 0px 15px;">
+			<div class="col-12 text-center" style="color: #00AAE7;">
+				<h6 id="passwordHelpInline" class="text-center text-uppercase">
+					INGRESA EL NOMBRE ó NÚMERO DE MIEMBRO
+				</h6>
 			</div>
-			<div class="col-1 custom-control custom-radio" style="padding: 0px; font-size: 14px; margin-left: 25px; margin-top: 2px">
-				<input id="B_N_Miembro" type="radio" class="custom-control-input" name="B_opcion" value="miembroID" (change)="radioChange($event)" [checked] = "true">
-				<label class="custom-control-label" for="B_N_Miembro">No. Miembro</label>
+		</div>
+		<div class="row">
+			<div class="col-4"></div>
+			<div class="col-4">
+				<input formControlName="campo_busqueda" id="campo_busqueda" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.campo_busqueda.errors }" autofocus="true" autocomplete="off" (input)="obtener_datos()">
 			</div>
-			<div class="col-1 custom-control custom-radio" style="padding: 0px; font-size: 14px; margin-left: 35px; margin-top: 2px">
-				<input id="B_Nombre" type="radio" class="custom-control-input" name="B_opcion" value="nombre" (change)="radioChange($event)">
-				<label class="custom-control-label" for="B_Nombre">Nombre</label>
-			</div>
-			<div class="col-3" style="padding: 0px; margin-left: -20px;">
-				<input formControlName="campo_busqueda" id="campo_busqueda" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': buscando && f2.campo_busqueda.errors }" autofocus="true" autocomplete="off" (input)="obtener_datos()">
-			</div>
-			<div class="col-1" style="text-align: center; padding: 0px 0px 0px 10px;">
-				<button id="btn_buscar" type="submit" class="btn btn-club btn-sm btn-block">
-					<span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
-					Buscar
-				</button>
-			</div> 
+			<div class="col-4"></div>
 		</div>
 	</form>
 
-	<div class="row" style="margin: 15px 0px 0px 0px;">
+	<div class="row" style="margin: 25px 0px 0px 0px;">
 		<div class="col-12" style="font-size: 14px;">
-			<table class="table table-sm table-hover text-center table-bordered rounded" >
-				<thead style="background-color: #00AAE7; color: white;">
+			<table class="table table-sm table-hover text-center table-bordered rounded"s>
+				<thead style="background-color: #00AAE7; color: white;" class="font-weight-normal">
 					<tr>
-						<th scope="col">Estado</th>
-						<th scope="col">#</th>
-						<th scope="col">Nombre</th>
-						<th scope="col">Derechohabiencia</th>
-						<th scope="col">Domicilio</th>
-						<th scope="col">Persona Autorizada a recogerlo</th>
-						<th scope="col">Contacto de emergencia 1</th>
-						<th scope="col">Contacto de emergencia 2</th>
-						<th scope="col">Contacto de emergencia 3</th>
+						<th style="vertical-align: middle; width: 5%">#</th>
+						<th style="vertical-align: middle;  width: 15%">Nombre</th>
+						<th style="vertical-align: middle;  width: 10%">Seguro</th>
+						<th style="vertical-align: middle;  width: 20%">Domicilio</th>
+						<th style="vertical-align: middle;  width: 12.5%">Quién lo recoge</th>
+						<th style="vertical-align: middle;  width: 12.5%">Emergencia 1</th>
+						<th style="vertical-align: middle;  width: 12.5%">Emergencia 2</th>
+						<th style="vertical-align: middle;  width: 12.5%">Emergencia 3</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr *ngFor="let registro of resultado_info">
-						<td *ngIf="registro.otros_datos.estado == 'true'">
-							Activo
+						<td style="vertical-align: middle;" *ngIf="registro.otros_datos.estado == 'true'"  class="alert-success">
+							{{registro.miembroID}}
 						</td>
-						<td *ngIf="registro.otros_datos.estado != 'true'">
-							Inactivo
+						<td style="vertical-align: middle;" *ngIf="registro.otros_datos.estado != 'true'" class="alert-danger">
+							{{registro.miembroID}}
 						</td>
-						<td>{{registro.miembroID}}</td>
-						<td>{{registro.nombres}} {{registro.appaterno }} {{registro.apmaterno}}</td>
-						<td>{{registro.derechohabiencia }} {{registro.otroseguro}}</td>
-						<td>{{registro.domcalle}} {{registro.domcolonia}} {{registro.domcodpost}} {{registro.domdelegacion}} {{registro.dommunicipio}} </td>
-						<td>{{registro.recoge1nino}} ({{registro.parentrecoge1}})</td>
-						<td>{{registro.emergencia1 }} {{registro.parentemergencia1}} {{registro.telefonoemergencia1}}</td>
-						<td>{{registro.emergencia2 }} {{registro.parentemergencia2}} {{registro.telefonoemergencia2}}</td>
-						<td>{{registro.emergencia3 }} {{registro.parentemergencia3}} {{registro.telefonoemergencia3}}</td>
+						<td style="vertical-align: middle;">{{registro.nombres}} {{registro.appaterno }} {{registro.apmaterno}}</td>
+						<td style="vertical-align: middle;">{{registro.derechohabiencia }} {{registro.otroseguro}}</td>
+						<td style="vertical-align: middle;">{{registro.domcalle}} {{registro.domcolonia}} {{registro.domcodpost}} {{registro.domdelegacion}} {{registro.dommunicipio}} </td>
+						<td style="vertical-align: middle;">{{registro.recoge1nino}} ({{registro.parentrecoge1}})</td>
+						<td style="vertical-align: middle;">{{registro.emergencia1 }} {{registro.parentemergencia1}} {{registro.telefonoemergencia1}}</td>
+						<td style="vertical-align: middle;">{{registro.emergencia2 }} {{registro.parentemergencia2}} {{registro.telefonoemergencia2}}</td>
+						<td style="vertical-align: middle;">{{registro.emergencia3 }} {{registro.parentemergencia3}} {{registro.telefonoemergencia3}}</td>
 					</tr>
 				</tbody>
 			</table>

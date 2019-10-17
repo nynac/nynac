@@ -44,7 +44,7 @@ export class ContenedorBuscadorComponent implements OnInit {
 			return;
 		}
 		this.buscando = true
-		var response = this.http.get(this.url + "nino_por_nombre?nombre=" + this.form_buscar.value.campo_busqueda);
+		var response = this.http.get(this.url + "datos_nino?key=" + this.form_buscar.value.campo_busqueda);
 		response.subscribe((resultado : [])=> {
 			this.resultado_info = resultado;
 
