@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import interactionPlugin from '@fullcalendar/interaction';
+import { MyserviceService } from '../../../myservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'agenda',
@@ -31,6 +33,7 @@ export class AgendaComponent implements OnInit {
   submit_buscar = false;
   submit_agregar = false;
 
+  userClaims: any;
 
   cc:number;
 
@@ -38,7 +41,7 @@ export class AgendaComponent implements OnInit {
 
   url = "https://api-remota.conveyor.cloud/api/";
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, ) {
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, private userService: MyserviceService ) {
 
   }
   ngOnInit() {
@@ -69,6 +72,14 @@ export class AgendaComponent implements OnInit {
     this.get_mieventos();
     this.get_todoseventos();
     this.get_calendario();
+
+    // metodo para obtener los claim del inicio sesion (error al no poder obtener los claims)
+    // this.userService.getUserClaims().subscribe((data: any) => {
+    //   this.userClaims = data;
+    //   console.log('hola')
+    //   console.log(this.userClaims);
+ 
+    // });
 
   }
 

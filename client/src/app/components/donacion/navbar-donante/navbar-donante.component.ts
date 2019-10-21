@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'navbar-donante',
@@ -11,5 +12,8 @@ export class NavbarDonanteComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  cerrar(){
+    localStorage . removeItem ( 'access_token' ) ; 
+    document.location.href = 'http://localhost:4200/login';
+  }
 }
