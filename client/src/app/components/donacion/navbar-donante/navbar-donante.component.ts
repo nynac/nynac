@@ -8,12 +8,19 @@ import { Router } from '@angular/router';
 })
 export class NavbarDonanteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
   cerrar(){
     localStorage . removeItem ( 'access_token' ) ; 
-    document.location.href = 'http://localhost:4200/login';
+    localStorage . removeItem ( 'miembroID' ) ; 
+    localStorage . removeItem ( 'nombre' ) ; 
+    localStorage . removeItem ( 'apellidos' ) ; 
+    localStorage . removeItem ( 'correo' ) ; 
+    localStorage . removeItem ( 'direccion' ) ; 
+    localStorage . removeItem ( 'fechanacimiento' ) ; 
+    localStorage . removeItem ( 'puesto' ) ; 
+    this.router.navigate(['/login']);
   }
 }

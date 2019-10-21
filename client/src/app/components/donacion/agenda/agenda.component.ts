@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./agenda.component.css']
 })
 export class AgendaComponent implements OnInit {
-  calendarPlugins = [dayGridPlugin, interactionPlugin]; // important!
+  calendarPlugins = [dayGridPlugin, interactionPlugin]; 
   options: OptionsInput;
   eventsModel: any;
   //busqueda
@@ -33,10 +33,10 @@ export class AgendaComponent implements OnInit {
   submit_buscar = false;
   submit_agregar = false;
 
-  userClaims: any;
+  //Usuario logueado  
+  miembroID= localStorage.getItem("miembroID");
 
   cc:number;
-
   color1:string='#00AAE7';
 
   url = "https://api-remota.conveyor.cloud/api/";
@@ -66,7 +66,7 @@ export class AgendaComponent implements OnInit {
       end: [''],
       ubicacion: [''],
       email: [''],
-      usuarioID: [0],
+      usuarioID: [this.miembroID],
       color: ['#00AAE7'],
     })
     this.get_mieventos();
@@ -171,7 +171,7 @@ get f_B() {
     this.http.post(this.url + "Agenda", this.form_agregar.value).subscribe(data => {
       alert("Se a registrado el Evento correctamente. ");
       this.clean_Agregar();
-      this.form_agregar.get('usuarioID').setValue(0);
+      this.form_agregar.get('usuarioID').setValue(this.miembroID);
       this.get_nuevo_agenda();
       this.get_mieventos();
       this.get_todoseventos();
@@ -201,12 +201,12 @@ get f_B() {
       this.clean_Agregar();
       this.get_nuevo_agenda();
       //asignar el id del usuario ??
-      this.form_agregar.get('usuarioID').setValue(0);
+      this.form_agregar.get('usuarioID').setValue(this.miembroID);
       this.focus = true;
     }
     else if (this.agregar_o_modificar == "modificar") {
       this.clean_Agregar();
-      this.form_agregar.get('usuarioID').setValue(0);
+      this.form_agregar.get('usuarioID').setValue(this.miembroID);
       //asignar el id del usuario ??
       this.focus = false;
     }

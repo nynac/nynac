@@ -39,25 +39,25 @@ export class LoginComponent implements OnInit {
   onSubmit(id: any) {
     this.Userservice.postData(this.form.value).subscribe(respuesta => {
       if (respuesta.status === 200) {
-        alert('entro');
-        
+        alert('entro');        
         //get Usuario   
         this.buscar_usuario();
         this.successmsg = 'token - ' + respuesta.body.access_token;
-        localStorage.setItem('access_token', respuesta.body.access_token);
-        
+        localStorage.setItem('access_token', respuesta.body.access_token);        
         //redireccion segun role de puesto storage
-        if (localStorage.getItem("puesto") == "Admin")
-        {
+        if (localStorage.getItem("puesto") == "Administrador") {
+          //componente general miss
           this.router.navigate(['/agenda']);
+        }else if (localStorage.getItem("puesto") == "Recepcion") {
+          this.router.navigate(['/entradas-salidas']);
+        } else if (localStorage.getItem("puesto") == "Desarrollo Institucional") {
+          this.router.navigate(['/donacion/agregar-donante']);
+        }else if (localStorage.getItem("puesto") == "Desarrollo Humano") {
+          this.router.navigate(['/desarrollo_humano']);
         }
-        else
-        {
-
+        else {
+          alert('Este Usuario no tiene asignado un Puesto.');
         }
-          
-
-
       } else {
         this.errmsg = respuesta.status + ' - ' + respuesta.statusText;
       }
@@ -77,44 +77,19 @@ export class LoginComponent implements OnInit {
 
   buscar_usuario() {
     //select mediante el id
-    console.log(this.form.value.username)
     var response = this.http.get(this.url + "Usuarioid?id=" + this.form.value.username);
     response.subscribe((data: any[]) => {
       this.resultado = data;
       localStorage.setItem('miembroID', this.resultado.miembroID);
       localStorage.setItem('nombre', this.resultado.nombre);
       localStorage.setItem('apellidos', this.resultado.apellidos);
-      localStorage.setItem('contrasena', this.resultado.contrasena);
       localStorage.setItem('correo', this.resultado.correo);
       localStorage.setItem('direccion', this.resultado.direccion);
       localStorage.setItem('fechanacimiento', this.resultado.fechanacimiento);
-      localStorage.setItem('nacionalidad', this.resultado.nacionalidad);
-      localStorage.setItem('estado', this.resultado.estado);
       localStorage.setItem('puesto', this.resultado.puesto);
-      localStorage.setItem('tel1', this.resultado.tel1);
-      localStorage.setItem('tel2', this.resultado.tel2);
-
-      console.log(this.resultado);
-
     },
       error => {
         console.log("Error", error)
       });
   }
-
-  registrarse() {
-    // this.router.navigate(['/agenda']);
-    // localStorage . removeItem ( 'access_token' ) ; 
-    // this . router . navigate ( [ '/login' ] ) ; 
-    
-    // localStorage.setItem('puesto', 'recepcion');
-    let puesto= localStorage.getItem("puesto");
-    alert('button register'+ puesto);
-
-  }
-
-  // Logout ( )   { 
-  //   localStorage . removeItem ( 'access_token' ) ; 
-  //   this . router . navigate ( [ '/login' ] ) ; 
-  // } 
 }  

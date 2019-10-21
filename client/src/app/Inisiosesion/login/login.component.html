@@ -29,7 +29,7 @@
           </div>
           <div class="alert alert-danger" *ngIf="form.controls['password'].dirty && form.controls['password'].invalid">
             <div *ngIf="form.controls['password'].hasError('required')">Contraseña requerida</div>
-            <div *ngIf="form.controls['password'].hasError('minlength')">Contraseña minia de 6 digitos.</div>
+            <div *ngIf="form.controls['password'].hasError('minlength')">Contraseña minia de 3 digitos.</div>
           </div>
         </div>
         <div class="form-group">
@@ -39,18 +39,11 @@
         <div class="form-group">
           <div class="col-md-12 alert alert-danger" *ngIf="errmsg">{{errmsg}}</div>
         </div>
-        <div class="form-group">
-          <div class="col-md-12 alert alert-success" *ngIf="successmsg">{{successmsg}}</div>
-        </div>
       </form>
-      <button name="btn_registrar" class="btn btn-primary mr-1" style="height: 12%; width: 100%; border: 2px solid rgb(140, 132, 161); border-radius: 8px;"
-       (click)="registrarse()">
-         Registrar
-      </button>
       <br>
       <br>
       <div class="float-right" style="text-decoration: underline; text-decoration-color: #00AAE7;">
-        <a href="#" class="text-decoration-none">Recuperar Contraseña</a>
+        <a href="recuperar" class="text-decoration-none">Recuperar Contraseña</a>
       </div>
     </div>
   </div>

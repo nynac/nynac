@@ -43,7 +43,8 @@ import { LiderCatalogoComponent } from './components/donacion/catalogo/lider-cat
 import { AgendaComponent } from './components/donacion/agenda/agenda.component';
 
 //login
-import { LoginComponent } from './Inisiosesion/login/login.component';    
+import { LoginComponent } from './Inisiosesion/login/login.component';   
+import { RecuperarComponent } from './Inisiosesion/recuperar/recuperar.component'; 
 import {MyserviceService} from './myservice.service'  
 
 //REPORTE 
@@ -84,8 +85,8 @@ const appRoutes: Routes = [
   { path: 'entradas-salidas', component: ContenedorEntradasComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
   { path: 'buscar-niño', component: ContenedorBuscadorComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
 
-  // { path: '', component: NavbarComponent },
-  { path: 'donacion', component: NavbarDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Desarrollo Institucional' ]} },
+   { path: '', component: NavbarComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]}  },
+  // { path: 'donacion', component: NavbarDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Desarrollo Institucional' ]} },
   { path: 'donacion/agregar-donante', component: ContenedorDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Desarrollo Institucional' ]} },
   { path: 'donacion/busqueda', component: BuscadorDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Desarrollo Institucional' ]} },
   { path: 'donacion/Otra-Aportacion', component: AportacionDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Desarrollo Institucional' ]} },
@@ -94,6 +95,7 @@ const appRoutes: Routes = [
   { path: 'reporte', component: ReportesComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Desarrollo Institucional','Coordinacion Operativa' ]} },
   { path: 'desarrollo_humano', component: ContenedorDHComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Desarrollo Institucional','Recepcion','Coordinacion Operativa','Servicio Social']} },
   { path: 'login', component: LoginComponent },
+  { path: 'recuperar', component: RecuperarComponent },
   { path: 'bloqueo' ,   component :   BloqueoComponent ,   canActivate :   [ AuthGuard ] }
 ];
 //validar token
@@ -142,6 +144,7 @@ const appRoutes: Routes = [
     HistorialIncidenciasComponent,
     LoginComponent,
     BloqueoComponent,
+    RecuperarComponent,
   ],
   imports: [
     RouterModule.forRoot(
