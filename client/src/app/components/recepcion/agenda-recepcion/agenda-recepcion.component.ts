@@ -9,11 +9,11 @@ import { MyserviceService } from '../../../myservice.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'agenda',
-  templateUrl: './agenda.component.html',
-  styleUrls: ['./agenda.component.css']
+  selector: 'app-agenda-recepcion',
+  templateUrl: './agenda-recepcion.component.html',
+  styleUrls: ['./agenda-recepcion.component.css']
 })
-export class AgendaComponent implements OnInit {
+export class AgendaRecepcionComponent implements OnInit {
   calendarPlugins = [dayGridPlugin, interactionPlugin]; 
   options: OptionsInput;
   eventsModel: any;
@@ -41,9 +41,8 @@ export class AgendaComponent implements OnInit {
 
   url = "https://api-remota.conveyor.cloud/api/";
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, private userService: MyserviceService ) {
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, private userService: MyserviceService) { }
 
-  }
   ngOnInit() {
     this.options = {
       //configuracion estructura header
@@ -280,5 +279,6 @@ get f_B() {
   dateClick(model) {
     console.log(model);
   }
+
 
 }

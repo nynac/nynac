@@ -1,0 +1,15 @@
+.btn-club{
+	background-color: #00AAE7;
+	border-color: transparent;
+	color: white;
+	font-family: "Helvetica";
+}
+
+.app-top {
+	margin: 0 0 3em;
+  }
+  
+  .app-calendar {
+	margin: 0 auto;
+	max-width: 900px;
+  }
