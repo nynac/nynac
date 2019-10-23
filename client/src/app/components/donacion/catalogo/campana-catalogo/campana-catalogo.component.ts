@@ -14,8 +14,6 @@ export class CampanaCatalogoComponent implements OnInit {
 //busqueda
 resultado: any;
 arrayCampana: any;
-//fechas
-model2: any;
 //Tabla
 arreglo: any;
 
@@ -53,7 +51,7 @@ agregar_o_modificar: string = 'nuevo';
     this.form_agregar = this.formBuilder.group({
       campanaID: ['', Validators.required],
       descripcion: ['', Validators.required],
-      fecha: [this.model2],
+      fecha: [''],
       
 		})
 
@@ -86,7 +84,7 @@ agregar_o_modificar: string = 'nuevo';
        this.resultado = data;
        //transformar fecha formato
        var datePipe = new DatePipe("en-US");
-       this.resultado.fecha = datePipe.transform(this.resultado.fecha, 'yyyy/MM/dd');
+       this.resultado.fecha = datePipe.transform(this.resultado.fecha, 'yyyy-MM-dd');
 
        this.form_agregar.get('campanaID').setValue(this.resultado.campanaID);
        this.form_agregar.get('descripcion').setValue(this.resultado.descripcion);
@@ -149,11 +147,6 @@ agregar_o_modificar: string = 'nuevo';
 	//Spiner
   var spinner_agregar_campana = document.getElementById("spinner_agregar_campana");
   spinner_agregar_campana.removeAttribute("hidden");
-  //fecha
-  var datePipe = new DatePipe("en-US");
-  this.model2 = datePipe.transform(this.model2, 'yyyy/MM/dd');
-  this.form_agregar.get('fecha').setValue(this.model2);
-
   this.http.post(this.url + "Campana", this.form_agregar.value).subscribe(data => {
     spinner_agregar_campana.setAttribute("hidden", "true");
     alert("Campaña Guardado");

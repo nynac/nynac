@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
+ 
 @Component({
   selector: 'navbar-donante',
   templateUrl: './navbar-donante.component.html',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarDonanteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
-
+  cerrar(){
+    localStorage . clear(); 
+    this.router.navigate(['/login']);
+  }
 }
