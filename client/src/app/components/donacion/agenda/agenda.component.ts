@@ -151,7 +151,7 @@ get f_B() {
       return;
     }
     else {
-      var r = confirm("¿Esta seguro que desea " + this.agregar_o_modificar + " Campaña?");
+      var r = confirm("¿Esta seguro que desea " + this.agregar_o_modificar + " Evento?");
       if (r == false) {
         return;
       }

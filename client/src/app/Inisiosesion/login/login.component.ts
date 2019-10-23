@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   errmsg: any;
 
   resultado: any;
-  
+
   url = "https://api-remota.conveyor.cloud/api/";
 
 
@@ -28,51 +28,88 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(3)]),
       grant_type: new FormControl('password'),
     });
-
-    //  this.form = this.formBuilder.group({
-    //   username: ['', Validators.required],
-    //   password: ['', Validators.required, Validators.minLength(8)],
-    //   grant_type: ['password'],
-    // })
   }
 
   onSubmit(id: any) {
-    this.Userservice.postData(this.form.value).subscribe(respuesta => {
-      if (respuesta.status === 200) {
-        alert('entro');        
-        //get Usuario   
-        this.buscar_usuario();
-        this.successmsg = 'token - ' + respuesta.body.access_token;
-        localStorage.setItem('access_token', respuesta.body.access_token);        
-        //redireccion segun role de puesto storage
-        if (localStorage.getItem("puesto") == "Administrador") {
+    this.errmsg = null;
+    var spinner_login = document.getElementById("spinner_login");
+    spinner_login.removeAttribute("hidden");
+    //select mediante el id
+    this.remover();
+    var response = this.http.get(this.url + "Usuarioid?id=" + this.form.value.username + "&pass=" + this.form.value.password);
+    response.subscribe((data: any[]) => {
+      this.resultado = data;
+      if (this.resultado[0] != undefined) {
+        localStorage.setItem('miembroID', this.resultado[0].miembroID);
+        localStorage.setItem('nombre', this.resultado[0].nombre);
+        localStorage.setItem('apellidos', this.resultado[0].apellidos);
+        localStorage.setItem('correo', this.resultado[0].correo);
+        localStorage.setItem('direccion', this.resultado[0].direccion);
+        localStorage.setItem('fechanacimiento', this.resultado[0].fechanacimiento);
+        localStorage.setItem('puesto', this.resultado[0].puesto);
+        spinner_login.setAttribute("hidden", "true");
+
+        if (localStorage.getItem("miembroID") == undefined || localStorage.getItem('miembroID') == null) {
+          this.errmsg = 'Constraseña o Usuario Incorrecto.';
+        } else if (localStorage.getItem("puesto") == "Administrador") {
           //componente general miss
           this.router.navigate(['/agenda']);
-        }else if (localStorage.getItem("puesto") == "Recepcion") {
+        } else if (localStorage.getItem("puesto") == "Recepcion") {
           this.router.navigate(['/entradas-salidas']);
         } else if (localStorage.getItem("puesto") == "Desarrollo Institucional") {
           this.router.navigate(['/donacion/agregar-donante']);
-        }else if (localStorage.getItem("puesto") == "Desarrollo Humano") {
+        } else if (localStorage.getItem("puesto") == "Desarrollo Humano") {
           this.router.navigate(['/desarrollo_humano']);
         }
-        else {
-          alert('Este Usuario no tiene asignado un Puesto.');
-        }
-      } else {
-        this.errmsg = respuesta.status + ' - ' + respuesta.statusText;
+      }
+      else {
+        spinner_login.setAttribute("hidden", "true");
+        this.errmsg = 'Constraseña o Usuario Incorrecto.';
       }
     },
-      err => {
-        if (err.status === 401) {
-          this.errmsg = 'Contraseña o Usuario invalido.';
-        }
-        else if (err.status === 400) {
-          this.errmsg = 'Contraseña o Usuario invalido.';
-        }
-        else {
-          this.errmsg = "Contraseña o Usuario invalido";
-        }
+      error => {
+        this.errmsg = 'Error en la conexion';
+        console.log("Error", error)
       });
+
+    // this.Userservice.postData(this.form.value).subscribe(respuesta => {
+    //   if (respuesta.status === 200) {
+    //            //get Usuario   
+    //     this.buscar_usuario();
+    //     this.successmsg = 'token - ' + respuesta.body.access_token;
+    //     localStorage.setItem('access_token', respuesta.body.access_token);        
+    //     //redireccion segun role de puesto storage
+    //     if (localStorage.getItem("puesto") == "Administrador") {
+    //       //componente general miss
+    //       this.router.navigate(['/agenda']);
+    //     }else if (localStorage.getItem("puesto") == "Recepcion") {
+    //       this.router.navigate(['/entradas-salidas']);
+    //     } else if (localStorage.getItem("puesto") == "Desarrollo Institucional") {
+    //       this.router.navigate(['/donacion/agregar-donante']);
+    //     }else if (localStorage.getItem("puesto") == "Desarrollo Humano") {
+    //       this.router.navigate(['/desarrollo_humano']);
+    //     }
+    //     else {
+    //       alert('Este Usuario no tiene asignado un Puesto.');
+    //     }
+    //     spinner_login.setAttribute("hidden", "true");
+    //   } else {
+    //     this.errmsg = respuesta.status + ' - ' + respuesta.statusText;
+    //     spinner_login.setAttribute("hidden", "true");
+    //   }
+    // },
+    //   err => {
+    //     spinner_login.setAttribute("hidden", "true");
+    //     if (err.status === 401) {
+    //       this.errmsg = 'Contraseña o Usuario invalido.';
+    //     }
+    //     else if (err.status === 400) {
+    //       this.errmsg = 'Contraseña o Usuario invalido.';
+    //     }
+    //     else {
+    //       this.errmsg = "Contraseña o Usuario invalido";
+    //     }
+    //   });
   }
 
   buscar_usuario() {
@@ -91,5 +128,9 @@ export class LoginComponent implements OnInit {
       error => {
         console.log("Error", error)
       });
+  }
+
+  remover() {
+    localStorage.clear()
   }
 }  

@@ -6,7 +6,7 @@
       providedIn: 'root'    
     })    
     export class MyserviceService {
-      url = "https://api-remota.conveyor.cloud/api/";
+      url = "https://api-remota.conveyor.cloud";
 
       constructor(private http: HttpClient) { }    
       
@@ -19,12 +19,9 @@
         return this.http.post(this.url+'/token', body.toString(), 
         {observe: 'response',  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },  
         });
+
             
-      }   
-      
-      getUserClaims(){
-        return  this.http.get(this.url+'/api/GetUserClaims');
-       }
+      }  
 
        roleMatch(allowedRoles): boolean {
         var isMatch = false;

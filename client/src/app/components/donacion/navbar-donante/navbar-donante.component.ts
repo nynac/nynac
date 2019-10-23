@@ -13,14 +13,7 @@ export class NavbarDonanteComponent implements OnInit {
   ngOnInit() {
   }
   cerrar(){
-    localStorage . removeItem ( 'access_token' ) ; 
-    localStorage . removeItem ( 'miembroID' ) ; 
-    localStorage . removeItem ( 'nombre' ) ; 
-    localStorage . removeItem ( 'apellidos' ) ; 
-    localStorage . removeItem ( 'correo' ) ; 
-    localStorage . removeItem ( 'direccion' ) ; 
-    localStorage . removeItem ( 'fechanacimiento' ) ; 
-    localStorage . removeItem ( 'puesto' ) ; 
+    localStorage . clear(); 
     this.router.navigate(['/login']);
   }
 }
