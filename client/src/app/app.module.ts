@@ -81,9 +81,9 @@ import { BloqueoComponent } from './Inisiosesion/bloqueo/bloqueo.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
-  { path: 'agregar-modificar', component: ContenedorNinosComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
-  { path: 'entradas-salidas', component: ContenedorEntradasComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
-  { path: 'buscar-niño', component: ContenedorBuscadorComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
+  { path: 'recepcion/agregar-modificar', component: ContenedorNinosComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
+  { path: 'recepcion/entradas-salidas', component: ContenedorEntradasComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
+  { path: 'recepcion/buscar-niño', component: ContenedorBuscadorComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
 
    { path: '', component: NavbarComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]}  },
   { path: 'donacion', component: NavbarDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Desarrollo Institucional' ]} },

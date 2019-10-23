@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
           //componente general miss
           this.router.navigate(['/agenda']);
         } else if (localStorage.getItem("puesto") == "Recepcion") {
-          this.router.navigate(['/entradas-salidas']);
+          this.router.navigate(['recepcion/entradas-salidas']);
         } else if (localStorage.getItem("puesto") == "Desarrollo Institucional") {
           this.router.navigate(['/donacion/agregar-donante']);
         } else if (localStorage.getItem("puesto") == "Desarrollo Humano") {
