@@ -34,7 +34,7 @@ export class CrearIncidenciaComponent implements OnInit {
 
 	ngOnInit() {
 		var hoy = new Date();
-		var fech = hoy.getFullYear() + '-' + (hoy.getMonth()+1) + '-' + hoy.getDate();
+		var fech = hoy.getFullYear() + '-' + (hoy.getMonth() + 1) + '-' + hoy.getDate();
 
 		this.form_buscar = this.formBuilder.group({
 			miembroID: ['', Validators.required]
@@ -56,8 +56,8 @@ export class CrearIncidenciaComponent implements OnInit {
 			appaterno: [''],
 			apmaterno: [''],
 			nombre: ['', Validators.required], //nombre del instructor
-			ap_paterno: [''], // apellido p del instructor
-			ap_materno: [''] // apellido m del instructor
+			apellido_paterno: [''], // apellido p del instructor
+			apellido_materno: [''] // apellido m del instructor
 		});
 	}
 
@@ -74,6 +74,7 @@ export class CrearIncidenciaComponent implements OnInit {
 		var response = this.http.get(this.url + controlador+ "?id=" + miembroID);
 		response.subscribe((resultado : any)=> {
 			this.form_guardar.patchValue(resultado);
+			console.log(resultado);
 		},
 		error =>{
 			this.form_guardar.reset();
