@@ -26,7 +26,7 @@
 			<tr *ngFor="let registro of historial">
 				<td>{{registro.fecha_incidencia | date:'dd-MMMM-yyyy'}}</td>
 				<td>{{registro.alumno.nombres}} {{registro.alumno.appaterno }} {{registro.alumno.apmaterno }}</td>
-				<td>{{registro.instructor.nombre}} {{registro.instructor.ap_paterno }} {{registro.instructor.ap_materno }}</td>
+				<td>{{registro.instructor.nombres}} {{registro.instructor.apellido_paterno }} {{registro.instructor.apellido_materno }}</td>
 				<td>{{registro.area_actividad }}</td>
 				<td>{{registro.conducta_problema }}</td>
 				<td>{{registro.solucion }}</td>
