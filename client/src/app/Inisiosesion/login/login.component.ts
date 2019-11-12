@@ -60,6 +60,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/donacion/agregar-donante']);
         } else if (localStorage.getItem("puesto") == "Desarrollo Humano") {
           this.router.navigate(['/desarrollo_humano']);
+        } else if (localStorage.getItem("puesto") == "Coordinacion Operativa") {
+          this.router.navigate(['/coordinacion_operativa']);
         }
       }
       else {

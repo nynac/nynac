@@ -81,6 +81,18 @@ import { HistorialIncidenciasComponent } from './components/desarrollo_humano/hi
 import { AuthGuard } from '../app/auth.guard';
 import { BloqueoComponent } from './Inisiosesion/bloqueo/bloqueo.component';
 
+//Reportes CO
+import { NavbarCOComponent } from './components/reporte/navbar-co/navbar-co.component';
+import { RpNinosComponent } from './components/reporte/rp-ninos/rp-ninos.component';
+import { RpDonacionComponent } from './components/reporte/rp-donacion/rp-donacion.component';
+import { RpSSComponent } from './components/reporte/rp-ss/rp-ss.component';
+import { RpIncidenciaComponent } from './components/reporte/rp-incidencia/rp-incidencia.component';
+import { ContenedorReporteComponent } from './components/reporte/contenedor-reporte/contenedor-reporte.component';
+import { AgendaReporteComponent } from './components/reporte/agenda-reporte/agenda-reporte.component';
+
+//servicio excel
+import { ExcelService } from './excel.service';
+
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
   { path: 'recepcion/agregar-modificar', component: ContenedorNinosComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
@@ -99,6 +111,9 @@ const appRoutes: Routes = [
 
   { path: 'desarrollo_humano', component: ContenedorDHComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Recepcion']} },
   { path: 'desarrollo_humano/agenda', component: AgendaDHComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Recepcion']} },
+
+  { path: 'coordinacion_operativa', component: ContenedorReporteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Coordinacion Operativa']}},
+  { path: 'coordinacion_operativa/agenda', component: AgendaReporteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Coordinacion Operativa']}},
 
   { path: 'login', component: LoginComponent },
   { path: 'recuperar', component: RecuperarComponent },
@@ -153,6 +168,13 @@ const appRoutes: Routes = [
     RecuperarComponent,
     AgendaDHComponent,
     AgendaRecepcionComponent,
+    NavbarCOComponent,
+    RpNinosComponent,
+    RpDonacionComponent,
+    RpSSComponent,
+    RpIncidenciaComponent,
+    ContenedorReporteComponent,
+    AgendaReporteComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -172,6 +194,7 @@ const appRoutes: Routes = [
   providers: [
     MyserviceService,
     AuthGuard,
+    ExcelService,
   ],
   bootstrap: [AppComponent]
 })

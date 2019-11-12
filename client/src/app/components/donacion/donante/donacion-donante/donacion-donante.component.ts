@@ -78,9 +78,9 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
       fechanacimiento: [''],
       edad: [''],
       fechadonacion: [''],
-      liderID: [],
-      campanaID: [],
-      eventoID: [],
+      liderID: ['', Validators.required],
+      campanaID: ['', Validators.required],
+      eventoID: ['', Validators.required],
       observacion: [''],
     })
   }

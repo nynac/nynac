@@ -61,7 +61,7 @@ export class EventoCatalogoComponent implements OnInit {
   }
 
   buscar_evento() {
-    //spinner
+    //spinner 
     var spinner_buscar_evento = document.getElementById("spinner_buscar_evento");
 
     this.submit_buscar = true;
