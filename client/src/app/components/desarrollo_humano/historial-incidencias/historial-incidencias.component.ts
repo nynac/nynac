@@ -36,7 +36,6 @@ export class HistorialIncidenciasComponent implements OnInit {
 		this.obtener_historial();
 		this.form_guardar = this.formBuilder.group({
 			no_incidencia:['', ],
-			quien_detecto	 : ['', Validators.required],
 			area_actividad : [''],
 			miembroID : ['', Validators.required], //del niño
 			fecha_incidencia : ['', Validators.required],
@@ -49,9 +48,9 @@ export class HistorialIncidenciasComponent implements OnInit {
 			nombres: ['', Validators.required],
 			appaterno: [''],
 			apmaterno: [''],
-			nombre: ['', Validators.required], //nombre del instructor
-			ap_paterno: [''], // apellido p del instructor
-			ap_materno: [''] // apellido m del instructor
+			nombre_instructor: ['', Validators.required], //nombre del instructor
+			apellido_pat_instructor: [''], // apellido p del instructor
+			apellido_mat_instructor: [''] // apellido m del instructor
 		})
 	}
 
@@ -94,7 +93,6 @@ export class HistorialIncidenciasComponent implements OnInit {
 		var datepipe  = new DatePipe("en-US");
 		this.form_guardar.patchValue(valores);
 		this.form_guardar.patchValue(valores.alumno);
-		this.form_guardar.patchValue(valores.instructor);
 		this.form_guardar.get("fecha_incidencia").setValue(datepipe.transform(valores.fecha_incidencia, 'yyyy-MM-dd'));
 	}
 

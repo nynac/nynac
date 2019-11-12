@@ -26,7 +26,7 @@
 			<tr *ngFor="let registro of historial">
 				<td>{{registro.fecha_incidencia | date:'dd-MMMM-yyyy'}}</td>
 				<td>{{registro.alumno.nombres}} {{registro.alumno.appaterno }} {{registro.alumno.apmaterno }}</td>
-				<td>{{registro.instructor.nombres}} {{registro.instructor.apellido_paterno }} {{registro.instructor.apellido_materno }}</td>
+				<td>{{registro.nombre_instructor}} {{registro.apellido_pat_instructor }} {{registro.apellido_mat_instructor }}</td>
 				<td>{{registro.area_actividad }}</td>
 				<td>{{registro.conducta_problema }}</td>
 				<td>{{registro.solucion }}</td>
@@ -106,25 +106,20 @@
 					<div class=" col-5">
 						<span class="font-weight-bold">Área o actividad </span><br>
 					</div>
-					<div class="col-1 form-group input-group-sm mb-3 text-center">
-						<label for="quien_detecto" style="padding: 0px;">#</label>
-						<input type="text" id="quien_detecto" formControlName="quien_detecto" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.quien_detecto.errors }" style="margin-top: -10px;"  (input)="obtener_datos($event.target.value, 'datos_instructor_incidencia')" autocomplete="off">
+					<div class="col-3 form-group input-group-sm mb-3">
+						<label for="nombre_instructor" style="padding: 0px;">Nombres (s).</label>
+						<input type="text" id="nombre_instructor" formControlName="nombre_instructor" class="form-control"
+						[ngClass]="{ 'is-invalid': submitted2 && f2.nombre_instructor.errors }" style="margin-top: -10px;" >
 					</div>
 					<div class="col-2 form-group input-group-sm mb-3">
-						<label for="nombre" style="padding: 0px;">Nombres (s).</label>
-						<input type="text" id="nombre" formControlName="nombre" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.nombre.errors }" style="margin-top: -10px;" readonly>
+						<label for="apellido_pat_instructor" style="padding: 0px;">Apellido Paterno </label>
+						<input type="text" id="apellido_pat_instructor" formControlName="apellido_pat_instructor" class="form-control"
+						[ngClass]="{ 'is-invalid': submitted2 && f2.apellido_pat_instructor.errors }" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-2 form-group input-group-sm mb-3">
-						<label for="ap_paterno" style="padding: 0px;">Apellido Paterno </label>
-						<input type="text" id="ap_paterno" formControlName="ap_paterno" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.ap_paterno.errors }" style="margin-top: -10px;" readonly>
-					</div>
-					<div class="col-2 form-group input-group-sm mb-3">
-						<label for="ap_materno" style="padding: 0px;">Apellido Materno</label>
-						<input type="text" id="ap_materno" formControlName="ap_materno" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.ap_materno.errors }" style="margin-top: -10px;" readonly>
+						<label for="apellido_mat_instructor" style="padding: 0px;">Apellido Materno</label>
+						<input type="text" id="apellido_mat_instructor" formControlName="apellido_mat_instructor" class="form-control"
+						[ngClass]="{ 'is-invalid': submitted2 && f2.apellido_mat_instructor.errors }" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-5 form-group input-group-sm mb-3">
 						<label for="area_actividad" style="padding: 0px;">¿Cuál?</label>

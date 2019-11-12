@@ -42,7 +42,6 @@ export class CrearIncidenciaComponent implements OnInit {
 
 		this.form_guardar = this.formBuilder.group({
 			no_incidencia:['', ],
-			quien_detecto	 : ['', Validators.required],
 			area_actividad : [''],
 			miembroID : ['', Validators.required], //del niño
 			fecha_incidencia : [fech, Validators.required],
@@ -55,9 +54,9 @@ export class CrearIncidenciaComponent implements OnInit {
 			nombres: ['', Validators.required],
 			appaterno: [''],
 			apmaterno: [''],
-			nombre: ['', Validators.required], //nombre del instructor
-			apellido_paterno: [''], // apellido p del instructor
-			apellido_materno: [''] // apellido m del instructor
+			nombre_instructor: ['', Validators.required], //nombre del instructor
+			apellido_pat_instructor: [''], // apellido p del instructor
+			apellido_mat_instructor: [''] // apellido m del instructor
 		});
 	}
 
