@@ -44,7 +44,7 @@ export class AgregarMiembroComponent implements OnInit {
 			estado : [true, Validators.required],
 			idStaff : [null, Validators.required],
 			miembroID : [null, Validators.required],
-			nombres : [null, Validators.required],
+			nombre : [null, Validators.required],
 			apellido_paterno : ['', Validators.required],
 			apellido_materno : ['', ],
 			fecha_nacimiento : ['', ],
@@ -97,14 +97,11 @@ export class AgregarMiembroComponent implements OnInit {
 			this.form_guardar.get('idStaff').setValue(resultado + 1);
 			this.form_guardar.get('miembroID').setValue(resultado + 1);
 
-			
-
 			if(this.form_guardar.invalid){
 				console.log("formulario invalido");
 				this.submitted2 = true;
 				return;
 			}
-
 			this.guardar_miembro();
 		},
 		error =>{

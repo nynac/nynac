@@ -56,6 +56,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			fechainscripcion : [''],
 			idNinosDG : ['',],
 			miembroID : [''],
+			curp : ['', Validators.required],
 			nombres : ['', Validators.required],
 			appaterno : ['', Validators.required],
 			apmaterno : ['', Validators.required],
@@ -86,6 +87,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			emergencia3 : [''],
 			parentemergencia3 : [''],
 			telefonoemergencia3 : [''],
+			turno_asiste : ['', Validators.required],
 		});
 
 		WebcamUtil.getAvailableVideoInputs()

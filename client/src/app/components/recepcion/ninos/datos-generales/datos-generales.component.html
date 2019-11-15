@@ -48,9 +48,16 @@
 			<label class="custom-control-label" for="visa">Visa</label>
 		</div>
 
-		<div class="col-3 form-group input-group-sm mb-3" style="margin: 0px 0px 0px -20px;">
-			<label for="religion" style="padding: 0px; font-size: 14px;">Religión</label>
-			<input type="text" id="religion" formControlName="religion" class="form-control" [ngClass]="{ 'is-invalid': guardando && f2.religion.errors }" style="margin-top: -10px;"/>
+		<div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px; margin: 0px 0px 0px -20px;">
+				<label for="turno_asiste" style="padding: 0px;">Turno</label>
+				<select formControlName="turno_asiste" class="custom-select" id="turno_asiste"
+				[ngClass]="{ 'is-invalid': guardando && f2.turno_asiste.errors }" 
+				data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+				<option selected disabled></option>
+				<option value="Matutino">Matutino</option>
+				<option value="Intermedio">Intermedio</option>
+				<option value="Vespertino">Vespertino</option>
+			</select>
 		</div>
 
 		<div class="col-2 input-group input-group-sm mb-3" style="font-size: 14px;">
@@ -79,11 +86,15 @@
 	<div class="col-2 input-group input-group-sm mb-3" hidden="true">
 		<input type="number" formControlName="miembroID" class="form-control" placeholder="No. Miembro" [ngClass]="{ 'is-invalid': guardando && f2.miembroID.errors }" readonly/>
 	</div>
-	<div class="col-3 form-group input-group-sm mb-3">
+	<div class="col-2 form-group input-group-sm mb-3">
+		<label for="curp" style="padding: 0px; font-size: 13px;">CURP</label>
+		<input type="text" id="curp" formControlName="curp" class="form-control" [ngClass]="{ 'is-invalid': guardando && f2.curp.errors }" style="margin-top: -10px;"/>
+	</div>
+	<div class="col-2 form-group input-group-sm mb-3">
 		<label for="nombres" style="padding: 0px; font-size: 13px;">Nombre(s)</label>
 		<input type="text" id="nombres" formControlName="nombres" class="form-control" [ngClass]="{ 'is-invalid': guardando && f2.nombres.errors }" style="margin-top: -10px;"/>
 	</div>
-	<div class="col-3 form-group input-group-sm mb-3">
+	<div class="col-2 form-group input-group-sm mb-3">
 		<label for="appaterno" style="padding: 0px; font-size: 14px;">Apellido Paterno</label>
 		<input type="text" id="appaterno" formControlName="appaterno" class="form-control"
 		[ngClass]="{ 'is-invalid': guardando && f2.appaterno.errors }"style="margin-top: -10px;">
@@ -110,17 +121,17 @@
 		[ngClass]="{ 'is-invalid': guardando && f2.lugarnacimiento.errors }"style="margin-top: -10px;">
 	</div>
 
-	<div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px;">
+	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
 		<label for="nacionalidad" style="padding: 0px;">Nacionalidad</label>
 		<select formControlName="nacionalidad" class="custom-select" id="nacionalidad"
 		[ngClass]="{ 'is-invalid': guardando && f2.nacionalidad.errors }" 
 		data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
-			<option selected disabled></option>
-			<option value="Mexicano">Mexicano</option>
-			<option value="Extranjero">Extranjero</option>
-		</select>
+		<option selected disabled></option>
+		<option value="Mexicano">Mexicano</option>
+		<option value="Extranjero">Extranjero</option>
+	</select>
 </div>
-<div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px;">
+<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
 	<label for="sexo" style="padding: 0px;">Sexo</label>
 	<select formControlName="sexo" class="custom-select" id="sexo"
 	[ngClass]="{ 'is-invalid': guardando && f2.sexo.errors }" 
@@ -129,6 +140,10 @@
 	<option value="M">Masculino</option>
 	<option value="F">Femenino</option>
 </select>
+</div>
+<div class="col-2 form-group input-group-sm mb-3">
+	<label for="religion" style="padding: 0px; font-size: 14px;">Religión</label>
+	<input type="text" id="religion" formControlName="religion" class="form-control" [ngClass]="{ 'is-invalid': guardando && f2.religion.errors }" style="margin-top: -10px;"/>
 </div>
 </div>
 </div>

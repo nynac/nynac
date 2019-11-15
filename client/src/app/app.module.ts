@@ -74,6 +74,7 @@ import { HistorialIncidenciasComponent } from './components/desarrollo_humano/hi
 import { NavbarServicioComponent } from './components/servicio_social/navbar-servicio/navbar-servicio.component';
 import { AgregarMiembroComponent } from './components/servicio_social/agregar-miembro/agregar-miembro.component';
 import { BuscarServicioComponent } from './components/servicio_social/buscar-servicio/buscar-servicio.component';
+import { EntradasSalidasServComponent } from './components/servicio_social/entradas-salidas-serv/entradas-salidas-serv.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
@@ -93,6 +94,7 @@ const appRoutes: Routes = [
   { path: 'desarrollo_humano', component: ContenedorDHComponent },
   { path: 'servicio_social/crear', component: AgregarMiembroComponent },
   { path: 'servicio_social/buscar-modificar', component: BuscarServicioComponent },
+  { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent },
 ];
 
 @NgModule({
@@ -136,6 +138,7 @@ const appRoutes: Routes = [
     AgregarMiembroComponent,
     NavbarServicioComponent,
     BuscarServicioComponent,
+    EntradasSalidasServComponent,
   ],
   imports: [
     RouterModule.forRoot(

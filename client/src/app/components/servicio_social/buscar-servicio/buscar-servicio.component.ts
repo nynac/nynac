@@ -39,7 +39,7 @@ export class BuscarServicioComponent implements OnInit {
 			estado : [true, Validators.required],
 			idStaff : [null, Validators.required],
 			miembroID : [null, Validators.required],
-			nombres : [null, Validators.required],
+			nombre : [null, Validators.required],
 			apellido_paterno : ['', Validators.required],
 			apellido_materno : ['', ],
 			fecha_nacimiento : ['', ],
@@ -119,6 +119,7 @@ export class BuscarServicioComponent implements OnInit {
 		this.form_guardar.patchValue(valores);
 		this.form_guardar.patchValue(valores.datos_miembro);
 		this.form_guardar.get("fecha_nacimiento").setValue(datepipe.transform(valores.fecha_nacimiento, 'yyyy-MM-dd'));
+		console.log(valores);
 	}
 
 	cancelar(){
