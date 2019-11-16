@@ -25,10 +25,11 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	foto : any;
 
 	//Todo para el progressbar
-	guardando : boolean = false;
+	mostrar_progress : boolean = false;
 	porcentaje_sumar = 0;
 	porcentaje_actual = 0;
 	tipo_progress = "success";
+	form_invalid : boolean = false;
 
 	//Todo para el alert
 	visible : boolean = false;
@@ -37,11 +38,12 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 
 	//form guardar
 	form_guardar : FormGroup
+	fecha: number = Date.now();
 
 	constructor(
 		private http : HttpClient, 
 		private sanitazor: DomSanitizer,
-		private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
 		) { 
 		}
 
@@ -60,7 +62,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			nombres : ['', Validators.required],
 			appaterno : ['', Validators.required],
 			apmaterno : ['', Validators.required],
-			fechanacimiento : [''],
+			fechanacimiento : ['', Validators.required],
 			edad : [null,Validators.required],
 			lugarnacimiento : [''],
 			nacionalidad : [''],
@@ -94,7 +96,10 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		.then((mediaDevices: MediaDeviceInfo[]) => {
 			this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
 		});
+		var datepipe  = new DatePipe("en-US");
+		this.form_guardar.get("fechainscripcion").setValue(datepipe.transform(this.fecha, 'yyyy-MM-dd'))
 	}
+
 
 	ngOnChanges(changes: SimpleChanges){
 		var datepipe  = new DatePipe("en-US");
@@ -121,10 +126,6 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		}
 	}
 
-	/*prueba(){
-		this.padre_var.emit(10);
-	}*/
-
 	get f2(){ return this.form_guardar.controls;}
 
 	press_guardar(){
@@ -132,11 +133,15 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 
 		if (this.form_guardar.invalid) {
 			console.log("Formato incorrecto del formulario");
+			
+			this.mostrar_progress = false;
+			this.form_invalid = true;
+
 			spinner.setAttribute("hidden", "true");
 			return;
 		}
 		else{
-			if(this.guardando == true)
+			if(this.mostrar_progress == true)
 				return;
 
 			var r = confirm("¿Deseas continuar?");
@@ -176,7 +181,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	//Guarda nuevo miembro y después internamente guarda los IDs para cada tabla del niño
 	nuevo_miembro(){
 		this.form_guardar.disable();
-		this.guardando = true;
+		this.mostrar_progress = true;
 		var spinner = document.getElementById("spinner");
 		
 		//1. Recalcula el número de miembro, en dado caso que ya hayan registrado uno mientras estaba en proceso
@@ -209,12 +214,14 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			this.tipo_progress = "success";
 			this.mensaje = this.form_guardar.value.nombres + " se agregó correctamente. NÚMERO DE MIEMBRO: " + this.form_guardar.value.miembroID;
 			this.mostrar_alert(this.mensaje, 'success', 60000, "compleado");
+			this.mostrar_progress = false;
 			//this.padre_var.emit(this.form_guardar.value.miembroID);
 		},
 		error  => {
 			this.mostrar_alert("Ocurrió un error, inténtalo mas tarde", 'danger', 5000, null);
 			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
+			this.mostrar_progress = false;
 			console.log("Error al guardar en la tabla miembro", error);
 		});
 	}
@@ -222,7 +229,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	//Modifica los valores
 	modificar(){
 		this.form_guardar.disable();
-		this.guardando = true;
+		this.mostrar_progress = true;
 
 		var spinner = document.getElementById("spinner");
 		if (this.webcamImage != null) {
@@ -273,7 +280,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 
 	limpiar_form_guardar(){
 		this.form_guardar.reset();
-		this.guardando = false;
+		this.mostrar_progress = false;
 		this.porcentaje_actual = 0;
 		this.porcentaje_sumar = 0;
 	}
@@ -294,7 +301,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		this.visible = false;
 		this.mensaje = null;
 		this.tipo = null;
-		this.guardando = false;
+		this.mostrar_progress = false;
 	}
 
 	// TODO PARA LA CÁMARA
