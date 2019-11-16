@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { autoTable as AutoTable } from 'jspdf-autotable';
 import { ExcelService } from '../../../excel.service';
+import { image } from 'html2canvas/dist/types/css/types/image';
 
 @Component({
   selector: 'rp-donacion',
@@ -30,6 +31,8 @@ export class RpDonacionComponent implements OnInit {
   arrayLideres: any;
   arrayCampanas: any;
   arrayEventos: any;
+  
+  contador: any=0;
 
   //Formularios
   form_report: FormGroup;
@@ -105,24 +108,7 @@ export class RpDonacionComponent implements OnInit {
         Campaña: this.informe[i].descripcion,
         Evento: this.informe[i].donacion.descripcion,
         Observacion: this.informe[i].donacion.donacion.donacion.donacion.observacion,
-      });
-      // this.excel= [{
-      //   ID: this.informe[i].donacion.donacion.donacion.donacion.donacionID,
-      //   Donante: this.informe[i].donacion.donacion.donacion.donacion.nombre,
-      //   Status: this.informe[i].donacion.donacion.donacion.donacion.status,
-      //   Fecha_Donacion: this.informe[i].donacion.donacion.donacion.donacion.fechadonacion,
-      //   Tipo_Donante: this.informe[i].donacion.donacion.donacion.donacion.tipodonante,
-      //   Nombre_Fiscal: this.informe[i].donacion.donacion.donacion.donacion.nombrefiscal,
-      //   Tipo_Donacion: this.informe[i].donacion.donacion.donacion.donacion.tipodonacion,
-      //   Monto: this.informe[i].donacion.donacion.donacion.donacion.monto,
-      //   Estado: this.informe[i].donacion.donacion.donacion.donacion.Estado,
-      //   Primer_Pago: this.informe[i].donacion.donacion.donacion.donacion.primerpago,
-      //   Frecuencia: this.informe[i].donacion.donacion.donacion.donacion.frecuencia,
-      //   Lider: this.informe[i].donacion.donacion.descripcion,
-      //   Campaña: this.informe[i].descripcion,
-      //   Evento: this.informe[i].donacion.descripcion,
-      //   Observacion: this.informe[i].donacion.donacion.donacion.donacion.observacion,
-      // },];
+      });      
 
     }
 
@@ -131,26 +117,28 @@ export class RpDonacionComponent implements OnInit {
   }
 
   //crear pdf
-  public captureScreen() {
+  captureScreen() {
     var spinner_buscar_evento = document.getElementById("spinner_pdf");
     spinner_buscar_evento.removeAttribute("hidden");
 
     var doc = new jsPDF('l', 'mm', 'a4');
     var totalPagesExp = "{total_pages_count_string}";
+    var registros='Informe Donaciones.     Registros: '+this.contador;
 
-    //var imgData='data:image/png;base64,'+btoa('./assets/img/logo.png');
+    var img = new Image();
+img.src = ('./assets/img/logo.png');
+    
+    
 
     var pageContent = function (data) {
       // HEADER
-      doc.setFontSize(20);
+      doc.setFontSize(10);
       doc.setTextColor(40);
       doc.setFontStyle('normal');
 
       //https://www.youtube.com/watch?v=7hUr0P9nHF8
-
-      // doc.addImage(imgData, 'PNG', data.settings.margin.left, 15, 10, 10);
-
-      doc.text('Informe Donaciones', data.settings.margin.left + 15, 22);
+      doc.addImage(img, 'PNG', data.settings.margin.left, 15, 50, 10);
+      doc.text(registros, data.settings.margin.left + 60, 22); 
 
       // FOOTER
       var str = "Page " + data.pageCount;
@@ -188,6 +176,8 @@ export class RpDonacionComponent implements OnInit {
 
   //peticion para llenar la tabla
   crear_informe() {
+    var spinner_consulta_donacion = document.getElementById("spinner_consulta_donacion");
+    spinner_consulta_donacion.setAttribute("hidden", "false");
     this.submit_agregar = true;
     if (this.form_report.value.tipodonante == null || this.form_report.value.tipodonante == '') {
       this.form_report.get('tipodonante').setValue('null');
@@ -263,10 +253,13 @@ export class RpDonacionComponent implements OnInit {
 
     response.subscribe((data: any[]) => {
       this.informe = data;
+      this.contador= data.length;
     },
       error => {
         console.log("Error", error)
       });
+      
+    spinner_consulta_donacion.setAttribute("hidden", "true");
   }
 
   get_Lider() {

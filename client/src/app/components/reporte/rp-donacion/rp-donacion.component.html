@@ -147,8 +147,8 @@
       <div class="dropdown-divider"></div>
       <div class="col-10"></div>
       <div class="col-2">
-        <button name="agenda_btn_consultar" class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
-          <span id="spinner_agregar_agenda" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+        <button name="donacion_btn_consultar" class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
+          <span id="spinner_consulta_donacion" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
             hidden></span>
           Consultar
         </button>
@@ -178,10 +178,7 @@
       <div class="col-12" style="overflow-x:auto; overflow-y:auto;">
         <form>
           <table class="table text-center table-bordered table-sm rounded" id="contentToConvert" name="contentToConvert">
-            <thead style="background-color: #00AAE7; color: white;">
-                <!-- <div class="col-12">
-                    <img src="./assets/img/logo.png" style="height: 40px; left: 20px;" alt="google.com">
-                </div> -->
+            <thead style="background-color: #00AAE7; color: white; font-size: 12;">
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Donante</th>
@@ -205,13 +202,13 @@
                 <td>DO-{{inf.donacion.donacion.donacion.donacion.donacionID}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.nombre}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.status}}</td>
-                <td>{{inf.donacion.donacion.donacion.donacion.fechadonacion | date:'yyyy/MM/dd'}}</td>
+                <td>{{inf.donacion.donacion.donacion.donacion.fechadonacion | date:'dd/MM/yyyy'}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.tipodonante}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.nombrefiscal}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.tipodonacion}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.monto}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.Estado}}</td>
-                <td>{{inf.donacion.donacion.donacion.donacion.primerpago | date:'yyyy/MM/dd'}}</td>
+                <td>{{inf.donacion.donacion.donacion.donacion.primerpago | date:'dd/MM/yyyy'}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.frecuencia}}</td>
                 <td>{{inf.donacion.donacion.descripcion}}</td>
                 <td>{{inf.descripcion}}</td>

@@ -26,6 +26,7 @@ export class RpIncidenciaComponent implements OnInit {
   //busqueda
   informe: any;
 
+  contador: any=0;
   //Formularios
   form_report: FormGroup;
 
@@ -44,7 +45,6 @@ export class RpIncidenciaComponent implements OnInit {
       hermano_primo: [],
       fechaincidencia1: [],
       fechaincidencia2: [],
-      instructorid: [],
       area_actividad: [],
       tipoproblema: [],
     })
@@ -77,18 +77,17 @@ export class RpIncidenciaComponent implements OnInit {
     for (let i in this.informe) {
       console.log(i);
       excel.push({
-        ID_Incidencia:this.informe[i].incidencia.no_incidencia,
-        ID_Miembro:this.informe[i].incidencia.miembroID,
-        Nombre_Niño:this.informe[i].incidencia.nombresnino,
-        Grupo:this.informe[i].incidencia.grupo,
-        Fecha_Incidencia:this.informe[i].incidencia.fecha_incidencia,
-        ID_Instructor:this.informe[i].idStaff,
-        Instructor:this.informe[i].instructor,
-        Area_Actividad:this.informe[i].incidencia.area_actividad,
-        Conducta_Problema:this.informe[i].incidencia.conducta_problema,
-        Descripción:this.informe[i].incidencia.descripcion,
-        Canalización:this.informe[i].incidencia.canaliza,
-        Solución:this.informe[i].incidencia.solucion,
+        ID_Incidencia:this.informe[i].incio_incidencia,
+        ID_Miembro:this.informe[i].inciiembroID,
+        Nombre_Niño:this.informe[i].inciombresnino,
+        Grupo:this.informe[i].incirupo,
+        Fecha_Incidencia:this.informe[i].inciecha_incidencia,
+        Instructor:this.informe[i].quien_detecto,
+        Area_Actividad:this.informe[i].incirea_actividad,
+        Conducta_Problema:this.informe[i].incionducta_problema,
+        Descripción:this.informe[i].inciescripcion,
+        Canalización:this.informe[i].incianaliza,
+        Solución:this.informe[i].inciolucion,
       });
     }
     this.excelService.exportAsExcelFile(excel, this.nombre);
@@ -102,8 +101,9 @@ export class RpIncidenciaComponent implements OnInit {
 
     var doc = new jsPDF('l', 'mm', 'a4');
     var totalPagesExp = "{total_pages_count_string}";
-
-    //var imgData='data:image/png;base64,'+btoa('./assets/img/logo.png');
+    var img = new Image();
+    img.src = ('./assets/img/logo.png');
+    var registros='Informe Incidencia.     Registros: '+this.contador;
 
     var pageContent = function (data) {
       // HEADER
@@ -115,7 +115,9 @@ export class RpIncidenciaComponent implements OnInit {
 
       // doc.addImage(imgData, 'PNG', data.settings.margin.left, 15, 10, 10);
 
-      doc.text('Informe Incidencia', data.settings.margin.left + 15, 22);
+      doc.addImage(img, 'PNG', data.settings.margin.left, 15, 50, 10);
+      doc.text(registros, data.settings.margin.left + 60, 22); 
+
 
       // FOOTER
       var str = "Page " + data.pageCount;
@@ -169,9 +171,6 @@ export class RpIncidenciaComponent implements OnInit {
     if (this.form_report.value.fechaincidencia2 == null || this.form_report.value.fechaincidencia2 == '') {
       this.form_report.get('fechaincidencia2').setValue('null');
     } 
-    if (this.form_report.value.instructorid == null || this.form_report.value.instructorid == '') {
-      this.form_report.get('instructorid').setValue(0);
-    }
      if (this.form_report.value.area_actividad == null || this.form_report.value.area_actividad == '') {
       this.form_report.get('area_actividad').setValue('null');
     }
@@ -185,13 +184,13 @@ export class RpIncidenciaComponent implements OnInit {
       + '&Rhermanoprimo='+ this.form_report.value.hermano_primo
       + '&RFechaincidencia1='+ this.form_report.value.fechaincidencia1
       + '&RFechaincidencia2='+ this.form_report.value.fechaincidencia2
-      + '&Rintructorid='+ this.form_report.value.instructorid
       + '&Rareaactividad='+ this.form_report.value.area_actividad
       + '&Rtipoproblema='+ this.form_report.value.tipoproblema
     );
 
     response.subscribe((data: any[]) => {
       this.informe = data;
+      this.contador= data.length;
     },
       error => {
         console.log("Error", error)

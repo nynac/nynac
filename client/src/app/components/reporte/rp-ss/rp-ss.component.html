@@ -1,1 +1,172 @@
-<p>rp-ss works!</p>
+<form [formGroup]="form_report" (ngSubmit)="crear_informe()">
+  
+    <div class="dropdown-divider"></div>
+    <div class="col-4 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">Nombre Informe:</span>
+        <input type="text" formControlName="nombreinforme" class="form-control">
+      </div>
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 15px 0px 0px 15px">
+      <div class="col-12 font-weight-bold">
+        <span>Informe</span>
+      </div>      
+      <div class="col-4 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">ID: </span>
+        <input type="number" formControlName="idSS" class="form-control" 
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.idSS.errors }">
+      </div>
+      <div class="col-4 input-group input-group-sm mb-3">
+        <label for="Estado" style="margin-right: 10px">Estado </label>
+        <select formControlName="Estado" class="custom-select"
+            [ngClass]="{ 'is-invalid': submit_agregar && f_A.Estado.errors }">
+            <option selected disabled>Seleccione</option>
+            <option value="true">Activo</option>
+            <option value="false">Desactivo</option>
+        </select>
+    </div>
+      <div class="col-4 input-group input-group-sm mb-3">
+        <label for="Sede" style="margin-right: 10px">Sede: </label>
+        <select formControlName="Sede" class="custom-select"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.Sede.errors }">
+          <option selected disabled>Seleccione </option>
+          <option value="LomaDorada">Loma Dorada</option>
+          <option value="camino">Camino Verda</option>
+          <option value="Natura">Natura</option>
+        </select>
+      </div>    
+  <div class="col-4 input-group input-group-sm mb-3">
+    <span style="margin-right: 10px">Enfermedad: </span>
+    <input type="text" formControlName="Enfermedad" class="form-control" 
+      [ngClass]="{ 'is-invalid': submit_agregar && f_A.Enfermedad.errors }">
+  </div>
+  <div class="col-4 input-group input-group-sm mb-3">
+    <span style="margin-right: 10px">Alergia: </span>
+    <input type="text" formControlName="Alergia" class="form-control" 
+      [ngClass]="{ 'is-invalid': submit_agregar && f_A.Alergia.errors }">
+  </div>
+  <div class="col-3 input-group input-group-sm mb-3"></div>
+  <span>Dias que vendra a trabajar</span>
+  <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
+    <input type="checkbox" id="Lunes" formControlName="Lunes" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Lunes.errors}"/>
+    <label class="custom-control-label" for="Lunes">Lunes&nbsp;</label>
+</div>
+<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
+    <input type="checkbox" id="Martes" formControlName="Martes" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Martes.errors}"/>
+    <label class="custom-control-label" for="Martes">Martes&nbsp;</label>
+</div>
+<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
+    <input type="checkbox" id="Miercoles" formControlName="Miercoles" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Miercoles.errors}"/>
+    <label class="custom-control-label" for="Miercoles">Miercoles&nbsp;</label>
+</div>
+<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
+    <input type="checkbox" id="Jueves" formControlName="Jueves" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Jueves.errors}"/>
+    <label class="custom-control-label" for="Jueves">Jueves&nbsp;</label>
+</div>
+<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
+    <input type="checkbox" id="Viernes" formControlName="Viernes" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Viernes.errors}"/>
+    <label class="custom-control-label" for="Viernes">Viernes&nbsp;</label>
+</div>
+<div class="col-3 input-group input-group-sm mb-3"></div>
+<div class="col-3 form-group input-group-sm mb-3">
+    <label for="Fecha_Nacimiento1">Fecha_Nacimiento-Desde: </label>
+    <input formControlName="Fecha_Nacimiento1"  type="date" class="form-control"
+      [ngClass]="{ 'is-invalid': submit_agregar && f_A.Fecha_Nacimiento1.errors }" id="Fecha_Nacimiento1" data-toggle="tooltip"
+      data-placement="top" title="Fecha_Nacimiento1" style="margin-top: -10px;">
+  </div>
+  <div class="col-3 form-group input-group-sm mb-3">
+    <label for="Fecha_Nacimiento2">Fecha_Nacimiento-Hasta: </label>
+    <input formControlName="Fecha_Nacimiento2"  type="date" class="form-control"
+      [ngClass]="{ 'is-invalid': submit_agregar && f_A.Fecha_Nacimiento2.errors }" id="Fecha_Nacimiento2" data-toggle="tooltip"
+      data-placement="top" title="Fecha_Nacimiento2" style="margin-top: -10px;">
+  </div>
+
+    </div>
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 0px 0px 15px 15px">
+      <div class="dropdown-divider"></div>
+      <div class="col-10"></div>
+      <div class="col-2">
+        <button name="agenda_btn_consultar" class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
+          <span id="spinner_agregar_agenda" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+            hidden></span>
+          Consultar
+        </button>
+      </div>
+    </div>
+  </form>
+  <button name="captura_table" class="btn btn-primary mr-1" 
+  style="width:100%; height: 50px; background-color: rgb(51, 192, 98);" type="submit" value="CPTURE" (click)="exportAsXLSX()">
+    <span id="spinner_excel" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+      hidden></span>
+    Exportar Excel
+  </button>
+  <div>
+    <br>
+  </div>
+  <button name="captura_table" class="btn btn-primary mr-1" 
+  style="width:100%; height: 50px;" type="submit" value="CPTURE" (click)="captureScreen()">
+    <span id="spinner_pdf" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+      hidden></span>
+    Exportar PDF
+  </button>
+  <div class="container border rounded" >
+    <div class="row" style="margin: 15px 15px 0px 0px" >
+      <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+        <label class="font-weight-bold">Informe: {{contador}}</label>
+      </div>
+      <div class="col-12" style="overflow-x:auto; overflow-y:auto;">
+        <form>
+          <table class="table text-center table-bordered table-sm rounded" id="informeSS" name="informeSS">
+            <thead style="background-color: #00AAE7; color: white;font-size: 12;">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Sede</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Fecha_Nacimiento</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Domicilio</th>
+                  <th scope="col">Escuela_Proviene</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Enfermedad</th>
+                  <th scope="col">Alergia</th>
+                  <th scope="col">Tel_Emergencia</th>
+                  <th scope="col">Contacto</th>
+                  <th scope="col">Lunes</th>
+                  <th scope="col">Martes</th>
+                  <th scope="col">Miercoles</th>
+                  <th scope="col">Jueves</th>
+                  <th scope="col">Viernes</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let inf of informe; let i=index">
+                <td>{{inf.idStaff}}</td>
+                <td>{{inf.estado}}</td>
+                <td>{{inf.sede}}</td>
+                <td>{{inf.nombrestaff}}</td>
+                <td>{{inf.fecha_nacimiento | date:'dd/MM/yyyy'}}</td>
+                <td>{{inf.Telefono}}</td>
+                <td>{{inf.correo}}</td>
+                <td>{{inf.domicilio}}</td>
+                <td>{{inf.escuela}}</td>
+                <td>{{inf.tipo}}</td>                
+                <td>{{inf.Enfermedad}}</td>
+                <td>{{inf.Alergia}}</td>
+                <td>{{inf.telefono_emergencia}}</td>
+                <td>{{inf.parentesco_emergencia}}</td>
+                <td>{{inf.horas_lunes}}</td>
+                <td>{{inf.horas_martes}}</td>
+                <td>{{inf.horas_miercoles}}</td>
+                <td>{{inf.horas_jueves}}</td>
+                <td>{{inf.horas_viernes}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
