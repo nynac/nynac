@@ -20,7 +20,7 @@ export class RpNinosComponent implements OnInit {
 
   data: any;
   nombre: any;
-  contador: any=0;
+  contador: any = 0;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, private excelService: ExcelService) {
   }
@@ -39,14 +39,24 @@ export class RpNinosComponent implements OnInit {
     //buscar
     this.form_report = this.formBuilder.group({
       nombreinforme: [],
-      incidenciaid: [],
-      miembroid: [],
-      grupo: [],
-      hermano_primo: [],
-      fechaincidencia1: [],
-      fechaincidencia2: [],
-      area_actividad: [],
-      tipoproblema: [],
+      idnino: [],
+      turno: [],
+      nombrenino: [],
+      fechainscripcion1: [],
+      fechainscripcion2: [],
+      fechanacimiento1: [],
+      fechanacimiento2: [],
+      sexo: [],
+      nacionalidad: [],
+      persona_autorizada: [],
+      padre: [],
+      madre: [],
+      tutor: [],
+      alergia: [],
+      medicamento: [],
+      cuidado_especial: [],
+      estado: [],
+      sede: [],
     })
   }
 
@@ -70,24 +80,43 @@ export class RpNinosComponent implements OnInit {
     spinner_excel.removeAttribute("hidden");
 
     if (this.form_report.value.nombreinforme == null) {
-      this.nombre = 'Informe-Incidencia'
+      this.nombre = 'Informe-Niños'
     } else {
       this.nombre = this.form_report.value.nombreinforme;
     }
     for (let i in this.informe) {
       console.log(i);
       excel.push({
-        ID_Incidencia:this.informe[i].incio_incidencia,
-        ID_Miembro:this.informe[i].inciiembroID,
-        Nombre_Niño:this.informe[i].inciombresnino,
-        Grupo:this.informe[i].incirupo,
-        Fecha_Incidencia:this.informe[i].inciecha_incidencia,
-        Instructor:this.informe[i].quien_detecto,
-        Area_Actividad:this.informe[i].incirea_actividad,
-        Conducta_Problema:this.informe[i].incionducta_problema,
-        Descripción:this.informe[i].inciescripcion,
-        Canalización:this.informe[i].incianaliza,
-        Solución:this.informe[i].inciolucion,
+        ID_Niño: this.informe[i].miembro.miembro.idNinosDG,
+        Sede: this.informe[i].miembro.miembro.sede,
+        Estado: this.informe[i].miembro.miembro.estado,
+        Nombre: this.informe[i].miembro.miembro.nombrenino,
+        CURP: this.informe[i].miembro.miembro.curp,
+        Turno: this.informe[i].miembro.miembro.turno_asiste,
+        Fecha_Nacimiento: this.informe[i].miembro.miembro.fechanacimiento,
+        Sexo: this.informe[i].miembro.miembro.sexo,
+        Edad: this.informe[i].miembro.miembro.edad,
+        Nacionalidad: this.informe[i].miembro.miembro.nacionalidad,
+        Madre: this.informe[i].miembro.madre,
+        Ocupación_madre: this.informe[i].miembro.trabajomadre,
+        Contacto_Madre: this.informe[i].miembro.contactomadre,
+        Padre: this.informe[i].miembro.padre,
+        Ocupación_padre: this.informe[i].miembro.trabajopadre,
+        Contacto_Padre: this.informe[i].miembro.contactopadre,
+        Tutor: this.informe[i].miembro.tutor,
+        Ocupacion_Tutor: this.informe[i].miembro.ocupaciontutor,
+        Tel_Tutor: this.informe[i].miembro.teltutor,
+        Persona_Autorizada: this.informe[i].miembro.miembro.persona_autorizada,
+        Contacto_Emergencia1: this.informe[i].miembro.miembro.contacto1,
+        Contacto_Emergencia2: this.informe[i].miembro.miembro.contacto2,
+        Contacto_Emergencia3: this.informe[i].miembro.miembro.contacto3,
+        Fecha_Ingreso: this.informe[i].miembro.miembro.fechainscripcion,
+        Dirección: this.informe[i].miembro.miembro.direccion,
+        Visa: this.informe[i].miembro.miembro.visa,
+        Religion: this.informe[i].miembro.miembro.religion,
+        Alergias: this.informe[i].alergia,
+        Cuidado_especial: this.informe[i].cuidadoespecial,
+        Medicamento: this.informe[i].medicamento,
       });
     }
     this.excelService.exportAsExcelFile(excel, this.nombre);
@@ -99,11 +128,10 @@ export class RpNinosComponent implements OnInit {
     var spinner_buscar_evento = document.getElementById("spinner_pdf");
     spinner_buscar_evento.removeAttribute("hidden");
 
-    var doc = new jsPDF('l', 'pt', 'a4');
+    var doc = new jsPDF('l', 'mm', 'a4');
     var totalPagesExp = "{total_pages_count_string}";
-    var registros='Informe Donaciones.     Registros: '+this.contador;
-    var img = new Image();
-img.src = ('./assets/img/logo.png');
+    var registros = 'Informe Donaciones.     Registros: ' + this.contador;
+    var img = new Image(); img.src = ('./assets/img/logo.png');
 
     var pageContent = function (data) {
       // HEADER
@@ -114,7 +142,7 @@ img.src = ('./assets/img/logo.png');
       //https://www.youtube.com/watch?v=7hUr0P9nHF8
 
       doc.addImage(img, 'PNG', data.settings.margin.left, 15, 50, 10);
-      doc.text(registros, data.settings.margin.left + 60, 22); 
+      doc.text(registros, data.settings.margin.left + 60, 22);
 
       // FOOTER
       var str = "Page " + data.pageCount;
@@ -141,7 +169,7 @@ img.src = ('./assets/img/logo.png');
     }
 
     if (this.form_report.value.nombreinforme == null) {
-      this.nombre = 'Informe-Incidencia.pdf'
+      this.nombre = 'Informe-Niños.pdf'
     } else {
       this.nombre = this.form_report.value.nombreinforme + '.pdf';
     }
@@ -153,46 +181,76 @@ img.src = ('./assets/img/logo.png');
   //peticion para llenar la tabla
   crear_informe() {
     this.submit_agregar = true;
-    if (this.form_report.value.incidenciaid == null || this.form_report.value.incidenciaid == '') {
-      this.form_report.get('incidenciaid').setValue(0);
+    if (this.form_report.value.idnino == null || this.form_report.value.idnino == '') {
+      this.form_report.get('idnino').setValue(0);
     }
-    if (this.form_report.value.miembroid == null || this.form_report.value.miembroid  == '') {
-      this.form_report.get('miembroid').setValue(0);
-    }    
-    if (this.form_report.value.grupo == null || this.form_report.value.grupo == '') {
-      this.form_report.get('grupo').setValue('null');
+    if (this.form_report.value.turno == null || this.form_report.value.turno == '') {
+      this.form_report.get('turno').setValue('null');
     }
-    if (this.form_report.value.fechaincidencia1 == null || this.form_report.value.fechaincidencia1 == '') {
-      this.form_report.get('fechaincidencia1').setValue('null');
+    if (this.form_report.value.nombrenino == null || this.form_report.value.nombrenino == '') {
+      this.form_report.get('nombrenino').setValue('null');
     }
-    if (this.form_report.value.fechaincidencia2 == null || this.form_report.value.fechaincidencia2 == '') {
-      this.form_report.get('fechaincidencia2').setValue('null');
-    } 
-     if (this.form_report.value.area_actividad == null || this.form_report.value.area_actividad == '') {
-      this.form_report.get('area_actividad').setValue('null');
+    if (this.form_report.value.fechainscripcion1 == null || this.form_report.value.fechainscripcion1 == '') {
+      this.form_report.get('fechainscripcion1').setValue('null');
+    } if (this.form_report.value.fechainscripcion2 == null || this.form_report.value.fechainscripcion2 == '') {
+      this.form_report.get('fechainscripcion2').setValue('null');
     }
-    if (this.form_report.value.tipoproblema == null || this.form_report.value.tipoproblema == '') {
-      this.form_report.get('tipoproblema').setValue('null');
+    if (this.form_report.value.fechanacimiento1 == null || this.form_report.value.fechanacimiento1 == '') {
+      this.form_report.get('fechanacimiento1').setValue('null');
+    }
+    if (this.form_report.value.fechanacimiento2 == null || this.form_report.value.fechanacimiento2 == '') {
+      this.form_report.get('fechanacimiento2').setValue('null');
+    }
+    if (this.form_report.value.sexo == null || this.form_report.value.sexo == '') {
+      this.form_report.get('sexo').setValue('null');
+    }
+    if (this.form_report.value.nacionalidad == null || this.form_report.value.nacionalidad == '') {
+      this.form_report.get('nacionalidad').setValue('null');
+    }
+    if (this.form_report.value.persona_autorizada == null || this.form_report.value.persona_autorizada == '') {
+      this.form_report.get('persona_autorizada').setValue('null');
+    }
+    if (this.form_report.value.alergia == null || this.form_report.value.alergia == '') {
+      this.form_report.get('alergia').setValue('null');
+    }
+    if (this.form_report.value.medicamento == null || this.form_report.value.medicamento == '') {
+      this.form_report.get('medicamento').setValue('null');
+    }
+    if (this.form_report.value.cuidado_especial == null || this.form_report.value.cuidado_especial == '') {
+      this.form_report.get('cuidado_especial').setValue('null');
+    }
+    if (this.form_report.value.estado == null || this.form_report.value.estado == '') {
+      this.form_report.get('estado').setValue('null');
+    }
+    if (this.form_report.value.sede == null || this.form_report.value.sede == '') {
+      this.form_report.get('sede').setValue('null');
     }
     var response = this.http.get(this.url
-      + 'incidencia/reporte?Rincidenciaid='+this.form_report.value.incidenciaid
-      + '&Rmiembroid='+this.form_report.value.miembroid
-      + '&Rgrupo='+ this.form_report.value.grupo
-      + '&Rhermanoprimo='+ this.form_report.value.hermano_primo
-      + '&RFechaincidencia1='+ this.form_report.value.fechaincidencia1
-      + '&RFechaincidencia2='+ this.form_report.value.fechaincidencia2
-      + '&Rareaactividad='+ this.form_report.value.area_actividad
-      + '&Rtipoproblema='+ this.form_report.value.tipoproblema
+      + 'Nino/reporte?Rturno=' + this.form_report.value.turno
+      + '&Ridnino=' + this.form_report.value.idnino
+      + '&Rnombrenino=' + this.form_report.value.nombrenino
+      + '&Rfechainscripcion1=' + this.form_report.value.fechainscripcion1
+      + '&Rfechainscripcion2=' + this.form_report.value.fechainscripcion2
+      + '&Rfechanacimient1=' + this.form_report.value.fechanacimiento1
+      + '&Rfechanacimient2=' + this.form_report.value.fechanacimiento2
+      + '&Rsexo=' + this.form_report.value.sexo
+      + '&nacionalidad=' + this.form_report.value.nacionalidad
+      + '&Rpersonautho=' + this.form_report.value.persona_autorizada
+      + '&Ralergia=' + this.form_report.value.alergia
+      + '&Rmedicamento=' + this.form_report.value.medicamento
+      + '&Rcuidadoespc=' + this.form_report.value.cuidado_especial
+      + '&Restado=' + this.form_report.value.estado
+      + '&Rsede=' + this.form_report.value.sede
     );
 
     response.subscribe((data: any[]) => {
       this.informe = data;
-      this.contador= data.length;
+      this.contador = data.length;
     },
       error => {
         console.log("Error", error)
       });
   }
 
-  
+
 }

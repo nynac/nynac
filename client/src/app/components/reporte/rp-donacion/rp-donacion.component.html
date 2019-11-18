@@ -124,10 +124,10 @@
       data-placement="top" title="fechadonacion1" style="margin-top: -10px;">
   </div> 
   <div class="col-3 form-group input-group-sm mb-3">
-    <label for="fechadonacion1">Fecha Donacion-Hasta: </label>
-    <input formControlName="fechadonacion1"  type="date" class="form-control"
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechadonacion1.errors }" id="fechadonacion1" data-toggle="tooltip"
-      data-placement="top" title="fechadonacion1" style="margin-top: -10px;">
+    <label for="fechadonacion2">Fecha Donacion-Hasta: </label>
+    <input formControlName="fechadonacion2"  type="date" class="form-control"
+      [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechadonacion2.errors }" id="fechadonacion2" data-toggle="tooltip"
+      data-placement="top" title="fechadonacion2" style="margin-top: -10px;">
   </div> 
   <div class="col-3 form-group input-group-sm mb-3">
     <label for="primerpago1">Primer Pago-Desde: </label>
@@ -173,12 +173,12 @@
   <div class="container border rounded" >
     <div class="row" style="margin: 15px 15px 0px 0px" >
       <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-        <label class="font-weight-bold">Informe: </label>
+        <label class="font-weight-bold">Informe-Registros: {{contador}}</label>
       </div>
       <div class="col-12" style="overflow-x:auto; overflow-y:auto;">
         <form>
           <table class="table text-center table-bordered table-sm rounded" id="contentToConvert" name="contentToConvert">
-            <thead style="background-color: #00AAE7; color: white; font-size: 12;">
+            <thead style="background-color: #00AAE7; color: white; font-size: small;">
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Donante</th>

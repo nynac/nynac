@@ -116,7 +116,7 @@ export class RpSSComponent implements OnInit {
 
     var doc = new jsPDF('l', 'mm', 'a4');
     var totalPagesExp = "{total_pages_count_string}";
-    var registros='Informe Donaciones.     Registros: '+this.contador;
+    var registros='Informe Servicio Social.     Registros: '+this.contador;
     var img = new Image();
     img.src = ('./assets/img/logo.png');
 
@@ -156,7 +156,7 @@ export class RpSSComponent implements OnInit {
     }
 
     if (this.form_report.value.nombreinforme == null) {
-      this.nombre = 'Informe-Incidencia.pdf'
+      this.nombre = 'Informe-Servicio-Social.pdf'
     } else {
       this.nombre = this.form_report.value.nombreinforme + '.pdf';
     }
@@ -190,19 +190,19 @@ export class RpSSComponent implements OnInit {
       this.form_report.get('Alergia').setValue('null');
     }
     if (this.form_report.value.Lunes == null || this.form_report.value.Lunes == '') {
-      this.form_report.get('Lunes').setValue(0);
+      this.form_report.get('Lunes').setValue(false);
     }
     if (this.form_report.value.Martes == null || this.form_report.value.Martes == '') {
-      this.form_report.get('Martes').setValue(0);
+      this.form_report.get('Martes').setValue(false);
     }
     if (this.form_report.value.Miercoles == null || this.form_report.value.Miercoles == '') {
-      this.form_report.get('Miercoles').setValue(0);
+      this.form_report.get('Miercoles').setValue(false);
     }
     if (this.form_report.value.Jueves == null || this.form_report.value.Jueves == '') {
-      this.form_report.get('Jueves').setValue(0);
+      this.form_report.get('Jueves').setValue(false);
     }
     if (this.form_report.value.Viernes == null || this.form_report.value.Viernes == '') {
-      this.form_report.get('Viernes').setValue(0);
+      this.form_report.get('Viernes').setValue(false);
     }
     var response = this.http.get(this.url
       + 'staff/reporte?Rsede=' + this.form_report.value.Sede

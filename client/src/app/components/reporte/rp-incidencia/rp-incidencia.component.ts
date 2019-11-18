@@ -42,7 +42,6 @@ export class RpIncidenciaComponent implements OnInit {
       incidenciaid: [],
       miembroid: [],
       grupo: [],
-      hermano_primo: [],
       fechaincidencia1: [],
       fechaincidencia2: [],
       area_actividad: [],
@@ -77,17 +76,17 @@ export class RpIncidenciaComponent implements OnInit {
     for (let i in this.informe) {
       console.log(i);
       excel.push({
-        ID_Incidencia:this.informe[i].incio_incidencia,
-        ID_Miembro:this.informe[i].inciiembroID,
-        Nombre_Niño:this.informe[i].inciombresnino,
-        Grupo:this.informe[i].incirupo,
-        Fecha_Incidencia:this.informe[i].inciecha_incidencia,
+        ID_Incidencia:this.informe[i].no_incidencia,
+        ID_Miembro:this.informe[i].miembroID,
+        Nombre_Niño:this.informe[i].nombresnino,
+        Grupo:this.informe[i].grupo,
+        Fecha_Incidencia:this.informe[i].fecha_incidencia,
         Instructor:this.informe[i].quien_detecto,
-        Area_Actividad:this.informe[i].incirea_actividad,
-        Conducta_Problema:this.informe[i].incionducta_problema,
-        Descripción:this.informe[i].inciescripcion,
-        Canalización:this.informe[i].incianaliza,
-        Solución:this.informe[i].inciolucion,
+        Area_Actividad:this.informe[i].area_actividad,
+        Conducta_Problema:this.informe[i].conducta_problema,
+        Descripción:this.informe[i].descripcion,
+        Canalización:this.informe[i].canaliza,
+        Solución:this.informe[i].solucion,
       });
     }
     this.excelService.exportAsExcelFile(excel, this.nombre);
@@ -176,12 +175,11 @@ export class RpIncidenciaComponent implements OnInit {
     }
     if (this.form_report.value.tipoproblema == null || this.form_report.value.tipoproblema == '') {
       this.form_report.get('tipoproblema').setValue('null');
-    }
+    } 
     var response = this.http.get(this.url
       + 'incidencia/reporte?Rincidenciaid='+this.form_report.value.incidenciaid
       + '&Rmiembroid='+this.form_report.value.miembroid
       + '&Rgrupo='+ this.form_report.value.grupo
-      + '&Rhermanoprimo='+ this.form_report.value.hermano_primo
       + '&RFechaincidencia1='+ this.form_report.value.fechaincidencia1
       + '&RFechaincidencia2='+ this.form_report.value.fechaincidencia2
       + '&Rareaactividad='+ this.form_report.value.area_actividad
