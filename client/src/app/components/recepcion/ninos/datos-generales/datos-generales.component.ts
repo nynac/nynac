@@ -119,7 +119,6 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		}
 
 		if(this.agregar_o_modificar == "nuevo"){
-			this.obtener_ultimo_miembro();
 			this.mostrar_alert("Usted está creando un nuevo miembro, para ello sólo deberá agregar información en el apartado de 'DATOS GENERALES', una vez completado este paso " 
 				+ "usted deberá seleccionar la opción MODIFICAR y deberá ingresar el número de miembro que se generó al finalizar datos generales, apartir de ahí "
 				+ "usted podrá agregar la información faltante en los demás apartados.","info",90000, null);
@@ -131,63 +130,74 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	press_guardar(){
 		var spinner = document.getElementById("spinner");
 
+
+		//1. verifica si el formularío no es invalido
 		if (this.form_guardar.invalid) {
 			console.log("Formato incorrecto del formulario");
 			
 			this.mostrar_progress = false;
 			this.form_invalid = true;
 
-			spinner.setAttribute("hidden", "true");
+			spinner.setAttribute("hidden", "true"); //oculta el spinner 
 			return;
 		}
+		//2. El formulario no es invalido
 		else{
+			//2.1 Te sacará si ya estás guardando datos
 			if(this.mostrar_progress == true)
 				return;
 
-			var r = confirm("¿Deseas continuar?");
-			if (r== false) 
+			//2.2 Te preuntará si deseas continuar
+			if (confirm("¿Deseas continuar?")== false) 
 				return;
 
+			//3. elegiste continuar
 			spinner.removeAttribute("hidden");
 
+			//4. Verificará que opción tienes seleccionada
+			//5 Va a crear uno nuevo
 			if (this.agregar_o_modificar == "nuevo"){
-				this.nuevo_miembro();
+				//5.1 Obtendrá el último miembroID para crear el siguiente
+				this.obtener_ultimo_miembro(); //
 			}
+			//6. Va a modificar
 			else if (this.agregar_o_modificar == "modificar"){
-				this.modificar();
+				console.log("Va modificar")
+				/*this.modificar();*/
 			}
 			else{
 				console.log("se fue a ninguno")
 			}
+			spinner.setAttribute("hidden", "true");
 		}
 	}
 
-	//Obtener nuevo miembro MÉTODO AUXILIAR
+	//Obtiene el último miembroID de la tabla miembros
 	obtener_ultimo_miembro(){
 		var response = this.http.get(this.url + "ultimoMiembro");
 		response.subscribe((resultado : number)=> {
+
+			//Selecciona valores por defecto de estos campos
 			this.form_guardar.get('estado').setValue(true);
 			this.form_guardar.get('visa').setValue(false);
 			this.form_guardar.get('idNinosDG').setValue(resultado + 1);
 			this.form_guardar.get('miembroID').setValue(resultado + 1);
 
-			console.log(resultado + 1);
+			//5.2 Ya tiene el último miembroID ahora creará al nuevo miembro
+			this.nuevo_miembro();
 		},
 		error =>{
-			console.log("Error", error)
+			console.log("Error al obtener el último miembroID", error)
 		});
 	}
 
 	//Guarda nuevo miembro y después internamente guarda los IDs para cada tabla del niño
 	nuevo_miembro(){
-		this.form_guardar.disable();
+		this.form_guardar.disable(); //Desactiva el formulario
 		this.mostrar_progress = true;
 		var spinner = document.getElementById("spinner");
 		
-		//1. Recalcula el número de miembro, en dado caso que ya hayan registrado uno mientras estaba en proceso
-		this.obtener_ultimo_miembro()
-		
-		//2. Guardamos al niño en la tabla miembros
+		//5.3 Guardamos al niño en la tabla miembros
 		this.datos_miembro = {
 			miembroID : this.form_guardar.value.miembroID,
 			estado : this.form_guardar.value.estado,
