@@ -10,6 +10,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 
+declare var $: any;
+
 @Component({ selector: 'datos-generales', templateUrl: './datos-generales.component.html', styleUrls: ['./datos-generales.component.css']})
 
 export class DatosGeneralesComponent  implements OnInit, OnChanges {
@@ -19,6 +21,8 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	@Input() prop!:any;
 	@Input('agregar_o_modificar') agregar_o_modificar: any; 
 	@Input() prop2!:any;
+
+	 $ : any;
 
 	url = "https://api-remota.conveyor.cloud/api/";
 	miembros : any; datos_miembro : any; aux_datos : any;
@@ -119,9 +123,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		}
 
 		if(this.agregar_o_modificar == "nuevo"){
-			this.mostrar_alert("Usted está creando un nuevo miembro, para ello sólo deberá agregar información en el apartado de 'DATOS GENERALES', una vez completado este paso " 
-				+ "usted deberá seleccionar la opción MODIFICAR y deberá ingresar el número de miembro que se generó al finalizar datos generales, apartir de ahí "
-				+ "usted podrá agregar la información faltante en los demás apartados.","info",90000, null);
+			document.getElementById("btn_modal_info").click();
 		}
 	}
 
@@ -221,11 +223,9 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			window.scroll(0,0);
 
 			this.modificar();
-			this.tipo_progress = "success";
-			this.mensaje = this.form_guardar.value.nombres + " se agregó correctamente. NÚMERO DE MIEMBRO: " + this.form_guardar.value.miembroID;
-			this.mostrar_alert(this.mensaje, 'success', 60000, "compleado");
 			this.mostrar_progress = false;
-			//this.padre_var.emit(this.form_guardar.value.miembroID);
+			
+			document.getElementById("btn_modal_miembroID").click();
 		},
 		error  => {
 			this.mostrar_alert("Ocurrió un error, inténtalo mas tarde", 'danger', 5000, null);
@@ -253,7 +253,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			window.scroll(0,0);
 
 			this.form_guardar.enable();
-			this.mostrar_alert(this.form_guardar.value.nombres + " se guardó correctamente con el NÚMERO DE MIEMBRO: " + this.form_guardar.value.miembroID, "success", 15000, null);	
+			this.mostrar_alert("Se guardó correctamente", "success", 15000, null);	
 		},
 		error  => {
 			spinner.setAttribute("hidden", "true");
