@@ -107,14 +107,14 @@
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3" >
 		<label for="fechanacimiento" style="padding: 0px; font-size: 13px;">Fecha de nacimiento</label>
-		<input formControlName="fechanacimiento" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': form_invalid && f2.fechanacimiento.errors }" id="fechanacimiento" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" style="margin-top: -10px;">
+		<input formControlName="fechanacimiento" placeholder="Fecha de inscripción" type="date" class="form-control"  [ngClass]="{ 'is-invalid': form_invalid && f2.fechanacimiento.errors }" id="fechanacimiento" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" style="margin-top: -10px;" (change)="calcular_edad($event)">
 	</div>
 </div>
 <div class="col-12 custom-control-inline">
 	<div class="col-2 form-group input-group-sm mb-3">
 		<label for="edad" style="padding: 0px; font-size: 14px;">Edad</label>
 		<input type="number" id="edad" formControlName="edad" class="form-control"
-		[ngClass]="{ 'is-invalid': form_invalid && f2.edad.errors }"style="margin-top: -10px;">
+		[ngClass]="{ 'is-invalid': form_invalid && f2.edad.errors }"style="margin-top: -10px;" readonly="true">
 	</div>
 	<div class="col-4 form-group input-group-sm mb-3">
 		<label for="lugarnacimiento" style="padding: 0px; font-size: 14px;">Lugar de nacimiento</label>

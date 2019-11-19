@@ -45,7 +45,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		private sanitazor: DomSanitizer,
 		private formBuilder: FormBuilder,
 		) { 
-		}
+	}
 
 	ngOnInit(){
 		this.form_guardar = this.formBuilder.group({
@@ -163,7 +163,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			//6. Va a modificar
 			else if (this.agregar_o_modificar == "modificar"){
 				console.log("Va modificar")
-				/*this.modificar();*/
+				this.modificar();
 			}
 			else{
 				console.log("se fue a ninguno")
@@ -286,6 +286,15 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			);
 			
 		});
+	}
+
+	calcular_edad(event){
+		var fecha_actual = new Date(Date.now());
+		var fecha_nacimiento = new Date(event.srcElement.value)
+
+		var edad =  fecha_actual.getFullYear() - fecha_nacimiento.getFullYear();
+		this.form_guardar.get('edad').setValue(edad);
+
 	}
 
 	limpiar_form_guardar(){
