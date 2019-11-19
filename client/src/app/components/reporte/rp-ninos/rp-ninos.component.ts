@@ -21,17 +21,21 @@ export class RpNinosComponent implements OnInit {
   data: any;
   nombre: any;
   contador: any = 0;
+  contador_asistensia: any = 0;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, private excelService: ExcelService) {
   }
   //busqueda
   informe: any;
+  informe_asistensia: any;
 
   //Formularios
   form_report: FormGroup;
+  form_ninos: FormGroup;
 
   //validacion
   submit_agregar = false;
+  submit_nino = false;
 
   url = "https://api-remota.conveyor.cloud/api/";
 
@@ -58,16 +62,27 @@ export class RpNinosComponent implements OnInit {
       estado: [],
       sede: [],
     })
+
+    this.form_ninos = this.formBuilder.group({
+      sede: [, Validators.required],
+      fecha1: [],
+      fecha2: [],
+    })
+
   }
 
   //controls Agregar
   get f_A() {
     return this.form_report.controls;
   }
+  get f_B() {
+    return this.form_ninos.controls;
+  }
 
   //reset agregar
   public clean_Agregar() {
     this.submit_agregar = false;
+    this.submit_nino=false;
     this.form_report.reset();
     // this.form_report.get('donacionID').setValue(0);
   }
@@ -252,5 +267,114 @@ export class RpNinosComponent implements OnInit {
       });
   }
 
+   //peticion para llenar la tabla
+   asistensia_informe_ninos() {
+    // if (this.form_ninos.invalid) {
+		// 	console.log("falta llenar campo");
+    // }
+    // else
+    {
+    this.submit_nino = true;
+    if (this.form_ninos.value.fecha1 == null || this.form_ninos.value.fecha1 == '') {
+      this.form_ninos.get('fecha1').setValue(null);
+    }if (this.form_ninos.value.fecha2 == null || this.form_ninos.value.fecha2 == '') {
+      this.form_ninos.get('fecha2').setValue(null);
+    }
+    
+    var response = this.http.get(this.url
+      + 'Nino/sede/total?Rsede='+this.form_ninos.value.sede
+      + '&fecha1='+this.form_ninos.value.fecha1
+      + '&fecha2=' +this.form_ninos.value.fecha2     
+    );
 
+    response.subscribe((data: any[]) => {
+      this.informe_asistensia = data;
+      this.contador_asistensia = data.length;
+      console.log('jaosjdoasjd');
+    },
+      error => {
+        console.log("Error", error)
+      });
+    }
+  }
+
+    //crear excel
+    exportAsXLSX_asistencia(): void {
+      var excel = [];
+  
+      var spinner_excel = document.getElementById("spinner_excel");
+      spinner_excel.removeAttribute("hidden");
+  
+      if (this.form_report.value.nombreinforme == null) {
+        this.nombre = 'Informe-Niños'
+      } else {
+        this.nombre = this.form_report.value.nombreinforme;
+      }
+      for (let i in this.informe_asistensia) {
+        console.log(i);
+        excel.push({
+          ID_Niño: this.informe[i].miembro.miembro.idNinosDG,
+          Sede: this.informe[i].miembro.miembro.sede,
+          Estado: this.informe[i].miembro.miembro.estado,
+          Nombre: this.informe[i].miembro.miembro.nombrenino,
+        });
+      }
+      this.excelService.exportAsExcelFile(excel, this.nombre);
+      spinner_excel.setAttribute("hidden", "true");
+    }
+  
+    //crear pdf
+    public pdf_asistencia() {
+      var spinner_buscar_evento = document.getElementById("spinner_pdf");
+      spinner_buscar_evento.removeAttribute("hidden");
+  
+      var doc = new jsPDF('l', 'mm', 'a4');
+      var totalPagesExp = "{total_pages_count_string}";
+      var registros = 'Informe.     Registros: ' + this.contador;
+      var img = new Image(); img.src = ('./assets/img/logo.png');
+  
+      var pageContent = function (data) {
+        // HEADER
+        doc.setFontSize(20);
+        doc.setTextColor(40);
+        doc.setFontStyle('normal');
+  
+        //https://www.youtube.com/watch?v=7hUr0P9nHF8
+  
+        doc.addImage(img, 'PNG', data.settings.margin.left, 15, 50, 10);
+        doc.text(registros, data.settings.margin.left + 60, 22);
+  
+        // FOOTER
+        var str = "Page " + data.pageCount;
+        // Total page number
+        if (typeof doc.putTotalPages === 'function') {
+          str = str + " of " + totalPagesExp;
+        }
+        doc.setFontSize(10);
+        doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
+      };
+  
+      doc.autoTable({
+        html: '#informeAsistensia',
+        columnStyles: { 0: { halign: 'center' } },  // Cells in first column centered and green(, fillColor: [0, 255, 0])
+        didDrawPage: pageContent,
+        margin: {
+          top: 30
+        }
+      });
+  
+      // Total page number 
+      if (typeof doc.putTotalPages === 'function') {
+        doc.putTotalPages(totalPagesExp);
+      }
+  
+      if (this.form_report.value.nombreinforme == null) {
+        this.nombre = 'Informe-Niños.pdf'
+      } else {
+        this.nombre = this.form_report.value.nombreinforme + '.pdf';
+      }
+  
+      doc.save(this.nombre);
+      spinner_buscar_evento.setAttribute("hidden", "true");
+    }
 }
