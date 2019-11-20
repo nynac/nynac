@@ -24,7 +24,7 @@
 		</div>
 		<div class="col-3 form-group input-group-sm mb-3">
 			<label for="razonrestriccion" style="padding: 0px; font-size: 13px;">Nombre y razón</label>
-			<input type="text" id="razonrestriccion" formControlName="razonrestriccion" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.razonrestriccion.errors }" style="margin-top: -10px;"/>
+			<input type="text" id="razonrestriccion" formControlName="razonrestriccion" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.razonrestriccion.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off"/>
 		</div>
 
 		<div class="col-2 text-right">
@@ -51,15 +51,15 @@
 	</div>
 	<div class="col-4 form-group input-group-sm mb-3">
 		<label for="nombrepadre" style="padding: 0px; font-size: 13px;">Nombre del padre biológico o tutor legal</label>
-		<input type="text" id="nombrepadre" formControlName="nombrepadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.nombrepadre.errors }" style="margin-top: -10px;"/>
+		<input type="text" id="nombrepadre" formControlName="nombrepadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.nombrepadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3">
 		<label for="fechaylugarpadre" style="padding: 0px; font-size: 13px;">Fecha y lugar de nacimiento</label>
-		<input type="text" id="fechaylugarpadre" formControlName="fechaylugarpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fechaylugarpadre.errors }" style="margin-top: -10px;"/>
+		<input type="text" id="fechaylugarpadre" formControlName="fechaylugarpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fechaylugarpadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 	</div>
 	<div class="col-1 form-group input-group-sm mb-3">
 		<label for="edadpadre" style="padding: 0px; font-size: 13px;">Edad</label>
-		<input type="number" id="edadpadre" formControlName="edadpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.edadpadre.errors }" style="margin-top: -10px;"/>
+		<input type="number" id="edadpadre" formControlName="edadpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.edadpadre.errors }" style="margin-top: -10px;" autocomplete="off">
 	</div>
 	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
 		<label for="nacionalidadpadre" style="padding: 0px;">Nacionalidad</label>
@@ -90,15 +90,15 @@
 
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="ocupacionpadre" style="padding: 0px; font-size: 13px;">Ocupación</label>
-	<input type="text" id="ocupacionpadre" formControlName="ocupacionpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.ocupacionpadre.errors }" style="margin-top: -10px;"/>
+	<input type="text" id="ocupacionpadre" formControlName="ocupacionpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.ocupacionpadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 </div>
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="lugartrabajopadre" style="padding: 0px; font-size: 13px;">Lugar de trabajo</label>
-	<input type="text" id="lugartrabajopadre" formControlName="lugartrabajopadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.lugartrabajopadre.errors }" style="margin-top: -10px;"/>
+	<input type="text" id="lugartrabajopadre" formControlName="lugartrabajopadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.lugartrabajopadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 </div>
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="telparticularpadre" style="padding: 0px; font-size: 13px;">Telefono particular</label>
-	<input type="tel" id="telparticularpadre" formControlName="telparticularpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.telparticularpadre.errors }" style="margin-top: -10px;"/>
+	<input type="tel" id="telparticularpadre" formControlName="telparticularpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.telparticularpadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 </div>
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="teltrabajopadre" style="padding: 0px; font-size: 13px;">Telefono de trabajo</label>
@@ -106,11 +106,11 @@
 </div>
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="celularpadre" style="padding: 0px; font-size: 13px;">Celular</label>
-	<input type="tel" id="celularpadre" formControlName="celularpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.celularpadre.errors }" style="margin-top: -10px;"/>
+	<input type="tel" id="celularpadre" formControlName="celularpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.celularpadre.errors }" style="margin-top: -10px;" autocomplete="off"/>
 </div>
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="emailpadre" style="padding: 0px; font-size: 13px;">Email</label>
-	<input type="email" id="emailpadre" formControlName="emailpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.emailpadre.errors }" style="margin-top: -10px;"/>
+	<input type="email" id="emailpadre" formControlName="emailpadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.emailpadre.errors }" style="margin-top: -10px;" autocomplete="off"/>
 </div>
 </div>
 
@@ -122,15 +122,15 @@
 	</div>
 	<div class="col-4 form-group input-group-sm mb-3">
 		<label for="nombremadre" style="padding: 0px; font-size: 13px;">Nombre del madre biológico o tutor legal</label>
-		<input type="text" id="nombremadre" formControlName="nombremadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.nombremadre.errors }" style="margin-top: -10px;"/>
+		<input type="text" id="nombremadre" formControlName="nombremadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.nombremadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3">
 		<label for="fechaylugarmadre" style="padding: 0px; font-size: 13px;">Fecha y lugar de nacimiento</label>
-		<input type="text" id="fechaylugarmadre" formControlName="fechaylugarmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fechaylugarmadre.errors }" style="margin-top: -10px;"/>
+		<input type="text" id="fechaylugarmadre" formControlName="fechaylugarmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.fechaylugarmadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 	</div>
 	<div class="col-1 form-group input-group-sm mb-3">
 		<label for="edadmadre" style="padding: 0px; font-size: 13px;">Edad</label>
-		<input type="number" id="edadmadre" formControlName="edadmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.edadmadre.errors }" style="margin-top: -10px;"/>
+		<input type="number" id="edadmadre" formControlName="edadmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.edadmadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 	</div>
 	<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
 		<label for="nacionalidadmadre" style="padding: 0px;">Nacionalidad</label>
@@ -161,19 +161,19 @@
 
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="ocupacionmadre" style="padding: 0px; font-size: 13px;">Ocupación</label>
-	<input type="text" id="ocupacionmadre" formControlName="ocupacionmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.ocupacionmadre.errors }" style="margin-top: -10px;"/>
+	<input type="text" id="ocupacionmadre" formControlName="ocupacionmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.ocupacionmadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 </div>
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="lugartrabajomadre" style="padding: 0px; font-size: 13px;">Lugar de trabajo</label>
-	<input type="text" id="lugartrabajomadre" formControlName="lugartrabajomadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.lugartrabajomadre.errors }" style="margin-top: -10px;"/>
+	<input type="text" id="lugartrabajomadre" formControlName="lugartrabajomadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.lugartrabajomadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 </div>
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="telparticularmadre" style="padding: 0px; font-size: 13px;">Telefono particular</label>
-	<input type="tel" id="telparticularmadre" formControlName="telparticularmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.telparticularmadre.errors }" style="margin-top: -10px;"/>
+	<input type="tel" id="telparticularmadre" formControlName="telparticularmadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.telparticularmadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 </div>
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="teltrabajomadre" style="padding: 0px; font-size: 13px;">Telefono de trabajo</label>
-	<input type="tel" id="teltrabajomadre" formControlName="teltrabajomadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.teltrabajomadre.errors }" style="margin-top: -10px;"/>
+	<input type="tel" id="teltrabajomadre" formControlName="teltrabajomadre" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.teltrabajomadre.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 </div>
 <div class="col-2 form-group input-group-sm mb-3">
 	<label for="celularmadre" style="padding: 0px; font-size: 13px;">Celular</label>
@@ -194,7 +194,7 @@
 	</div>
 	<div class="col-3 form-group input-group-sm mb-3">
 		<label for="tutorsustituto" style="padding: 0px; font-size: 13px;">Nombre del padre o  madre sustituta</label>
-		<input type="text" id="tutorsustituto" formControlName="tutorsustituto" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.tutorsustituto.errors }" style="margin-top: -10px;"/>
+		<input type="text" id="tutorsustituto" formControlName="tutorsustituto" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.tutorsustituto.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 	</div>
 	<div class="col-1 form-group input-group-sm mb-3">
 		<label for="edadtutor" style="padding: 0px; font-size: 13px;">Edad</label>
@@ -202,7 +202,7 @@
 	</div>
 	<div class="col-2 form-group input-group-sm mb-3">
 		<label for="ocupaciontutor" style="padding: 0px; font-size: 13px;">Ocupación</label>
-		<input type="text" id="ocupaciontutor" formControlName="ocupaciontutor" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.ocupaciontutor.errors }" style="margin-top: -10px;"/>
+		<input type="text" id="ocupaciontutor" formControlName="ocupaciontutor" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f2.ocupaciontutor.errors }" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
 	</div>
 	<div class="col-2 form-group input-group-sm mb-3">
 		<label for="teltutor" style="padding: 0px; font-size: 13px;">Telefono particular</label>
@@ -224,27 +224,27 @@
 	</div>
 	<div class=" col-12 input-group">
 		<input type="text" formControlName="nucleofamiliarnombre1" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre1.errors }" class="form-control col-3">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre1.errors }" class="form-control col-3" style="text-transform:capitalize;" autocomplete="off">
 		<input type="number" formControlName="nucleofamiliaredad1" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad1.errors }" class="form-control col-2">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad1.errors }" class="form-control col-2" style="text-transform:capitalize;" autocomplete="off">
 		<input type="text" formControlName="nucleofamiliargrado1" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado1.errors }" class="form-control col-7">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado1.errors }" class="form-control col-7" style="text-transform:capitalize;" autocomplete="off">
 	</div>
 	<div class=" col-12 input-group">
 		<input type="text" formControlName="nucleofamiliarnombre2" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre2.errors }" class="form-control col-3">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre2.errors }" class="form-control col-3" style="text-transform:capitalize;" autocomplete="off">
 		<input type="number" formControlName="nucleofamiliaredad2" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad2.errors }" class="form-control col-2">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad2.errors }" class="form-control col-2" style="text-transform:capitalize;" autocomplete="off">
 		<input type="text" formControlName="nucleofamiliargrado2" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado2.errors }" class="form-control col-7">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado2.errors }" class="form-control col-7" style="text-transform:capitalize;" autocomplete="off">
 	</div>
 	<div class=" col-12 input-group">
 		<input type="text" formControlName="nucleofamiliarnombre3" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre3.errors }" class="form-control col-3">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliarnombre3.errors }" class="form-control col-3" style="text-transform:capitalize;" autocomplete="off">
 		<input type="number" formControlName="nucleofamiliaredad3" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad3.errors }" class="form-control col-2">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliaredad3.errors }" class="form-control col-2" style="text-transform:capitalize;" autocomplete="off">
 		<input type="text" formControlName="nucleofamiliargrado3" class="form-control"
-		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado3.errors }" class="form-control col-7">
+		[ngClass]="{ 'is-invalid': submitted2 && f2.nucleofamiliargrado3.errors }" class="form-control col-7" style="text-transform:capitalize;" autocomplete="off">
 	</div>
 </div>
 

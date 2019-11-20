@@ -6,8 +6,8 @@
 }
 
 .flotante {
-    display:scroll;
-        position:fixed;
-        bottom:5%;
-        right:2%;
+	display:scroll;
+	position:fixed;
+	bottom:5%;
+	right:2%;
 }

@@ -104,7 +104,6 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		this.form_guardar.get("fechainscripcion").setValue(datepipe.transform(this.fecha, 'yyyy-MM-dd'))
 	}
 
-
 	ngOnChanges(changes: SimpleChanges){
 		var datepipe  = new DatePipe("en-US");
 
@@ -197,8 +196,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 	nuevo_miembro(){
 		this.form_guardar.disable(); //Desactiva el formulario
 		this.mostrar_progress = true;
-		var spinner = document.getElementById("spinner");
-		
+
 		//5.3 Guardamos al niño en la tabla miembros
 		this.datos_miembro = {
 			miembroID : this.form_guardar.value.miembroID,
@@ -221,17 +219,11 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			this.guardar_miembro_en_tabla("Nino_DH", "idNinosDH", this.form_guardar.value.idNinosDG, "Desarrollo humano"); //desarrollo humano
 
 			window.scroll(0,0);
-
 			this.modificar();
-			this.mostrar_progress = false;
-			
-			document.getElementById("btn_modal_miembroID").click();
 		},
 		error  => {
 			this.mostrar_alert("Ocurrió un error, inténtalo mas tarde", 'danger', 5000, null);
-			spinner.setAttribute("hidden", "true");
 			this.form_guardar.enable();
-			this.mostrar_progress = false;
 			console.log("Error al guardar en la tabla miembro", error);
 		});
 	}
@@ -253,7 +245,11 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			window.scroll(0,0);
 
 			this.form_guardar.enable();
-			this.mostrar_alert("Se guardó correctamente", "success", 15000, null);	
+			this.mostrar_alert("Se guardó correctamente", "success", 15000, null);
+
+			if(this.agregar_o_modificar == "nuevo"){
+				document.getElementById("btn_modal_miembroID").click();	
+			}
 		},
 		error  => {
 			spinner.setAttribute("hidden", "true");
