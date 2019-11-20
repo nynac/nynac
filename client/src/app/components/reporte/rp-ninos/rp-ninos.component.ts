@@ -21,13 +21,17 @@ export class RpNinosComponent implements OnInit {
   data: any;
   nombre: any;
   contador: any = 0;
-  contador_asistensia: any = 0;
+  fecha1:any;
+  fecha2:any;
+  promedio_matutino:any;
+  promedio_vespertino:any;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, private excelService: ExcelService) {
   }
   //busqueda
   informe: any;
   informe_asistensia: any;
+  informe_asistensia2: any;
 
   //Formularios
   form_report: FormGroup;
@@ -64,7 +68,7 @@ export class RpNinosComponent implements OnInit {
     })
 
     this.form_ninos = this.formBuilder.group({
-      sede: [, Validators.required],
+      seder: [, Validators.required],
       fecha1: [],
       fecha2: [],
     })
@@ -267,30 +271,68 @@ export class RpNinosComponent implements OnInit {
       });
   }
 
+  informe_ninos(){
+    this.submit_nino = true;
+    if (this.form_ninos.invalid) {
+      return;
+    }
+    this.asistensia_informe_ninos();
+    this.edad_informe_ninos();
+    
+  }
+
    //peticion para llenar la tabla
    asistensia_informe_ninos() {
-    // if (this.form_ninos.invalid) {
-		// 	console.log("falta llenar campo");
-    // }
-    // else
     {
-    this.submit_nino = true;
-    if (this.form_ninos.value.fecha1 == null || this.form_ninos.value.fecha1 == '') {
-      this.form_ninos.get('fecha1').setValue(null);
-    }if (this.form_ninos.value.fecha2 == null || this.form_ninos.value.fecha2 == '') {
-      this.form_ninos.get('fecha2').setValue(null);
+    if (this.form_ninos.value.fecha1 == null ) {
+      this.fecha1='2000-01-01';
+    } else{
+      this.fecha1=this.form_ninos.value.fecha1;
+    }
+    if (this.form_ninos.value.fecha2 == null ) {
+      this.fecha2='3000-01-01';
+    } else{
+      this.fecha2=this.form_ninos.value.fecha2;
     }
     
     var response = this.http.get(this.url
-      + 'Nino/sede/total?Rsede='+this.form_ninos.value.sede
-      + '&fecha1='+this.form_ninos.value.fecha1
-      + '&fecha2=' +this.form_ninos.value.fecha2     
+      + 'Nino/sede/total?Rsede='+this.form_ninos.value.seder
+      + '&fecha1='+this.fecha1
+      + '&fecha2=' +this.fecha2     
     );
 
     response.subscribe((data: any[]) => {
       this.informe_asistensia = data;
-      this.contador_asistensia = data.length;
-      console.log('jaosjdoasjd');
+    },
+      error => {
+        console.log("Error", error)
+      });
+    }
+  }
+  //peticion para llenar la tabla
+  edad_informe_ninos() {
+    {
+    if (this.form_ninos.value.fecha1 == null ) {
+      this.fecha1='2000-01-01';
+    } else{
+      this.fecha1=this.form_ninos.value.fecha1;
+    }
+    if (this.form_ninos.value.fecha2 == null ) {
+      this.fecha2='3000-01-01';
+    } else{
+      this.fecha2=this.form_ninos.value.fecha2;
+    }
+    
+    var response = this.http.get(this.url
+      + 'Nino/sede/total/asistencia?Rsede='+this.form_ninos.value.seder
+      + '&fecha1='+this.fecha1
+      + '&fecha2=' +this.fecha2     
+    );
+
+    response.subscribe((data: any[]) => {
+      this.informe_asistensia2 = data;      
+      this.promedio_matutino= this.informe_asistensia2.count_asistensia_Matutinos_fecha / this.informe_asistensia.count_total_matutino_activos;
+      console.log(this.promedio_matutino);
     },
       error => {
         console.log("Error", error)

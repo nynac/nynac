@@ -24,7 +24,7 @@
       <select formControlName="sede" class="custom-select"
         [ngClass]="{ 'is-invalid': submit_agregar && f_A.sede.errors }">
         <option selected disabled>Seleccione</option>
-        <option value="LomaDorada">Loma Dorada</option>
+        <option value="Loma Dorada">Loma Dorada</option>
         <option value="camino">Camino Verde</option>
         <option value="Natura">Natura</option>
       </select>
@@ -109,11 +109,6 @@
       <span style="margin-right: 10px">Cuidado Especial:</span>
       <input type="text" formControlName="cuidado_especial" class="form-control"
         [ngClass]="{ 'is-invalid': submit_agregar && f_A.cuidado_especial.errors }">
-    </div>
-    <div class="col-3 input-group input-group-sm mb-3">
-      <span style="margin-right: 10px">Medicamento:</span>
-      <input type="text" formControlName="medicamento" class="form-control"
-        [ngClass]="{ 'is-invalid': submit_agregar && f_A.medicamento.errors }">
     </div>
   </div>
   <div class="dropdown-divider"></div>
@@ -215,31 +210,31 @@
 </div>
 
 <!-- Asistencia -->
-<form [formGroup]="form_ninos" (ngSubmit)="asistensia_informe_ninos()">
+<form [formGroup]="form_ninos" (ngSubmit)="informe_ninos()">
   <div class="dropdown-divider"></div>
   <div class="dropdown-divider"></div>
   <div class="row" style="margin: 15px 0px 0px 15px">
-    <div class="col-12 font-weight-bold">
-      <span>Informe Asistencia</span>
+    <div class="col-12 font-weight-bold" >
+      <span style="font-size: 25;">Informe Asistencia</span>
     </div>
     <div class="col-4 input-group input-group-sm mb-3">
-      <label for="sede" style="margin-right: 10px">Sede:</label>
-      <select formControlName="sede" class="custom-select"
-        [ngClass]="{ 'is-invalid': submit_nino && f_B.sede.errors }">
+      <label for="seder" style="margin-right: 10px">Sede:</label>
+      <select formControlName="seder" class="custom-select"
+        [ngClass]="{ 'is-invalid': submit_nino && f_B.seder.errors }">
         <option selected disabled>Seleccione</option>
-        <option value="LomaDorada">Loma Dorada</option>
+        <option value="Loma Dorada">Loma Dorada</option>
         <option value="camino">Camino Verde</option>
-        <option value="Natura">Natura</option>
+        <option value="Natura">Natura</option> 
       </select>
     </div>
     <div class="col-4 form-group input-group-sm mb-3">
-      <label for="fecha1">Fecha asistencia-Desde: </label>
+      <label for="fecha1">Fecha -Desde: </label>
       <input formControlName="fecha1" type="date" class="form-control"
         [ngClass]="{ 'is-invalid': submit_nino && f_B.fecha1.errors }" id="fecha1"
         data-toggle="tooltip" data-placement="top" title="fecha1" style="margin-top: -10px;">
     </div>
     <div class="col-4 form-group input-group-sm mb-3">
-      <label for="fecha2">Fecha asistencia-Desde: </label>
+      <label for="fecha2">Fecha -Desde: </label>
       <input formControlName="fecha2" type="date" class="form-control"
         [ngClass]="{ 'is-invalid': submit_nino && f_B.fecha2.errors }" id="fecha2"
         data-toggle="tooltip" data-placement="top" title="fecha2" style="margin-top: -10px;">
@@ -272,25 +267,64 @@ type="submit" value="CPTURE" (click)="pdf_asistencia()">
   <span id="spinner_pdf" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
   Exportar PDF
 </button>
-<div class="container border rounded">
-  <div class="row" style="margin: 15px 15px 0px 0px">
+
+<div class="container border rounded" style="margin: 0px 0px 0px 0px; float: left;">
+  <div class="row" style="margin: 15px 15px 0px 0px; float: left;">
     <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-      <label class="font-weight-bold">Informe-Registros: {{contador}}</label>
+      <label class="font-weight-bold">Inscritos-Estado:</label>
     </div>
     <div class="col-12" style="overflow-x:auto; overflow-y:auto;">
       <form>
         <table class="table text-center table-bordered table-sm rounded" id="informeAsistensia" name="informeAsistensia">
           <thead style="background-color: #00AAE7; color: white;font-size: small;">
             <tr>
+              <th scope="col"></th>
+              <th scope="col">Inscritos</th>
+              <th scope="col">Activos</th>
+              <th scope="col">Bajas</th>
+              <th scope="col">Total Asistencia Promedio</th>
+            </tr>            
+          </thead>
+          <tbody>
+          </tbody>
+          <tfoot>
+              <tr>
+               <th >Matutino</th>
+               <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_matutino}}</td>
+               <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_matutino_activos}}</td>
+               <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_matutino_inactivos}}</td>
+               <td *ngIf="informe_asistensia !=undefined"> {{promedio_matutino}}</td>
+              </tr>
+              <tr>
+                  <th >Vespertino</th>
+                  <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_vespertino}}</td>
+                  <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_vespertino_activos}}</td>
+                  <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_vespertino_inactivos}}</td>
+                  <td *ngIf="informe_asistensia !=undefined"> {{promedio_vespertino}}</td>
+                 </tr>
+             </tfoot>            
+        </table>
+      </form>
+    </div>
+  </div>
+  <div class="row" style="margin: 15px 15px 0px 0px; float: left;">
+    <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+      <label class="font-weight-bold">Inscritos-Edad</label>
+    </div>
+    <div class="col-12" style="overflow-x:auto; overflow-y:auto;">
+      <form>
+        <table class="table text-center table-bordered table-sm rounded" id="informeEdadNino" name="informeEdadNino">
+          <thead style="background-color: #00AAE7; color: white;font-size: small;">
+            <tr>
               <th scope="col">ID</th>
+              <th scope="col">Sede</th>
+              <th scope="col">Sede</th>
+              <th scope="col">Sede</th>
               <th scope="col">Sede</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let inf of informe; let i=index">
-              <td>{{inf.miembro.miembro.idNinosDG}}</td>
-              <td>{{inf.miembro.miembro.sede}}</td>
-            </tr>
+            
           </tbody>
         </table>
       </form>
