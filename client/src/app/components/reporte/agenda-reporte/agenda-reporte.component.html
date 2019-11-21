@@ -1,0 +1,187 @@
+<navbar-co></navbar-co>
+<br>
+<div class="container border rounded">
+  <p class="font-weight-bold">Agenda</p>
+  <form [formGroup]="form_buscar" (ngSubmit)="buscar_agenda()">
+    <div class="row" style="margin: 15px 0px 0px 0px">
+      <div class="col-2 text-right font-weight-bold">
+        <span>Opción:</span>
+      </div>
+      <div class="col-5">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input id="agenda_Nuevo" type="radio" class="custom-control-input" name="agenda_opcion" value="nuevo"
+            (change)="radioChange($event)" [checked]="focus">
+          <label class="custom-control-label" for="agenda_Nuevo">Nuevo</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input id="agenda_Modificar" type="radio" class="custom-control-input" name="agenda_opcion" value="modificar"
+            (change)="radioChange($event)" [checked]="!focus">
+          <label class="custom-control-label" for="agenda_Modificar">Modificar</label>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <form [formGroup]="form_agregar" (ngSubmit)="opcion_agenda()">
+    <!-- INICIO ROW #1 -->
+    <div class="dropdown-divider"></div>
+    <div class="row" style="margin: 15px 0px 0px 15px">
+      <div class="col-12 font-weight-bold">
+        <span>Datos Agenda</span>
+      </div>
+      <div class="col-4 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">ID Agenda:</span>
+        <input type="number" formControlName="agendaID" class="form-control" placeholder="ID Agenda" readonly
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.agendaID.errors }">
+      </div>
+      <div class="col-4 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">ID Usuario:</span>
+        <input type="number" formControlName="usuarioID" class="form-control" placeholder="ID Usuario" readonly
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.usuarioID.errors }">
+      </div>
+      <div class="col-12"></div>
+      <div class="col-4 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">Titulo:</span>
+        <input type="text" formControlName="title" class="form-control" placeholder="title"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.title.errors }">
+      </div>
+      <div class="col-6 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">Ubicacion:</span>
+        <input type="text" formControlName="ubicacion" class="form-control" placeholder="Ubicacion"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.ubicacion.errors }">
+      </div>
+      <div class="col-4 form-group input-group-sm mb-3">
+        <label for="start">Fecha Inicio: </label>
+        <input formControlName="start" placeholder="start" type="date" class="form-control"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.start.errors }" id="start" data-toggle="tooltip"
+          data-placement="top" title="start" style="margin-top: -10px;">
+      </div>
+      <div class="col-4 form-group input-group-sm mb-3">
+        <label for="end">Fecha Terminacion: </label>
+        <input formControlName="end" placeholder="end" type="date" class="form-control"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.end.errors }" id="end"
+          data-toggle="tooltip" data-placement="top" title="end" style="margin-top: -10px;">
+      </div>
+      <div class="col-12"></div>
+      <div class="col-4 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">Email:</span>
+        <input type="email" formControlName="email" class="form-control" placeholder="Email"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.email.errors }">
+      </div>
+      <div class="col-4 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">Color:</span>
+        <input [style.background]="color1" [(colorPicker)]="color1"
+          [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
+          (colorPickerClose)="onEventLog($event)" />
+      </div>
+      <div class="dropdown-divider"></div>
+
+    </div>
+    <div class="row" style="margin: 0px 0px 15px 15px">
+      <div class="col-10"></div>
+      <div class="col-2">
+        <button name="agenda_btn_guardar" class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
+          <span id="spinner_agregar_agenda" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+            hidden></span>
+          Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="container border rounded">
+    <div class="row" style="margin: 15px 15px 0px 0px">
+      <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+        <label class="font-weight-bold">Mi Agenda: </label>
+      </div>
+      <div class="col-12">
+        <form>
+          <table class="table text-center table-bordered table-sm rounded">
+            <thead style="background-color: #00AAE7; color: white;">
+              <tr>
+                <th scope="col">Titulo</th>
+                <th scope="col">Fecha Inicio</th>
+                <th scope="col">Fecha Terminacion</th>
+                <th scope="col">ubicacion</th>
+                <th scope="col">email</th>
+                <th scope="col">color</th>
+                <th scope="col">Opción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let evento of mievento; let i=index">
+                <td>{{evento.title}}</td>
+                <td>{{evento.start | date:'yyyy/MM/dd'}}</td>
+                <td>{{evento.end | date:'yyyy/MM/dd'}}</td>
+                <td>{{evento.ubicacion}}</td>
+                <td>{{evento.email }}</td>
+                <td>
+                  <!-- {{evento.color }} -->
+                  <button id="BUSQ_btn_modificar" type="button" class="btn btn-info btn-sm"
+                  [style.background]="evento.color" style="border:0px; height: 20px; width: 20px;"
+                    ></button>
+                </td>
+                <td>
+                  <button id="BUSQ_btn_modificar" type="button" class="btn btn-info btn-sm"
+                    (click)="buscar_agenda(evento.agendaID)">Modificar</button>
+                  <button id="DELETE_btn_modificar" style="margin-left: 10px; 
+                  background-color: rgb(224, 8, 8); " type="button" class="btn btn-info btn-sm"
+                    (click)="eliminar_agenda(evento.agendaID)">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="dropdown-divider"></div>
+  
+  <button id="btn_refrescar" type="button" class="btn btn-info btn-sm"
+  (click)="refresacar()">Refrescar</button>
+  <div>
+    <full-calendar defaultView="dayGridMonth" [editable]="false" [plugins]="calendarPlugins" [header]="options.header"
+      (eventDragStop)="eventDragStop($event)" (eventClick)="eventClick($event)" (dateClick)="dateClick($event)"
+      [events]="eventsModel"></full-calendar>
+  </div>
+  <div class="container border rounded">
+    <div class="row" style="margin: 15px 15px 0px 0px">
+      <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+        <label class="font-weight-bold">Eventos: </label>
+      </div>
+      <div class="col-12">
+        <form>
+          <table class="table text-center table-bordered table-sm rounded">
+            <thead style="background-color: #00AAE7; color: white;">
+              <tr>
+                <th scope="col">ID Usuario</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Fecha Inicio</th>
+                <th scope="col">Fecha Term.</th>
+                <th scope="col">ubicacion</th>
+                <th scope="col">email</th>
+                <th scope="col">color</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let events of todoseventos; let i=index">
+                <th scope="row">{{events.usuarioID}}</th>
+                <td>{{events.title}}</td>
+                <td>{{events.start | date:'yyyy/MM/dd'}}</td>
+                <td>{{events.end | date:'yyyy/MM/dd'}}</td>
+                <td>{{events.ubicacion}}</td>
+                <td>{{events.email }}</td>
+                <td>
+                  <!-- {{events.color }} -->
+                  <button id="BUSQ_btn_modificar" type="button" class="btn btn-info btn-sm"
+                  [style.background]="events.color" style="border:0px; height: 20px; width: 20px;"
+                    ></button>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

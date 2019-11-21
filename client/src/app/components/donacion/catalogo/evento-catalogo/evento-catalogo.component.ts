@@ -14,9 +14,6 @@ export class EventoCatalogoComponent implements OnInit {
   //busqueda
   resultado: any;
   arrayEvento: any;
-
-  //fechas
-  model2: any;
   //Tabla
   arreglo: any;
 
@@ -49,7 +46,7 @@ export class EventoCatalogoComponent implements OnInit {
     this.form_agregar = this.formBuilder.group({
       eventoID: ['', Validators.required],
       descripcion: ['', Validators.required],
-      fecha: [this.model2,],
+      fecha: [''],
     })
   }
 
@@ -64,7 +61,7 @@ export class EventoCatalogoComponent implements OnInit {
   }
 
   buscar_evento() {
-    //spinner
+    //spinner 
     var spinner_buscar_evento = document.getElementById("spinner_buscar_evento");
 
     this.submit_buscar = true;
@@ -80,7 +77,7 @@ export class EventoCatalogoComponent implements OnInit {
         this.resultado = data;
         //transformar fecha formato
         var datePipe = new DatePipe("en-US");
-        this.resultado.fecha = datePipe.transform(this.resultado.fecha, 'yyyy/MM/dd');
+        this.resultado.fecha = datePipe.transform(this.resultado.fecha, 'yyyy-MM-dd');
 
         this.form_agregar.get('eventoID').setValue(this.resultado.eventoID);
         this.form_agregar.get('descripcion').setValue(this.resultado.descripcion);
@@ -143,11 +140,6 @@ export class EventoCatalogoComponent implements OnInit {
     //Spiner
     var spinner_agregar = document.getElementById("spinner_agregar");
     spinner_agregar.removeAttribute("hidden");
-    //fecha
-    var datePipe = new DatePipe("en-US");
-    this.model2 = datePipe.transform(this.model2, 'yyyy/MM/dd');
-    this.form_agregar.get('fecha').setValue(this.model2);
-
     this.http.post(this.url + "Eventoe", this.form_agregar.value).subscribe(data => {
       spinner_agregar.setAttribute("hidden", "true");
       alert("Evento Guardado");

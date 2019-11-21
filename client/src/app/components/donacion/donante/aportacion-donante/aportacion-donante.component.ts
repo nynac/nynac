@@ -19,10 +19,6 @@ export class AportacionDonanteComponent implements OnInit {
   resultado: any;
   arrayFdonacion: any;
   miembro: any;
-  //fechas
-  fecha1: any;
-  fecha2: any;
-  fecha3: any;
   //Tabla
   arreglo: any;
 
@@ -54,7 +50,7 @@ export class AportacionDonanteComponent implements OnInit {
     })
     //agregar
     this.form_agregar = this.formBuilder.group({
-      formadonacionID: [''],
+      formadonacionID: ['', Validators.required],
       donacionID: [''],
       tipodonacion: ['', Validators.required],
       monto: ['', Validators.required],
@@ -62,11 +58,11 @@ export class AportacionDonanteComponent implements OnInit {
       estatus: ['', Validators.required],
       numero: [''],
       codigo: [''],
-      vence: [this.fecha1],
-      primerpago: [this.fecha2],
+      vence: [''],
+      primerpago: [''],
       cargo: [''],
       frecuencia: ['', Validators.required],
-      ultimopago: [this.fecha3],
+      ultimopago: [''],
       observacion: [''],
     })
   }
@@ -125,9 +121,9 @@ export class AportacionDonanteComponent implements OnInit {
         this.resultado = data;
         //transformar fecha formato
         var datePipe = new DatePipe("en-US");
-        this.resultado.vence = datePipe.transform(this.resultado.vence, 'yyyy/MM/dd');
-        this.resultado.primerpago = datePipe.transform(this.resultado.primerpago, 'yyyy/MM/dd');
-        this.resultado.ultimopago = datePipe.transform(this.resultado.ultimopago, 'yyyy/MM/dd');
+        this.resultado.vence = datePipe.transform(this.resultado.vence, 'yyyy-MM-dd');
+        this.resultado.primerpago = datePipe.transform(this.resultado.primerpago, 'yyyy-MM-dd');
+        this.resultado.ultimopago = datePipe.transform(this.resultado.ultimopago, 'yyyy-MM-dd');
 
         this.form_agregar.get('formadonacionID').setValue((this.resultado.formadonacionID));
         this.form_agregar.get('donacionID').setValue((this.resultado.donacionID));
@@ -159,16 +155,6 @@ export class AportacionDonanteComponent implements OnInit {
     //Spiner
     var spinner_agregar_contacto = document.getElementById("spinner_agregar_contacto");
     spinner_agregar_contacto.removeAttribute("hidden");
-    //fecha
-    var datePipe = new DatePipe("en-US");
-    this.fecha1 = datePipe.transform(this.fecha1, 'yyyy/MM/dd');
-    this.form_agregar.get('vence').setValue(this.fecha1);
-
-    this.fecha2 = datePipe.transform(this.fecha2, 'yyyy/MM/dd');
-    this.form_agregar.get('primerpago').setValue(this.fecha2);
-
-    this.fecha3 = datePipe.transform(this.fecha3, 'yyyy/MM/dd');
-    this.form_agregar.get('ultimopago').setValue(this.fecha3);
     //Donacion
     this.http.post(this.url + "FormaDonacion", this.form_agregar.value).subscribe(data => {
       alert("Se a registrado la donacion correctamente. ");
@@ -211,7 +197,6 @@ export class AportacionDonanteComponent implements OnInit {
   clean_Agregar() {
     this.submit_agregar = false;
     this.form_agregar.reset();
-    this.get_nuevo_Fdonacion();
   }
 
   radioChange(event: any) {
@@ -219,12 +204,16 @@ export class AportacionDonanteComponent implements OnInit {
     if (this.agregar_o_modificar == "nuevo") {
       this.clean_Agregar();
       this.get_nuevo_Fdonacion();
+      this.form_agregar.get('donacionID').setValue(this.form_buscar.value.buscarID);
       //this.get_nuevo_Fdonacion();
       
       this.focus=true;
     }
     else if (this.agregar_o_modificar == "modificar") {
+      this.clean_Agregar();
+      this.form_agregar.get('donacionID').setValue(this.form_buscar.value.buscarID);
       //this.modificar_fdonante();
+
       this.focus=false;
     }
   }

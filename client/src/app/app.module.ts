@@ -41,6 +41,13 @@ import { LiderCatalogoComponent } from './components/donacion/catalogo/lider-cat
 
 //AGENDA
 import { AgendaComponent } from './components/donacion/agenda/agenda.component';
+import { AgendaDHComponent } from './components/desarrollo_humano/agenda-dh/agenda-dh.component';
+import { AgendaRecepcionComponent } from './components/recepcion/agenda-recepcion/agenda-recepcion.component';
+
+//login
+import { LoginComponent } from './Inisiosesion/login/login.component';   
+import { RecuperarComponent } from './Inisiosesion/recuperar/recuperar.component'; 
+import {MyserviceService} from './myservice.service'  
 
 //REPORTE 
 import { ReportesComponent } from './components/donacion/reportes/reportes.component';
@@ -70,32 +77,68 @@ import { NavbarDHComponent } from './components/desarrollo_humano/navbar-dh/navb
 import { CrearIncidenciaComponent } from './components/desarrollo_humano/crear-incidencia/crear-incidencia.component';
 import { HistorialIncidenciasComponent } from './components/desarrollo_humano/historial-incidencias/historial-incidencias.component';
 
+//autentificacion de token existente
+import { AuthGuard } from '../app/auth.guard';
+import { BloqueoComponent } from './Inisiosesion/bloqueo/bloqueo.component';
+
 //COMPONENTES SERVICIO SOCIAL
 import { NavbarServicioComponent } from './components/servicio_social/navbar-servicio/navbar-servicio.component';
 import { AgregarMiembroComponent } from './components/servicio_social/agregar-miembro/agregar-miembro.component';
 import { BuscarServicioComponent } from './components/servicio_social/buscar-servicio/buscar-servicio.component';
 import { EntradasSalidasServComponent } from './components/servicio_social/entradas-salidas-serv/entradas-salidas-serv.component';
 
+
+//configuracion usuario
+import { ConfiguracionComponent } from './Inisiosesion/configuracion/configuracion.component';
+
+//Reportes CO
+import { NavbarCOComponent } from './components/reporte/navbar-co/navbar-co.component';
+import { RpNinosComponent } from './components/reporte/rp-ninos/rp-ninos.component';
+import { RpDonacionComponent } from './components/reporte/rp-donacion/rp-donacion.component';
+import { RpSSComponent } from './components/reporte/rp-ss/rp-ss.component';
+import { RpIncidenciaComponent } from './components/reporte/rp-incidencia/rp-incidencia.component';
+import { ContenedorReporteComponent } from './components/reporte/contenedor-reporte/contenedor-reporte.component';
+import { AgendaReporteComponent } from './components/reporte/agenda-reporte/agenda-reporte.component';
+
+//servicio excel
+import { ExcelService } from './excel.service';
+
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
-  { path: 'recepcion/agregar-modificar', component: ContenedorNinosComponent },
-  { path: 'recepcion/entradas-salidas', component: ContenedorEntradasComponent },
-  { path: 'recepcion/buscar-niño', component: ContenedorBuscadorComponent },
+  { path: 'recepcion/agregar-modificar', component: ContenedorNinosComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
+  { path: 'recepcion/entradas-salidas', component: ContenedorEntradasComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
+  { path: 'recepcion/buscar-niño', component: ContenedorBuscadorComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
+  { path: 'recepcion/agenda', component: AgendaRecepcionComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
+  { path: '', component: NavbarComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]}  },
 
-  { path: '', component: NavbarComponent },
-  { path: 'donacion', component: NavbarDonanteComponent },
-  { path: 'donacion/agregar-donante', component: ContenedorDonanteComponent },
-  { path: 'donacion/busqueda', component: BuscadorDonanteComponent },
-  { path: 'donacion/Otra-Aportacion', component: AportacionDonanteComponent },
-  { path: 'donacion/Catalogo', component: ContenedorCatalogoComponent },
-  { path: 'agenda', component: AgendaComponent },
-  { path: 'reporte', component: ReportesComponent },
+  { path: 'donacion', component: NavbarDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
+  { path: 'donacion/agregar-donante', component: ContenedorDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
+  { path: 'donacion/busqueda', component: BuscadorDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
+  { path: 'donacion/Otra-Aportacion', component: AportacionDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
+  { path: 'donacion/Catalogo', component: ContenedorCatalogoComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
+  { path: 'agenda', component: AgendaComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
+  { path: 'reporte', component: ReportesComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
+
+  { path: 'desarrollo_humano', component: ContenedorDHComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Recepcion']} },
+  { path: 'desarrollo_humano/agenda', component: AgendaDHComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Recepcion']} },
+
+  { path: 'coordinacion_operativa', component: ContenedorReporteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Coordinacion Operativa']}},
+  { path: 'coordinacion_operativa/agenda', component: AgendaReporteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Coordinacion Operativa']}},
+
+  { path: 'login', component: LoginComponent },
+  { path: 'recuperar', component: RecuperarComponent },
+  { path: 'bloqueo' ,   component :   BloqueoComponent ,   canActivate :   [ AuthGuard ] },
+  { path: 'config', component: ConfiguracionComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano','Desarrollo Institucional','Coordinacion Operativa' ]} },
   
-  { path: 'desarrollo_humano', component: ContenedorDHComponent },
   { path: 'servicio_social/crear', component: AgregarMiembroComponent },
   { path: 'servicio_social/buscar-modificar', component: BuscarServicioComponent },
   { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent },
 ];
+//validar token
+//canActivate : [ AuthGuard ]
+
+//authentificate role
+// data :   {   roles :   [ 'Admin' ]
 
 @NgModule({
   declarations: [
@@ -139,6 +182,19 @@ const appRoutes: Routes = [
     NavbarServicioComponent,
     BuscarServicioComponent,
     EntradasSalidasServComponent,
+    LoginComponent,
+    BloqueoComponent,
+    RecuperarComponent,
+    AgendaDHComponent,
+    AgendaRecepcionComponent,
+    NavbarCOComponent,
+    RpNinosComponent,
+    RpDonacionComponent,
+    RpSSComponent,
+    RpIncidenciaComponent,
+    ContenedorReporteComponent,
+    AgendaReporteComponent,
+    ConfiguracionComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -155,7 +211,11 @@ const appRoutes: Routes = [
     FullCalendarModule,
     ColorPickerModule,
   ],
-  providers: [],
+  providers: [
+    MyserviceService,
+    AuthGuard,
+    ExcelService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
