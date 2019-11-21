@@ -21,10 +21,10 @@ export class RpNinosComponent implements OnInit {
   data: any;
   nombre: any;
   contador: any = 0;
-  fecha1:any;
-  fecha2:any;
-  promedio_matutino:any;
-  promedio_vespertino:any;
+  fecha1: any;
+  fecha2: any;
+  promedio_matutino: any;
+  promedio_vespertino: any;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, private excelService: ExcelService) {
   }
@@ -68,6 +68,7 @@ export class RpNinosComponent implements OnInit {
     })
 
     this.form_ninos = this.formBuilder.group({
+      nombreinformes: [],
       seder: [, Validators.required],
       fecha1: [],
       fecha2: [],
@@ -86,7 +87,7 @@ export class RpNinosComponent implements OnInit {
   //reset agregar
   public clean_Agregar() {
     this.submit_agregar = false;
-    this.submit_nino=false;
+    this.submit_nino = false;
     this.form_report.reset();
     // this.form_report.get('donacionID').setValue(0);
   }
@@ -271,152 +272,177 @@ export class RpNinosComponent implements OnInit {
       });
   }
 
-  informe_ninos(){
+  informe_ninos() {
     this.submit_nino = true;
     if (this.form_ninos.invalid) {
       return;
     }
     this.asistensia_informe_ninos();
     this.edad_informe_ninos();
-    
+
   }
 
-   //peticion para llenar la tabla
-   asistensia_informe_ninos() {
+  //peticion para llenar la tabla
+  asistensia_informe_ninos() {
     {
-    if (this.form_ninos.value.fecha1 == null ) {
-      this.fecha1='2000-01-01';
-    } else{
-      this.fecha1=this.form_ninos.value.fecha1;
-    }
-    if (this.form_ninos.value.fecha2 == null ) {
-      this.fecha2='3000-01-01';
-    } else{
-      this.fecha2=this.form_ninos.value.fecha2;
-    }
-    
-    var response = this.http.get(this.url
-      + 'Nino/sede/total?Rsede='+this.form_ninos.value.seder
-      + '&fecha1='+this.fecha1
-      + '&fecha2=' +this.fecha2     
-    );
+      if (this.form_ninos.value.fecha1 == null) {
+        this.fecha1 = '2000-01-01';
+      } else {
+        this.fecha1 = this.form_ninos.value.fecha1;
+      }
+      if (this.form_ninos.value.fecha2 == null) {
+        this.fecha2 = '3000-01-01';
+      } else {
+        this.fecha2 = this.form_ninos.value.fecha2;
+      }
 
-    response.subscribe((data: any[]) => {
-      this.informe_asistensia = data;
-    },
-      error => {
-        console.log("Error", error)
-      });
+      var response = this.http.get(this.url
+        + 'Nino/sede/total?Rsede=' + this.form_ninos.value.seder
+        + '&fecha1=' + this.fecha1
+        + '&fecha2=' + this.fecha2
+      );
+
+      response.subscribe((data: any[]) => {
+        this.informe_asistensia = data;
+      },
+        error => {
+          console.log("Error", error)
+        });
     }
   }
   //peticion para llenar la tabla
   edad_informe_ninos() {
     {
-    if (this.form_ninos.value.fecha1 == null ) {
-      this.fecha1='2000-01-01';
-    } else{
-      this.fecha1=this.form_ninos.value.fecha1;
-    }
-    if (this.form_ninos.value.fecha2 == null ) {
-      this.fecha2='3000-01-01';
-    } else{
-      this.fecha2=this.form_ninos.value.fecha2;
-    }
-    
-    var response = this.http.get(this.url
-      + 'Nino/sede/total/asistencia?Rsede='+this.form_ninos.value.seder
-      + '&fecha1='+this.fecha1
-      + '&fecha2=' +this.fecha2     
-    );
+      if (this.form_ninos.value.fecha1 == null) {
+        this.fecha1 = '2000-01-01';
+      } else {
+        this.fecha1 = this.form_ninos.value.fecha1;
+      }
+      if (this.form_ninos.value.fecha2 == null) {
+        this.fecha2 = '3000-01-01';
+      } else {
+        this.fecha2 = this.form_ninos.value.fecha2;
+      }
 
-    response.subscribe((data: any[]) => {
-      this.informe_asistensia2 = data;      
-      this.promedio_matutino= this.informe_asistensia2.count_asistensia_Matutinos_fecha / this.informe_asistensia.count_total_matutino_activos;
-      console.log(this.promedio_matutino);
-    },
-      error => {
-        console.log("Error", error)
-      });
+      var response = this.http.get(this.url
+        + 'Nino/sede/total/asistencia?Rsede=' + this.form_ninos.value.seder
+        + '&fecha1=' + this.fecha1
+        + '&fecha2=' + this.fecha2
+      );
+
+      response.subscribe((data: any[]) => {
+        this.informe_asistensia2 = data;
+        this.promedio_matutino = this.informe_asistensia2.count_asistensia_Matutinos_fecha / this.informe_asistensia.count_total_matutino_activos;
+        this.promedio_vespertino = this.informe_asistensia2.count_asistensia_Vespertino_fecha / this.informe_asistensia.count_total_vespertino_activos;
+
+      },
+        error => {
+          console.log("Error", error)
+        });
     }
   }
 
-    //crear excel
-    exportAsXLSX_asistencia(): void {
-      var excel = [];
-  
-      var spinner_excel = document.getElementById("spinner_excel");
-      spinner_excel.removeAttribute("hidden");
-  
-      if (this.form_report.value.nombreinforme == null) {
-        this.nombre = 'Informe-Niños'
-      } else {
-        this.nombre = this.form_report.value.nombreinforme;
-      }
-      for (let i in this.informe_asistensia) {
-        console.log(i);
-        excel.push({
-          ID_Niño: this.informe[i].miembro.miembro.idNinosDG,
-          Sede: this.informe[i].miembro.miembro.sede,
-          Estado: this.informe[i].miembro.miembro.estado,
-          Nombre: this.informe[i].miembro.miembro.nombrenino,
-        });
-      }
-      this.excelService.exportAsExcelFile(excel, this.nombre);
-      spinner_excel.setAttribute("hidden", "true");
+  //crear excel
+  exportAsXLSX_asistencia(): void {
+    var excel = [];
+
+    var spinner_excel = document.getElementById("spinner_excel");
+    spinner_excel.removeAttribute("hidden");
+
+    if (this.form_ninos.value.nombreinformes == null) {
+      this.nombre = 'Informe-Niños-Asistencia'
+    } else {
+      this.nombre = this.form_ninos.value.nombreinformes;
     }
-  
-    //crear pdf
-    public pdf_asistencia() {
-      var spinner_buscar_evento = document.getElementById("spinner_pdf");
-      spinner_buscar_evento.removeAttribute("hidden");
-  
-      var doc = new jsPDF('l', 'mm', 'a4');
-      var totalPagesExp = "{total_pages_count_string}";
-      var registros = 'Informe.     Registros: ' + this.contador;
-      var img = new Image(); img.src = ('./assets/img/logo.png');
-  
-      var pageContent = function (data) {
-        // HEADER
-        doc.setFontSize(20);
-        doc.setTextColor(40);
-        doc.setFontStyle('normal');
-  
-        //https://www.youtube.com/watch?v=7hUr0P9nHF8
-  
-        doc.addImage(img, 'PNG', data.settings.margin.left, 15, 50, 10);
-        doc.text(registros, data.settings.margin.left + 60, 22);
-  
-        // FOOTER
-        var str = "Page " + data.pageCount;
-        // Total page number
-        if (typeof doc.putTotalPages === 'function') {
-          str = str + " of " + totalPagesExp;
-        }
-        doc.setFontSize(10);
-        doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
-      };
-  
-      doc.autoTable({
-        html: '#informeAsistensia',
-        columnStyles: { 0: { halign: 'center' } },  // Cells in first column centered and green(, fillColor: [0, 255, 0])
-        didDrawPage: pageContent,
-        margin: {
-          top: 30
-        }
-      });
-  
-      // Total page number 
+
+    excel.push({
+      Matutino_Inscritos: this.informe_asistensia.count_total_matutino,
+      Vespertino_Inscritos: this.informe_asistensia.count_total_vespertino,
+      Matutino_Activos: this.informe_asistensia.count_total_matutino_activos,
+      Vespertino_Activos: this.informe_asistensia.count_total_vespertino_activos,
+      Matutino_Baja: this.informe_asistensia.count_total_matutino_inactivos,
+      Vespertino_Baja: this.informe_asistensia.count_total_vespertino_inactivos,
+      Matutino_Total: this.informe_asistensia2.count_asistensia_Matutinos_fecha,
+      Vespertino_Total: this.informe_asistensia2.count_asistensia_Vespertino_fecha,
+      Promedio_Matutino: this.promedio_matutino,
+      Promedio_Vespertino: this.promedio_vespertino,
+      _: '',
+      Total_matutino: this.informe_asistensia.count_total_matutino_activos,
+      Niña_6_7_matutino: this.informe_asistensia.count_edad_6_7_F_matutino,
+      Niño_6_7_matutino: this.informe_asistensia.count_edad_6_7_M_matutino,
+      Niña_8_10_matutino: this.informe_asistensia.count_edad_8_10_F_matutino,
+      Niño_8_10_matutino: this.informe_asistensia.count_edad_8_10_M_matutino,
+      Niña_11_12_matutino: this.informe_asistensia.count_edad_11_12_F_matutino,
+      Niño_11_12_matutino: this.informe_asistensia.count_edad_11_12_M_matutino,
+      Niña_13_16_matutino: this.informe_asistensia.count_edad_13_16_F_matutino,
+      Niño_13_16_matutino: this.informe_asistensia.count_edad_13_16_M_matutino,
+
+      Niña_6_7_vespertino: this.informe_asistensia.count_edad_6_7_M_vespertino,
+      Niño_6_7_vespertino: this.informe_asistensia.count_edad_6_7_F_vespertino,
+      Niña_8_10_vespertino: this.informe_asistensia.count_edad_8_10_F_vespertino,
+      Niño_8_10_vespertino: this.informe_asistensia.count_edad_8_10_M_vespertino,
+      Niña_11_12_vespertino: this.informe_asistensia.count_edad_11_12_F_vespertino,
+      Niño_11_12_vespertino: this.informe_asistensia.count_edad_11_12_M_vespertino,
+      Niña_13_16_vespertino: this.informe_asistensia.count_edad_13_16_F_vespertino,
+      Niño_13_16_vespertino: this.informe_asistensia.count_edad_13_16_M_vespertino,
+      Total_vespertino: this.informe_asistensia.count_total_vespertino_activos,
+    });
+    this.excelService.exportAsExcelFile(excel, this.nombre);
+    spinner_excel.setAttribute("hidden", "true");
+  }
+
+  //crear pdf
+  public pdf_asistencia() {
+    var spinner_buscar_evento = document.getElementById("spinner_pdf");
+    spinner_buscar_evento.removeAttribute("hidden");
+
+    var doc = new jsPDF('l', 'mm', 'a4');
+    var totalPagesExp = "{total_pages_count_string}";
+    var registros = 'Informe Niños .';
+    var img = new Image(); img.src = ('./assets/img/logo.png');
+
+    var pageContent = function (data) {
+      // HEADER
+      doc.setFontSize(20);
+      doc.setTextColor(40);
+      doc.setFontStyle('normal');
+
+      //https://www.youtube.com/watch?v=7hUr0P9nHF8
+
+      doc.addImage(img, 'PNG', data.settings.margin.left, 15, 50, 10);
+      doc.text(registros, data.settings.margin.left + 60, 22);
+
+      // FOOTER
+      var str = "Page " + data.pageCount;
+      // Total page number
       if (typeof doc.putTotalPages === 'function') {
-        doc.putTotalPages(totalPagesExp);
+        str = str + " of " + totalPagesExp;
       }
-  
-      if (this.form_report.value.nombreinforme == null) {
-        this.nombre = 'Informe-Niños.pdf'
-      } else {
-        this.nombre = this.form_report.value.nombreinforme + '.pdf';
+      doc.setFontSize(10);
+      doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
+    };
+
+    doc.autoTable({
+      html: '#informeAsistensia',
+      columnStyles: { 0: { halign: 'center' } },  // Cells in first column centered and green(, fillColor: [0, 255, 0])
+      didDrawPage: pageContent,
+      margin: {
+        top: 30
       }
-  
-      doc.save(this.nombre);
-      spinner_buscar_evento.setAttribute("hidden", "true");
+    });
+
+    // Total page number 
+    if (typeof doc.putTotalPages === 'function') {
+      doc.putTotalPages(totalPagesExp);
     }
+
+    if (this.form_report.value.nombreinforme == null) {
+      this.nombre = 'Informe-Niños.pdf'
+    } else {
+      this.nombre = this.form_report.value.nombreinforme + '.pdf';
+    }
+
+    doc.save(this.nombre);
+    spinner_buscar_evento.setAttribute("hidden", "true");
+  }
 }

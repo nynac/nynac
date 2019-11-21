@@ -81,6 +81,9 @@ import { HistorialIncidenciasComponent } from './components/desarrollo_humano/hi
 import { AuthGuard } from '../app/auth.guard';
 import { BloqueoComponent } from './Inisiosesion/bloqueo/bloqueo.component';
 
+//configuracion usuario
+import { ConfiguracionComponent } from './Inisiosesion/configuracion/configuracion.component';
+
 //Reportes CO
 import { NavbarCOComponent } from './components/reporte/navbar-co/navbar-co.component';
 import { RpNinosComponent } from './components/reporte/rp-ninos/rp-ninos.component';
@@ -117,7 +120,8 @@ const appRoutes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'recuperar', component: RecuperarComponent },
-  { path: 'bloqueo' ,   component :   BloqueoComponent ,   canActivate :   [ AuthGuard ] }
+  { path: 'bloqueo' ,   component :   BloqueoComponent ,   canActivate :   [ AuthGuard ] },
+  { path: 'config', component: ConfiguracionComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano','Desarrollo Institucional','Coordinacion Operativa' ]} },
 ];
 //validar token
 //canActivate : [ AuthGuard ]
@@ -175,6 +179,7 @@ const appRoutes: Routes = [
     RpIncidenciaComponent,
     ContenedorReporteComponent,
     AgendaReporteComponent,
+    ConfiguracionComponent,
   ],
   imports: [
     RouterModule.forRoot(

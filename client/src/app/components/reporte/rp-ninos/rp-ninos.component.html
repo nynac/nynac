@@ -164,8 +164,6 @@
               <th scope="col">Contacto Emergencia</th>
               <th scope="col">Fecha Ingreso</th>
               <th scope="col">Dirección</th>
-              <th scope="col">Visa</th>
-              <th scope="col">Religion</th>
               <th scope="col">Alergias</th>
             </tr>
           </thead>
@@ -177,7 +175,7 @@
               <td>{{inf.miembro.miembro.nombrenino}}</td>
               <td>{{inf.miembro.miembro.curp}}</td>
               <td>{{inf.miembro.miembro.turno_asiste}}</td>
-              <td>{{inf.miembro.miembro.fechanacimiento}}</td>
+              <td>{{inf.miembro.miembro.fechanacimiento | date:'dd/MM/yyyy'}}</td>
               <td>{{inf.miembro.miembro.sexo}}</td>
               <td>{{inf.miembro.miembro.edad}}</td>
               <td>{{inf.miembro.miembro.nacionalidad}}</td>
@@ -196,10 +194,8 @@
                 {{inf.miembro.miembro.contacto3}}
 
               </td>
-              <td>{{inf.miembro.miembro.fechainscripcion}}</td>
+              <td>{{inf.miembro.miembro.fechainscripcion | date:'dd/MM/yyyy'}}</td>
               <td>{{inf.miembro.miembro.direccion}}</td>
-              <td>{{inf.miembro.miembro.visa}}</td>
-              <td>{{inf.miembro.miembro.religion}}</td>
               <td>{{inf.alergia}}</td>
             </tr>
           </tbody>
@@ -214,6 +210,10 @@
   <div class="dropdown-divider"></div>
   <div class="dropdown-divider"></div>
   <div class="row" style="margin: 15px 0px 0px 15px">
+    <div class="col-4 input-group input-group-sm mb-3">
+      <span style="margin-right: 10px">Nombre Informe:</span>
+      <input type="text" formControlName="nombreinformes" class="form-control">
+    </div>
     <div class="col-12 font-weight-bold" >
       <span style="font-size: 25;">Informe Asistencia</span>
     </div>
@@ -271,7 +271,7 @@ type="submit" value="CPTURE" (click)="pdf_asistencia()">
 <div class="container border rounded" style="margin: 0px 0px 0px 0px; float: left;">
   <div class="row" style="margin: 15px 15px 0px 0px; float: left;">
     <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-      <label class="font-weight-bold">Inscritos-Estado:</label>
+      <label class="font-weight-bold">Inscritos-Asistencia:</label>
     </div>
     <div class="col-12" style="overflow-x:auto; overflow-y:auto;">
       <form>
@@ -282,52 +282,75 @@ type="submit" value="CPTURE" (click)="pdf_asistencia()">
               <th scope="col">Inscritos</th>
               <th scope="col">Activos</th>
               <th scope="col">Bajas</th>
+              <th scope="col">Total Asistencias</th>
               <th scope="col">Total Asistencia Promedio</th>
-            </tr>            
+              <th scope="col"></th>
+              <th scope="col" colspan="2">6 - 7 años</th>
+              <th scope="col" colspan="2">8 - 10 años</th>
+              <th scope="col" colspan="2">11 - 12 años</th>
+              <th scope="col" colspan="2">13 - 16 años</th>
+              <th scope="col" >Total</th>
+            </tr>         
           </thead>
           <tbody>
-          </tbody>
-          <tfoot>
               <tr>
-               <th >Matutino</th>
-               <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_matutino}}</td>
-               <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_matutino_activos}}</td>
-               <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_matutino_inactivos}}</td>
-               <td *ngIf="informe_asistensia !=undefined"> {{promedio_matutino}}</td>
-              </tr>
-              <tr>
-                  <th >Vespertino</th>
-                  <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_vespertino}}</td>
-                  <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_vespertino_activos}}</td>
-                  <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_vespertino_inactivos}}</td>
-                  <td *ngIf="informe_asistensia !=undefined"> {{promedio_vespertino}}</td>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <td *ngIf="informe_asistensia !=undefined"> M</td>
+                  <td *ngIf="informe_asistensia !=undefined"> H</td>
+                  <td *ngIf="informe_asistensia !=undefined"> M</td>
+                  <td *ngIf="informe_asistensia !=undefined"> H</td>
+                  <td *ngIf="informe_asistensia !=undefined"> M</td>
+                  <td *ngIf="informe_asistensia !=undefined"> H</td>
+                  <td *ngIf="informe_asistensia !=undefined"> M</td>
+                  <td *ngIf="informe_asistensia !=undefined"> H</td>
+                  <td></td>
                  </tr>
-             </tfoot>            
-        </table>
-      </form>
-    </div>
-  </div>
-  <div class="row" style="margin: 15px 15px 0px 0px; float: left;">
-    <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-      <label class="font-weight-bold">Inscritos-Edad</label>
-    </div>
-    <div class="col-12" style="overflow-x:auto; overflow-y:auto;">
-      <form>
-        <table class="table text-center table-bordered table-sm rounded" id="informeEdadNino" name="informeEdadNino">
-          <thead style="background-color: #00AAE7; color: white;font-size: small;">
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Sede</th>
-              <th scope="col">Sede</th>
-              <th scope="col">Sede</th>
-              <th scope="col">Sede</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-          </tbody>
+              <th *ngIf="informe_asistensia !=undefined">Matutino</th>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_matutino}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_matutino_activos}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_matutino_inactivos}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia2.count_asistensia_Matutinos_fecha}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{promedio_matutino}}</td>
+              <td></td>
+
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_6_7_F_matutino}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_6_7_M_matutino}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_8_10_F_matutino}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_8_10_M_matutino}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_11_12_F_matutino}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_11_12_M_matutino}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_13_16_F_matutino}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_13_16_M_matutino}}</td>
+              <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_matutino_activos}}</td>
+             </tr>
+             <tr>
+                 <th *ngIf="informe_asistensia !=undefined">Vespertino</th>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_vespertino}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_vespertino_activos}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_vespertino_inactivos}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia2.count_asistensia_Vespertino_fecha}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{promedio_vespertino}}</td>
+                 <td></td>
+                 
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_6_7_F_vespertino}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_6_7_M_vespertino}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_8_10_F_vespertino}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_8_10_M_vespertino}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_11_12_F_vespertino}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_11_12_M_vespertino}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_13_16_F_vespertino}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_edad_13_16_M_vespertino}}</td>
+                 <td *ngIf="informe_asistensia !=undefined"> {{informe_asistensia.count_total_vespertino_activos}}</td>
+                </tr>
+          </tbody>         
         </table>
       </form>
     </div>
   </div>
-</div>
