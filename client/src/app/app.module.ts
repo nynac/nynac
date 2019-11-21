@@ -130,9 +130,9 @@ const appRoutes: Routes = [
   { path: 'bloqueo' ,   component :   BloqueoComponent ,   canActivate :   [ AuthGuard ] },
   { path: 'config', component: ConfiguracionComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano','Desarrollo Institucional','Coordinacion Operativa' ]} },
   
-  { path: 'servicio_social/crear', component: AgregarMiembroComponent },
-  { path: 'servicio_social/buscar-modificar', component: BuscarServicioComponent },
-  { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent },
+  { path: 'servicio_social/crear', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+  { path: 'servicio_social/buscar-modificar', component: BuscarServicioComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+  { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
 ];
 //validar token
 //canActivate : [ AuthGuard ]
