@@ -81,6 +81,13 @@ import { HistorialIncidenciasComponent } from './components/desarrollo_humano/hi
 import { AuthGuard } from '../app/auth.guard';
 import { BloqueoComponent } from './Inisiosesion/bloqueo/bloqueo.component';
 
+//COMPONENTES SERVICIO SOCIAL
+import { NavbarServicioComponent } from './components/servicio_social/navbar-servicio/navbar-servicio.component';
+import { AgregarMiembroComponent } from './components/servicio_social/agregar-miembro/agregar-miembro.component';
+import { BuscarServicioComponent } from './components/servicio_social/buscar-servicio/buscar-servicio.component';
+import { EntradasSalidasServComponent } from './components/servicio_social/entradas-salidas-serv/entradas-salidas-serv.component';
+
+
 //configuracion usuario
 import { ConfiguracionComponent } from './Inisiosesion/configuracion/configuracion.component';
 
@@ -122,6 +129,10 @@ const appRoutes: Routes = [
   { path: 'recuperar', component: RecuperarComponent },
   { path: 'bloqueo' ,   component :   BloqueoComponent ,   canActivate :   [ AuthGuard ] },
   { path: 'config', component: ConfiguracionComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano','Desarrollo Institucional','Coordinacion Operativa' ]} },
+  
+  { path: 'servicio_social/crear', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+  { path: 'servicio_social/buscar-modificar', component: BuscarServicioComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+  { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
 ];
 //validar token
 //canActivate : [ AuthGuard ]
@@ -167,6 +178,10 @@ const appRoutes: Routes = [
     ContenedorDHComponent,
     CrearIncidenciaComponent,
     HistorialIncidenciasComponent,
+    AgregarMiembroComponent,
+    NavbarServicioComponent,
+    BuscarServicioComponent,
+    EntradasSalidasServComponent,
     LoginComponent,
     BloqueoComponent,
     RecuperarComponent,

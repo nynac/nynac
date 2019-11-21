@@ -427,7 +427,7 @@
             <label for="otro" style="padding: 0px; font-size: 14px;">Otro</label>
             <input type="text" id="otro" formControlName="otro" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.otro.errors }" placeholder="¿Cúal?"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;" autocomplete="off">
         </div>
     </div>
     <div class="row" style="margin: 0px 15px 0px 15px;">
@@ -440,7 +440,7 @@
             <label for="motivoterapia" style="padding: 0px; font-size: 14px;">Motivos</label>
             <input type="text" id="motivoterapia" formControlName="motivoterapia" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.motivoterapia.errors }" placeholder="Describelo"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;"  autocomplete="off">
         </div>
     </div>
     <div class="row" style="margin: 0px 15px 0px 15px;">
@@ -448,13 +448,13 @@
             <label for="tic" style="padding: 0px; font-size: 14px;">Tiene algún TIC (Manía)</label>
             <input type="text" id="tic" formControlName="tic" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.tic.errors }" placeholder="¿Cúal?"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;"  autocomplete="off">
         </div>
         <div class="col-3 form-group input-group-sm mb-3">
             <label for="pasatiempo" style="padding: 0px; font-size: 14px;">Pasatiempos que le gustan</label>
             <input type="text" id="pasatiempo" formControlName="pasatiempo" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.pasatiempo.errors }" placeholder="¿Cúal?"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;"  autocomplete="off">
         </div>
         <div class="col-5 custom-control custom-checkbox" style="margin: 0px 0px 0px 15px;">
             <input type="checkbox" id="obedece" formControlName="obedece" class="custom-control-input"
@@ -480,13 +480,13 @@
             <label for="reaccionobscuridad" style="padding: 0px; font-size: 14px;">Reacción ante la obscuridad</label>
             <input type="text" id="reaccionobscuridad" formControlName="reaccionobscuridad" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.reaccionobscuridad.errors }" placeholder="Describelo"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;"  autocomplete="off">
         </div>
         <div class="col-3 form-group input-group-sm mb-3">
             <label for="fobias" style="padding: 0px; font-size: 14px;">Fobias o miedos</label>
             <input type="text" id="fobias" formControlName="fobias" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.fobias.errors }" placeholder="¿Cúal?"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;" autocomplete="off">
         </div>
         <div class="col-6 form-group input-group-sm mb-3" style="font-size: 14px;">
             <label for="duerme" style="padding: 0px;">Duerme la mayoria de las veces</label>
@@ -508,14 +508,14 @@
                 tiempo:</label>
             <input type="text" id="horassiesta" formControlName="horassiesta" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.horassiesta.errors }" placeholder="Si/NO y cuantas horas"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;"  autocomplete="off">
         </div>
         <div class="col-6 form-group input-group-sm mb-3">
             <label for="horasduerme" style="padding: 0px; font-size: 14px;">Número de horas que duerme por la noche en
                 promedio</label>
             <input type="text" id="horasduerme" formControlName="horasduerme" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.horasduerme.errors }" placeholder="Cuantas horas"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;"  autocomplete="off">
         </div>
     </div>
     <div class="dropdown-divider"></div>
@@ -559,7 +559,7 @@
             <label for="otroproblema" style="padding: 0px; font-size: 14px;">Otro</label>
             <input type="text" id="otroproblema" formControlName="otroproblema" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.otroproblema.errors }" placeholder="Cuantas horas"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;"  autocomplete="off">
         </div>
     </div>
     <div class="dropdown-divider"></div>
@@ -574,13 +574,13 @@
             <label for="horastv" style="padding: 0px; font-size: 14px;">Horas</label>
             <input type="text" id="horastv" formControlName="horastv" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.horastv.errors }" placeholder="Horas"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;"  autocomplete="off">
         </div>
         <div class="col-2 form-group input-group-sm mb-3" style="margin: -10px 0px 0px 0px;">
             <label for="minutostv" style="padding: 0px; font-size: 14px;">Minutos</label>
             <input type="text" id="minutostv" formControlName="minutostv" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.minutostv.errors }" placeholder="Minutos"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;"  autocomplete="off">
         </div>
         <div class="col-3 form-group input-group-sm mb-3" style="font-size: 14px; margin: -10px 0px 0px 0px;">
             <label for="companiatv" style="padding: 0px;">Lo ve en compañia de</label>
@@ -607,13 +607,13 @@
             <label for="horasPC" style="padding: 0px; font-size: 14px;">Horas</label>
             <input type="text" id="horasPC" formControlName="horasPC" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.horasPC.errors }" placeholder="Horas"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;"  autocomplete="off">
         </div>
         <div class="col-2 form-group input-group-sm mb-3" style="margin: -10px 0px 0px 0px;">
             <label for="minutosPC" style="padding: 0px; font-size: 14px;">Minutos</label>
             <input type="text" id="minutosPC" formControlName="minutosPC" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.minutosPC.errors }" placeholder="Minutos"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;" autocomplete="off">
         </div>
     </div>
 
@@ -665,7 +665,7 @@
             <label for="otroprograma" style="padding: 0px; font-size: 14px;">Otros</label>
             <input type="text" id="otroprograma" formControlName="otroprograma" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.otroprograma.errors }" placeholder="¿Cúal?"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;" autocomplete="off">
         </div>
     </div>
     <div class="dropdown-divider"></div>
@@ -714,7 +714,7 @@
             <label for="otraactividad" style="padding: 0px; font-size: 14px;">Otros</label>
             <input type="text" id="otraactividad" formControlName="otraactividad" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted2 && f2.otraactividad.errors }" placeholder="¿Cúal?"
-                style="margin-top: -10px;">
+                style="margin-top: -10px;" autocomplete="off">
         </div>
     </div>
     <div class="dropdown-divider"></div>

@@ -1,0 +1,259 @@
+<navbar-servicio> </navbar-servicio>
+<div class="container border rounded" style="margin-top: 15px">
+	<div style="margin: 0px 30px 0px 15px;" class="text-center">
+		<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+	</div>
+	<form  [formGroup]="form_guardar" (ngSubmit)="obtener_ultimo_miembro()">
+		<div class="row" style="margin: 15px 0px 0px 0px;">
+			<div class="col-12 text-center">
+				<h5>NUEVO MIEMBRO</h5>
+			</div>
+		</div>
+		<div class="dropdown-divider"></div>
+		<div class="row" style="margin: 15px 0px 0px 0px;">
+			<div class="col-12 font-weight-bold" >
+				<span>DATOS PERSONALES</span>
+			</div>
+			<div class="col-1 custom-control custom-checkbox" style="margin-left: 15px;">
+				<input type="checkbox" id="estado" formControlName="estado" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.estado.errors}"/>
+				<label class="custom-control-label" for="estado">Estado&nbsp;</label>
+			</div>
+			<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+				<label for="sede" style="padding: 0px;">Sede</label>
+				<select formControlName="sede" class="custom-select" id="sede"
+				[ngClass]="{ 'is-invalid': guardando && f2.sede.errors }" 
+				data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
+				<option value="LomaDorada">Loma Dorada</option>
+				<option value="camino">Camino Verde</option>
+				<option value="Natura">Natura</option>
+			</select>
+		</div>
+
+		<div class="form-group input-group-sm mb-3" hidden>
+			<label for="miembroID" style="padding: 0px;">Número de miembro</label>
+			<input type="text" id="miembroID" formControlName="miembroID" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" style="margin-top: -10px;">
+		</div>
+		<div class="col-2 form-group input-group-sm mb-3">
+			<label for="nombre" style="padding: 0px;">Nombre (s)</label>
+			<input type="text" id="nombre" formControlName="nombre" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.nombre.errors }" style="margin-top: -10px;">
+		</div>
+		<div class="col-2 form-group input-group-sm mb-3">
+			<label for="apellido_paterno" style="padding: 0px;">Apellido Paterno</label>
+			<input type="text" id="apellido_paterno" formControlName="apellido_paterno" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.apellido_paterno.errors }" style="margin-top: -10px;">
+		</div>
+		<div class="col-2 form-group input-group-sm mb-3">
+			<label for="apellido_materno" style="padding: 0px;">Apellido Materno</label>
+			<input type="text" id="apellido_materno" formControlName="apellido_materno" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.apellido_materno.errors }" style="margin-top: -10px;">
+		</div>
+		<div class="col-2 form-group input-group-sm mb-3" >
+			<label for="fecha_nacimiento" style="padding: 0px; font-size: 13px;">Fecha de nacimiento</label>
+			<input formControlName="fecha_nacimiento" type="date" class="form-control"  [ngClass]="{ 'is-invalid': guardando && f2.fecha_nacimiento.errors }" id="fecha_nacimiento" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" style="margin-top: -10px;">
+		</div>
+	</div>
+	<div class="row" style="margin: 15px 0px 0px 0px;">
+		<div class="col-4 form-group input-group-sm mb-3">
+			<label for="telefono_particular" style="padding: 0px; font-size: 14px;">Teléfono particular</label>
+			<input type="tel" id="telefono_particular" formControlName="telefono_particular" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.telefono_particular.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+		<div class="col-4 form-group input-group-sm mb-3">
+			<label for="celular" style="padding: 0px; font-size: 14px;">Celular</label>
+			<input type="tel" id="celular" formControlName="celular" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.celular.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+		<div class="col-4 form-group input-group-sm mb-3">
+			<label for="correo" style="padding: 0px; font-size: 14px;">Correo electrónico</label>
+			<input type="email" id="correo" formControlName="correo" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.correo.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+	</div>
+	<div class="dropdown-divider"></div>
+	<div class="row" style="margin: 10px 0px 0px 0px">
+		<div class="col-12 font-weight-bold" >
+			<span>DOMICILIO</span>
+		</div>
+		<div class="col-3 form-group input-group-sm mb-3">
+			<label for="domcalle" style="padding: 0px; font-size: 14px;">Calle y número</label>
+			<input type="text" id="domcalle" formControlName="domcalle" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.domcalle.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+		<div class="col-3 form-group input-group-sm mb-3">
+			<label for="domcolonia" style="padding: 0px; font-size: 14px;">Colonia</label>
+			<input type="text" id="domcolonia" formControlName="domcolonia" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.domcolonia.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+		<div class="col-2 form-group input-group-sm mb-3">
+			<label for="domcodpost" style="padding: 0px; font-size: 14px;">C.P</label>
+			<input type="number" id="domcodpost" formControlName="domcodpost" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.domcodpost.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+		<div class="col-2 form-group input-group-sm mb-3">
+			<label for="domdelegacion" style="padding: 0px; font-size: 14px;">Delegación</label>
+			<input type="text" id="domdelegacion" formControlName="domdelegacion" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.domdelegacion.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+		<div class="col-2 form-group input-group-sm mb-3">
+			<label for="dommunicipio" style="padding: 0px; font-size: 14px;">Municipio</label>
+			<input type="text" id="dommunicipio" formControlName="dommunicipio" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.dommunicipio.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+	</div>
+	<div class="dropdown-divider"></div>
+	<div class="row" style="margin: 10px 0px 0px 0px">
+		<div class="col-12 font-weight-bold" >
+			<span>INFORMACIÓN ACADÉMICA</span>
+		</div>
+		<div class="col-3 form-group input-group-sm mb-3">
+			<label for="escuela" style="padding: 0px; font-size: 14px;">Escuela de donde proviene</label>
+			<input type="text" id="escuela" formControlName="escuela" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.escuela.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+		<div class="col-1 form-group input-group-sm mb-3">
+			<label for="semestre" style="padding: 0px; font-size: 14px;">Semestre</label>
+			<input type="text" id="semestre" formControlName="semestre" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.semestre.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+		<div class="col-3 form-group input-group-sm mb-3">
+			<label for="tipo" style="padding: 0px; font-size: 14px;">Tipo de servicio</label>
+			<input type="text" id="tipo" formControlName="tipo" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.tipo.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+		<div class="col-3 form-group input-group-sm mb-3">
+			<label for="otro_estudio" style="padding: 0px; font-size: 14px;">Otros estudios. ¿Cuáles?</label>
+			<input type="text" id="otro_estudio" formControlName="otro_estudio" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.otro_estudio.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+		<div class="col-2 form-group input-group-sm mb-3">
+			<label for="idiomas" style="padding: 0px; font-size: 14px;">Idiomas</label>
+			<input type="text" id="idiomas" formControlName="idiomas" class="form-control"
+			[ngClass]="{ 'is-invalid': guardando && f2.idiomas.errors }" placeholder="" style="margin-top: -10px;">
+		</div>
+	</div>	
+	<div class="dropdown-divider"></div>
+	<div class="row" style="margin: 10px 0px 0px 0px">
+		<div class="col-12 font-weight-bold" >
+			<span>INFORMACIÓN MÉDICA</span>
+		</div>
+		<div class="col-5 custom-control custom-checkbox" style="margin-left: 15px;">
+			<input type="checkbox" id="padece_enfermedad" formControlName="padece_enfermedad" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.padece_enfermedad.errors}" />
+			<label class="custom-control-label" for="padece_enfermedad">Padeces de alguna enfermedad crónica degenerativa. </label>
+		</div>
+		<div class="col-3 form-group input-group-sm mb-3">
+			<label for="cual_enfermedad" style="padding: 0px;">¿Cúal?</label>
+			<input type="text" id="cual_enfermedad" formControlName="cual_enfermedad" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.cual_enfermedad.errors }" style="margin-top: -10px;">
+		</div>
+		<div class="col-3 form-group input-group-sm mb-3" style="margin-right: 15px;">
+			<label for="alergias" style="padding: 0px;">Alergías</label>
+			<input type="text" id="alergias" formControlName="alergias" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.alergias.errors }" style="margin-top: -10px;">
+		</div>
+	</div>
+	<div class="row" style="margin-left: 15px;">
+		<div class="col-5 form-group input-group-sm mb-3">
+			<label for="comunicarnos_con" style="padding: 0px;  margin-left: -15px;">En caso de emergencia comunicarnos con:</label>
+			<input type="text" id="comunicarnos_con" formControlName="comunicarnos_con" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.comunicarnos_con.errors }" style="margin-top: -10px;  margin-left: -15px;">
+		</div>
+		<div class="col-3 form-group input-group-sm mb-3">
+			<label for="telefono_emergencia" style="padding: 0px;">Teléfono</label>
+			<input type="text" id="telefono_emergencia" formControlName="telefono_emergencia" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.telefono_emergencia.errors }" style="margin-top: -10px;">
+		</div>
+		<div class="col-3 form-group input-group-sm mb-3">
+			<label for="parentesco_emergencia" style="padding: 0px;">Parentesco</label>
+			<input type="text" id="parentesco_emergencia" formControlName="parentesco_emergencia" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.parentesco_emergencia.errors }" style="margin-top: -10px;">
+		</div>
+	</div>
+	<div class="dropdown-divider"></div>
+	<div class="row" style="margin: 10px 0px 0px 0px">
+		<div class="col-12 font-weight-bold" >
+			<span>INFORMACIÓN DE EXPERIENCIA</span>
+		</div>
+		<div class="col-5 custom-control custom-checkbox" style="margin-left: 15px;">
+			<input type="checkbox" id="experiencia_voluntario" formControlName="experiencia_voluntario" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.experiencia_voluntario.errors}" />
+			<label class="custom-control-label" for="experiencia_voluntario">¿Ha tenido alguna experiencia como voluntario? </label>
+		</div>
+		<div class="col-4 form-group input-group-sm mb-3">
+			<label for="donde_experiencia" style="padding: 0px;">si tu respuesta fue si, específica dónde</label>
+			<input type="text" id="donde_experiencia" formControlName="donde_experiencia" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.donde_experiencia.errors }" style="margin-top: -10px;">
+		</div>
+		<div class="col-2 custom-control custom-checkbox" style="margin-left: 15px;">
+			<input type="checkbox" id="tratado_ninos" formControlName="tratado_ninos" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.tratado_ninos.errors}" />
+			<label class="custom-control-label" for="tratado_ninos">Ha tratado con niños</label>
+		</div>
+	</div>
+	<div class="row" style="margin: 15px 0px 0px 15px;">
+		<div class="col-12">
+			<span  class="font-weight-bold" style="margin-left: -15px;">Selecciona los dias que puedes asistir</span>
+		</div>
+		<div class="col-2 custom-control custom-checkbox">
+			<input type="checkbox" id="lunes" formControlName="lunes" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.lunes.errors}" />
+			<label class="custom-control-label" for="lunes">Lunes </label>
+		</div>
+		<div class="col-2 custom-control custom-checkbox">
+			<input type="checkbox" id="martes" formControlName="martes" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.martes.errors}" />
+			<label class="custom-control-label" for="martes">Martes </label>
+		</div>
+		<div class="col-2 custom-control custom-checkbox">
+			<input type="checkbox" id="miercoles" formControlName="miercoles" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.miercoles.errors}" />
+			<label class="custom-control-label" for="miercoles">Miercoles </label>
+		</div>
+		<div class="col-2 custom-control custom-checkbox">
+			<input type="checkbox" id="jueves" formControlName="jueves" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.jueves.errors}" />
+			<label class="custom-control-label" for="jueves">Jueves </label>
+		</div>
+		<div class="col-2 custom-control custom-checkbox">
+			<input type="checkbox" id="viernes" formControlName="viernes" class="custom-control-input"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.viernes.errors}" />
+			<label class="custom-control-label" for="viernes">Viernes </label>
+		</div>
+	</div>
+	<div class="row" style="margin-left: 15px;">
+		<div class="col-1 form-group input-group-sm mb-3">
+			<input type="text" id="horas_lunes" formControlName="horas_lunes" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.horas_lunes.errors }" placeholder="Horas">
+		</div>
+		<div class="col-1"></div>
+		<div class="col-1 form-group input-group-sm mb-3">
+			<input type="text" id="horas_martes" formControlName="horas_martes" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.horas_martes.errors }" placeholder="Horas">
+		</div>
+		<div class="col-1"></div>
+		<div class="col-1 form-group input-group-sm mb-3">
+			<input type="text" id="horas_miercoles" formControlName="horas_miercoles" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.horas_miercoles.errors }" placeholder="Horas">
+		</div>
+		<div class="col-1"></div>
+		<div class="col-1 form-group input-group-sm mb-3">
+			<input type="text" id="horas_jueves" formControlName="horas_jueves" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.horas_jueves.errors }" placeholder="Horas">
+		</div>
+		<div class="col-1"></div>
+		<div class="col-1 form-group input-group-sm mb-3">
+			<input type="text" id="horas_viernes" formControlName="horas_viernes" class="form-control"
+			[ngClass]="{ 'is-invalid': submitted2 && f2.horas_viernes.errors }" placeholder="Horas">
+		</div>
+		<div class="col-2" style="margin-top: -15px; left: 60px;">
+			<button name="serv_btn_guardar" class="btn btn-club btn-sm btn-block" style="width:100%; height: 50px;" type="submit">
+				<span id="spinner_serv" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+				hidden></span>
+				Guardar
+			</button>
+		</div>
+	</div>
+</form>
+</div>

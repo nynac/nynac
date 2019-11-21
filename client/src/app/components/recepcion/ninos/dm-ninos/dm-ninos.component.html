@@ -17,12 +17,12 @@
     <span>Toma medicamentos de forma permanente.</span>
     <div class="input-group-sm">
       <input type="text" id="medicamento" formControlName="medicamento" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.medicamento.errors }" placeholder="¿Cúales?" style="margin-left: 10px">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.medicamento.errors }" placeholder="¿Cúales?" style="margin-left: 10px; text-transform:capitalize;" autocomplete="off">
     </div>
     <span style="padding: 0px 0px 0px 30px;">Requiere algun cuidado especial.</span>
     <div class="input-group-sm">
       <input type="text" id="cuidadoespecial" formControlName="cuidadoespecial" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.cuidadoespecial.errors }" placeholder="¿Cúales?" style="margin-left: 10px">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.cuidadoespecial.errors }" placeholder="¿Cúales?" style="margin-left: 10px; text-transform:capitalize;" autocomplete="off">
     </div>
   </div>
   <!-- INICIO DE COL 12 -->
@@ -76,7 +76,7 @@
     </div>
     <div class="col-8 form-group input-group-sm mb-3">
       <input type="text" id="otraenfermedad" formControlName="otraenfermedad" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.otraenfermedad.errors }" placeholder="Otra enfermedad">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.otraenfermedad.errors }" placeholder="Otra enfermedad" style="text-transform:capitalize;" autocomplete="off">
     </div>
   </div>
 
@@ -86,17 +86,17 @@
     <div class="col-4 form-group input-group-sm mb-3">
       <label for="ataquesepilepticos" style="padding: 0px;">Ha tenido ataques epilécticos.</label>
       <input type="text" id="ataquesepilepticos" formControlName="ataquesepilepticos" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.ataquesepilepticos.errors }" placeholder="Frecuencia" style="margin-top: -10px;">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.ataquesepilepticos.errors }" placeholder="Frecuencia" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
     </div>
     <div class="col-4 form-group input-group-sm mb-3">
       <label for="enfermedadcronica" style="padding: 0px;">Padece alguna enfermedadcronica. </label>
       <input type="text" id="enfermedadcronica" formControlName="enfermedadcronica" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.enfermedadcronica.errors }" placeholder="¿Cuál?" style="margin-top: -10px;">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.enfermedadcronica.errors }" placeholder="¿Cuál?" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
     </div>
     <div class="col-4 form-group input-group-sm mb-3">
       <label for="accidentesgraves" style="padding: 0px;">Ha sufrido accidentes graves. </label>
       <input type="text" id="accidentesgraves" formControlName="accidentesgraves" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.accidentesgraves.errors }" placeholder="¿Cuál?" style="margin-top: -10px;">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.accidentesgraves.errors }" placeholder="¿Cuál?" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
     </div>
   </div>
   <div class="row" style="margin: 0px 0px 0px 15px;">
@@ -108,12 +108,12 @@
     <div class="col-4 form-group input-group-sm mb-3">
       <label for="tipooperacion" style="padding: 0px;">Tipo de operación</label>
       <input type="text" id="tipooperacion" formControlName="tipooperacion" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.tipooperacion.errors }" placeholder="Describela" style="margin-top: -10px;">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.tipooperacion.errors }" placeholder="Describela" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
     </div>
     <div class="col-3 form-group input-group-sm mb-3">
       <label for="cantidadoperaciones" style="padding: 0px;">Cantidad de operaciones</label>
       <input type="number" id="cantidadoperaciones" formControlName="cantidadoperaciones" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.cantidadoperaciones.errors }" placeholder="Cantidad" style="margin-top: -10px;">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.cantidadoperaciones.errors }" placeholder="Cantidad" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
     </div>
     <div class="col-3 form-group input-group-sm mb-3">
       <label for="fechaoperacion" style="padding: 0px;">Fecha de operación</label>
@@ -130,7 +130,7 @@
     <div class="col-2 form-group input-group-sm mb-3">
       <label for="frecpiojos" style="padding: 0px;">Frecuencia</label>
       <input type="text" id="frecpiojos" formControlName="frecpiojos" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.frecpiojos.errors }" placeholder="Frecuencia" style="margin-top: -10px;">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.frecpiojos.errors }" placeholder="Frecuencia" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off">
     </div>
   </div>
   <div class="dropdown-divider"></div>
@@ -161,7 +161,7 @@
 
     <div class="col-2 form-group input-group-sm mb-3">
       <input type="text" id="otroproblema" formControlName="otroproblema" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.otroproblema.errors }" placeholder="otro problema">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.otroproblema.errors }" placeholder="otro problema" autocomplete="off">
     </div>
   </div>
   <div class="row" style="margin: 0px 0px 0px 15px;">
@@ -191,7 +191,7 @@
 
     <div class="col-2 form-group input-group-sm mb-3">
       <input type="text" id="otroaparato" formControlName="otroaparato" class="form-control"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.otroaparato.errors }" placeholder="otro aparato">
+      [ngClass]="{ 'is-invalid': submitted2 && f2.otroaparato.errors }" placeholder="otro aparato" autocomplete="off">
     </div>
     <div class="col-2">
       <button name="DM_btn_guardar" class="btn btn-club btn-sm"

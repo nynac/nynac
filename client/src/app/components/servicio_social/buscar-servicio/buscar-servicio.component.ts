@@ -4,11 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { DatePipe } from '@angular/common';
 
 @Component({
-	selector: 'historial-incidencias',
-	templateUrl: './historial-incidencias.component.html',
-	styleUrls: ['./historial-incidencias.component.css']
+	selector: 'app-buscar-servicio',
+	templateUrl: './buscar-servicio.component.html',
+	styleUrls: ['./buscar-servicio.component.css']
 })
-export class HistorialIncidenciasComponent implements OnInit {
+export class BuscarServicioComponent implements OnInit {
 	url = "https://api-remota.conveyor.cloud/api/";
 
 	//Todo para el alert
@@ -35,29 +35,54 @@ export class HistorialIncidenciasComponent implements OnInit {
 	ngOnInit() {
 		this.obtener_historial();
 		this.form_guardar = this.formBuilder.group({
-			no_incidencia:['', ],
-			area_actividad : [''],
-			miembroID : ['', Validators.required], //del niño
-			fecha_incidencia : ['', Validators.required],
-			grupo : [''],
-			con_hermanos_primos : [''],
-			conducta_problema : ['', Validators.required],
-			descripcion : ['', Validators.required],
-			canaliza : [''],
-			solucion : [''],
-			nombres: ['', Validators.required],
-			appaterno: [''],
-			apmaterno: [''],
-			nombre_instructor: ['', Validators.required], //nombre del instructor
-			apellido_pat_instructor: [''], // apellido p del instructor
-			apellido_mat_instructor: [''] // apellido m del instructor
-		})
+			sede: [null, Validators.required],
+			estado : [true, Validators.required],
+			idStaff : [null, Validators.required],
+			miembroID : [null, Validators.required],
+			nombre : [null, Validators.required],
+			apellido_paterno : ['', Validators.required],
+			apellido_materno : ['', ],
+			fecha_nacimiento : ['', ],
+			telefono_particular : ['', ],
+			celular : ['', ],
+			correo : ['', Validators.email],
+			domcalle : ['', ],
+			domcolonia : ['', ],
+			domcodpost : ['', ],
+			domdelegacion : ['', ],
+			dommunicipio : ['', ],
+			escuela : ['', ],
+			semestre : ['', ],
+			tipo : ['', ],
+			otro_estudio : ['', ],
+			idiomas : ['', ],
+			padece_enfermedad : ['', ],
+			cual_enfermedad : ['', ],
+			alergias : ['', ],
+			comunicarnos_con : ['', ],
+			telefono_emergencia : ['', ],
+			parentesco_emergencia : ['', ],
+			experiencia_voluntario : ['', ],
+			donde_experiencia : ['', ],
+			tratado_ninos : ['', ],
+			lunes : ['', ],
+			horas_lunes : ['', ],
+			martes : ['', ],
+			horas_martes : ['', ],
+			miercoles : ['', ],
+			horas_miercoles : ['', ],
+			jueves : ['', ],
+			horas_jueves : ['', ],
+			viernes : ['', ],
+			horas_viernes : ['', ],
+
+		});
 	}
 
 	get f2(){ return this.form_guardar.controls;}
 
 	obtener_historial(){
-		var response = this.http.get(this.url + "historial_incidencias");
+		var response = this.http.get(this.url + "historial_staff");
 		response.subscribe((resultado : [])=> {
 			resultado.length > 0 ?  this.historial = resultado.reverse() : this.mostrar_alert("No hay nada que mostrar", "info");
 		},
@@ -76,9 +101,9 @@ export class HistorialIncidenciasComponent implements OnInit {
 		
 		setTimeout(() => { 
 			if (tipo=="success") {
-			this.closeAddExpenseModal.nativeElement.click();
-			this.obtener_historial();
-		}
+				this.closeAddExpenseModal.nativeElement.click();
+				this.obtener_historial();
+			}
 			this.cerrar_alert();
 		}, this.duracion
 		);
@@ -92,8 +117,9 @@ export class HistorialIncidenciasComponent implements OnInit {
 	abrir_modal(valores : any){
 		var datepipe  = new DatePipe("en-US");
 		this.form_guardar.patchValue(valores);
-		this.form_guardar.patchValue(valores.alumno);
-		this.form_guardar.get("fecha_incidencia").setValue(datepipe.transform(valores.fecha_incidencia, 'yyyy-MM-dd'));
+		this.form_guardar.patchValue(valores.datos_miembro);
+		this.form_guardar.get("fecha_nacimiento").setValue(datepipe.transform(valores.fecha_nacimiento, 'yyyy-MM-dd'));
+		console.log(valores);
 	}
 
 	cancelar(){
@@ -121,7 +147,7 @@ export class HistorialIncidenciasComponent implements OnInit {
 		else {
 			var resp = confirm("¿Deseas continuar?");
 			if (resp) {
-				this.http.put(this.url + "Incidencia1/" + this.form_guardar.value.no_incidencia, this.form_guardar.value).subscribe(data  => {
+				this.http.put(this.url + "staff/" + this.form_guardar.value.idStaff, this.form_guardar.value).subscribe(data  => {
 					//spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
 

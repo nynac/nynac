@@ -4,7 +4,6 @@
 
 <form [formGroup]="form_guardar" (ngSubmit)="guardar_DEP()">
     <!-- INICIO  -->
-<button (click)="mostrar()">Mostrar</button>
     <div class="row" style="margin: 0px 15px 15px 15px">
         <div class="col-2 font-weight-bold">
             <span>Edad</span>
@@ -23,13 +22,13 @@
         </div>
         <div class=" col-12 input-group">
             <input type="number" id="edaddeporte1" formControlName="edaddeporte1" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.edaddeporte1.errors }">
-            <input type="text" id="ciclodeporte1" formControlName="ciclodeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.ciclodeporte1.errors }">
+            <input type="text" id="ciclodeporte1" formControlName="ciclodeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.ciclodeporte1.errors }" style="text-transform: capitalize;" autocomplete="off">
             <input type="number" id="estaturadeporte1" formControlName="estaturadeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.estaturadeporte1.errors }">
             <input type="number" id="pesodeporte1" formControlName="pesodeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.pesodeporte1.errors }">
             <input type="number" id="imcdeporte1" formControlName="imcdeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.imcdeporte1.errors }">
         </div>
         <div class=" col-12 input-group">
-            <input type="number" id="edaddeporte2" formControlName="edaddeporte2" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.edaddeporte2.errors }">
+            <input type="number" id="edaddeporte2" formControlName="edaddeporte2" class="form-control col-1" [ngClass]="{ 'is-invalid': submitted2 && f2.edaddeporte2.errors }" style="text-transform: capitalize;" autocomplete="off">
             <input type="text" id="ciclodeporte2" formControlName="ciclodeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.ciclodeporte2.errors }">
             <input type="number" id="estaturadeporte2" formControlName="estaturadeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.estaturadeporte2.errors }">
             <input type="number" id="pesodeporte2" formControlName="pesodeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.pesodeporte2.errors }">
@@ -51,7 +50,7 @@
         </div>
         <div class="col-6 input-group input-group-sm mb-3">
             <input type="text"  formControlName="actividaddeportiva" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted2 && f2.actividaddeportiva.errors }" placeholder="¿Cúal?">
+            [ngClass]="{ 'is-invalid': submitted2 && f2.actividaddeportiva.errors }" placeholder="¿Cúal?" style="text-transform: capitalize;" autocomplete="off">
         </div>
     </div>
     <div class="dropdown-divider"></div>
@@ -112,19 +111,19 @@
         <div class="col-4 form-group input-group-sm mb-3" style="top: -10px;">
             <label for="otro" style="padding: 0px; font-size: 13px;">Otro</label>
             <input type="text" id="otro" formControlName="otro" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted2 && f2.otro.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+            [ngClass]="{ 'is-invalid': submitted2 && f2.otro.errors }" placeholder="¿Cúal?" style="margin-top: -10px;" autocomplete="off">
         </div>
     </div>
     <div class="row" style="margin: 15px 15px 15px 30px">
      <div class="col-6 form-group input-group-sm mb-3">
         <label for="equipo" style="padding: 0px; font-size: 13px;">Ha formado parte de algun equipo</label>
         <input type="text" id="equipo" formControlName="equipo" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted2 && f2.equipo.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+        [ngClass]="{ 'is-invalid': submitted2 && f2.equipo.errors }" placeholder="¿Cúal?" style="margin-top: -10px;" autocomplete="off">
     </div>
     <div class="col-6 form-group input-group-sm mb-3">
         <label for="problemaejercicio" style="padding: 0px; font-size: 13px;">Existe algun impedimento por el cual no pueda realizar ejercicio</label>
         <input type="text" id="problemaejercicio" formControlName="problemaejercicio" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted2 && f2.problemaejercicio.errors }" placeholder="¿Cúal?" style="margin-top: -10px;">
+        [ngClass]="{ 'is-invalid': submitted2 && f2.problemaejercicio.errors }" placeholder="¿Cúal?" style="margin-top: -10px;" autocomplete="off">
     </div>
 </div>
 
@@ -148,18 +147,18 @@
     <div class=" col-12 input-group">
         <input type="date" id="fechapremiodeporte1" formControlName="fechapremiodeporte1" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.fechapremiodeporte1.errors }">
         <input type="text" id="diciplinapremiodeporte1" formControlName="diciplinapremiodeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.diciplinapremiodeporte1.errors }">
-        <input type="text" id="lugarpremiodeporte1" formControlName="lugarpremiodeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarpremiodeporte1.errors }">
+        <input type="text" id="lugarpremiodeporte1" formControlName="lugarpremiodeporte1" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarpremiodeporte1.errors }" style="text-transform: capitalize;" autocomplete="off">
     </div>
     <div class=" col-12 input-group">
         <input type="date" id="fechapremiodeporte2" formControlName="fechapremiodeporte2" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.fechapremiodeporte2.errors }">
         <input type="text" id="diciplinapremiodeporte2" formControlName="diciplinapremiodeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.diciplinapremiodeporte2.errors }">
-        <input type="text" id="lugarpremiodeporte2" formControlName="lugarpremiodeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarpremiodeporte2.errors }">
+        <input type="text" id="lugarpremiodeporte2" formControlName="lugarpremiodeporte2" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarpremiodeporte2.errors }" style="text-transform: capitalize;" autocomplete="off">
 
     </div>
     <div class=" col-12 input-group">
         <input type="date" id="fechapremiodeporte3" formControlName="fechapremiodeporte3" class="form-control col-2" [ngClass]="{ 'is-invalid': submitted2 && f2.fechapremiodeporte3.errors }">
-        <input type="text" id="diciplinapremiodeporte3" formControlName="diciplinapremiodeporte3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.diciplinapremiodeporte3.errors }">
-        <input type="text" id="lugarpremiodeporte3" formControlName="lugarpremiodeporte3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarpremiodeporte3.errors }">
+        <input type="text" id="diciplinapremiodeporte3" formControlName="diciplinapremiodeporte3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.diciplinapremiodeporte3.errors }" style="text-transform: capitalize;" autocomplete="off">
+        <input type="text" id="lugarpremiodeporte3" formControlName="lugarpremiodeporte3" class="form-control col-5" [ngClass]="{ 'is-invalid': submitted2 && f2.lugarpremiodeporte3.errors }" style="text-transform: capitalize;" autocomplete="off">
     </div>
 </div>
 <div class="row" style="margin: 15px 15px 15px 15px">
