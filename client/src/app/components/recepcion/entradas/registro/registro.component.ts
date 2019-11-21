@@ -42,7 +42,7 @@ export class RegistroComponent implements OnInit {
 		this.miembroID = this.form_guardar.value.miembroID;
 		var response = this.http.get(this.url + "esta_activo?id=" + this.form_guardar.value.miembroID);
 		response.subscribe((resultado : number)=> {
-			//Resultado = 1 signifuca que si está activo, Resultado = 0 significa que no está activo
+			//Resultado = 1 significa que si está activo, Resultado = 0 significa que no está activo
 			resultado > 0 ? this.ya_registro_entrada() : this.mostrar_alert("Verifica el número de miembro", "danger");
 		},
 		error =>{
