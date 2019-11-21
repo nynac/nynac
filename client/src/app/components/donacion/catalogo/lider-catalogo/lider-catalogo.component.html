@@ -16,7 +16,7 @@
 		</div>
 		<div class="input-group input-group-sm mb-3 col-3 aling-right">
 			<div class="input-group-prepend">
-				<span class="input-group-text">No. Miembro:</span>
+				<span class="input-group-text">No. Lider:</span>
 			</div>
             <input type="number" formControlName="buscarID"  class="form-control" 
             [ngClass]="{ 'is-invalid': submit_buscar && f_B.buscarID.errors }">
@@ -84,7 +84,7 @@
                         <tr>
                             <th scope="col">lider ID</th>
                             <th scope="col">Descripcion</th>
-                            <th scope="col">Eliminar</th>
+                            <th scope="col" hidden="true">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,7 +92,7 @@
 
                             <th scope="row">{{lider.liderID}}</th>
                             <td>{{lider.descripcion}}</td>
-                            <td>
+                            <td hidden="true">
                                 <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
                                                 background-color: rgb(224, 8, 8); " type="button"
                                     class="btn btn-info btn-sm" (click)="eliminar_lider(lider.liderID)">Eliminar</button>

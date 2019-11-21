@@ -50,7 +50,7 @@ export class AportacionDonanteComponent implements OnInit {
     })
     //agregar
     this.form_agregar = this.formBuilder.group({
-      formadonacionID: [''],
+      formadonacionID: ['', Validators.required],
       donacionID: [''],
       tipodonacion: ['', Validators.required],
       monto: ['', Validators.required],

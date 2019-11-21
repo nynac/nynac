@@ -9,11 +9,11 @@ import { MyserviceService } from '../../../myservice.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'agenda',
-  templateUrl: './agenda.component.html',
-  styleUrls: ['./agenda.component.css']
+  selector: 'app-agenda-reporte',
+  templateUrl: './agenda-reporte.component.html',
+  styleUrls: ['./agenda-reporte.component.css']
 })
-export class AgendaComponent implements OnInit {
+export class AgendaReporteComponent implements OnInit {
   calendarPlugins = [dayGridPlugin, interactionPlugin]; 
   options: OptionsInput;
   eventsModel: any;
@@ -118,7 +118,6 @@ get f_B() {
         console.log("Error", error)
       });
   }
-
   eliminar_agenda(id: any) {
     var r = confirm("¿Esta seguro que desea eliminar el Evento: " + id + " ?");
     if (r == false) {
@@ -159,7 +158,6 @@ get f_B() {
       }
     }
   }
-  
   agregar_agenda() {
     this.get_nuevo_agenda();
     this.http.post(this.url + "Agenda", this.form_agregar.value).subscribe(data => {
@@ -183,6 +181,7 @@ get f_B() {
       this.get_calendario();
     },
       error => {
+
         console.log("Error", error);
       });
   }
@@ -288,3 +287,4 @@ get f_B() {
   }
 
 }
+
