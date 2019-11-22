@@ -33,20 +33,48 @@
           </div>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" style="width:100%;" id="evento_btn_buscar" [disabled]="form.invalid" 
-            style="height: 100%; width: 100%; border: 2px solid rgb(140, 132, 161); border-radius: 8px;">
-              <span id="spinner_login" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
-            Ingresar</button>
-        </div>
-        <div class="form-group">
-          <div class="col-md-12 alert alert-danger" *ngIf="errmsg">{{errmsg}}</div>
-        </div>
-      </form>
-      <br>
-      <br>
-      <div class="float-right" style="text-decoration: underline; text-decoration-color: #00AAE7;">
-        <a href="recuperar" class="text-decoration-none">Recuperar Contraseña</a>
+          <button type="submit" class="btn btn-primary" style="width:100%;" id="evento_btn_buscar" [disabled]="form.invalid" 
+          style="height: 100%; width: 100%; border: 2px solid rgb(140, 132, 161); border-radius: 8px;">
+          <span id="spinner_login" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+        Ingresar</button>
       </div>
+      <div class="form-group">
+        <div class="col-md-12 alert alert-danger" *ngIf="errmsg">{{errmsg}}</div>
+      </div>
+    </form>
+    <br>
+    <br>
+    <div class="float-right" style="text-decoration: underline; text-decoration-color: #00AAE7;">
+      <a href="recuperar" class="text-decoration-none">Recuperar Contraseña</a>
     </div>
+  </div>
+</div>
+</div>
+
+
+
+<!-- Modal de información -->
+<button id="btn_modal_recuperar_contraseña" type="button" class="btn btn-danger flotante" data-toggle="modal" data-target="#modal_recuperar_contraseña" >AYUDA</button>
+
+<div class="modal fade" id="modal_recuperar_contraseña" tabindex="-1" role="dialog" aria-labelledby="modal_recuperar_contraseñaLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="">
+      <div class="modal-content" style="text-align: center;">
+        <div class="modal-header">
+          <h5 class="modal-title">Recuperar contraseña</h5>
+        </div>
+        <div class="modal-body" style="text-align: justify;">
+
+          <div class="col-12 form-group input-group-sm mb-3">
+            <label for="correo" style="padding: 0px; font-size: 15px; font-weight: bold;">CORREO ELECTRÓNICO:</label>
+            <input type="text" id="correo" formControlName="correo" class="form-control" [ngClass]="{ 'is-invalid': form_invalid && f2.correo.errors }" style="margin-top: -5px;" autocomplete="off"/>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
