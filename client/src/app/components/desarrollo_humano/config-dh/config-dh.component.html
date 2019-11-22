@@ -1,0 +1,122 @@
+<navbar-dh></navbar-dh>
+<br>
+<div class="container border rounded">
+    <p class="font-weight-bold">Configuración</p>
+    <form [formGroup]="form_config" (ngSubmit)="configuracion()">
+        <!-- INICIO ROW #1 -->
+        <div class="dropdown-divider"></div>
+        <div class="row" style="margin: 15px 0px 0px 15px">
+            <div class="col-12 font-weight-bold">
+                <span>Datos del Usuario </span>
+            </div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Usuario ID:</span>
+                <input type="number" formControlName="usuarioID" class="form-control" placeholder="usuarioID" readonly
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.usuarioID.errors }">
+            </div>            
+            <div class="col-12"></div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Nombres:</span>
+                <input type="text" formControlName="nombre" class="form-control" placeholder="nombre"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.nombre.errors }">
+            </div>
+            <div class="col-12"></div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Apellidos:</span>
+                <input type="text" formControlName="apellidos" class="form-control" placeholder="apellidos"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.apellidos.errors }">
+            </div>
+            <div class="col-12"></div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Contraseña:</span>
+                <input type="text" formControlName="contrasena" class="form-control" placeholder="contrasena"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.contrasena.errors }">
+            </div>
+            <div class="col-12"></div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Correo:</span>
+                <input type="text" formControlName="correo" class="form-control" placeholder="correo"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.correo.errors }">
+            </div>
+            <div class="col-12"></div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Puesto:</span>
+                <input type="text" formControlName="puesto" class="form-control" placeholder="puesto" readonly
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.puesto.errors }">
+            </div>
+            <div class="col-12"></div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Telefono 1:</span>
+                <input type="text" formControlName="tel1" class="form-control" placeholder="tel1"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.tel1.errors }">
+            </div>
+            <div class="col-12"></div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Telefono Emergencia:</span>
+                <input type="text" formControlName="tel2" class="form-control" placeholder="tel2"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.tel2.errors }">
+            </div>
+            <div class="col-12"></div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Dirección:</span>
+                <input type="text" formControlName="direccion" class="form-control" placeholder="direccion"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.direccion.errors }">
+            </div>
+            <div class="col-12"></div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 form-group input-group-sm mb-3" >
+                    <label for="fechanacimiento" style="padding: 0px; font-size: 13px;">Fecha Nacimiento: </label>
+                    <input formControlName="fechanacimiento" placeholder="fechanacimiento de inscripción" type="date" class="form-control"  
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.fechanacimiento.errors }" id="fechanacimiento" data-toggle="tooltip" 
+                    data-placement="top" title="fechanacimiento de inscripción" style="margin-top: -10px;">
+                </div>
+                
+                <div class="col-12"></div>
+                
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Nacionalidad:</span>
+                <input type="text" formControlName="nacionalidad" class="form-control" placeholder="nacionalidad"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.nacionalidad.errors }">
+            </div>
+            <div class="col-12"></div>
+            
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Estado:</span>
+                <input type="text" formControlName="estado" class="form-control" placeholder="estado"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.estado.errors }">
+            </div>
+        </div>
+        <div class="row" style="margin: 0px 0px 15px 15px">
+            <div class="col-10"></div>
+            <div class="col-2">
+                <button name="config_btn_guardar" class="btn btn-primary mr-1" style="width:100%; height: 50px;"
+                    type="submit">
+                    <span id="spinner_config" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true" hidden></span>
+                    Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
