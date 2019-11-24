@@ -3,7 +3,7 @@
     <div class="dropdown-divider"></div>
     <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Nombre Informe:</span>
-        <input type="text" formControlName="nombreinforme" class="form-control">
+        <input type="text" formControlName="nombreinforme" class="form-control" autocomplete="off">
       </div>
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
@@ -13,12 +13,12 @@
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">ID Donacion:</span>
         <input type="number" formControlName="donacionid" class="form-control" 
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionid.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionid.errors }" autocomplete="off">
       </div>      
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">RFC:</span>
         <input type="text" formControlName="rfc" class="form-control" 
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.rfc.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.rfc.errors }" autocomplete="off">
       </div> 
       <div class="col-4 input-group input-group-sm mb-3">
         <label for="status" style="margin-right: 10px">Status </label>
@@ -104,17 +104,17 @@
   </div>
   <div class="col-3 input-group input-group-sm mb-3">
     <span style="margin-right: 10px">Pais:</span>
-    <input type="text" formControlName="pais" class="form-control" 
+    <input type="text" formControlName="pais" class="form-control" autocomplete="off"
       [ngClass]="{ 'is-invalid': submit_agregar && f_A.pais.errors }">
   </div> 
   <div class="col-3 input-group input-group-sm mb-3">
     <span style="margin-right: 10px">Estado:</span>
-    <input type="text" formControlName="estado" class="form-control" 
+    <input type="text" formControlName="estado" class="form-control" autocomplete="off"
       [ngClass]="{ 'is-invalid': submit_agregar && f_A.estado.errors }">
   </div> 
   <div class="col-3 input-group input-group-sm mb-3">
     <span style="margin-right: 10px">Municipio:</span>
-    <input type="text" formControlName="municipio" class="form-control" 
+    <input type="text" formControlName="municipio" class="form-control" autocomplete="off"
       [ngClass]="{ 'is-invalid': submit_agregar && f_A.municipio.errors }">
   </div> 
   <div class="col-3 form-group input-group-sm mb-3">

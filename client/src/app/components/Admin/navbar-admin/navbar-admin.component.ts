@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; 
-  
-@Component({ 
-  selector: 'navbar-donante',
-  templateUrl: './navbar-donante.component.html',
-  styleUrls: ['./navbar-donante.component.css']
+
+@Component({
+  selector: 'navbar-admin',
+  templateUrl: './navbar-admin.component.html',
+  styleUrls: ['./navbar-admin.component.css']
 })
-export class NavbarDonanteComponent implements OnInit {
+export class NavbarAdminComponent implements OnInit {
 
   constructor(private router: Router) { }
 

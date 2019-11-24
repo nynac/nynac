@@ -89,6 +89,12 @@ import { EntradasSalidasServComponent } from './components/servicio_social/entra
 
 
 //configuracion usuario
+import { ConfigReporteComponent } from './components/reporte/config-reporte/config-reporte.component';
+import { ConfigDHComponent } from './components/desarrollo_humano/config-dh/config-dh.component';
+import { ConfigDonacionComponent } from './components/donacion/config-donacion/config-donacion.component';
+import { ConfigRecepcionComponent } from './components/recepcion/config-recepcion/config-recepcion.component';
+import { ConfigSSComponent } from './components/servicio_social/config-ss/config-ss.component';
+import { ConfigAdminComponent } from './components/Admin/config-admin/config-admin.component';
 
 //Reportes CO
 import { NavbarCOComponent } from './components/reporte/navbar-co/navbar-co.component';
@@ -101,11 +107,11 @@ import { AgendaReporteComponent } from './components/reporte/agenda-reporte/agen
 
 //servicio excel
 import { ExcelService } from './excel.service';
-import { ConfigReporteComponent } from './components/reporte/config-reporte/config-reporte.component';
-import { ConfigDHComponent } from './components/desarrollo_humano/config-dh/config-dh.component';
-import { ConfigDonacionComponent } from './components/donacion/config-donacion/config-donacion.component';
-import { ConfigRecepcionComponent } from './components/recepcion/config-recepcion/config-recepcion.component';
-import { ConfigSSComponent } from './components/servicio_social/config-ss/config-ss.component';
+
+//Admin Menu
+import { NavbarAdminComponent } from './components/Admin/navbar-admin/navbar-admin.component';
+import { AgendaAdminComponent } from './components/Admin/agenda-admin/agenda-admin.component';
+import { NewuserAdminComponent } from './components/Admin/newuser-admin/newuser-admin.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
@@ -114,7 +120,6 @@ const appRoutes: Routes = [
   { path: 'recepcion/buscar-niño', component: ContenedorBuscadorComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
   { path: 'recepcion/agenda', component: AgendaRecepcionComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
   { path: 'recepcion/config', component: ConfigRecepcionComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]} },
-  { path: '', component: NavbarComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano' ]}  },
 
   { path: 'donacion', component: NavbarDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
   { path: 'donacion/agregar-donante', component: ContenedorDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
@@ -128,19 +133,24 @@ const appRoutes: Routes = [
   { path: 'desarrollo_humano', component: ContenedorDHComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Recepcion']} },
   { path: 'desarrollo_humano/agenda', component: AgendaDHComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Recepcion']} },
   { path: 'desarrollo_humano/config', component: ConfigDHComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Recepcion']} },
+
   { path: 'coordinacion_operativa', component: ContenedorReporteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Coordinacion Operativa']}},
   { path: 'coordinacion_operativa/agenda', component: AgendaReporteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Coordinacion Operativa']}},
   { path: 'coordinacion_operativa/config', component: ConfigReporteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Coordinacion Operativa']}},
+
   { path: 'login', component: LoginComponent },
   { path: 'recuperar', component: RecuperarComponent },
   { path: 'bloqueo' ,   component :   BloqueoComponent ,   canActivate :   [ AuthGuard ] },
-  
   
   { path: 'servicio_social/crear', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   { path: 'servicio_social/buscar-modificar', component: BuscarServicioComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   { path: 'servicio_social/config', component: ConfigSSComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   
+  { path: '', component: NavbarAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
+  { path: 'admin/agenda', component: AgendaAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
+  { path: 'admin/config', component: ConfigAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
+  { path: 'admin/newUser', component: NewuserAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
 ];
 //validar token
 //canActivate : [ AuthGuard ]
@@ -207,6 +217,10 @@ const appRoutes: Routes = [
     ConfigDonacionComponent,
     ConfigRecepcionComponent,
     ConfigSSComponent,
+    NavbarAdminComponent,
+    AgendaAdminComponent,
+    ConfigAdminComponent,
+    NewuserAdminComponent,
   ],
   imports: [
     RouterModule.forRoot(

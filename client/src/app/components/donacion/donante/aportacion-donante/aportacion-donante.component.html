@@ -44,7 +44,7 @@
             <div class="col-8 input-group input-group-sm mb-3">
                 <label for="donacionID" style="margin-right: 10px">ID Donante</label>
                 <input type="number" formControlName="donacionID" class="form-control" 
-                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }">
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }" autocomplete="off">
                 <label for="formadonacionID" style="margin-right: 10px">ID Forma</label>
                 <input type="number" formControlName="formadonacionID" class="form-control" readonly
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.formadonacionID.errors }">
@@ -71,7 +71,7 @@
 
             <div class="col-4 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Monto:</span>
-                <input type="number" formControlName="monto" class="form-control" placeholder="Monto"
+                <input type="number" formControlName="monto" class="form-control" placeholder="Monto" autocomplete="off"
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.monto.errors }">
                 <div *ngIf="submit_agregar && f_A.monto.errors" class="invalid-feedback">
                     <div *ngIf="f_A.monto.errors.required">Asigne un monto.</div>
@@ -79,7 +79,7 @@
             </div>
             <div class="col-4 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Banco:</span>
-                <input type="text" formControlName="banco" class="form-control" placeholder="Banco"
+                <input type="text" formControlName="banco" class="form-control" placeholder="Banco" autocomplete="off"
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.banco.errors }">
             </div>
             <div class="col-3 input-group input-group-sm mb-3">
@@ -95,12 +95,12 @@
             </div>
             <div class="col-3 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Numero:</span>
-                <input type="number" formControlName="numero" class="form-control" placeholder="Numero"
+                <input type="number" formControlName="numero" class="form-control" placeholder="Numero" autocomplete="off"
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.numero.errors }">
             </div>
             <div class="col-3 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Codigo:</span>
-                <input type="number" formControlName="codigo" class="form-control" placeholder="Codigo"
+                <input type="number" formControlName="codigo" class="form-control" placeholder="Codigo" autocomplete="off"
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.codigo.errors }">
             </div>
 
@@ -118,7 +118,7 @@
             </div>
             <div class="col-3 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Cargo:</span>
-                <input type="text" formControlName="cargo" class="form-control" placeholder="Cargo"
+                <input type="text" formControlName="cargo" class="form-control" placeholder="Cargo" autocomplete="off"
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.cargo.errors }">
             </div>
             <div class="col-3 input-group input-group-sm mb-3">
@@ -143,7 +143,7 @@
             </div>
             <div class="col-12 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Observación:</span>
-                <input type="text" formControlName="observacion" class="form-control" placeholder="Observacion"
+                <input type="text" formControlName="observacion" class="form-control" placeholder="Observacion" autocomplete="off"
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion.errors }">
             </div>
         </div>

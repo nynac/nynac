@@ -3,7 +3,7 @@
     <div class="dropdown-divider"></div>
     <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Nombre Informe:</span>
-        <input type="text" formControlName="nombreinforme" class="form-control">
+        <input type="text" formControlName="nombreinforme" class="form-control" autocomplete="off">
       </div>
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
@@ -12,7 +12,7 @@
       </div>      
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">ID: </span>
-        <input type="number" formControlName="idSS" class="form-control" 
+        <input type="number" formControlName="idSS" class="form-control" autocomplete="off"
           [ngClass]="{ 'is-invalid': submit_agregar && f_A.idSS.errors }">
       </div>
       <div class="col-4 input-group input-group-sm mb-3">
@@ -36,12 +36,12 @@
       </div>    
   <div class="col-4 input-group input-group-sm mb-3">
     <span style="margin-right: 10px">Enfermedad: </span>
-    <input type="text" formControlName="Enfermedad" class="form-control" 
+    <input type="text" formControlName="Enfermedad" class="form-control" autocomplete="off"
       [ngClass]="{ 'is-invalid': submit_agregar && f_A.Enfermedad.errors }">
   </div>
   <div class="col-4 input-group input-group-sm mb-3">
     <span style="margin-right: 10px">Alergia: </span>
-    <input type="text" formControlName="Alergia" class="form-control" 
+    <input type="text" formControlName="Alergia" class="form-control" autocomplete="off"
       [ngClass]="{ 'is-invalid': submit_agregar && f_A.Alergia.errors }">
   </div>  
 <div class="col-3 input-group input-group-sm mb-3"></div>
@@ -61,23 +61,23 @@
   <div class="col-3 input-group input-group-sm mb-3"></div>
   <span>Dias que vendra a trabajar</span>
   <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
-    <input type="checkbox" id="Lunes" formControlName="Lunes" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Lunes.errors}"/>
+    <input type="checkbox" id="Lunes" formControlName="Lunes" autocomplete="off" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Lunes.errors}"/>
     <label class="custom-control-label" for="Lunes">Lunes&nbsp;</label>
 </div>
 <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
-    <input type="checkbox" id="Martes" formControlName="Martes" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Martes.errors}"/>
+    <input type="checkbox" id="Martes" formControlName="Martes" autocomplete="off" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Martes.errors}"/>
     <label class="custom-control-label" for="Martes">Martes&nbsp;</label>
 </div>
 <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
-    <input type="checkbox" id="Miercoles" formControlName="Miercoles" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Miercoles.errors}"/>
+    <input type="checkbox" id="Miercoles" formControlName="Miercoles" autocomplete="off" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Miercoles.errors}"/>
     <label class="custom-control-label" for="Miercoles">Miercoles&nbsp;</label>
 </div>
 <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
-    <input type="checkbox" id="Jueves" formControlName="Jueves" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Jueves.errors}"/>
+    <input type="checkbox" id="Jueves" formControlName="Jueves" autocomplete="off" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Jueves.errors}"/>
     <label class="custom-control-label" for="Jueves">Jueves&nbsp;</label>
 </div>
 <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
-    <input type="checkbox" id="Viernes" formControlName="Viernes" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Viernes.errors}"/>
+    <input type="checkbox" id="Viernes" formControlName="Viernes" autocomplete="off" class="custom-control-input" [ngClass]="{ 'is-invalid': guardando && f2.Viernes.errors}"/>
     <label class="custom-control-label" for="Viernes">Viernes&nbsp;</label>
 </div>
 

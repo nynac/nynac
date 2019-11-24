@@ -3,7 +3,7 @@
     <div class="dropdown-divider"></div>
     <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Nombre Informe:</span>
-        <input type="text" formControlName="nombreinforme" class="form-control">
+        <input type="text" formControlName="nombreinforme" class="form-control" autocomplete="off">
       </div>
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
@@ -13,17 +13,17 @@
       
       <div class="col-3 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">ID Incidencia:</span>
-        <input type="number" formControlName="incidenciaid" class="form-control" 
+        <input type="number" formControlName="incidenciaid" class="form-control" autocomplete="off"
           [ngClass]="{ 'is-invalid': submit_agregar && f_A.incidenciaid.errors }">
       </div>  
       <div class="col-3 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">ID Miembro:</span>
-        <input type="number" formControlName="miembroid" class="form-control" 
+        <input type="number" formControlName="miembroid" class="form-control" autocomplete="off"
           [ngClass]="{ 'is-invalid': submit_agregar && f_A.miembroid.errors }">
       </div>      
       <div class="col-3 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">grupo:</span>
-        <input type="text" formControlName="grupo" class="form-control" 
+        <input type="text" formControlName="grupo" class="form-control" autocomplete="off"
           [ngClass]="{ 'is-invalid': submit_agregar && f_A.grupo.errors }">
       </div> 
       <div class="col-3 input-group input-group-sm mb-3">
@@ -38,7 +38,7 @@
       </div>      
   <div class="col-3 input-group input-group-sm mb-3">
     <span style="margin-right: 10px">Area o actividad:</span>
-    <input type="text" formControlName="area_actividad" class="form-control" 
+    <input type="text" formControlName="area_actividad" class="form-control" autocomplete="off"
       [ngClass]="{ 'is-invalid': submit_agregar && f_A.area_actividad.errors }">
   </div> 
   

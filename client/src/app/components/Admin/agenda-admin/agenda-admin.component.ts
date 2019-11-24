@@ -9,11 +9,11 @@ import { MyserviceService } from '../../../myservice.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-agenda-recepcion',
-  templateUrl: './agenda-recepcion.component.html',
-  styleUrls: ['./agenda-recepcion.component.css']
+  selector: 'app-agenda-admin',
+  templateUrl: './agenda-admin.component.html',
+  styleUrls: ['./agenda-admin.component.css']
 })
-export class AgendaRecepcionComponent implements OnInit {
+export class AgendaAdminComponent implements OnInit {
   calendarPlugins = [dayGridPlugin, interactionPlugin]; 
   options: OptionsInput;
   eventsModel: any;
@@ -41,8 +41,9 @@ export class AgendaRecepcionComponent implements OnInit {
 
   url = "https://api-remota.conveyor.cloud/api/";
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, private userService: MyserviceService) { }
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, private userService: MyserviceService ) {
 
+  }
   ngOnInit() {
     this.options = {
       //configuracion estructura header
@@ -117,6 +118,7 @@ get f_B() {
         console.log("Error", error)
       });
   }
+
   eliminar_agenda(id: any) {
     var r = confirm("¿Esta seguro que desea eliminar el Evento: " + id + " ?");
     if (r == false) {
@@ -157,6 +159,7 @@ get f_B() {
       }
     }
   }
+  
   agregar_agenda() {
     this.get_nuevo_agenda();
     this.http.post(this.url + "Agenda", this.form_agregar.value).subscribe(data => {
@@ -180,7 +183,6 @@ get f_B() {
       this.get_calendario();
     },
       error => {
-
         console.log("Error", error);
       });
   }
@@ -275,16 +277,15 @@ get f_B() {
     alert("Event: " + model.event.title +"\nFecha Inicio: "+fecha1+"\nFecha Terminacion: "+ fecha2);
   }
 
-  //clic en las cell del dategrid
-  dateClick(model) {
-    console.log(model);
-  }
+  // //clic en las cell del dategrid
+  // dateClick(model) {
+  //   console.log(model);
+  // }
 
-
-  
   refresacar(){
     this.get_calendario();
     this.get_todoseventos();
   }
 
 }
+

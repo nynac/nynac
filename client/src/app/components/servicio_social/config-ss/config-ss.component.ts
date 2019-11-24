@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ConfigSSComponent implements OnInit {
 //busqueda
 resultado: any;
-
+tipo:number=0;
   //Formularios
   form_config : FormGroup;
   
@@ -88,7 +88,16 @@ resultado: any;
        });
    }
   }
-  
+  heiden_pass() {
+    var pass = document.getElementById("pass");
+    if (this.tipo === 0) {
+      pass.setAttribute("type", "text");
+      this.tipo=1;
+    } else {
+      pass.setAttribute("type", "password");
+      this.tipo=0;
+    }
+  }  
   configuracion() {
     var spinner_config = document.getElementById("spinner_config");
     spinner_config.removeAttribute("hidden");

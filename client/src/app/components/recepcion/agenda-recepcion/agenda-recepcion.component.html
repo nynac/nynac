@@ -32,29 +32,29 @@
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">ID Agenda:</span>
         <input type="number" formControlName="agendaID" class="form-control" placeholder="ID Agenda" readonly
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.agendaID.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.agendaID.errors }" autocomplete="off">
       </div>
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">ID Usuario:</span>
         <input type="number" formControlName="usuarioID" class="form-control" placeholder="ID Usuario" readonly
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.usuarioID.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.usuarioID.errors }" autocomplete="off">
       </div>
       <div class="col-12"></div>
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Titulo:</span>
         <input type="text" formControlName="title" class="form-control" placeholder="title"
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.title.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.title.errors }" autocomplete="off">
       </div>
       <div class="col-6 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Ubicacion:</span>
         <input type="text" formControlName="ubicacion" class="form-control" placeholder="Ubicacion"
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.ubicacion.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.ubicacion.errors }" autocomplete="off">
       </div>
       <div class="col-4 form-group input-group-sm mb-3">
         <label for="start">Fecha Inicio: </label>
         <input formControlName="start" placeholder="start" type="date" class="form-control"
           [ngClass]="{ 'is-invalid': submit_agregar && f_A.start.errors }" id="start" data-toggle="tooltip"
-          data-placement="top" title="start" style="margin-top: -10px;">
+          data-placement="top" title="start" style="margin-top: -10px;" >
       </div>
       <div class="col-4 form-group input-group-sm mb-3">
         <label for="end">Fecha Terminacion: </label>
@@ -66,7 +66,7 @@
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Email:</span>
         <input type="email" formControlName="email" class="form-control" placeholder="Email"
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.email.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.email.errors }" autocomplete="off">
       </div>
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Color:</span>
@@ -135,6 +135,9 @@
     </div>
   </div>
   <div class="dropdown-divider"></div>
+  
+  <button id="btn_refrescar" type="button" class="btn btn-info btn-sm"
+  (click)="refresacar()">Refrescar</button>
   <div>
     <full-calendar defaultView="dayGridMonth" [editable]="false" [plugins]="calendarPlugins" [header]="options.header"
       (eventDragStop)="eventDragStop($event)" (eventClick)="eventClick($event)" (dateClick)="dateClick($event)"
@@ -182,4 +185,3 @@
     </div>
   </div>
 </div>
-

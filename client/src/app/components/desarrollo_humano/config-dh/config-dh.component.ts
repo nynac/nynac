@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ConfigDHComponent implements OnInit {
 //busqueda
 resultado: any;
-
+tipo: number=0;
   //Formularios
   form_config : FormGroup;
   
@@ -51,7 +51,16 @@ resultado: any;
   get f_A() { 
     return this.form_config.controls;
   }
-
+  heiden_pass() {
+    var pass = document.getElementById("pass");
+    if (this.tipo === 0) {
+      pass.setAttribute("type", "text");
+      this.tipo=1;
+    } else {
+      pass.setAttribute("type", "password");
+      this.tipo=0;
+    }
+  }   
 	buscar_usuario(){
 	  this.submit_config = true;
    if (this.form_config.invalid) {

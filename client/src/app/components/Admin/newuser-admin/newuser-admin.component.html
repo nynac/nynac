@@ -1,23 +1,38 @@
-<navbar></navbar>
+<navbar-admin></navbar-admin>
 <br>
 <div class="container border rounded">
-    <p class="font-weight-bold">Configuración</p>
-    <form [formGroup]="form_config" (ngSubmit)="configuracion()">
+    <form [formGroup]="form_config" (ngSubmit)="agregar_miembro()">
         <!-- INICIO ROW #1 -->
         <div class="dropdown-divider"></div>
         <div class="row" style="margin: 15px 0px 0px 15px">
             <div class="col-12 font-weight-bold">
                 <span>Datos del Usuario </span>
             </div>
-            
+
             <div class="col-2"></div>
-            <div class="col-8 input-group input-group-sm mb-3">
+            <div class="col-3 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Usuario ID:</span>
                 <input type="number" formControlName="usuarioID" class="form-control" placeholder="usuarioID" readonly
                     [ngClass]="{ 'is-invalid': submit_config && f_A.usuarioID.errors }" autocomplete="off">
-            </div>            
+            </div>
+            <div class="col-1 custom-control-inline">
+                <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
+                    <input type="checkbox" id="status" formControlName="status" class="custom-control-input"
+                        [ngClass]="{ 'is-invalid': submit_config && f_A.status.errors}" />
+                    <label class="custom-control-label" for="status">Estado&nbsp;</label>
+                </div>
+            </div>    
+            <div class="col-3 input-group input-group-sm mb-3">
+                    <label for="sede" style="margin-right: 10px">Sede </label>
+                    <select formControlName="sede" class="custom-select" id="sede"
+                        [ngClass]="{ 'is-invalid': submit_config && f_A.sede.errors }">
+                        <option selected disabled>sede: </option>
+                        <option value="Loma Dorada">Loma Dorada</option>
+                        <option value="Camino Verde">Camino Verde</option>
+                        <option value="Natura">Natura</option>
+                    </select>
+                </div>        
             <div class="col-12"></div>
-            
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Nombres:</span>
@@ -25,7 +40,7 @@
                     [ngClass]="{ 'is-invalid': submit_config && f_A.nombre.errors }" autocomplete="off">
             </div>
             <div class="col-12"></div>
-            
+
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Apellidos:</span>
@@ -33,36 +48,31 @@
                     [ngClass]="{ 'is-invalid': submit_config && f_A.apellidos.errors }" autocomplete="off">
             </div>
             <div class="col-12"></div>
-            
             <div class="col-2"></div>
-            <div class="col-8 input-group input-group-sm mb-3">
+            <div class="col-6 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Contraseña:</span>
-                <input type="password" formControlName="contrasena" class="form-control"  id="pass" name="pass"
+                <input type="password" formControlName="contrasena" class="form-control" id="pass" name="pass"
                     [ngClass]="{ 'is-invalid': submit_config && f_A.contrasena.errors }" autocomplete="off">
             </div>
             <div class="input-group-sm mb-3">
                 <input type="checkbox" (click)="heiden_pass()" style="margin-right: 10px;" id="see" name="see">
                 <label for="see">Mostrar Contraseña</label>
-            </div>    
-            
-            <div class="col-12"></div>
-            
-            <div class="col-2"></div>
-            <div class="col-8 input-group input-group-sm mb-3">
-                <span style="margin-right: 10px">Correo:</span>
-                <input type="text" formControlName="correo" class="form-control" placeholder="correo"
-                    [ngClass]="{ 'is-invalid': submit_config && f_A.correo.errors }" autocomplete="off">
             </div>
             <div class="col-12"></div>
-            
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
-                <span style="margin-right: 10px">Puesto:</span>
-                <input type="text" formControlName="puesto" class="form-control" placeholder="puesto" readonly
-                    [ngClass]="{ 'is-invalid': submit_config && f_A.puesto.errors }" autocomplete="off">
+                <label for="puesto" style="margin-right: 10px">Puesto </label>
+                <select formControlName="puesto" class="custom-select" id="puesto"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.puesto.errors }">
+                    <option selected disabled>Puestos: </option>
+                    <option value="Recepcion">Recepcion</option>
+                    <option value="Coordinacion Operativa">Coordinacion Operativa</option>
+                    <option value="Desarrollo Institucional">Desarrollo Institucional</option>
+                    <option value="Desarrollo Humano">Desarrollo Humano</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
             </div>
             <div class="col-12"></div>
-            
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Telefono 1:</span>
@@ -70,15 +80,15 @@
                     [ngClass]="{ 'is-invalid': submit_config && f_A.tel1.errors }" autocomplete="off">
             </div>
             <div class="col-12"></div>
-            
+
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Telefono Emergencia:</span>
-                <input type="text" formControlName="tel2" class="form-control" placeholder="tel2"
+                <input type="text" formControlName="tel2" class="form-control" placeholder="Telefono Emergencia"
                     [ngClass]="{ 'is-invalid': submit_config && f_A.tel2.errors }" autocomplete="off">
             </div>
             <div class="col-12"></div>
-            
+
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Dirección:</span>
@@ -86,17 +96,18 @@
                     [ngClass]="{ 'is-invalid': submit_config && f_A.direccion.errors }" autocomplete="off">
             </div>
             <div class="col-12"></div>
-            
+
             <div class="col-2"></div>
-            <div class="col-8 form-group input-group-sm mb-3" >
-                    <label for="fechanacimiento" style="padding: 0px; font-size: 13px;">Fecha Nacimiento: </label>
-                    <input formControlName="fechanacimiento" placeholder="fechanacimiento de inscripción" type="date" class="form-control"  
-                    [ngClass]="{ 'is-invalid': submit_config && f_A.fechanacimiento.errors }" id="fechanacimiento" data-toggle="tooltip" 
-                    data-placement="top" title="fechanacimiento de inscripción" style="margin-top: -10px;">
-                </div>
-                
-                <div class="col-12"></div>
-                
+            <div class="col-8 form-group input-group-sm mb-3">
+                <label for="fechanacimiento" style="padding: 0px; font-size: 13px;">Fecha Nacimiento: </label>
+                <input formControlName="fechanacimiento" placeholder="fechanacimiento de inscripción" type="date"
+                    class="form-control" [ngClass]="{ 'is-invalid': submit_config && f_A.fechanacimiento.errors }"
+                    id="fechanacimiento" data-toggle="tooltip" data-placement="top"
+                    title="fechanacimiento de inscripción" style="margin-top: -10px;">
+            </div>
+
+            <div class="col-12"></div>
+
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Nacionalidad:</span>
@@ -104,7 +115,7 @@
                     [ngClass]="{ 'is-invalid': submit_config && f_A.nacionalidad.errors }" autocomplete="off">
             </div>
             <div class="col-12"></div>
-            
+
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Estado:</span>
@@ -117,9 +128,9 @@
             <div class="col-2">
                 <button name="config_btn_guardar" class="btn btn-primary mr-1" style="width:100%; height: 50px;"
                     type="submit">
-                    <span id="spinner_config" class="spinner-border spinner-border-sm" role="status"
-                        aria-hidden="true" hidden></span>
-                    Guardar Cambios
+                    <span id="spinner_config" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                        hidden></span>
+                    Registrar Usuario
                 </button>
             </div>
         </div>

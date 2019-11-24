@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+ 
 @Component({
-  selector: 'app-config-reporte',
-  templateUrl: './config-reporte.component.html',
-  styleUrls: ['./config-reporte.component.css']
+  selector: 'app-config-admin',
+  templateUrl: './config-admin.component.html',
+  styleUrls: ['./config-admin.component.css']
 })
-export class ConfigReporteComponent implements OnInit {
+export class ConfigAdminComponent implements OnInit {
 //busqueda
 resultado: any;
-tipo:number=0;
+tipo: number=0;
   //Formularios
   form_config : FormGroup;
   
@@ -46,6 +46,11 @@ tipo:number=0;
     this.buscar_usuario()
 
   }
+
+  //controls Agregar
+  get f_A() { 
+    return this.form_config.controls;
+  }
   heiden_pass() {
     var pass = document.getElementById("pass");
     if (this.tipo === 0) {
@@ -56,11 +61,6 @@ tipo:number=0;
       this.tipo=0;
     }
   }  
-
-  //controls Agregar
-  get f_A() { 
-    return this.form_config.controls;
-  }
 
 	buscar_usuario(){
 	  this.submit_config = true;
@@ -115,4 +115,3 @@ tipo:number=0;
   }
  
 }
-
