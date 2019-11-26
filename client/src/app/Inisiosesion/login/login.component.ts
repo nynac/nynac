@@ -11,14 +11,24 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  url = "https://api-remota.conveyor.cloud/api/";
+
+  //Todo para el alert
+  visible : boolean = false;
+  tipo : string = "";
+  mensaje : string = "";
+  duracion: number = 4000; //1000 es 1 SEG
+
+  //form buscar
+  form_enviar_correo : FormGroup
+  guardando : boolean = false;
+  submitted2 = false;
+
   form: FormGroup;
   successmsg: any;
   errmsg: any;
 
   resultado: any;
-
-  url = "https://api-remota.conveyor.cloud/api/";
-
 
   constructor(private Userservice: MyserviceService, private router: Router, private http: HttpClient, ) { }
 
@@ -28,6 +38,53 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(3)]),
       grant_type: new FormControl('password'),
     });
+
+    this.form_enviar_correo = new FormGroup({
+      correo: new FormControl('', [Validators.required]),
+    });
+  }
+
+  limpiar_enviar_correo(){
+    this.form_enviar_correo.reset();
+  }
+
+  correo_valido() {
+    if (this.form_enviar_correo.invalid) {
+      this.mostrar_alert("Rellena los campos", "danger")
+      return;
+    }
+    
+    var spinner_correo = document.getElementById("spinner_correo");
+    spinner_correo.removeAttribute("hidden");
+
+    var response = this.http.get(this.url + "correo_valido?correo=" + this.form_enviar_correo.value.correo);
+    response.subscribe((resultado : any)=> {
+      
+      this.mostrar_alert("Hemos enviado tus credenciales al correo electronico.", "success")
+      spinner_correo.setAttribute("hidden", "true"); 
+    },
+    error =>{
+      this.mostrar_alert("Error al enviar el correo, intentalo mas tarde", "warning")
+      spinner_correo.setAttribute("hidden", "true"); 
+    });
+  }
+
+  mostrar_alert(msg : string, tipo : string){
+    this.visible = true;
+    this.mensaje = msg;
+    this.tipo = tipo;
+
+    setTimeout(() => { 
+      this.cerrar_alert();
+    }, this.duracion
+    );
+  }
+  cerrar_alert(){
+    this.limpiar_enviar_correo();
+    this.visible = false;
+    this.mensaje = null;
+    this.tipo = null;
+    this.guardando = false;
   }
 
   onSubmit(id: any) {
@@ -69,49 +126,11 @@ export class LoginComponent implements OnInit {
         this.errmsg = 'Constraseña o Usuario Incorrecto.';
       }
     },
-      error => {
-        this.errmsg = 'Error en la conexion';
-        console.log("Error", error)
-      });
+    error => {
+      this.errmsg = 'Error en la conexion';
+      console.log("Error", error)
+    });
 
-    // this.Userservice.postData(this.form.value).subscribe(respuesta => {
-    //   if (respuesta.status === 200) {
-    //            //get Usuario   
-    //     this.buscar_usuario();
-    //     this.successmsg = 'token - ' + respuesta.body.access_token;
-    //     localStorage.setItem('access_token', respuesta.body.access_token);        
-    //     //redireccion segun role de puesto storage
-    //     if (localStorage.getItem("puesto") == "Administrador") {
-    //       //componente general miss
-    //       this.router.navigate(['/agenda']);
-    //     }else if (localStorage.getItem("puesto") == "Recepcion") {
-    //       this.router.navigate(['/entradas-salidas']);
-    //     } else if (localStorage.getItem("puesto") == "Desarrollo Institucional") {
-    //       this.router.navigate(['/donacion/agregar-donante']);
-    //     }else if (localStorage.getItem("puesto") == "Desarrollo Humano") {
-    //       this.router.navigate(['/desarrollo_humano']);
-    //     }
-    //     else {
-    //       alert('Este Usuario no tiene asignado un Puesto.');
-    //     }
-    //     spinner_login.setAttribute("hidden", "true");
-    //   } else {
-    //     this.errmsg = respuesta.status + ' - ' + respuesta.statusText;
-    //     spinner_login.setAttribute("hidden", "true");
-    //   }
-    // },
-    //   err => {
-    //     spinner_login.setAttribute("hidden", "true");
-    //     if (err.status === 401) {
-    //       this.errmsg = 'Contraseña o Usuario invalido.';
-    //     }
-    //     else if (err.status === 400) {
-    //       this.errmsg = 'Contraseña o Usuario invalido.';
-    //     }
-    //     else {
-    //       this.errmsg = "Contraseña o Usuario invalido";
-    //     }
-    //   });
   }
 
   buscar_usuario() {
@@ -127,12 +146,53 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('fechanacimiento', this.resultado.fechanacimiento);
       localStorage.setItem('puesto', this.resultado.puesto);
     },
-      error => {
-        console.log("Error", error)
-      });
+    error => {
+      console.log("Error", error)
+    });
   }
 
   remover() {
     localStorage.clear()
   }
 }  
+
+
+
+// this.Userservice.postData(this.form.value).subscribe(respuesta => {
+  //   if (respuesta.status === 200) {
+    //            //get Usuario   
+    //     this.buscar_usuario();
+    //     this.successmsg = 'token - ' + respuesta.body.access_token;
+    //     localStorage.setItem('access_token', respuesta.body.access_token);        
+    //     //redireccion segun role de puesto storage
+    //     if (localStorage.getItem("puesto") == "Administrador") {
+      //       //componente general miss
+      //       this.router.navigate(['/agenda']);
+      //     }else if (localStorage.getItem("puesto") == "Recepcion") {
+        //       this.router.navigate(['/entradas-salidas']);
+        //     } else if (localStorage.getItem("puesto") == "Desarrollo Institucional") {
+          //       this.router.navigate(['/donacion/agregar-donante']);
+          //     }else if (localStorage.getItem("puesto") == "Desarrollo Humano") {
+            //       this.router.navigate(['/desarrollo_humano']);
+            //     }
+            //     else {
+              //       alert('Este Usuario no tiene asignado un Puesto.');
+              //     }
+              //     spinner_login.setAttribute("hidden", "true");
+              //   } else {
+                //     this.errmsg = respuesta.status + ' - ' + respuesta.statusText;
+                //     spinner_login.setAttribute("hidden", "true");
+                //   }
+                // },
+                //   err => {
+                  //     spinner_login.setAttribute("hidden", "true");
+                  //     if (err.status === 401) {
+                    //       this.errmsg = 'Contraseña o Usuario invalido.';
+                    //     }
+                    //     else if (err.status === 400) {
+                      //       this.errmsg = 'Contraseña o Usuario invalido.';
+                      //     }
+                      //     else {
+                        //       this.errmsg = "Contraseña o Usuario invalido";
+                        //     }
+                            //   });

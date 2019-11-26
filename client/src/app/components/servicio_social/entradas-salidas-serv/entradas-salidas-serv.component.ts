@@ -18,6 +18,8 @@ export class EntradasSalidasServComponent implements OnInit {
 	mensaje : string = "";
 	duracion: number = 1500; //1000 es 1 SEG
 
+	horas_acumuladas : number = 0;
+
 	@ViewChild('id', {static: false})id: number;
 
 	datos_check : any;
@@ -131,10 +133,6 @@ export class EntradasSalidasServComponent implements OnInit {
 		this.tipo = tipo;
 		
 		setTimeout(() => { 
-			var miembroID = (<HTMLInputElement>document.getElementById("miembroID"));
-			miembroID.value="";
-			miembroID.focus();
-
 			this.cerrar_alert();
 		}, this.duracion
 		);
@@ -148,6 +146,8 @@ export class EntradasSalidasServComponent implements OnInit {
 		var miembroID = (<HTMLInputElement>document.getElementById("miembroID"));
 		miembroID.value="";
 		miembroID.focus();
+
+		this.horas_acumuladas = 0;
 	}
 
 	mi_historial(){
@@ -163,11 +163,24 @@ export class EntradasSalidasServComponent implements OnInit {
 		var response = this.http.get(this.url + "RegistroEntradaSalidaStaff?id=" + miembroID.value);
 		response.subscribe((resultado : [])=> {
 			spinner_historial.setAttribute("hidden", "true");
-			resultado.length > 0 ?  this.historial = resultado.reverse() : this.mostrar_alert("No hay nada que mostrar", "info");
+			resultado.length > 0 ?  this.calcular_num_horas(resultado.reverse()) : this.mostrar_alert("No hay nada que mostrar", "info");
 		},
 		error =>{
 			spinner_historial.setAttribute("hidden", "true");
 			this.mostrar_alert("Error al consultar, intentalo mas tarde.", "warning");
 		});
+	}
+
+	calcular_num_horas(historial : any){
+		this.historial = historial;
+
+		for(let i = 0; i < historial.length; i++){
+			if (historial[i].fechasalida != null){
+				var milisegundos = Date.parse(historial[i].fechasalida) - Date.parse(historial[i].fechaentrada);
+				var horas = milisegundos / 1000 / 60 / 60;
+
+				this.horas_acumuladas += horas;
+			}
+		}
 	}
 }
