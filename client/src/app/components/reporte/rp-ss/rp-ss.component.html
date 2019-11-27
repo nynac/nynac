@@ -28,7 +28,8 @@
         <label for="Sede" style="margin-right: 10px">Sede: </label>
         <select formControlName="Sede" class="custom-select"
           [ngClass]="{ 'is-invalid': submit_agregar && f_A.Sede.errors }">
-          <option selected disabled>Seleccione </option>
+          <option selected disabled>Seleccione </option>          
+          <option value="null">Todas</option>
           <option value="LomaDorada">Loma Dorada</option>
           <option value="camino">Camino Verda</option>
           <option value="Natura">Natura</option>

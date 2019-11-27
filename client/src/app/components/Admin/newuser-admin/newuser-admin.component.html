@@ -1,5 +1,4 @@
-<navbar-admin></navbar-admin>
-<br>
+
 <div class="container border rounded">
     <form [formGroup]="form_config" (ngSubmit)="agregar_miembro()">
         <!-- INICIO ROW #1 -->
@@ -23,15 +22,10 @@
                 </div>
             </div>    
             <div class="col-3 input-group input-group-sm mb-3">
-                    <label for="sede" style="margin-right: 10px">Sede </label>
-                    <select formControlName="sede" class="custom-select" id="sede"
-                        [ngClass]="{ 'is-invalid': submit_config && f_A.sede.errors }">
-                        <option selected disabled>sede: </option>
-                        <option value="Loma Dorada">Loma Dorada</option>
-                        <option value="Camino Verde">Camino Verde</option>
-                        <option value="Natura">Natura</option>
-                    </select>
-                </div>        
+                <span style="margin-right: 10px">Sede:</span>
+                <input type="text" formControlName="sede" class="form-control" placeholder="sede" readonly
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.sede.errors }" autocomplete="off">
+            </div>      
             <div class="col-12"></div>
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
@@ -69,7 +63,6 @@
                     <option value="Coordinacion Operativa">Coordinacion Operativa</option>
                     <option value="Desarrollo Institucional">Desarrollo Institucional</option>
                     <option value="Desarrollo Humano">Desarrollo Humano</option>
-                    <option value="Administrador">Administrador</option>
                 </select>
             </div>
             <div class="col-12"></div>
@@ -94,6 +87,13 @@
                 <span style="margin-right: 10px">Dirección:</span>
                 <input type="text" formControlName="direccion" class="form-control" placeholder="direccion"
                     [ngClass]="{ 'is-invalid': submit_config && f_A.direccion.errors }" autocomplete="off">
+            </div>
+            <div class="col-12"></div>
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Correo:</span>
+                <input type="text" formControlName="correo" class="form-control" placeholder="correo"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.correo.errors }" autocomplete="off">
             </div>
             <div class="col-12"></div>
 
@@ -126,9 +126,9 @@
         <div class="row" style="margin: 0px 0px 15px 15px">
             <div class="col-10"></div>
             <div class="col-2">
-                <button name="config_btn_guardar" class="btn btn-primary mr-1" style="width:100%; height: 50px;"
+                <button name="btn_guardar" class="btn btn-primary mr-1" style="width:100%; height: 50px;"
                     type="submit">
-                    <span id="spinner_config" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                    <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                         hidden></span>
                     Registrar Usuario
                 </button>

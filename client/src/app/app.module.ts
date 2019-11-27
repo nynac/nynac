@@ -112,6 +112,9 @@ import { ExcelService } from './excel.service';
 import { NavbarAdminComponent } from './components/Admin/navbar-admin/navbar-admin.component';
 import { AgendaAdminComponent } from './components/Admin/agenda-admin/agenda-admin.component';
 import { NewuserAdminComponent } from './components/Admin/newuser-admin/newuser-admin.component';
+import { ModifuserAdminComponent } from './components/Admin/modifuser-admin/modifuser-admin.component';
+import { ContenedorAdminComponent } from './components/Admin/contenedor-admin/contenedor-admin.component';
+import { InformeAdminComponent } from './components/Admin/informe-admin/informe-admin.component';
 
 //RUTAS DEL PROYECTO
 const appRoutes: Routes = [
@@ -147,7 +150,7 @@ const appRoutes: Routes = [
   { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   { path: 'servicio_social/config', component: ConfigSSComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   
-  { path: '', component: NavbarAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
+  { path: '', component: ContenedorAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
   { path: 'admin/agenda', component: AgendaAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
   { path: 'admin/config', component: ConfigAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
   { path: 'admin/newUser', component: NewuserAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
@@ -221,6 +224,9 @@ const appRoutes: Routes = [
     AgendaAdminComponent,
     ConfigAdminComponent,
     NewuserAdminComponent,
+    ModifuserAdminComponent,
+    ContenedorAdminComponent,
+    InformeAdminComponent,
   ],
   imports: [
     RouterModule.forRoot(

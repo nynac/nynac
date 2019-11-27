@@ -22,6 +22,7 @@ export class AgendaReporteComponent implements OnInit {
   //Tabla
   mievento: any;
   todoseventos: any;
+  todo: any;
   calendario:any;
   //radio Option
   agregar_o_modificar: string = 'modificar';
@@ -37,7 +38,7 @@ export class AgendaReporteComponent implements OnInit {
   miembroID= localStorage.getItem("miembroID");
 
   cc:number;
-  color1:string='#00AAE7';
+  color1:string='#ffffff';
 
   url = "https://api-remota.conveyor.cloud/api/";
 
@@ -67,10 +68,12 @@ export class AgendaReporteComponent implements OnInit {
       ubicacion: [''],
       email: [''],
       usuarioID: [this.miembroID],
-      color: ['#00AAE7'],
+      color: ['#ffffff'],
+      sede:[localStorage.getItem("sede")],
     })
     this.get_mieventos();
     this.get_todoseventos();
+    this.get_all_agenda();
     this.get_calendario();
 
   }
@@ -108,6 +111,7 @@ get f_B() {
       this.form_agregar.get('email').setValue(this.resultado.email);
       this.form_agregar.get('usuarioID').setValue(this.resultado.usuarioID);
       this.form_agregar.get('color').setValue(this.resultado.color);
+      this.form_agregar.get('sede').setValue(localStorage.getItem("sede"));
       this.color1=this.form_agregar.value.color;
       if (this.focus == true) {
         this.focus = false;
@@ -118,6 +122,7 @@ get f_B() {
         console.log("Error", error)
       });
   }
+
   eliminar_agenda(id: any) {
     var r = confirm("¿Esta seguro que desea eliminar el Evento: " + id + " ?");
     if (r == false) {
@@ -129,6 +134,7 @@ get f_B() {
         alert("Se a eliminado el Evento: " + id);
         this.get_mieventos();
         this.get_todoseventos();
+        this.get_all_agenda();
         this.get_calendario();
       },
         error => {
@@ -158,8 +164,10 @@ get f_B() {
       }
     }
   }
+  
   agregar_agenda() {
     this.get_nuevo_agenda();
+    //verificar la fecha 
     this.http.post(this.url + "Agenda", this.form_agregar.value).subscribe(data => {
       alert("Se a registrado el Evento correctamente. ");
       this.clean_Agregar();
@@ -167,6 +175,7 @@ get f_B() {
       this.get_nuevo_agenda();
       this.get_mieventos();
       this.get_todoseventos();
+      this.get_all_agenda();
       this.get_calendario();
     },
       error => {
@@ -178,10 +187,10 @@ get f_B() {
       alert("Evento Modificado");
       this.get_mieventos();
       this.get_todoseventos();
+      this.get_all_agenda();
       this.get_calendario();
     },
       error => {
-
         console.log("Error", error);
       });
   }
@@ -192,14 +201,12 @@ get f_B() {
     if (this.agregar_o_modificar == "nuevo") {
       this.clean_Agregar();
       this.get_nuevo_agenda();
-      //asignar el id del usuario ??
       this.form_agregar.get('usuarioID').setValue(this.miembroID);
       this.focus = true;
     }
     else if (this.agregar_o_modificar == "modificar") {
       this.clean_Agregar();
       this.form_agregar.get('usuarioID').setValue(this.miembroID);
-      //asignar el id del usuario ??
       this.focus = false;
     }
   }
@@ -214,6 +221,9 @@ get f_B() {
       });
   }
 
+
+
+//mis eventos
   get_mieventos() {
     var response = this.http.get(this.url + "Registro_agenda?id=" + this.form_agregar.value.usuarioID);
     response.subscribe((data: any[]) => {
@@ -223,8 +233,10 @@ get f_B() {
         console.log("Error", error)
       });
   }
+
+  //eventos x sede
   get_todoseventos() {
-    var response = this.http.get(this.url + "Eventos/");
+    var response = this.http.get(this.url + "Eventos?Rsede="+this.form_agregar.value.sede);
     response.subscribe((data: any[]) => {
       this.todoseventos = data;
     },
@@ -232,8 +244,19 @@ get f_B() {
         console.log("Error", error)
       });
   }
+  //toda las agendas order(sede)
+  get_all_agenda() {
+    var response = this.http.get(this.url + "all/agenda");
+    response.subscribe((data: any[]) => {
+      this.todo = data;
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
+  //llenar calendario x sede
   get_calendario() {
-    var response = this.http.get(this.url + "Calendario/");
+    var response = this.http.get(this.url + "Eventos?Rsede="+this.form_agregar.value.sede);
     response.subscribe((data: any[]) => {
       this.calendario=data
       //transformar fecha formato
@@ -262,7 +285,8 @@ get f_B() {
   //reset agregar
   clean_Agregar() {
     this.submit_agregar = false;
-    this.form_agregar.reset();
+    this.form_agregar.reset();    
+    this.form_agregar.get('sede').setValue(localStorage.getItem("sede"));
   }
   //clic en evento (azul)
   eventClick(model) {
@@ -284,6 +308,7 @@ get f_B() {
   refresacar(){
     this.get_calendario();
     this.get_todoseventos();
+    this.get_all_agenda();
   }
 
 }

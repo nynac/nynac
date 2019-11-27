@@ -24,6 +24,7 @@
       <select formControlName="sede" class="custom-select"
         [ngClass]="{ 'is-invalid': submit_agregar && f_A.sede.errors }">
         <option selected disabled>Seleccione</option>
+        <option value="null">Todas</option>
         <option value="Loma Dorada">Loma Dorada</option>
         <option value="camino">Camino Verde</option>
         <option value="Natura">Natura</option>
@@ -222,6 +223,7 @@
       <select formControlName="seder" class="custom-select"
         [ngClass]="{ 'is-invalid': submit_nino && f_B.seder.errors }">
         <option selected disabled>Seleccione</option>
+        <option value="null">Todas</option>
         <option value="Loma Dorada">Loma Dorada</option>
         <option value="camino">Camino Verde</option>
         <option value="Natura">Natura</option> 

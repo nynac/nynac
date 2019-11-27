@@ -1,38 +1,50 @@
 <navbar-donante></navbar-donante>
 <br>
 <div class="container border rounded">
-<form [formGroup]="form_report" (ngSubmit)="crear_informe()">
-    <br>
+  <form [formGroup]="form_report" (ngSubmit)="crear_informe()">
+
+    <div class="dropdown-divider"></div>
     <div class="col-4 input-group input-group-sm mb-3">
-        <span style="margin-right: 10px">Nombre Informe:</span>
-        <input type="text" formControlName="nombreinforme" class="form-control" autocomplete="off">
-      </div>
+      <span style="margin-right: 10px">Nombre Informe:</span>
+      <input type="text" formControlName="nombreinforme" class="form-control" autocomplete="off">
+    </div>
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
       <div class="col-12 font-weight-bold">
         <span>Informe</span>
       </div>
-      <div class="col-4 input-group input-group-sm mb-3">
+      <div class="col-3 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">ID Donacion:</span>
-        <input type="number" formControlName="donacionid" class="form-control" 
+        <input type="number" formControlName="donacionid" class="form-control"
           [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionid.errors }" autocomplete="off">
-      </div>      
-      <div class="col-4 input-group input-group-sm mb-3">
+      </div>
+      <div class="col-3 input-group input-group-sm mb-3">
+        <label for="sede" style="margin-right: 10px">Sede:</label>
+        <select formControlName="sede" class="custom-select"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.sede.errors }">
+          <option selected disabled>Seleccione</option>
+          <option value="null">Todas</option>
+          <option value="Loma Dorada">Loma Dorada</option>
+          <option value="camino">Camino Verde</option>
+          <option value="Natura">Natura</option> 
+        </select>
+      </div>
+      <div class="col-3 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">RFC:</span>
-        <input type="text" formControlName="rfc" class="form-control" 
+        <input type="text" formControlName="rfc" class="form-control"
           [ngClass]="{ 'is-invalid': submit_agregar && f_A.rfc.errors }" autocomplete="off">
-      </div> 
-      <div class="col-4 input-group input-group-sm mb-3">
+      </div>
+      <div class="col-3 input-group input-group-sm mb-3">
         <label for="status" style="margin-right: 10px">Status </label>
         <select formControlName="status" class="custom-select"
-            [ngClass]="{ 'is-invalid': submit_agregar && f_A.status.errors }">
-            <option selected disabled>Seleccione</option>
-            <option value="Activo">Activo</option>
-            <option value="Cancelado">Cancelado</option>
-            <option value="Prospecto">Prospecto</option>
-            <option value="Suspendido">Suspendido</option>
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.status.errors }">
+          <option selected disabled>Seleccione</option>
+          <option value="Activo">Activo</option>
+          <option value="Cancelado">Cancelado</option>
+          <option value="Prospecto">Prospecto</option>
+          <option value="Suspendido">Suspendido</option>
         </select>
-    </div>
+      </div>
       <div class="col-4 input-group input-group-sm mb-3">
         <label for="lider" style="margin-right: 10px">Lider: </label>
         <select formControlName="liderID" class="custom-select"
@@ -43,17 +55,19 @@
       <div class="col-4 input-group input-group-sm mb-3">
         <label for="campana" style="margin-right: 10px">Campaña: </label>
         <select formControlName="campanaID" class="custom-select"
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.campanaID.errors }" >
-          <option value="{{campana.campanaID}}" *ngFor="let campana of arrayCampanas; let i=index">{{campana.descripcion}}</option>
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.campanaID.errors }">
+          <option value="{{campana.campanaID}}" *ngFor="let campana of arrayCampanas; let i=index">{{campana.descripcion}}
+          </option>
         </select>
       </div>
       <div class="col-4 input-group input-group-sm mb-3">
         <label for="Evento" style="margin-right: 10px">Evento: </label>
         <select formControlName="eventoID" class="custom-select"
           [ngClass]="{ 'is-invalid': submit_agregar && f_A.eventoID.errors }">
-          <option value="{{evento.eventoID}}" *ngFor="let evento of arrayEventos; let i=index">{{evento.descripcion}}</option>
+          <option value="{{evento.eventoID}}" *ngFor="let evento of arrayEventos; let i=index">{{evento.descripcion}}
+          </option>
         </select>
-      </div>     
+      </div>
       <div class="col-4 input-group input-group-sm mb-3">
         <label for="tipodonante" style="margin-right: 10px">Tipo Donante</label>
         <select formControlName="tipodonante" class="custom-select"
@@ -64,36 +78,36 @@
           <option value="Gobierno">Gobierno</option>
           <option value="Individuo">Individuo</option>
         </select>
-      </div>    
+      </div>
       <div class="col-4 input-group input-group-sm mb-3">
         <label for="estatus" style="margin-right: 10px">Estatus </label>
         <select formControlName="estatus" class="custom-select"
-            [ngClass]="{ 'is-invalid': submit_agregar && f_A.estatus.errors }">
-            <option selected disabled>Seleccione</option>
-            <option value="Cobrado">Cobrado</option>
-            <option value="Sin cobrar">Sin cobrar</option>
-            <option value="En espera">En espera</option>
-            <option value="Recibido">Recibido</option>
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.estatus.errors }">
+          <option selected disabled>Seleccione</option>
+          <option value="Cobrado">Cobrado</option>
+          <option value="Sin cobrar">Sin cobrar</option>
+          <option value="En espera">En espera</option>
+          <option value="Recibido">Recibido</option>
         </select>
-    </div>
+      </div>
       <div class="col-4 input-group input-group-sm mb-3">
         <label for="tipo" style="margin-right: 10px">Tipo donación </label>
         <select formControlName="tipodonacion" class="custom-select"
-            [ngClass]="{ 'is-invalid': submit_agregar && f_A.tipodonacion.errors }">
-            <option selected disabled>Seleccione </option>
-            <option value="Cheque">Cheque</option>
-            <option value="Deposito Bancario">Deposito Bancario</option>
-            <option value="Donativo Especie">Donativo en Especie</option>
-            <option value="Efectivo">Efectivo</option>
-            <option value="Paypal">Paypal</option>
-            <option value="Tarjeta Debito/Credito">Tarjeta de Debito/Credito</option>
-            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.tipodonacion.errors }">
+          <option selected disabled>Seleccione </option>
+          <option value="Cheque">Cheque</option>
+          <option value="Deposito Bancario">Deposito Bancario</option>
+          <option value="Donativo Especie">Donativo en Especie</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="Paypal">Paypal</option>
+          <option value="Tarjeta Debito/Credito">Tarjeta de Debito/Credito</option>
+          <option value="Transferencia Bancaria">Transferencia Bancaria</option>
         </select>
-    </div>
-    <div class="col-3 input-group input-group-sm mb-3">
-      <label for="frecuencia" style="margin-right: 10px">Frecuencia: </label>
-      <select formControlName="frecuencia" class="custom-select"
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.frecuencia.errors }">
+      </div>
+      <div class="col-3 input-group input-group-sm mb-3">
+        <label for="frecuencia" style="margin-right: 10px">Frecuencia: </label>
+        <select formControlName="frecuencia" class="custom-select"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.frecuencia.errors }">
           <option selected disabled>Seleccione </option>
           <option value="Mensual">Mensual</option>
           <option value="Bimestral">Bimestral</option>
@@ -102,54 +116,55 @@
           <option value="Semestral">Semestral</option>
           <option value="Anual">Anual</option>
           <option value="Unica vez">Unica vez</option>
-      </select>
-  </div>
-  <div class="col-3 input-group input-group-sm mb-3">
-    <span style="margin-right: 10px">Pais:</span>
-    <input type="text" formControlName="pais" class="form-control" 
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.pais.errors }" autocomplete="off">
-  </div> 
-  <div class="col-3 input-group input-group-sm mb-3">
-    <span style="margin-right: 10px">Estado:</span>
-    <input type="text" formControlName="estado" class="form-control" 
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.estado.errors }" autocomplete="off">
-  </div> 
-  <div class="col-3 input-group input-group-sm mb-3">
-    <span style="margin-right: 10px">Municipio:</span>
-    <input type="text" formControlName="municipio" class="form-control" 
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.municipio.errors }" autocomplete="off"> 
-  </div> 
-  <div class="col-3 form-group input-group-sm mb-3">
-    <label for="fechadonacion1">Fecha Donacion-Desde: </label>
-    <input formControlName="fechadonacion1"  type="date" class="form-control"
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechadonacion1.errors }" id="fechadonacion1" data-toggle="tooltip"
-      data-placement="top" title="fechadonacion1" style="margin-top: -10px;">
-  </div> 
-  <div class="col-3 form-group input-group-sm mb-3">
-    <label for="fechadonacion2">Fecha Donacion-Hasta: </label>
-    <input formControlName="fechadonacion2"  type="date" class="form-control"
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechadonacion2.errors }" id="fechadonacion2" data-toggle="tooltip"
-      data-placement="top" title="fechadonacion2" style="margin-top: -10px;">
-  </div> 
-  <div class="col-3 form-group input-group-sm mb-3">
-    <label for="primerpago1">Primer Pago-Desde: </label>
-    <input formControlName="primerpago1"  type="date" class="form-control"
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.primerpago1.errors }" id="primerpago1" data-toggle="tooltip"
-      data-placement="top" title="primerpago1" style="margin-top: -10px;">
-  </div> 
-  <div class="col-3 form-group input-group-sm mb-3">
-    <label for="primerpago2">Primer Pago-Hasta: </label>
-    <input formControlName="primerpago2"  type="date" class="form-control"
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.primerpago2.errors }" id="primerpago2" data-toggle="tooltip"
-      data-placement="top" title="primerpago2" style="margin-top: -10px;">
-  </div> 
+        </select>
+      </div>
+      <div class="col-3 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">Pais:</span>
+        <input type="text" formControlName="pais" class="form-control" autocomplete="off"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.pais.errors }">
+      </div>
+      <div class="col-3 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">Estado:</span>
+        <input type="text" formControlName="estado" class="form-control" autocomplete="off"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.estado.errors }">
+      </div>
+      <div class="col-3 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">Municipio:</span>
+        <input type="text" formControlName="municipio" class="form-control" autocomplete="off"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.municipio.errors }">
+      </div>
+      <div class="col-3 form-group input-group-sm mb-3">
+        <label for="fechadonacion1">Fecha Donacion-Desde: </label>
+        <input formControlName="fechadonacion1" type="date" class="form-control"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechadonacion1.errors }" id="fechadonacion1"
+          data-toggle="tooltip" data-placement="top" title="fechadonacion1" style="margin-top: -10px;">
+      </div>
+      <div class="col-3 form-group input-group-sm mb-3">
+        <label for="fechadonacion2">Fecha Donacion-Hasta: </label>
+        <input formControlName="fechadonacion2" type="date" class="form-control"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechadonacion2.errors }" id="fechadonacion2"
+          data-toggle="tooltip" data-placement="top" title="fechadonacion2" style="margin-top: -10px;">
+      </div>
+      <div class="col-3 form-group input-group-sm mb-3">
+        <label for="primerpago1">Primer Pago-Desde: </label>
+        <input formControlName="primerpago1" type="date" class="form-control"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.primerpago1.errors }" id="primerpago1" data-toggle="tooltip"
+          data-placement="top" title="primerpago1" style="margin-top: -10px;">
+      </div>
+      <div class="col-3 form-group input-group-sm mb-3">
+        <label for="primerpago2">Primer Pago-Hasta: </label>
+        <input formControlName="primerpago2" type="date" class="form-control"
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.primerpago2.errors }" id="primerpago2" data-toggle="tooltip"
+          data-placement="top" title="primerpago2" style="margin-top: -10px;">
+      </div>
     </div>
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 0px 0px 15px 15px">
       <div class="dropdown-divider"></div>
       <div class="col-10"></div>
       <div class="col-2">
-        <button name="donacion_btn_consultar" class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
+        <button name="donacion_btn_consultar" class="btn btn-primary mr-1" style="width:100%; height: 50px;"
+          type="submit">
           <span id="spinner_consulta_donacion" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
             hidden></span>
           Consultar
@@ -157,23 +172,22 @@
       </div>
     </div>
   </form>
-  <button name="captura_table" class="btn btn-primary mr-1" 
-  style="width:100%; height: 50px; background-color: rgb(51, 192, 98);" type="submit" value="CPTURE" (click)="exportAsXLSX()">
-    <span id="spinner_excel" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-      hidden></span>
+  <button name="captura_table" class="btn btn-primary mr-1"
+    style="width:100%; height: 50px; background-color: rgb(51, 192, 98);" type="submit" value="CPTURE"
+    (click)="exportAsXLSX()">
+    <span id="spinner_excel" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
     Exportar Excel
   </button>
   <div>
     <br>
   </div>
-  <button name="captura_table" class="btn btn-primary mr-1" 
-  style="width:100%; height: 50px;" type="submit" value="CPTURE" (click)="captureScreen()">
-    <span id="spinner_pdf" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-      hidden></span>
+  <button name="captura_table" class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit" value="CPTURE"
+    (click)="captureScreen()">
+    <span id="spinner_pdf" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
     Exportar PDF
   </button>
-  <div class="container border rounded" >
-    <div class="row" style="margin: 15px 15px 0px 0px" >
+  <div class="container border rounded">
+    <div class="row" style="margin: 15px 15px 0px 0px">
       <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
         <label class="font-weight-bold">Informe-Registros: {{contador}}</label>
       </div>
@@ -181,28 +195,30 @@
         <form>
           <table class="table text-center table-bordered table-sm rounded" id="contentToConvert" name="contentToConvert">
             <thead style="background-color: #00AAE7; color: white; font-size: small;">
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Donante</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Fecha Donacion</th>
-                  <th scope="col">Tipo Donante</th>
-                  <th scope="col">Nombre Fiscal</th>
-                  <th scope="col">Tipo Donacion</th>
-                  <th scope="col">Monto</th>
-                  <th scope="col">Estado</th>
-                  <th scope="col">Primer Pago</th>
-                  <th scope="col">Frecuencia</th>
-                  <th scope="col">Lider</th>
-                  <th scope="col">Campaña</th>
-                  <th scope="col">Evento</th>
-                  <th scope="col">Observacion</th>
-                </tr>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Donante</th>
+                <th scope="col">Sede</th>
+                <th scope="col">Status</th>
+                <th scope="col">Fecha Donacion</th>
+                <th scope="col">Tipo Donante</th>
+                <th scope="col">Nombre Fiscal</th>
+                <th scope="col">Tipo Donacion</th>
+                <th scope="col">Monto</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Primer Pago</th>
+                <th scope="col">Frecuencia</th>
+                <th scope="col">Lider</th>
+                <th scope="col">Campaña</th>
+                <th scope="col">Evento</th>
+                <th scope="col">Observacion</th>
+              </tr>
             </thead>
             <tbody>
               <tr *ngFor="let inf of informe; let i=index">
                 <td>DO-{{inf.donacion.donacion.donacion.donacion.donacionID}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.nombre}}</td>
+                <td>{{inf.donacion.donacion.donacion.donacion.sede}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.status}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.fechadonacion | date:'dd/MM/yyyy'}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.tipodonante}}</td>
@@ -214,7 +230,7 @@
                 <td>{{inf.donacion.donacion.donacion.donacion.frecuencia}}</td>
                 <td>{{inf.donacion.donacion.descripcion}}</td>
                 <td>{{inf.descripcion}}</td>
-                <td>{{inf.donacion.descripcion}}</td>                
+                <td>{{inf.donacion.descripcion}}</td>
                 <td>{{inf.donacion.donacion.donacion.donacion.observacion}}</td>
               </tr>
             </tbody>
@@ -223,5 +239,3 @@
       </div>
     </div>
   </div>
-</div>
-

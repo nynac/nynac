@@ -1,0 +1,127 @@
+<div class="container border rounded">
+    <form [formGroup]="form_config" (ngSubmit)="modificar()">
+        <!-- INICIO ROW #1 -->
+        <div class="dropdown-divider"></div>
+        <div class="row" style="margin: 15px 0px 0px 15px">
+            <div class="col-12 font-weight-bold">
+                <span>Datos del Usuario </span>
+            </div>
+
+            <div class="col-2"></div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Usuario ID:</span>
+                <input type="number" formControlName="usuarioID" class="form-control"  
+                    [ngClass]="{ 'is-invalid': submit_info && f_A.usuarioID.errors }" autocomplete="off">
+            </div>     
+            <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
+                <input type="checkbox" id="modificar_status" formControlName="status" class="custom-control-input" 
+                [ngClass]="{ 'is-invalid': submit_info && f_A.status.errors}"/>
+                <label class="custom-control-label" for="modificar_status">status&nbsp;</label>
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Sede:</span>
+                <select formControlName="sede" class="custom-select" id="sede"
+				[ngClass]="{ 'is-invalid': submit_info && f_A.sede.errors }" 
+				data-toggle="tooltip" data-placement="top" style="margin-top: -10px;">
+				<option selected disabled>Sede:</option>
+				<option value="Loma Dorada">Loma Dorada</option>
+				<option value="Camino Verde">Camino Verde</option>
+				<option value="Natura">Natura</option>
+			</select>
+            </div>       
+            <div class="col-12"></div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Nombres:</span>
+                <input type="text" formControlName="nombre" class="form-control" 
+                    [ngClass]="{ 'is-invalid': submit_info && f_A.nombre.errors }" autocomplete="off">
+            </div>
+            <div class="col-12"></div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <label for="puesto" style="margin-right: 10px">Puesto </label>
+                <select formControlName="puesto" class="custom-select" id="puesto"
+                    [ngClass]="{ 'is-invalid': submit_info && f_A.puesto.errors }">
+                    <option selected disabled>Puestos: </option>
+                    <option value="Recepcion">Recepcion</option>
+                    <option value="Coordinacion Operativa">Coordinacion Operativa</option>
+                    <option value="Desarrollo Institucional">Desarrollo Institucional</option>
+                    <option value="Desarrollo Humano">Desarrollo Humano</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+            </div>
+           
+            <div class="col-12"></div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Nacionalidad:</span>
+                <input type="text" formControlName="nacionalidad" class="form-control" 
+                    [ngClass]="{ 'is-invalid': submit_info && f_A.nacionalidad.errors }" autocomplete="off">
+            </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Estado:</span>
+                <input type="text" formControlName="estado" class="form-control" 
+                    [ngClass]="{ 'is-invalid': submit_info && f_A.estado.errors }" autocomplete="off">
+            </div>
+             <div class="col-3 form-group input-group-sm mb-3">
+                <label for="fechanacimiento" style="padding: 0px; font-size: 13px;">Fecha Nacimiento: </label>
+                <input formControlName="fechanacimiento" type="date"
+                    class="form-control" [ngClass]="{ 'is-invalid': submit_info && f_A.fechanacimiento.errors }"
+                    id="fechanacimiento" data-toggle="tooltip" data-placement="top"
+                    title="fechanacimiento de inscripción" style="margin-top: -10px;">
+            </div>
+        </div>
+        <div class="row" style="margin: 0px 0px 15px 15px">
+            <div class="col-10"></div>
+            <div class="col-2">
+                <button name="modificar_btn_guardar" id="modificar_btn_guardar" class="btn btn-primary mr-1" style="width:100%; height: 50px;"
+                    type="submit">
+                    <span id="spinner_modificar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                        hidden></span>
+                    Modificar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container border rounded">
+    <div class="row" style="margin: 15px 15px 0px 0px">
+        <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+            <label class="font-weight-bold">Usuarios: </label>
+        </div>
+        <div class="col-12" style="overflow-x:auto; overflow-y:auto;">
+            <form>
+                <table class="table text-center table-bordered table-sm rounded">
+                    <thead style="background-color: #00AAE7; color: white;">
+                        <tr>
+                            <th scope="col">Usuario ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellidos</th>
+                            <th scope="col">Sede</th>
+                            <th scope="col">Actualmente</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Fecha Nacimiento</th>
+                            <th scope="col">Tel.</th>
+                            <th scope="col">Tel. Emergencia</th>
+                            <th scope="col">Modificar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let result of resultado; let i=index">
+                            <th scope="row">{{result.usuarioID}}</th>
+                            <td>{{result.nombre}}</td>
+                            <td>{{result.apellidos}}</td>
+                            <td >{{result.sede}}</td>
+                            <td >{{result.status}}</td>
+                            <td>{{result.correo}}</td>
+                            <td>{{result.fechanacimiento | date:'dd/MM/yyyy'}}</td>
+                            <td>{{result.tel1}}</td>
+                            <td>{{result.tel2}}</td>
+                            <td>
+                                <button id="BUSQ_btn_eliminar" style="background-color: rgb(28, 30, 202); " 
+                                type="button" class="btn btn-info btn-sm" (click)="llenar(result.usuarioID)">Modificar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

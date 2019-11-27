@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-newuser-admin',
+  selector: 'newuser-admin',
   templateUrl: './newuser-admin.component.html',
   styleUrls: ['./newuser-admin.component.css']
 })
@@ -34,7 +34,7 @@ arreglo: any;
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
       contrasena: ['', Validators.required],
-      correo: ['', Validators.required],
+      correo: [],
       puesto: ['', Validators.required],
       tel1: [],
       tel2: [],
@@ -42,8 +42,8 @@ arreglo: any;
       fechanacimiento: [],
       nacionalidad: [],
       estado: [],
-      status:[],
-      sede:['', Validators.required],
+      status:[true],
+      sede:[localStorage.getItem('sede')],
     })
     this.	obtener_ultimo_miembro();
 
@@ -61,7 +61,7 @@ arreglo: any;
   }
 
   //controls Buscar
-  get f2() { 
+  get f_A() { 
     return this.form_config.controls;
   }
 
@@ -79,6 +79,17 @@ arreglo: any;
   
   //registrar usuario
   agregar_miembro(){
+    this.submit_config=false;
+   //verifica formularío
+		if (this.form_config.invalid) {
+      alert("Favor de llenar los campos requeridos");
+      this.submit_config=true;
+			return;
+    }
+
+    var spinner = document.getElementById("spinner");
+    spinner.removeAttribute("hidden");
+    
     this.obtener_ultimo_miembro();
     
     this.datos_miembro = {
@@ -88,8 +99,8 @@ arreglo: any;
 			sede: this.form_config.value.sede
 		}
     this.http.post(this.url + 'miembro', this.datos_miembro).subscribe(data  => {
-      console.log('Miembro guardado');
       this.agregar_usuario();
+      spinner.setAttribute("hidden", "true");
     },
       error => {
         console.log("Error", error);
@@ -98,78 +109,14 @@ arreglo: any;
     
     agregar_usuario(){
       this.http.post(this.url + 'Usuarios', this.form_config.value).subscribe(data  => {
-        console.log('Usuario guardado');
+        alert('Se a guardado el usuario correctamente. ID: '+this.form_config.value.usuarioID);
+        this.form_config.reset();
+        this.obtener_ultimo_miembro();
+        this.form_config.get('status').setValue(true);
       },
         error => {
           console.log("Error", error);
         });
     }
-
-//   //Modificar
-// //llenar campos
-// 	buscar_usuario(){
-//       this.submit_config = true;
-//      if (this.form_config.invalid) {
-//        return;
-//      }
-//      else {
-//        //select mediante el id
-//        console.log(this.form_config.value.miembroID);
-//         var response = this.http.get(this.url + "Usuario/id?id=" + this.form_config.value.miembroID);
-//        response.subscribe((data: any[]) => {
-//          this.resultado = data;
-//          console.log(this.resultado);
-//          //transformar fecha formato
-//          var datePipe = new DatePipe("en-US");
-//          this.resultado[0].fechanacimiento = datePipe.transform(this.resultado[0].fechanacimiento, 'yyyy-MM-dd');
   
-//          this.form_config.get('usuarioID').setValue(this.resultado[0].usuarioID);
-//          this.form_config.get('miembroID').setValue(this.resultado[0].miembroID);
-//          this.form_config.get('nombre').setValue(this.resultado[0].nombre);
-//          this.form_config.get('apellidos').setValue(this.resultado[0].apellidos);
-//          this.form_config.get('contrasena').setValue(this.resultado[0].contrasena);
-//          this.form_config.get('correo').setValue(this.resultado[0].correo);
-//          this.form_config.get('puesto').setValue(this.resultado[0].puesto);
-//          this.form_config.get('tel1').setValue(this.resultado[0].tel1);
-//          this.form_config.get('tel2').setValue(this.resultado[0].tel2);
-//          this.form_config.get('direccion').setValue(this.resultado[0].direccion);
-//          this.form_config.get('fechanacimiento').setValue(this.resultado[0].fechanacimiento);
-//          this.form_config.get('nacionalidad').setValue(this.resultado[0].nacionalidad);
-//          this.form_config.get('estado').setValue(this.resultado[0].estado);
-//          console.log(this.form_config.value.miembroID);
-//        },
-//          error => {
-//            console.log("Error", error)
-//          });
-//      }
-//     }
-
-  
-  // //List Usuarios
-  // get_Usuarios() {
-  //   var response = this.http.get(this.url + "Campana/");
-  //   response.subscribe((data: any[]) => {
-  //     // this.arrayCampana = data;
-  //   },
-  //     error => {
-  //       console.log("Error", error)
-  //     });
-  // }
-
-  
-  //modificar
-  modificar_Usuario() {
-    var spinner_agregar_campana = document.getElementById("spinner_agregar_campana");
-    spinner_agregar_campana.removeAttribute("hidden");
-
-    //Update mediante el id y los campos de agregar
-    this.http.put(this.url + "Campana/" + this.form_config.value.buscarID, this.form_config.value).subscribe(data => {
-      spinner_agregar_campana.setAttribute("hidden", "true");
-      alert("Campaña Modificado");
-    },
-      error => {
-        spinner_agregar_campana.setAttribute("hidden", "true");
-        console.log("Error", error);
-      });
-  }
 }
