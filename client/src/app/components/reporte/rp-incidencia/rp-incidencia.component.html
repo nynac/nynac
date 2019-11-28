@@ -1,129 +1,141 @@
 <form [formGroup]="form_report" (ngSubmit)="crear_informe()">
-  
-    <div class="dropdown-divider"></div>
-    <div class="col-4 input-group input-group-sm mb-3">
-        <span style="margin-right: 10px">Nombre Informe:</span>
-        <input type="text" formControlName="nombreinforme" class="form-control">
-      </div>
-    <div class="dropdown-divider"></div>
-    <div class="row" style="margin: 15px 0px 0px 15px">
-      <div class="col-12 font-weight-bold">
-        <span>Informe</span>
-      </div>
-      
-      <div class="col-3 input-group input-group-sm mb-3">
-        <span style="margin-right: 10px">ID Incidencia:</span>
-        <input type="number" formControlName="incidenciaid" class="form-control" 
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.incidenciaid.errors }">
-      </div>  
-      <div class="col-3 input-group input-group-sm mb-3">
-        <span style="margin-right: 10px">ID Miembro:</span>
-        <input type="number" formControlName="miembroid" class="form-control" 
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.miembroid.errors }">
-      </div>      
-      <div class="col-3 input-group input-group-sm mb-3">
-        <span style="margin-right: 10px">grupo:</span>
-        <input type="text" formControlName="grupo" class="form-control" 
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.grupo.errors }">
-      </div> 
-      <div class="col-3 input-group input-group-sm mb-3">
-        <label for="tipoproblema" style="margin-right: 10px">Tipo problema</label>
-        <select formControlName="tipoproblema" class="custom-select"
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.tipoproblema.errors }">
-          <option selected disabled>Seleccione </option>
-          <option value="Médica">Médica</option>
-          <option value="Conductal">Conductal</option>
-          <option value="Accidente">Accidente</option>
-        </select>
-      </div>      
-  <div class="col-3 input-group input-group-sm mb-3">
-    <span style="margin-right: 10px">Area o actividad:</span>
-    <input type="text" formControlName="area_actividad" class="form-control" 
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.area_actividad.errors }">
-  </div> 
-  
-  <div class="col-3 form-group input-group-sm mb-3">
-    <label for="fechaincidencia1">Fecha incidencia-Desde: </label>
-    <input formControlName="fechaincidencia1"  type="date" class="form-control"
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechaincidencia1.errors }" id="fechaincidencia1" data-toggle="tooltip"
-      data-placement="top" title="fechaincidencia1" style="margin-top: -10px;">
-  </div> 
-  <div class="col-3 form-group input-group-sm mb-3">
-    <label for="fechaincidencia2">Fecha incidencia-Hasta: </label>
-    <input formControlName="fechaincidencia2"  type="date" class="form-control"
-      [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechaincidencia2.errors }" id="fechaincidencia2" data-toggle="tooltip"
-      data-placement="top" title="fechaincidencia2" style="margin-top: -10px;">
-  </div> 
-    </div>
-    <div class="dropdown-divider"></div>
-    <div class="row" style="margin: 0px 0px 15px 15px">
-      <div class="dropdown-divider"></div>
-      <div class="col-10"></div>
-      <div class="col-2">
-        <button name="agenda_btn_consultar" class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
-          <span id="spinner_agregar_agenda" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-            hidden></span>
-          Consultar
-        </button>
-      </div>
-    </div>
-  </form>
-  <button name="captura_table" class="btn btn-primary mr-1" 
-  style="width:100%; height: 50px; background-color: rgb(51, 192, 98);" type="submit" value="CPTURE" (click)="exportAsXLSX()">
-    <span id="spinner_excel" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-      hidden></span>
-    Exportar Excel
-  </button>
-  <div>
-    <br>
-  </div>
-  <button name="captura_table" class="btn btn-primary mr-1" 
-  style="width:100%; height: 50px;" type="submit" value="CPTURE" (click)="captureScreen()">
-    <span id="spinner_pdf" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-      hidden></span>
-    Exportar PDF
-  </button>
-  <div class="container border rounded" >
-    <div class="row" style="margin: 15px 15px 0px 0px" >
-      <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-        <label class="font-weight-bold">Informe-Registros: {{contador}}</label>
-      </div>
-      <div class="col-12" style="overflow-x:auto; overflow-y:auto;">
-        <form>
-          <table class="table text-center table-bordered table-sm rounded" id="informeincidencia" name="informeincidencia">
-            <thead style="background-color: #00AAE7; color: white;font-size: small;">
-                <tr>
-                  <th scope="col">ID_Incidencia</th>
-                  <th scope="col">ID_Miembro</th>
-                  <th scope="col">Nombre_Niño</th>
-                  <th scope="col">Grupo</th>
-                  <th scope="col">Fecha_Incidencia</th>
-                  <th scope="col">Instructor</th>
-                  <th scope="col">Area_Actividad</th>
-                  <th scope="col">Conducta_Problema</th>
-                  <th scope="col">Descripción</th>
-                  <th scope="col">Canalización</th>
-                  <th scope="col">Solución</th>
-                </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let inf of informe; let i=index">
-                <td>{{inf.no_incidencia}}</td>
-                <td>{{inf.miembroID}}</td>
-                <td>{{inf.nombresnino}}</td>
-                <td>{{inf.grupo}}</td>
-                <td>{{inf.fecha_incidencia | date:'dd/MM/yyyy'}}</td>
-                <td>{{inf.quien_detecto}}</td>
-                <td>{{inf.area_actividad}}</td>
-                <td>{{inf.conducta_problema}}</td>
-                <td>{{inf.descripcion}}</td>
-                <td>{{inf.canaliza}}</td>
-                <td>{{inf.solucion}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-      </div>
-    </div>
-  </div>
 
+  <div class="dropdown-divider"></div>
+  <div class="col-4 input-group input-group-sm mb-3">
+    <span style="margin-right: 10px">Nombre Informe:</span>
+    <input type="text" formControlName="nombreinforme" class="form-control" autocomplete="off">
+  </div>
+  <div class="dropdown-divider"></div>
+  <div class="row" style="margin: 15px 0px 0px 15px">
+    <div class="col-12 font-weight-bold">
+      <span>Informe</span>
+    </div>
+
+    <div class="col-3 input-group input-group-sm mb-3">
+      <span style="margin-right: 10px">ID Incidencia:</span>
+      <input type="number" formControlName="incidenciaid" class="form-control" autocomplete="off"
+        [ngClass]="{ 'is-invalid': submit_agregar && f_A.incidenciaid.errors }">
+    </div>
+    <div class="col-3 input-group input-group-sm mb-3">
+      <span style="margin-right: 10px">ID Miembro:</span>
+      <input type="number" formControlName="miembroid" class="form-control" autocomplete="off"
+        [ngClass]="{ 'is-invalid': submit_agregar && f_A.miembroid.errors }">
+    </div>
+    <div class="col-3 input-group input-group-sm mb-3">
+      <span style="margin-right: 10px">Sede:</span>
+      <select formControlName="sede" class="custom-select" id="sede"
+        [ngClass]="{ 'is-invalid': submit_agregar && f_A.sede.errors }" data-toggle="tooltip" data-placement="top">
+        <option selected disabled>Sede:</option>
+        <option value="null">Todas</option>
+        <option value="Loma Dorada">Loma Dorada</option>
+        <option value="Camino Verde">Camino Verde</option>
+        <option value="Natura">Natura</option>
+      </select>
+    </div>
+    <div class="col-3 input-group input-group-sm mb-3">
+      <span style="margin-right: 10px">grupo:</span>
+      <input type="text" formControlName="grupo" class="form-control" autocomplete="off"
+        [ngClass]="{ 'is-invalid': submit_agregar && f_A.grupo.errors }">
+    </div>
+    <div class="col-3 input-group input-group-sm mb-3">
+      <label for="tipoproblema" style="margin-right: 10px">Tipo problema</label>
+      <select formControlName="tipoproblema" class="custom-select"
+        [ngClass]="{ 'is-invalid': submit_agregar && f_A.tipoproblema.errors }">
+        <option selected disabled>Seleccione </option>
+        <option value="Médica">Médica</option>
+        <option value="Conductal">Conductal</option>
+        <option value="Accidente">Accidente</option>
+      </select>
+    </div>
+    <div class="col-3 input-group input-group-sm mb-3">
+      <span style="margin-right: 10px">Area o actividad:</span>
+      <input type="text" formControlName="area_actividad" class="form-control" autocomplete="off"
+        [ngClass]="{ 'is-invalid': submit_agregar && f_A.area_actividad.errors }">
+    </div>
+
+    <div class="col-3 form-group input-group-sm mb-3">
+      <label for="fechaincidencia1">Fecha incidencia-Desde: </label>
+      <input formControlName="fechaincidencia1" type="date" class="form-control"
+        [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechaincidencia1.errors }" id="fechaincidencia1"
+        data-toggle="tooltip" data-placement="top" title="fechaincidencia1" style="margin-top: -10px;">
+    </div>
+    <div class="col-3 form-group input-group-sm mb-3">
+      <label for="fechaincidencia2">Fecha incidencia-Hasta: </label>
+      <input formControlName="fechaincidencia2" type="date" class="form-control"
+        [ngClass]="{ 'is-invalid': submit_agregar && f_A.fechaincidencia2.errors }" id="fechaincidencia2"
+        data-toggle="tooltip" data-placement="top" title="fechaincidencia2" style="margin-top: -10px;">
+    </div>
+  </div>
+  <div class="dropdown-divider"></div>
+  <div class="row" style="margin: 0px 0px 15px 15px">
+    <div class="dropdown-divider"></div>
+    <div class="col-10"></div>
+    <div class="col-2">
+      <button name="agenda_btn_consultar" class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit">
+        <span id="spinner_agregar_agenda" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+          hidden></span>
+        Consultar
+      </button>
+    </div>
+  </div>
+</form>
+<button name="captura_table" class="btn btn-primary mr-1"
+  style="width:100%; height: 50px; background-color: rgb(51, 192, 98);" type="submit" value="CPTURE"
+  (click)="exportAsXLSX()">
+  <span id="spinner_excel" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+  Exportar Excel
+</button>
+<div>
+  <br>
+</div>
+<button name="captura_table" class="btn btn-primary mr-1" style="width:100%; height: 50px;" type="submit" value="CPTURE"
+  (click)="captureScreen()">
+  <span id="spinner_pdf" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+  Exportar PDF
+</button>
+<div class="container border rounded">
+  <div class="row" style="margin: 15px 15px 0px 0px">
+    <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+      <label class="font-weight-bold">Informe-Registros: {{contador}}</label>
+    </div>
+    <div class="col-12" style="overflow-x:auto; overflow-y:auto;">
+      <form>
+        <table class="table text-center table-bordered table-sm rounded" id="informeincidencia"
+          name="informeincidencia">
+          <thead style="background-color: #00AAE7; color: white;font-size: small;">
+            <tr>
+              <th scope="col">ID_Incidencia</th>
+              <th scope="col">ID_Miembro</th>
+              <th scope="col">Sede</th>
+              <th scope="col">Nombre_Niño</th>
+              <th scope="col">Grupo</th>
+              <th scope="col">Fecha_Incidencia</th>
+              <th scope="col">Instructor</th>
+              <th scope="col">Area_Actividad</th>
+              <th scope="col">Conducta_Problema</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Canalización</th>
+              <th scope="col">Solución</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let inf of informe; let i=index">
+              <td>{{inf.no_incidencia}}</td>
+              <td>{{inf.miembroID}}</td>
+              <td>{{inf.sede}}</td>
+              <td>{{inf.nombresnino}}</td>
+              <td>{{inf.grupo}}</td>
+              <td>{{inf.fecha_incidencia | date:'dd/MM/yyyy'}}</td>
+              <td>{{inf.quien_detecto}}</td>
+              <td>{{inf.area_actividad}}</td>
+              <td>{{inf.conducta_problema}}</td>
+              <td>{{inf.descripcion}}</td>
+              <td>{{inf.canaliza}}</td>
+              <td>{{inf.solucion}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>

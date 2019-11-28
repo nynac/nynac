@@ -29,26 +29,32 @@
       <div class="col-12 font-weight-bold">
         <span>Datos Agenda</span>
       </div>
+
+      <div class="col-4 input-group input-group-sm mb-3">
+        <span style="margin-right: 10px">Sede:</span>
+        <input type="text" formControlName="sede" class="form-control" readonly
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.sede.errors }" autocomplete="off">
+      </div>
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">ID Agenda:</span>
         <input type="number" formControlName="agendaID" class="form-control" placeholder="ID Agenda" readonly
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.agendaID.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.agendaID.errors }" autocomplete="off">
       </div>
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">ID Usuario:</span>
         <input type="number" formControlName="usuarioID" class="form-control" placeholder="ID Usuario" readonly
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.usuarioID.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.usuarioID.errors }" autocomplete="off">
       </div>
       <div class="col-12"></div>
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Titulo:</span>
         <input type="text" formControlName="title" class="form-control" placeholder="title"
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.title.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.title.errors }" autocomplete="off">
       </div>
       <div class="col-6 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Ubicacion:</span>
         <input type="text" formControlName="ubicacion" class="form-control" placeholder="Ubicacion"
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.ubicacion.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.ubicacion.errors }" autocomplete="off">
       </div>
       <div class="col-4 form-group input-group-sm mb-3">
         <label for="start">Fecha Inicio: </label>
@@ -59,14 +65,14 @@
       <div class="col-4 form-group input-group-sm mb-3">
         <label for="end">Fecha Terminacion: </label>
         <input formControlName="end" placeholder="end" type="date" class="form-control"
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.end.errors }" id="end"
-          data-toggle="tooltip" data-placement="top" title="end" style="margin-top: -10px;">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.end.errors }" id="end" data-toggle="tooltip"
+          data-placement="top" title="end" style="margin-top: -10px;">
       </div>
       <div class="col-12"></div>
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Email:</span>
         <input type="email" formControlName="email" class="form-control" placeholder="Email"
-          [ngClass]="{ 'is-invalid': submit_agregar && f_A.email.errors }">
+          [ngClass]="{ 'is-invalid': submit_agregar && f_A.email.errors }" autocomplete="off">
       </div>
       <div class="col-4 input-group input-group-sm mb-3">
         <span style="margin-right: 10px">Color:</span>
@@ -117,8 +123,7 @@
                 <td>
                   <!-- {{evento.color }} -->
                   <button id="BUSQ_btn_modificar" type="button" class="btn btn-info btn-sm"
-                  [style.background]="evento.color" style="border:0px; height: 20px; width: 20px;"
-                    ></button>
+                    [style.background]="evento.color" style="border:0px; height: 20px; width: 20px;"></button>
                 </td>
                 <td>
                   <button id="BUSQ_btn_modificar" type="button" class="btn btn-info btn-sm"
@@ -135,9 +140,8 @@
     </div>
   </div>
   <div class="dropdown-divider"></div>
-  
-  <button id="btn_refrescar" type="button" class="btn btn-info btn-sm"
-  (click)="refresacar()">Refrescar</button>
+
+  <button id="btn_refrescar" type="button" class="btn btn-info btn-sm" (click)="refresacar()">Refrescar</button>
   <div>
     <full-calendar defaultView="dayGridMonth" [editable]="false" [plugins]="calendarPlugins" [header]="options.header"
       (eventDragStop)="eventDragStop($event)" (eventClick)="eventClick($event)" (dateClick)="dateClick($event)"
@@ -146,7 +150,7 @@
   <div class="container border rounded">
     <div class="row" style="margin: 15px 15px 0px 0px">
       <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-        <label class="font-weight-bold">Eventos: </label>
+        <label class="font-weight-bold">Evento en la Sede: </label>
       </div>
       <div class="col-12">
         <form>
@@ -157,9 +161,10 @@
                 <th scope="col">Titulo</th>
                 <th scope="col">Fecha Inicio</th>
                 <th scope="col">Fecha Term.</th>
-                <th scope="col">ubicacion</th>
-                <th scope="col">email</th>
-                <th scope="col">color</th>
+                <th scope="col">Sede</th>
+                <th scope="col">Ubicacion</th>
+                <th scope="col">Email</th>
+                <th scope="col">Color</th>
               </tr>
             </thead>
             <tbody>
@@ -168,13 +173,56 @@
                 <td>{{events.title}}</td>
                 <td>{{events.start | date:'yyyy/MM/dd'}}</td>
                 <td>{{events.end | date:'yyyy/MM/dd'}}</td>
+                <td>{{events.sede}}</td>
                 <td>{{events.ubicacion}}</td>
                 <td>{{events.email }}</td>
                 <td>
                   <!-- {{events.color }} -->
                   <button id="BUSQ_btn_modificar" type="button" class="btn btn-info btn-sm"
-                  [style.background]="events.color" style="border:0px; height: 20px; width: 20px;"
-                    ></button>
+                    [style.background]="events.color" style="border:0px; height: 20px; width: 20px;"></button>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-12"></div>
+  <div class="container border rounded">
+    <div class="row" style="margin: 15px 15px 0px 0px">
+      <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
+        <label class="font-weight-bold">Todas las Sedes: </label>
+      </div>
+      <div class="col-12">
+        <form>
+          <table class="table text-center table-bordered table-sm rounded">
+            <thead style="background-color: #00AAE7; color: white;">
+              <tr>
+                <th scope="col">ID Usuario</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Fecha Inicio</th>
+                <th scope="col">Fecha Term.</th>
+                <th scope="col">Sede</th>
+                <th scope="col">Ubicacion</th>
+                <th scope="col">Email</th>
+                <th scope="col">Color</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let events of todo; let i=index">
+                <th scope="row">{{events.usuarioID}}</th>
+                <td>{{events.title}}</td>
+                <td>{{events.start | date:'yyyy/MM/dd'}}</td>
+                <td>{{events.end | date:'yyyy/MM/dd'}}</td>
+                <td>{{events.sede}}</td>
+                <td>{{events.ubicacion}}</td>
+                <td>{{events.email }}</td>
+                <td>
+                  <!-- {{events.color }} -->
+                  <button id="BUSQ_btn_modificar" type="button" class="btn btn-info btn-sm"
+                    [style.background]="events.color" style="border:0px; height: 20px; width: 20px;"></button>
                 </td>
 
               </tr>

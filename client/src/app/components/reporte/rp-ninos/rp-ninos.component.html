@@ -3,7 +3,7 @@
   <div class="dropdown-divider"></div>
   <div class="col-4 input-group input-group-sm mb-3">
     <span style="margin-right: 10px">Nombre Informe:</span>
-    <input type="text" formControlName="nombreinforme" class="form-control">
+    <input type="text" formControlName="nombreinforme" class="form-control" autocomplete="off">
   </div>
   <div class="dropdown-divider"></div>
   <div class="row" style="margin: 15px 0px 0px 15px">
@@ -24,6 +24,7 @@
       <select formControlName="sede" class="custom-select"
         [ngClass]="{ 'is-invalid': submit_agregar && f_A.sede.errors }">
         <option selected disabled>Seleccione</option>
+        <option value="null">Todas</option>
         <option value="Loma Dorada">Loma Dorada</option>
         <option value="camino">Camino Verde</option>
         <option value="Natura">Natura</option>
@@ -31,7 +32,7 @@
     </div>
     <div class="col-3 input-group input-group-sm mb-3">
       <span style="margin-right: 10px">ID Niño:</span>
-      <input type="number" formControlName="idnino" class="form-control"
+      <input type="number" formControlName="idnino" class="form-control" autocomplete="off"
         [ngClass]="{ 'is-invalid': submit_agregar && f_A.idnino.errors }">
     </div>
     <div class="col-3 input-group input-group-sm mb-3">
@@ -45,7 +46,7 @@
     </div>
     <div class="col-3 input-group input-group-sm mb-3">
       <span style="margin-right: 10px">Nombre Niño:</span>
-      <input type="text" formControlName="nombrenino" class="form-control"
+      <input type="text" formControlName="nombrenino" class="form-control" autocomplete="off"
         [ngClass]="{ 'is-invalid': submit_agregar && f_A.nombrenino.errors }">
     </div>
     <div class="col-3 input-group input-group-sm mb-3">
@@ -68,7 +69,7 @@
     </div>
     <div class="col-3 input-group input-group-sm mb-3">
       <span style="margin-right: 10px">Persona Autorizada:</span>
-      <input type="text" formControlName="persona_autorizada" class="form-control"
+      <input type="text" formControlName="persona_autorizada" class="form-control" autocomplete="off"
         [ngClass]="{ 'is-invalid': submit_agregar && f_A.persona_autorizada.errors }">
     </div>
     <div class="col-3 form-group input-group-sm mb-3">
@@ -97,17 +98,17 @@
     </div>
     <div class="col-3 input-group input-group-sm mb-3">
       <span style="margin-right: 10px">Alergia:</span>
-      <input type="text" formControlName="alergia" class="form-control"
+      <input type="text" formControlName="alergia" class="form-control" autocomplete="off"
         [ngClass]="{ 'is-invalid': submit_agregar && f_A.alergia.errors }">
     </div>
     <div class="col-3 input-group input-group-sm mb-3">
       <span style="margin-right: 10px">Medicamento:</span>
-      <input type="text" formControlName="medicamento" class="form-control"
+      <input type="text" formControlName="medicamento" class="form-control" autocomplete="off"
         [ngClass]="{ 'is-invalid': submit_agregar && f_A.medicamento.errors }">
     </div>
     <div class="col-3 input-group input-group-sm mb-3">
       <span style="margin-right: 10px">Cuidado Especial:</span>
-      <input type="text" formControlName="cuidado_especial" class="form-control"
+      <input type="text" formControlName="cuidado_especial" class="form-control" autocomplete="off"
         [ngClass]="{ 'is-invalid': submit_agregar && f_A.cuidado_especial.errors }">
     </div>
   </div>
@@ -222,6 +223,7 @@
       <select formControlName="seder" class="custom-select"
         [ngClass]="{ 'is-invalid': submit_nino && f_B.seder.errors }">
         <option selected disabled>Seleccione</option>
+        <option value="null">Todas</option>
         <option value="Loma Dorada">Loma Dorada</option>
         <option value="camino">Camino Verde</option>
         <option value="Natura">Natura</option> 

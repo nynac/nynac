@@ -66,8 +66,8 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
     })
     //agregar
     this.form_agregar = this.formBuilder.group({
-      formadonacionID: [''],
-      donacionID: [''],
+      formadonacionID: ['', Validators.required],
+      donacionID: ['', Validators.required],
       tipodonacion: ['', Validators.required],
       monto: ['', Validators.required],
       banco: [''],
@@ -80,6 +80,7 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
       frecuencia: ['', Validators.required],
       ultimopago: [''],
       observacion: [''],
+      sede: [localStorage.getItem("sede"), Validators.required],
     })
   }
 
@@ -142,6 +143,7 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
         this.form_agregar.get('frecuencia').setValue(this.resultado.frecuencia);
         this.form_agregar.get('ultimopago').setValue(this.resultado.ultimopago);
         this.form_agregar.get('observacion').setValue(this.resultado.observacion);
+        this.form_agregar.get('sede').setValue(this.resultado.sede);
         if (this.focus==true){
           this.focus=false;
           this.agregar_o_modificar='modificar';

@@ -42,18 +42,17 @@ export class LoginComponent implements OnInit {
       if (this.resultado[0] != undefined) {
         localStorage.setItem('miembroID', this.resultado[0].miembroID);
         localStorage.setItem('nombre', this.resultado[0].nombre);
-        localStorage.setItem('apellidos', this.resultado[0].apellidos);
         localStorage.setItem('correo', this.resultado[0].correo);
         localStorage.setItem('direccion', this.resultado[0].direccion);
         localStorage.setItem('fechanacimiento', this.resultado[0].fechanacimiento);
         localStorage.setItem('puesto', this.resultado[0].puesto);
+        localStorage.setItem('sede', this.resultado[0].sede);
         spinner_login.setAttribute("hidden", "true");
 
         if (localStorage.getItem("miembroID") == undefined || localStorage.getItem('miembroID') == null) {
           this.errmsg = 'Constraseña o Usuario Incorrecto.';
         } else if (localStorage.getItem("puesto") == "Administrador") {
-          //componente general miss
-          this.router.navigate(['/agenda']);
+          this.router.navigate(['']);
         } else if (localStorage.getItem("puesto") == "Recepcion") {
           this.router.navigate(['recepcion/entradas-salidas']);
         } else if (localStorage.getItem("puesto") == "Desarrollo Institucional") {

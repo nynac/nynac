@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'; 
   
-@Component({
+@Component({ 
   selector: 'navbar-donante',
   templateUrl: './navbar-donante.component.html',
   styleUrls: ['./navbar-donante.component.css']
