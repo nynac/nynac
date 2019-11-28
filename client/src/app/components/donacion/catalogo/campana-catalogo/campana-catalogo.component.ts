@@ -52,6 +52,7 @@ agregar_o_modificar: string = 'nuevo';
       campanaID: ['', Validators.required],
       descripcion: ['', Validators.required],
       fecha: [''],
+      sede: [localStorage.getItem('sede')],
       
 		})
 
@@ -89,6 +90,7 @@ agregar_o_modificar: string = 'nuevo';
        this.form_agregar.get('campanaID').setValue(this.resultado.campanaID);
        this.form_agregar.get('descripcion').setValue(this.resultado.descripcion);
        this.form_agregar.get('fecha').setValue(this.resultado.fecha);
+       this.form_agregar.get('sede').setValue(this.resultado.sede);
        spinner_buscar_campana.setAttribute("hidden", "true");
      },
        error => {
@@ -134,7 +136,7 @@ agregar_o_modificar: string = 'nuevo';
   }
   //List Lider
   get_Campana() {
-    var response = this.http.get(this.url + "Campana/");
+    var response = this.http.get(this.url + "campana/sede?Rsede="+localStorage.getItem('sede'));
     response.subscribe((data: any[]) => {
       this.arrayCampana = data;
     },
@@ -187,6 +189,7 @@ agregar_o_modificar: string = 'nuevo';
   clean_Agregar(){
 		this.submit_agregar =false;
 		this.form_agregar.reset();
+    this.form_agregar.get('sede').setValue(localStorage.getItem('sede'));
 	}
 
 

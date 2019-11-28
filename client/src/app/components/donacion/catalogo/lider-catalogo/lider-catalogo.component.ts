@@ -41,6 +41,7 @@ export class LiderCatalogoComponent implements OnInit {
     this.form_agregar = this.formBuilder.group({
       liderID: ['', Validators.required],
       descripcion: ['', Validators.required],
+      sede: [localStorage.getItem('sede'), Validators.required],
     })
   }
 
@@ -71,6 +72,7 @@ export class LiderCatalogoComponent implements OnInit {
 
         this.form_agregar.get('liderID').setValue(this.resultado.liderID);
         this.form_agregar.get('descripcion').setValue(this.resultado.descripcion);
+        this.form_agregar.get('sede').setValue(this.resultado.sede);
         spinner_buscar.setAttribute("hidden", "true");
       },
         error => {
@@ -115,7 +117,7 @@ export class LiderCatalogoComponent implements OnInit {
   }
   //List Lider
   get_Liders() {
-    var response = this.http.get(this.url + "Lider/");
+    var response = this.http.get(this.url + "lider/sede?Rsede="+localStorage.getItem('sede'));
     response.subscribe((data: any[]) => {
       this.arrayLideres = data;
     },
@@ -166,7 +168,8 @@ export class LiderCatalogoComponent implements OnInit {
   //reset agregar
   clean_Agregar() {
     this.submit_agregar = false;
-    this.form_agregar.reset();
+    this.form_agregar.reset();    
+    this.form_agregar.get('sede').setValue(localStorage.getItem('sede'));
   }
 
   radioChange(event: any) {

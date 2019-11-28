@@ -37,14 +37,21 @@
         <div class="col-12 font-weight-bold">
             <span>Campaña</span>
         </div>
-        <div class="col-4 input-group input-group-sm mb-3">
+        <div class="col-3 input-group input-group-sm mb-3">
             <input type="text" formControlName="campanaID" class="form-control" placeholder="CampañaID" readonly
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.campanaID.errors }">
             <div *ngIf="submit_agregar && f_A.campanaID.errors" class="invalid-feedback">
                 <div *ngIf="f_A.campanaID.errors.required">*Favor de llenar el campo</div>
             </div>
         </div>
-        <div class="col-4 input-group input-group-sm mb-3">
+        <div class="col-3 input-group input-group-sm mb-3">
+            <input type="text" formControlName="sede" class="form-control" placeholder="sede" readonly
+            [ngClass]="{ 'is-invalid': submit_agregar && f_A.sede.errors }">
+            <div *ngIf="submit_agregar && f_A.sede.errors" class="invalid-feedback">
+                <div *ngIf="f_A.sede.errors.required">*Favor de llenar el campo</div>
+            </div>
+        </div>
+        <div class="col-3 input-group input-group-sm mb-3">
             <input type="text" formControlName="descripcion" class="form-control" placeholder="Descripcion" autocomplete="off"
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.descripcion.errors }">
             <div *ngIf="submit_agregar && f_A.descripcion.errors" class="invalid-feedback">
