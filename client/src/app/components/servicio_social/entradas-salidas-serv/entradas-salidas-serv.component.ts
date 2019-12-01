@@ -18,7 +18,7 @@ export class EntradasSalidasServComponent implements OnInit {
 	mensaje : string = "";
 	duracion: number = 1500; //1000 es 1 SEG
 
-	horas_acumuladas : number = 0;
+	horas_acumuladas : any = 0;
 
 	@ViewChild('id', {static: false})id: number;
 
@@ -96,10 +96,12 @@ export class EntradasSalidasServComponent implements OnInit {
 		this.http.post(this.url + 'RegistroEntradasStaffs', this.datos_check).subscribe(data  => {
 			spinner_guardar.setAttribute("hidden", "true");
 			this.mostrar_alert("Se ha guardado la entrada", "success")
+			this.limpiar();
 		},
 		error  => {
 			spinner_guardar.setAttribute("hidden", "true");
 			this.mostrar_alert("Error guardar la entrada", "danger")
+			this.limpiar();
 		});
 	}
 
@@ -119,11 +121,12 @@ export class EntradasSalidasServComponent implements OnInit {
 		this.http.put(this.url + "RegistroEntradasStaffs/" + id, this.datos_check).subscribe(data  => {
 			spinner_guardar.setAttribute("hidden", "true");
 			this.mostrar_alert("Se ha guardado la salida", "success")	
+			this.limpiar();
 		},
 		error  => {
 			spinner_guardar.setAttribute("hidden", "true");
 			this.mostrar_alert("Error guardar la salida", "danger")	
-			console.log(error);
+			this.limpiar();
 		});
 	}
 
@@ -146,8 +149,6 @@ export class EntradasSalidasServComponent implements OnInit {
 		var miembroID = (<HTMLInputElement>document.getElementById("miembroID"));
 		miembroID.value="";
 		miembroID.focus();
-
-		this.horas_acumuladas = 0;
 	}
 
 	mi_historial(){
@@ -173,6 +174,7 @@ export class EntradasSalidasServComponent implements OnInit {
 
 	calcular_num_horas(historial : any){
 		this.historial = historial;
+		this.horas_acumuladas = 0;
 
 		for(let i = 0; i < historial.length; i++){
 			if (historial[i].fechasalida != null){
@@ -182,5 +184,6 @@ export class EntradasSalidasServComponent implements OnInit {
 				this.horas_acumuladas += horas;
 			}
 		}
+		this.horas_acumuladas = this.horas_acumuladas.toFixed(2)
 	}
 }

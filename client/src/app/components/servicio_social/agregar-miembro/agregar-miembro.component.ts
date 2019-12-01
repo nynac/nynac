@@ -110,6 +110,7 @@ export class AgregarMiembroComponent implements OnInit {
 	}
 
 	guardar_miembro(){
+		window.scroll(0,0);
 		this.datos_miembro = {
 			miembroID : this.form_guardar.value.miembroID,
 			estado : this.form_guardar.value.estado,
@@ -130,8 +131,9 @@ export class AgregarMiembroComponent implements OnInit {
 	}
 
 	guardar_en_staff(){
+		window.scroll(0,0);
 		this.http.post(this.url + 'staff', this.form_guardar.value).subscribe(data  => {
-			this.mostrar_alert("Se ha guardado " + this.form_guardar.value.nombres + ", su número de miembro es: " + this.form_guardar.value.miembroID, 'success');
+			this.mostrar_alert("Se ha guardado " + this.form_guardar.value.nombre + ", su número de miembro es: " + this.form_guardar.value.miembroID, 'success');
 		},
 		error  => {
 			this.mostrar_alert("Ocurrió un error, inténtalo mas tarde", 'danger');

@@ -1,0 +1,110 @@
+<navbar-servicio> </navbar-servicio>
+<div class="container border rounded"  style="margin-top: 15px;">
+	<div class="row" style="margin: 30px 0px 0px 0px">
+		<div class="col-12 text-center font-weight-bold" >
+			<h4>NO. MIEMBRO</h4>
+		</div>
+	</div>
+	<div class="row" style="margin: 5px 0px 15px 0px">
+		<div class="col-3">
+		</div>
+		<div class="col-6">
+			<input type="number" id="miembroID" class="form-control" placeholder="Ingresa aquí el número de miembro" autofocus="true" autocomplete="off"  #id>
+		</div>
+		<div class="col-3">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-5"></div>
+
+		<div class="col-2" style="text-align: center;">
+			<button id="limbiar" type="button" class="btn btn-danger btn-block" (click)= "limpiar(true);">
+				Limpiar
+			</button>
+		</div>
+		<div class="col-2" style="text-align: center;">
+			<button id="btn_buscar" type="submit" class="btn btn-info btn-block" (click)="mi_historial()">
+				<span id="spinner_historial" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+				Buscar
+			</button>
+		</div>
+		<div class="col-3">
+		</div>
+	</div>
+	<div class="dropdown-divider" style="margin: 20px 0px 0px 0px;"></div>
+	<div class="row">
+		<div class="col-12" *ngIf="historial!=null" style="margin:15px 0px 0px 0px;">
+			<div class="col-12 font-weight-bold" >
+				<h5>HISTORIAL <label style="font-weight: normal;">lleva <mark style="background-color: #00AAE7; color: white;">{{horas_acumuladas}}</mark> horas acumuladas</label></h5>
+			</div>
+			<div class="col-12">
+				<table class="table text-center table-bordered table-sm rounded">
+					<thead style="background-color: #00AAE7; color: white;">
+						<tr>
+							<th scope="col">Fecha</th>
+							<th scope="col">Entrada</th>
+							<th scope="col">Salida</th>
+							<th scope="col">Modificar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let registro of historial">
+							<td>{{registro.fechaentrada | date}}</td>
+							<td>{{registro.fechaentrada | date:'mediumTime'}}</td>
+							<td>{{registro.fechasalida  | date:'mediumTime'}}</td>
+							<td>
+								<button data-toggle="modal" data-target="#modal" class="btn btn-sm btn-link" style="font-weight: bold;" (click)="abrir_modal(registro)">Ver ó Modificar</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalLabel">Modificando registro</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeAddExpenseModal>
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div *ngIf="visible==true" style="margin: 0px 30px 0px 15px;" class="text-center">
+					<ngb-alert  (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+				</div>
+				<div class="row">
+					<div class="col-6 form-group input-group-sm mb-3" >
+						<label for="fechaentrada" style="padding: 0px; font-size: 15px;">Hora de entrada</label>
+						<input placeholder="fechaentrada" type="date" class="form-control" id="fechaentrada" data-toggle="tooltip" data-placement="top" title="fechaentrada" style="margin-top: -10px;" readonly>
+					</div>
+					<div class="col-6 form-group input-group-sm mb-3" >
+						<label for="horaentrada" style="padding: 0px; font-size: 15px;">Hora de entrada</label>
+						<input placeholder="horaentrada" type="time" class="form-control" id="horaentrada" data-toggle="tooltip" data-placement="top" title="horaentrada" style="margin-top: -10px;" readonly>
+					</div>
+
+					<div class="col-6 form-group input-group-sm mb-3" >
+						<label for="fechasalida" style="padding: 0px; font-size: 15px;">Fecha</label>
+						<input placeholder="fechasalida" type="date" class="form-control" id="fechasalida" data-toggle="tooltip" data-placement="top" title="fechasalida" style="margin-top: -10px;" readonly>
+					</div>
+					<div class="col-6 form-group input-group-sm mb-3" >
+						<label for="horasalida" style="padding: 0px; font-size: 15px;">Hora de salida</label>
+						<input placeholder="horasalida" type="time" class="form-control" id="horasalida" data-toggle="tooltip" data-placement="top" title="horasalida" style="margin-top: -10px;">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="cerrar_modal" class="btn btn-secondary btn-sm" data-dismiss="modal">Salir</button>
+				<button name="inc_btn_guardar" class="btn btn-club btn-sm" type="submit" (click)=modificar_salida()>
+					<span id="spinner_dh" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+					hidden></span>
+					Guardar
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

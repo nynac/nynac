@@ -86,6 +86,7 @@ import { NavbarServicioComponent } from './components/servicio_social/navbar-ser
 import { AgregarMiembroComponent } from './components/servicio_social/agregar-miembro/agregar-miembro.component';
 import { BuscarServicioComponent } from './components/servicio_social/buscar-servicio/buscar-servicio.component';
 import { EntradasSalidasServComponent } from './components/servicio_social/entradas-salidas-serv/entradas-salidas-serv.component';
+import { EntradasSalidasConfComponent } from './components/servicio_social/entradas-salidas-conf/entradas-salidas-conf.component';
 
 
 //configuracion usuario
@@ -130,9 +131,11 @@ const appRoutes: Routes = [
   { path: 'bloqueo' ,   component :   BloqueoComponent ,   canActivate :   [ AuthGuard ] },
   { path: 'config', component: ConfiguracionComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Recepcion','Administrador','Desarrollo Humano','Desarrollo Institucional','Coordinacion Operativa' ]} },
   
-  { path: 'servicio_social/crear', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+  { path: 'servicio_social', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+  { path: 'servicio_social/nuevo', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   { path: 'servicio_social/buscar-modificar', component: BuscarServicioComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
-  { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+  { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent },
+  { path: 'servicio_social/entradas-salidas-config', component: EntradasSalidasConfComponent, canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} } 
 ];
 //validar token
 //canActivate : [ AuthGuard ]
@@ -195,6 +198,7 @@ const appRoutes: Routes = [
     ContenedorReporteComponent,
     AgendaReporteComponent,
     ConfiguracionComponent,
+    EntradasSalidasConfComponent,
   ],
   imports: [
     RouterModule.forRoot(
