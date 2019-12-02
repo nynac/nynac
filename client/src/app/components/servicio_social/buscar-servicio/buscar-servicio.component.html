@@ -1,18 +1,36 @@
 <navbar-servicio> </navbar-servicio>
 <div class="container border rounded" style="margin-top: 15px">
 	<div class="row" style="margin:15px 15px 0px 0px;">
-		<div class="col-10 font-weight-bold" >
-			<h5>HISTORIAL</h5>
+		<div class="col-12 font-weight-bold" >
+			<h5>MIEMBROS</h5>
 		</div>
-		<div class="col-2" style="margin: 0px 0px 15px 0px;">
-			<button name="btn_refrescar" class="btn btn-club btn-sm float-right" type="submit" (click) = "obtener_historial()">
-				Refrescar
+	</div>
+	<div class="dropdown-divider"></div>
+	<div class="row" style="margin: 0px 0px 0px 0px;">
+		<div class="col-2 form-group input-group-sm mb-3" style="font-size: 14px;">
+			<label for="busq_sede" style="padding: 0px;">Sede</label>
+			<select class="custom-select" id="busq_sede" data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;" (change)="obtener_historial()">
+				<option value="" selected="true">Todos</option>
+				<option value="Loma Dorada">Loma Dorada</option>
+				<option value="Camino Verde">Camino Verde</option>
+				<option value="Natura">Natura</option>
+			</select>
+		</div>
+		<div class="col-3 form-group input-group-sm mb-3 ">
+			<label for="busq_nombre" style="padding: 0px; font-size: 14px;">Nombre(s)</label>
+			<input type="text" id="busq_nombre" class="form-control" style="margin-top: -10px; text-transform:capitalize;" autocomplete="off" (change)="obtener_historial()"/>
+		</div>
+		<div class="col-2 text-center">
+			<button type="submit" class="btn btn-club btn-sm btn-block" id="btn_buscar" style="margin-top: 20px; background-color: #039be5;" (click)="obtener_historial()">
+				<span id="spinner_buscar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" hidden></span>
+				Buscar
 			</button>
 		</div>
-
 	</div>
-	<div class="col-12" style="font-size: 14px;">
-		<table class="table table-sm table-hover text-center table-bordered rounded"s>
+
+
+	<div class="col-12" style="font-size: 14px; margin-top: 15px;">
+		<table class="table table-sm table-hover text-center table-bordered rounded">
 			<thead style="background-color: #00AAE7; color: white;" class="font-weight-normal">
 				<tr>
 					<th style="vertical-align: middle; width: 5%">#</th>
@@ -27,10 +45,10 @@
 			<tbody>
 				<tr *ngFor="let registro of historial">
 
-					<td style="vertical-align: middle;" *ngIf="registro.datos_miembro.estado == 'true'"  class="alert-success">
+					<td style="vertical-align: middle;" *ngIf="registro.estado == 'true'"  class="alert-success">
 						{{registro.miembroID}}
 					</td>
-					<td style="vertical-align: middle;" *ngIf="registro.datos_miembro.estado != 'true'" class="alert-danger">
+					<td style="vertical-align: middle;" *ngIf="registro.estado != 'true'" class="alert-danger">
 						{{registro.miembroID}}
 					</td>
 					<td style="vertical-align: middle;">{{registro.nombre}} {{registro.apellido_paterno }} {{registro.apellido_materno}}</td>
@@ -39,8 +57,8 @@
 					<td style="vertical-align: middle;">{{registro.correo}}</td>
 					<td style="vertical-align: middle;">{{registro.comunicarnos_con}} ({{registro.parentesco_emergencia}}): {{registro.telefono_emergencia}}</td>
 					<td>
-					<button data-toggle="modal" data-target="#modal" class="btn btn-sm btn-link" style="font-weight: bold;" (click)="abrir_modal(registro)">Ver ó Modificar</button>
-				</td>
+						<button data-toggle="modal" data-target="#modal" class="btn btn-sm btn-link" style="font-weight: bold; vertical-align: middle;" (click)="abrir_modal(registro)">Ver ó Modificar</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -77,9 +95,9 @@
 							<label for="sede" style="padding: 0px;">Sede</label>
 							<select formControlName="sede" class="custom-select" id="sede"
 							[ngClass]="{ 'is-invalid': guardando && f2.sede.errors }" 
-							data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;">
-							<option value="LomaDorada">Loma Dorada</option>
-							<option value="camino">Camino Verde</option>
+							data-toggle="tooltip" data-placement="top" title="Elige" style="margin-top: -10px;"  autocomplete="off">
+							<option value="Loma Dorada">Loma Dorada</option>
+							<option value="Camino Verde">Camino Verde</option>
 							<option value="Natura">Natura</option>
 						</select>
 					</div>
@@ -87,43 +105,43 @@
 					<div class="form-group input-group-sm mb-3" hidden>
 						<label for="miembroID" style="padding: 0px;">Número de miembro</label>
 						<input type="text" id="miembroID" formControlName="miembroID" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.miembroID.errors }" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-2 form-group input-group-sm mb-3">
 						<label for="nombre" style="padding: 0px;">Nombre (s)</label>
 						<input type="text" id="nombre" formControlName="nombre" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.nombre.errors }" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.nombre.errors }" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-2 form-group input-group-sm mb-3">
 						<label for="apellido_paterno" style="padding: 0px;">Apellido Paterno</label>
 						<input type="text" id="apellido_paterno" formControlName="apellido_paterno" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.apellido_paterno.errors }" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.apellido_paterno.errors }" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-2 form-group input-group-sm mb-3">
 						<label for="apellido_materno" style="padding: 0px;">Apellido Materno</label>
 						<input type="text" id="apellido_materno" formControlName="apellido_materno" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.apellido_materno.errors }" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.apellido_materno.errors }" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-2 form-group input-group-sm mb-3" >
 						<label for="fecha_nacimiento" style="padding: 0px; font-size: 13px;">Fecha de nacimiento</label>
-						<input formControlName="fecha_nacimiento" type="date" class="form-control"  [ngClass]="{ 'is-invalid': guardando && f2.fecha_nacimiento.errors }" id="fecha_nacimiento" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" style="margin-top: -10px;">
+						<input formControlName="fecha_nacimiento" type="date" class="form-control"  [ngClass]="{ 'is-invalid': guardando && f2.fecha_nacimiento.errors }" id="fecha_nacimiento" data-toggle="tooltip" data-placement="top" title="Fecha de nacimiento" style="margin-top: -10px;" autocomplete="off">
 					</div>
 				</div>
 				<div class="row" style="margin: 15px 0px 0px 0px;">
 					<div class="col-4 form-group input-group-sm mb-3">
 						<label for="telefono_particular" style="padding: 0px; font-size: 14px;">Teléfono particular</label>
 						<input type="tel" id="telefono_particular" formControlName="telefono_particular" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.telefono_particular.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.telefono_particular.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-4 form-group input-group-sm mb-3">
 						<label for="celular" style="padding: 0px; font-size: 14px;">Celular</label>
 						<input type="tel" id="celular" formControlName="celular" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.celular.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.celular.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-4 form-group input-group-sm mb-3">
 						<label for="correo" style="padding: 0px; font-size: 14px;">Correo electrónico</label>
 						<input type="email" id="correo" formControlName="correo" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.correo.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.correo.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 				</div>
 				<div class="dropdown-divider"></div>
@@ -134,27 +152,27 @@
 					<div class="col-3 form-group input-group-sm mb-3">
 						<label for="domcalle" style="padding: 0px; font-size: 14px;">Calle y número</label>
 						<input type="text" id="domcalle" formControlName="domcalle" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.domcalle.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.domcalle.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-3 form-group input-group-sm mb-3">
 						<label for="domcolonia" style="padding: 0px; font-size: 14px;">Colonia</label>
 						<input type="text" id="domcolonia" formControlName="domcolonia" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.domcolonia.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.domcolonia.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-2 form-group input-group-sm mb-3">
 						<label for="domcodpost" style="padding: 0px; font-size: 14px;">C.P</label>
 						<input type="number" id="domcodpost" formControlName="domcodpost" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.domcodpost.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.domcodpost.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-2 form-group input-group-sm mb-3">
 						<label for="domdelegacion" style="padding: 0px; font-size: 14px;">Delegación</label>
 						<input type="text" id="domdelegacion" formControlName="domdelegacion" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.domdelegacion.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.domdelegacion.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-2 form-group input-group-sm mb-3">
 						<label for="dommunicipio" style="padding: 0px; font-size: 14px;">Municipio</label>
 						<input type="text" id="dommunicipio" formControlName="dommunicipio" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.dommunicipio.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.dommunicipio.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 				</div>
 				<div class="dropdown-divider"></div>
@@ -165,27 +183,27 @@
 					<div class="col-3 form-group input-group-sm mb-3">
 						<label for="escuela" style="padding: 0px; font-size: 14px;">Escuela de donde proviene</label>
 						<input type="text" id="escuela" formControlName="escuela" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.escuela.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.escuela.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-1 form-group input-group-sm mb-3">
 						<label for="semestre" style="padding: 0px; font-size: 14px;">Semestre</label>
 						<input type="text" id="semestre" formControlName="semestre" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.semestre.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.semestre.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-3 form-group input-group-sm mb-3">
 						<label for="tipo" style="padding: 0px; font-size: 14px;">Tipo de servicio</label>
 						<input type="text" id="tipo" formControlName="tipo" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.tipo.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.tipo.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-3 form-group input-group-sm mb-3">
 						<label for="otro_estudio" style="padding: 0px; font-size: 14px;">Otros estudios. ¿Cuáles?</label>
 						<input type="text" id="otro_estudio" formControlName="otro_estudio" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.otro_estudio.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.otro_estudio.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 					<div class="col-2 form-group input-group-sm mb-3">
 						<label for="idiomas" style="padding: 0px; font-size: 14px;">Idiomas</label>
 						<input type="text" id="idiomas" formControlName="idiomas" class="form-control"
-						[ngClass]="{ 'is-invalid': guardando && f2.idiomas.errors }" placeholder="" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': guardando && f2.idiomas.errors }" placeholder="" style="margin-top: -10px;" autocomplete="off">
 					</div>
 				</div>	
 				<div class="dropdown-divider"></div>
@@ -201,35 +219,35 @@
 					<div class="col-3 form-group input-group-sm mb-3">
 						<label for="cual_enfermedad" style="padding: 0px;">¿Cúal?</label>
 						<input type="text" id="cual_enfermedad" formControlName="cual_enfermedad" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.cual_enfermedad.errors }" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.cual_enfermedad.errors }" style="margin-top: -10px;"  autocomplete="off">
 					</div>
 					<div class="col-3 form-group input-group-sm mb-3" style="margin-right: 15px;">
 						<label for="alergias" style="padding: 0px;">Alergías</label>
 						<input type="text" id="alergias" formControlName="alergias" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.alergias.errors }" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.alergias.errors }" style="margin-top: -10px;"  autocomplete="off">
 					</div>
 				</div>
 				<div class="row" style="margin-left: 15px;">
 					<div class="col-5 form-group input-group-sm mb-3">
 						<label for="comunicarnos_con" style="padding: 0px;  margin-left: -15px;">En caso de emergencia comunicarnos con:</label>
 						<input type="text" id="comunicarnos_con" formControlName="comunicarnos_con" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.comunicarnos_con.errors }" style="margin-top: -10px;  margin-left: -15px;">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.comunicarnos_con.errors }" style="margin-top: -10px;  margin-left: -15px;" autocomplete="off">
 					</div>
 					<div class="col-3 form-group input-group-sm mb-3">
 						<label for="telefono_emergencia" style="padding: 0px;">Teléfono</label>
 						<input type="text" id="telefono_emergencia" formControlName="telefono_emergencia" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.telefono_emergencia.errors }" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.telefono_emergencia.errors }" style="margin-top: -10px;"  autocomplete="off">
 					</div>
 					<div class="col-3 form-group input-group-sm mb-3">
 						<label for="parentesco_emergencia" style="padding: 0px;">Parentesco</label>
 						<input type="text" id="parentesco_emergencia" formControlName="parentesco_emergencia" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.parentesco_emergencia.errors }" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.parentesco_emergencia.errors }" style="margin-top: -10px;"  autocomplete="off">
 					</div>
 				</div>
 				<div class="dropdown-divider"></div>
 				<div class="row" style="margin: 10px 0px 0px 0px">
 					<div class="col-12 font-weight-bold" >
-						<span>INFORMACIÓN MÉDICA</span>
+						<span>INFORMACIÓN DE EXPERIENCIA</span>
 					</div>
 					<div class="col-5 custom-control custom-checkbox" style="margin-left: 15px;">
 						<input type="checkbox" id="experiencia_voluntario" formControlName="experiencia_voluntario" class="custom-control-input"
@@ -239,7 +257,7 @@
 					<div class="col-4 form-group input-group-sm mb-3">
 						<label for="donde_experiencia" style="padding: 0px;">si tu respuesta fue si, específica dónde</label>
 						<input type="text" id="donde_experiencia" formControlName="donde_experiencia" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.donde_experiencia.errors }" style="margin-top: -10px;">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.donde_experiencia.errors }" style="margin-top: -10px;"  autocomplete="off">
 					</div>
 					<div class="col-2 custom-control custom-checkbox" style="margin-left: 15px;">
 						<input type="checkbox" id="tratado_ninos" formControlName="tratado_ninos" class="custom-control-input"
@@ -280,27 +298,27 @@
 				<div class="row" style="margin-left: 15px;">
 					<div class="col-1 form-group input-group-sm mb-3">
 						<input type="text" id="horas_lunes" formControlName="horas_lunes" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.horas_lunes.errors }" placeholder="Horas">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.horas_lunes.errors }" placeholder="Horas" autocomplete="off">
 					</div>
 					<div class="col-1"></div>
 					<div class="col-1 form-group input-group-sm mb-3">
 						<input type="text" id="horas_martes" formControlName="horas_martes" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.horas_martes.errors }" placeholder="Horas">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.horas_martes.errors }" placeholder="Horas" autocomplete="off">
 					</div>
 					<div class="col-1"></div>
 					<div class="col-1 form-group input-group-sm mb-3">
 						<input type="text" id="horas_miercoles" formControlName="horas_miercoles" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.horas_miercoles.errors }" placeholder="Horas">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.horas_miercoles.errors }" placeholder="Horas" autocomplete="off">
 					</div>
 					<div class="col-1"></div>
 					<div class="col-1 form-group input-group-sm mb-3">
 						<input type="text" id="horas_jueves" formControlName="horas_jueves" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.horas_jueves.errors }" placeholder="Horas">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.horas_jueves.errors }" placeholder="Horas" autocomplete="off">
 					</div>
 					<div class="col-1"></div>
 					<div class="col-1 form-group input-group-sm mb-3">
 						<input type="text" id="horas_viernes" formControlName="horas_viernes" class="form-control"
-						[ngClass]="{ 'is-invalid': submitted2 && f2.horas_viernes.errors }" placeholder="Horas">
+						[ngClass]="{ 'is-invalid': submitted2 && f2.horas_viernes.errors }" placeholder="Horas" autocomplete="off">
 					</div>
 					<div class="col-2" style="margin-top: -15px; left: 60px;">
 						<button name="serv_btn_guardar" class="btn btn-club btn-sm btn-block" style="width:100%; height: 50px;" type="submit">

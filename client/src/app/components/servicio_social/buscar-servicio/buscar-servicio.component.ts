@@ -27,6 +27,8 @@ export class BuscarServicioComponent implements OnInit {
 
 	@ViewChild('closeAddExpenseModal', {static: false} ) closeAddExpenseModal: ElementRef;
 
+	busq_nombre : string = "";
+
 	constructor(
 		private http : HttpClient,
 		private formBuilder: FormBuilder
@@ -82,13 +84,31 @@ export class BuscarServicioComponent implements OnInit {
 	get f2(){ return this.form_guardar.controls;}
 
 	obtener_historial(){
-		var response = this.http.get(this.url + "historial_staff");
+		var sede = (<HTMLInputElement>document.getElementById("busq_sede"));
+		var nombre = (<HTMLInputElement>document.getElementById("busq_nombre"));
+
+		var response = this.http.get(this.url + "historial_staff?sede="+sede.value+"&nombre="+nombre.value);
 		response.subscribe((resultado : [])=> {
-			resultado.length > 0 ?  this.historial = resultado.reverse() : this.mostrar_alert("No hay nada que mostrar", "info");
+			resultado.length > 0 ? this.comparar_nombre(resultado, nombre.value) : this.mostrar_alert("No hay nada que mostrar", "info");
 		},
 		error =>{
 			this.mostrar_alert("Error al consultar, intentalo mas tarde.", "warning");
 		});
+	}
+
+	comparar_nombre(resultado : any, nombre : string): void {
+
+		if(nombre != ""){
+			const aux = [];
+			for (var i = 0; i < resultado.length; i++){
+				if(resultado[i].nombre.toLowerCase().includes(nombre.toLowerCase()))
+					aux.push(resultado[i]);
+			}
+			this.historial = aux;
+		}
+		else{
+			this.historial = resultado;	
+		}
 	}
 
 	mostrar_alert(msg : string, tipo : string){
@@ -98,7 +118,7 @@ export class BuscarServicioComponent implements OnInit {
 		this.visible = true;
 		this.mensaje = msg;
 		this.tipo = tipo;
-		
+
 		setTimeout(() => { 
 			if (tipo=="success") {
 				this.closeAddExpenseModal.nativeElement.click();
@@ -117,9 +137,7 @@ export class BuscarServicioComponent implements OnInit {
 	abrir_modal(valores : any){
 		var datepipe  = new DatePipe("en-US");
 		this.form_guardar.patchValue(valores);
-		this.form_guardar.patchValue(valores.datos_miembro);
 		this.form_guardar.get("fecha_nacimiento").setValue(datepipe.transform(valores.fecha_nacimiento, 'yyyy-MM-dd'));
-		console.log(valores);
 	}
 
 	cancelar(){
@@ -140,6 +158,7 @@ export class BuscarServicioComponent implements OnInit {
 	}
 
 	modificar(){
+		window.scroll(0,0);
 		if (this.form_guardar.invalid || this.guardando == true) {
 			this.submitted2 = true;
 			return;
@@ -162,5 +181,4 @@ export class BuscarServicioComponent implements OnInit {
 			}
 		}
 	}
-
 }

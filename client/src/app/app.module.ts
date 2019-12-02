@@ -86,6 +86,7 @@ import { NavbarServicioComponent } from './components/servicio_social/navbar-ser
 import { AgregarMiembroComponent } from './components/servicio_social/agregar-miembro/agregar-miembro.component';
 import { BuscarServicioComponent } from './components/servicio_social/buscar-servicio/buscar-servicio.component';
 import { EntradasSalidasServComponent } from './components/servicio_social/entradas-salidas-serv/entradas-salidas-serv.component';
+import { EntradasSalidasConfComponent } from './components/servicio_social/entradas-salidas-conf/entradas-salidas-conf.component';
 
 
 //configuracion usuario
@@ -145,8 +146,13 @@ const appRoutes: Routes = [
   { path: 'recuperar', component: RecuperarComponent },
   { path: 'bloqueo' ,   component :   BloqueoComponent ,   canActivate :   [ AuthGuard ] },
   
-  { path: 'servicio_social/crear', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+  { path: 'servicio_social', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+  { path: 'servicio_social/nuevo', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   { path: 'servicio_social/buscar-modificar', component: BuscarServicioComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+<<<<<<< HEAD
+  { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent },
+  { path: 'servicio_social/entradas-salidas-config', component: EntradasSalidasConfComponent, canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} } 
+=======
   { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   { path: 'servicio_social/config', component: ConfigSSComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   
@@ -154,6 +160,7 @@ const appRoutes: Routes = [
   { path: 'admin/agenda', component: AgendaAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
   { path: 'admin/config', component: ConfigAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
   { path: 'admin/newUser', component: NewuserAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
+>>>>>>> 37194d7163a81d6e642165cbffccfb7ab875cb5f
 ];
 //validar token
 //canActivate : [ AuthGuard ]
@@ -215,6 +222,10 @@ const appRoutes: Routes = [
     RpIncidenciaComponent,
     ContenedorReporteComponent,
     AgendaReporteComponent,
+<<<<<<< HEAD
+    ConfiguracionComponent,
+    EntradasSalidasConfComponent,
+=======
     ConfigReporteComponent,
     ConfigDHComponent,
     ConfigDonacionComponent,
@@ -227,6 +238,7 @@ const appRoutes: Routes = [
     ModifuserAdminComponent,
     ContenedorAdminComponent,
     InformeAdminComponent,
+>>>>>>> 37194d7163a81d6e642165cbffccfb7ab875cb5f
   ],
   imports: [
     RouterModule.forRoot(
