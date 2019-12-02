@@ -47,6 +47,7 @@ export class EventoCatalogoComponent implements OnInit {
       eventoID: ['', Validators.required],
       descripcion: ['', Validators.required],
       fecha: [''],
+      sede: [localStorage.getItem('sede')],
     })
   }
 
@@ -82,6 +83,7 @@ export class EventoCatalogoComponent implements OnInit {
         this.form_agregar.get('eventoID').setValue(this.resultado.eventoID);
         this.form_agregar.get('descripcion').setValue(this.resultado.descripcion);
         this.form_agregar.get('fecha').setValue(this.resultado.fecha);
+        this.form_agregar.get('sede').setValue(this.resultado.sede);
         spinner_buscar_evento.setAttribute("hidden", "true");
       },
         error => {
@@ -127,9 +129,10 @@ export class EventoCatalogoComponent implements OnInit {
   }
   //List Lider
   get_Eventos() {
-    var response = this.http.get(this.url + "Eventoe/");
+    var response = this.http.get(this.url + "evento/sede?Rsede="+localStorage.getItem('sede'));
     response.subscribe((data: any[]) => {
       this.arrayEvento = data;
+      console.log(data);
     },
       error => {
         console.log("Error", error)
@@ -179,6 +182,7 @@ export class EventoCatalogoComponent implements OnInit {
   clean_Agregar() {
     this.submit_agregar = false;
     this.form_agregar.reset();
+    this.form_agregar.get('sede').setValue(localStorage.getItem('sede'));
   }
 
 	radioChange(event: any){

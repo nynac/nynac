@@ -43,9 +43,15 @@
             <div *ngIf="submit_agregar && f_A.liderID.errors" class="invalid-feedback">
                 <div *ngIf="f_A.liderID.errors.required">*Favor de llenar el campo</div>
             </div>
+        </div> <div class="col-4 input-group input-group-sm mb-3">
+            <input type="text" formControlName="sede" class="form-control" placeholder="sede" readonly
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.sede.errors }">
+            <div *ngIf="submit_agregar && f_A.sede.errors" class="invalid-feedback">
+                <div *ngIf="f_A.sede.errors.required">*Favor de llenar el campo</div>
+            </div>
         </div>
         <div class="col-4 input-group input-group-sm mb-3">
-            <input type="text" formControlName="descripcion" class="form-control" placeholder="Descripcion"
+            <input type="text" formControlName="descripcion" class="form-control" placeholder="Descripcion" autocomplete="off"
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.descripcion.errors }">
             <div *ngIf="submit_agregar && f_A.descripcion.errors" class="invalid-feedback">
                 <div *ngIf="f_A.descripcion.errors.required">*Favor de llenar el campo</div>
@@ -84,7 +90,7 @@
                         <tr>
                             <th scope="col">lider ID</th>
                             <th scope="col">Descripcion</th>
-                            <th scope="col" hidden="true">Eliminar</th>
+                            <th scope="col">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,7 +98,7 @@
 
                             <th scope="row">{{lider.liderID}}</th>
                             <td>{{lider.descripcion}}</td>
-                            <td hidden="true">
+                            <td>
                                 <button id="BUSQ_btn_eliminar" style="margin-left: 10px; 
                                                 background-color: rgb(224, 8, 8); " type="button"
                                     class="btn btn-info btn-sm" (click)="eliminar_lider(lider.liderID)">Eliminar</button>

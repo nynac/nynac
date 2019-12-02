@@ -1,0 +1,138 @@
+
+<div class="container border rounded">
+    <form [formGroup]="form_config" (ngSubmit)="agregar_miembro()">
+        <!-- INICIO ROW #1 -->
+        <div class="dropdown-divider"></div>
+        <div class="row" style="margin: 15px 0px 0px 15px">
+            <div class="col-12 font-weight-bold">
+                <span>Datos del Usuario </span>
+            </div>
+
+            <div class="col-2"></div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Usuario ID:</span>
+                <input type="number" formControlName="usuarioID" class="form-control" placeholder="usuarioID" readonly
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.usuarioID.errors }" autocomplete="off">
+            </div>
+            <div class="col-1 custom-control-inline">
+                <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
+                    <input type="checkbox" id="status" formControlName="status" class="custom-control-input"
+                        [ngClass]="{ 'is-invalid': submit_config && f_A.status.errors}" />
+                    <label class="custom-control-label" for="status">Estado&nbsp;</label>
+                </div>
+            </div>    
+            <div class="col-3 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Sede:</span>
+                <input type="text" formControlName="sede" class="form-control" placeholder="sede" readonly
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.sede.errors }" autocomplete="off">
+            </div>      
+            <div class="col-12"></div>
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Nombres:</span>
+                <input type="text" formControlName="nombre" class="form-control" placeholder="nombre"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.nombre.errors }" autocomplete="off">
+            </div>
+            <div class="col-12"></div>
+
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Apellidos:</span>
+                <input type="text" formControlName="apellidos" class="form-control" placeholder="apellidos"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.apellidos.errors }" autocomplete="off">
+            </div>
+            <div class="col-12"></div>
+            <div class="col-2"></div>
+            <div class="col-6 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Contraseña:</span>
+                <input type="password" formControlName="contrasena" class="form-control" id="pass" name="pass"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.contrasena.errors }" autocomplete="off">
+            </div>
+            <div class="input-group-sm mb-3">
+                <input type="checkbox" (click)="heiden_pass()" style="margin-right: 10px;" id="see" name="see">
+                <label for="see">Mostrar Contraseña</label>
+            </div>
+            <div class="col-12"></div>
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <label for="puesto" style="margin-right: 10px">Puesto </label>
+                <select formControlName="puesto" class="custom-select" id="puesto"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.puesto.errors }">
+                    <option selected disabled>Puestos: </option>
+                    <option value="Recepcion">Recepcion</option>
+                    <option value="Coordinacion Operativa">Coordinacion Operativa</option>
+                    <option value="Desarrollo Institucional">Desarrollo Institucional</option>
+                    <option value="Desarrollo Humano">Desarrollo Humano</option>
+                </select>
+            </div>
+            <div class="col-12"></div>
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Telefono 1:</span>
+                <input type="text" formControlName="tel1" class="form-control" placeholder="tel1"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.tel1.errors }" autocomplete="off">
+            </div>
+            <div class="col-12"></div>
+
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Telefono Emergencia:</span>
+                <input type="text" formControlName="tel2" class="form-control" placeholder="Telefono Emergencia"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.tel2.errors }" autocomplete="off">
+            </div>
+            <div class="col-12"></div>
+
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Dirección:</span>
+                <input type="text" formControlName="direccion" class="form-control" placeholder="direccion"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.direccion.errors }" autocomplete="off">
+            </div>
+            <div class="col-12"></div>
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Correo:</span>
+                <input type="text" formControlName="correo" class="form-control" placeholder="correo"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.correo.errors }" autocomplete="off">
+            </div>
+            <div class="col-12"></div>
+
+            <div class="col-2"></div>
+            <div class="col-8 form-group input-group-sm mb-3">
+                <label for="fechanacimiento" style="padding: 0px; font-size: 13px;">Fecha Nacimiento: </label>
+                <input formControlName="fechanacimiento" placeholder="fechanacimiento de inscripción" type="date"
+                    class="form-control" [ngClass]="{ 'is-invalid': submit_config && f_A.fechanacimiento.errors }"
+                    id="fechanacimiento" data-toggle="tooltip" data-placement="top"
+                    title="fechanacimiento de inscripción" style="margin-top: -10px;">
+            </div>
+
+            <div class="col-12"></div>
+
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Nacionalidad:</span>
+                <input type="text" formControlName="nacionalidad" class="form-control" placeholder="nacionalidad"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.nacionalidad.errors }" autocomplete="off">
+            </div>
+            <div class="col-12"></div>
+
+            <div class="col-2"></div>
+            <div class="col-8 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Estado:</span>
+                <input type="text" formControlName="estado" class="form-control" placeholder="estado"
+                    [ngClass]="{ 'is-invalid': submit_config && f_A.estado.errors }" autocomplete="off">
+            </div>
+        </div>
+        <div class="row" style="margin: 0px 0px 15px 15px">
+            <div class="col-10"></div>
+            <div class="col-2">
+                <button name="btn_guardar" class="btn btn-primary mr-1" style="width:100%; height: 50px;"
+                    type="submit">
+                    <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                        hidden></span>
+                    Registrar Usuario
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

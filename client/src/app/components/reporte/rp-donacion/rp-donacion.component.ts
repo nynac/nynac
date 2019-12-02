@@ -31,8 +31,8 @@ export class RpDonacionComponent implements OnInit {
   arrayLideres: any;
   arrayCampanas: any;
   arrayEventos: any;
-  
-  contador: any=0;
+
+  contador: any = 0;
 
   //Formularios
   form_report: FormGroup;
@@ -63,6 +63,7 @@ export class RpDonacionComponent implements OnInit {
       estado: [],
       municipio: [],
       status: [],
+      sede:[],
     })
   }
 
@@ -95,6 +96,7 @@ export class RpDonacionComponent implements OnInit {
       excel.push({
         ID: this.informe[i].donacion.donacion.donacion.donacion.donacionID,
         Donante: this.informe[i].donacion.donacion.donacion.donacion.nombre,
+        Sede: this.informe[i].donacion.donacion.donacion.donacion.sede,
         Status: this.informe[i].donacion.donacion.donacion.donacion.status,
         Fecha_Donacion: this.informe[i].donacion.donacion.donacion.donacion.fechadonacion,
         Tipo_Donante: this.informe[i].donacion.donacion.donacion.donacion.tipodonante,
@@ -108,7 +110,7 @@ export class RpDonacionComponent implements OnInit {
         Campaña: this.informe[i].descripcion,
         Evento: this.informe[i].donacion.descripcion,
         Observacion: this.informe[i].donacion.donacion.donacion.donacion.observacion,
-      });      
+      });
 
     }
 
@@ -123,12 +125,12 @@ export class RpDonacionComponent implements OnInit {
 
     var doc = new jsPDF('l', 'mm', 'a4');
     var totalPagesExp = "{total_pages_count_string}";
-    var registros='Informe Donaciones.     Registros: '+this.contador;
+    var registros = 'Informe Donaciones.     Registros: ' + this.contador;
 
     var img = new Image();
-img.src = ('./assets/img/logo.png');
-    
-    
+    img.src = ('./assets/img/logo.png');
+
+
 
     var pageContent = function (data) {
       // HEADER
@@ -138,7 +140,7 @@ img.src = ('./assets/img/logo.png');
 
       //https://www.youtube.com/watch?v=7hUr0P9nHF8
       doc.addImage(img, 'PNG', data.settings.margin.left, 15, 50, 10);
-      doc.text(registros, data.settings.margin.left + 60, 22); 
+      doc.text(registros, data.settings.margin.left + 60, 22);
 
       // FOOTER
       var str = "Page " + data.pageCount;
@@ -221,7 +223,6 @@ img.src = ('./assets/img/logo.png');
     if (this.form_report.value.rfc == null || this.form_report.value.rfc == '') {
       this.form_report.get('rfc').setValue('null');
     }
-
     if (this.form_report.value.pais == null || this.form_report.value.pais == '') {
       this.form_report.get('pais').setValue('null');
     }
@@ -249,16 +250,17 @@ img.src = ('./assets/img/logo.png');
       + "&RPais=" + this.form_report.value.pais
       + "&REstado=" + this.form_report.value.estado
       + "&RMunicipio=" + this.form_report.value.municipio
+      + "&Rsede="+this.form_report.value.sede
     );
 
     response.subscribe((data: any[]) => {
       this.informe = data;
-      this.contador= data.length;
+      this.contador = data.length;
     },
       error => {
         console.log("Error", error)
       });
-      
+
     spinner_consulta_donacion.setAttribute("hidden", "true");
   }
 

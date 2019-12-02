@@ -12,8 +12,8 @@
             </div>
             <div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
                 <button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="fdonacion_btn_buscar">
-                    <span id="spinner_llenar" class="spinner-border spinner-border-sm" role="status"
-                        aria-hidden="true" hidden></span>
+                    <span id="spinner_llenar" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                        hidden></span>
                     Buscar</button>
             </div>
         </div>
@@ -25,12 +25,12 @@
             <div class="col-5">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input id="fdonacion_Nuevo" type="radio" class="custom-control-input" name="donacion_opcion"
-                        value="nuevo" (change)="radioChange($event)" [checked] = "focus" >
+                        value="nuevo" (change)="radioChange($event)" [checked]="focus">
                     <label class="custom-control-label" for="fdonacion_Nuevo">Nuevo</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
                     <input id="fdonacion_Modificar" type="radio" class="custom-control-input" name="donacion_opcion"
-                        value="modificar" (change)="radioChange($event)" [checked] = "!focus">
+                        value="modificar" (change)="radioChange($event)" [checked]="!focus">
                     <label class="custom-control-label" for="fdonacion_Modificar">Modificar</label>
                 </div>
             </div>
@@ -43,7 +43,7 @@
         <div class="row" style="margin: 15px 0px 0px 15px">
             <div class="col-8 input-group input-group-sm mb-3">
                 <label for="donacionID" style="margin-right: 10px">ID Donante</label>
-                <input type="number" formControlName="donacionID" class="form-control" 
+                <input type="number" formControlName="donacionID" class="form-control" readonly
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }">
                 <label for="formadonacionID" style="margin-right: 10px">ID Forma</label>
                 <input type="number" formControlName="formadonacionID" class="form-control" readonly
@@ -68,10 +68,21 @@
                     <option value="Transferencia Bancaria">Transferencia Bancaria</option>
                 </select>
             </div>
+            <div class="col-3 input-group input-group-sm mb-3">
+                <span style="margin-right: 10px">Sede:</span>
+                <select formControlName="sede" class="custom-select" id="sede"
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.sede.errors }" data-toggle="tooltip"
+                    data-placement="top">
+                    <option selected disabled>Sede:</option>
+                    <option value="Loma Dorada">Loma Dorada</option>
+                    <option value="Camino Verde">Camino Verde</option>
+                    <option value="Natura">Natura</option>
+                </select>
+            </div>
 
             <div class="col-4 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Monto:</span>
-                <input type="number" formControlName="monto" class="form-control" placeholder="Monto"
+                <input type="number" formControlName="monto" class="form-control" placeholder="Monto" autocomplete="off"
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.monto.errors }">
                 <div *ngIf="submit_agregar && f_A.monto.errors" class="invalid-feedback">
                     <div *ngIf="f_A.monto.errors.required">Asigne un monto.</div>
@@ -79,7 +90,7 @@
             </div>
             <div class="col-4 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Banco:</span>
-                <input type="text" formControlName="banco" class="form-control" placeholder="Banco"
+                <input type="text" formControlName="banco" class="form-control" placeholder="Banco" autocomplete="off"
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.banco.errors }">
             </div>
             <div class="col-3 input-group input-group-sm mb-3">
@@ -93,32 +104,33 @@
                     <option value="Recibido">Recibido</option>
                 </select>
             </div>
-            <div class="col-3 input-group input-group-sm mb-3">
+            <div class="col-4 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Numero:</span>
                 <input type="number" formControlName="numero" class="form-control" placeholder="Numero"
-                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.numero.errors }">
+                    autocomplete="off" [ngClass]="{ 'is-invalid': submit_agregar && f_A.numero.errors }">
             </div>
             <div class="col-3 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Codigo:</span>
                 <input type="number" formControlName="codigo" class="form-control" placeholder="Codigo"
-                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.codigo.errors }">
+                    autocomplete="off" [ngClass]="{ 'is-invalid': submit_agregar && f_A.codigo.errors }">
             </div>
 
-            <div class="col-3 form-group input-group-sm mb-3" >
+            <div class="col-3 form-group input-group-sm mb-3">
                 <label for="vence" style="padding: 0px; font-size: 13px;">Vence: </label>
-                <input formControlName="vence" placeholder="Fecha de inscripción" type="date" class="form-control"  
-                [ngClass]="{ 'is-invalid': submit_agregar && f_A.vence.errors }" id="vence" data-toggle="tooltip" 
-                data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
+                <input formControlName="vence" placeholder="Fecha de inscripción" type="date" class="form-control"
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.vence.errors }" id="vence" data-toggle="tooltip"
+                    data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
             </div>
-            <div class="col-3 form-group input-group-sm mb-3" >
+            <div class="col-3 form-group input-group-sm mb-3">
                 <label for="primerpago" style="padding: 0px; font-size: 13px;">Primer Pago: </label>
-                <input formControlName="primerpago" placeholder="Fecha de inscripción" type="date" class="form-control"  
-                [ngClass]="{ 'is-invalid': submit_agregar && f_A.primerpago.errors }" id="primerpago" data-toggle="tooltip" 
-                data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
+                <input formControlName="primerpago" placeholder="Fecha de inscripción" type="date" class="form-control"
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.primerpago.errors }" id="primerpago"
+                    data-toggle="tooltip" data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
             </div>
+            <div class="col-12"></div>
             <div class="col-3 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Cargo:</span>
-                <input type="text" formControlName="cargo" class="form-control" placeholder="Cargo"
+                <input type="text" formControlName="cargo" class="form-control" placeholder="Cargo" autocomplete="off"
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.cargo.errors }">
             </div>
             <div class="col-3 input-group input-group-sm mb-3">
@@ -135,16 +147,16 @@
                     <option value="Unica vez">Unica vez</option>
                 </select>
             </div>
-            <div class="col-3 form-group input-group-sm mb-3" >
+            <div class="col-3 form-group input-group-sm mb-3">
                 <label for="ultimopago" style="padding: 0px; font-size: 13px;">Ultimo Pago: </label>
-                <input formControlName="ultimopago" placeholder="Fecha de inscripción" type="date" class="form-control"  
-                [ngClass]="{ 'is-invalid': submit_agregar && f_A.ultimopago.errors }" id="ultimopago" data-toggle="tooltip" 
-                data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
+                <input formControlName="ultimopago" placeholder="Fecha de inscripción" type="date" class="form-control"
+                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.ultimopago.errors }" id="ultimopago"
+                    data-toggle="tooltip" data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
             </div>
             <div class="col-12 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Observación:</span>
                 <input type="text" formControlName="observacion" class="form-control" placeholder="Observacion"
-                    [ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion.errors }">
+                    autocomplete="off" [ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion.errors }">
             </div>
         </div>
 
@@ -181,13 +193,14 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">ID Donante</th>
-                                <th scope="col">tipodonacion</th>
-                                <th scope="col">monto</th>
-                                <th scope="col">banco</th>
-                                <th scope="col">estatus</th>
-                                <th scope="col">primerpago</th>
-                                <th scope="col">frecuencia</th>
-                                <th scope="col">observacion</th>
+                                <th scope="col">Tipodonacion</th>
+                                <th scope="col">Sede</th>
+                                <th scope="col">Monto</th>
+                                <th scope="col">Banco</th>
+                                <th scope="col">Estatus</th>
+                                <th scope="col">Primerpago</th>
+                                <th scope="col">Frecuencia</th>
+                                <th scope="col">Observacion</th>
                                 <th scope="col">Opción</th>
                             </tr>
                         </thead>
@@ -197,6 +210,7 @@
                                 <th scope="row">{{fdonacion.formadonacionID}}</th>
                                 <th scope="row">{{fdonacion.donacionID}}</th>
                                 <td>{{fdonacion.tipodonacion}}</td>
+                                <td>{{fdonacion.sede}}</td>
                                 <td>{{fdonacion.monto}}</td>
                                 <td>{{fdonacion.banco}}</td>
                                 <td>{{fdonacion.estatus}}</td>

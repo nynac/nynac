@@ -63,10 +63,21 @@
                 <option value="Transferencia Bancaria">Transferencia Bancaria</option>
             </select>
         </div>
+        <div class="col-3 input-group input-group-sm mb-3">
+            <span style="margin-right: 10px">Sede:</span>
+            <select formControlName="sede" class="custom-select" id="sede"
+            [ngClass]="{ 'is-invalid': submit_agregar && f_A.sede.errors }" 
+            data-toggle="tooltip" data-placement="top">
+            <option selected disabled>Sede:</option>
+            <option value="Loma Dorada">Loma Dorada</option>
+            <option value="Camino Verde">Camino Verde</option>
+            <option value="Natura">Natura</option>
+        </select>
+        </div>    
         
         <div class="col-4 input-group input-group-sm mb-3">
 				<span style="margin-right: 10px">Monto:</span>
-            <input type="number" formControlName="monto" class="form-control" placeholder="Monto"
+            <input type="number" formControlName="monto" class="form-control" placeholder="Monto" autocomplete="off"
             [ngClass]="{ 'is-invalid': submit_agregar && f_A.monto.errors }">
             <div *ngIf="submit_agregar && f_A.monto.errors" class="invalid-feedback">
                     <div *ngIf="f_A.monto.errors.required">Asigne un monto.</div>
@@ -74,7 +85,7 @@
         </div>
         <div class="col-4 input-group input-group-sm mb-3">
 				<span style="margin-right: 10px">Banco:</span>
-                <input type="text" formControlName="banco" class="form-control" placeholder="Banco"
+                <input type="text" formControlName="banco" class="form-control" placeholder="Banco" autocomplete="off"
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.banco.errors }">
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
@@ -88,14 +99,14 @@
                 <option value="Recibido">Recibido</option>
             </select>
         </div>
-        <div class="col-3 input-group input-group-sm mb-3">
+        <div class="col-4 input-group input-group-sm mb-3">
 				<span style="margin-right: 10px">Numero:</span>
-            <input type="number" formControlName="numero" class="form-control" placeholder="Numero"
+            <input type="number" formControlName="numero" class="form-control" placeholder="Numero" autocomplete="off"
             [ngClass]="{ 'is-invalid': submit_agregar && f_A.numero.errors }">
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
 				<span style="margin-right: 10px">Codigo:</span>
-            <input type="number" formControlName="codigo" class="form-control" placeholder="Codigo"
+            <input type="number" formControlName="codigo" class="form-control" placeholder="Codigo" autocomplete="off"
             [ngClass]="{ 'is-invalid': submit_agregar && f_A.codigo.errors }">
         </div>
 
@@ -110,10 +121,11 @@
 			<input formControlName="primerpago" placeholder="Fecha de inscripción" type="date" class="form-control"  
 			[ngClass]="{ 'is-invalid': submit_agregar && f_A.primerpago.errors }" id="primerpago" data-toggle="tooltip" 
 			data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
-		</div>
+        </div>
+        <div class="col-12"></div>
         <div class="col-3 input-group input-group-sm mb-3">
 				<span style="margin-right: 10px">Cargo:</span>
-            <input type="text" formControlName="cargo" class="form-control" placeholder="Cargo"
+            <input type="text" formControlName="cargo" class="form-control" placeholder="Cargo" autocomplete="off"
             [ngClass]="{ 'is-invalid': submit_agregar && f_A.cargo.errors }">
         </div>
         <div class="col-3 input-group input-group-sm mb-3">
@@ -138,7 +150,7 @@
 		</div>
         <div class="col-12 input-group input-group-sm mb-3">
 				<span style="margin-right: 10px">Observación:</span>
-            <input type="text" formControlName="observacion" class="form-control" placeholder="Observacion"
+            <input type="text" formControlName="observacion" class="form-control" placeholder="Observacion" autocomplete="off"
             [ngClass]="{ 'is-invalid': submit_agregar && f_A.observacion.errors }">
         </div>
     </div>
@@ -162,15 +174,16 @@
 <div class="container border rounded">
         <div class="row" style="margin: 15px 15px 0px 0px">
             <div class="col-12 text-left " style="margin: 0px 0px 0px 0px;">
-                <label class="font-weight-bold">Aportacion: </label>
+                <label class="font-weight-bold">Aportaciones: </label>
             </div>
             <div class="col-12">
                 <form>
                     <table class="table text-center table-bordered table-sm rounded">
                         <thead style="background-color: #00AAE7; color: white;">
                             <tr>
-                                <th scope="col">ID</th>
+                                <th scope="col">ID Donación</th>
                                 <th scope="col">Tipodonacion</th>
+                                <th scope="col">Sede</th>
                                 <th scope="col">Monto</th>
                                 <th scope="col">Banco</th>
                                 <th scope="col">Estatus</th>
@@ -184,6 +197,7 @@
                             <tr *ngFor="let fdonacion of arrayFdonacion; let i=index">
                                 <td>{{fdonacion.formadonacionID}}</td>
                                 <td>{{fdonacion.tipodonacion}}</td>
+                                <td>{{fdonacion.sede}}</td>
                                 <td>{{fdonacion.monto}}</td>
                                 <td>{{fdonacion.banco}}</td>
                                 <td>{{fdonacion.estatus}}</td>

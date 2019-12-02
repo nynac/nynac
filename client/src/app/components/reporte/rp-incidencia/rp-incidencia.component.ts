@@ -46,6 +46,7 @@ export class RpIncidenciaComponent implements OnInit {
       fechaincidencia2: [],
       area_actividad: [],
       tipoproblema: [],
+      sede:[],
     })
   }
 
@@ -78,6 +79,7 @@ export class RpIncidenciaComponent implements OnInit {
       excel.push({
         ID_Incidencia:this.informe[i].no_incidencia,
         ID_Miembro:this.informe[i].miembroID,
+        Sede:this.informe[i].sede,
         Nombre_Niño:this.informe[i].nombresnino,
         Grupo:this.informe[i].grupo,
         Fecha_Incidencia:this.informe[i].fecha_incidencia,
@@ -184,6 +186,7 @@ export class RpIncidenciaComponent implements OnInit {
       + '&RFechaincidencia2='+ this.form_report.value.fechaincidencia2
       + '&Rareaactividad='+ this.form_report.value.area_actividad
       + '&Rtipoproblema='+ this.form_report.value.tipoproblema
+      + '&Rsede='+this.form_report.value.sede
     );
 
     response.subscribe((data: any[]) => {
