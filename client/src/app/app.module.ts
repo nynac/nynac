@@ -130,9 +130,9 @@ const appRoutes: Routes = [
   { path: 'donacion/busqueda', component: BuscadorDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
   { path: 'donacion/Otra-Aportacion', component: AportacionDonanteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
   { path: 'donacion/Catalogo', component: ContenedorCatalogoComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
-  { path: 'agenda', component: AgendaComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
-  { path: 'config', component: ConfigDonacionComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
-  { path: 'reporte', component: ReportesComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
+  { path: 'donacion/agenda', component: AgendaComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
+  { path: 'donacion/config', component: ConfigDonacionComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
+  { path: 'donacion/reporte', component: ReportesComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Institucional' ]} },
 
   { path: 'desarrollo_humano', component: ContenedorDHComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Recepcion']} },
   { path: 'desarrollo_humano/agenda', component: AgendaDHComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano','Recepcion']} },
@@ -149,18 +149,14 @@ const appRoutes: Routes = [
   { path: 'servicio_social', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   { path: 'servicio_social/nuevo', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   { path: 'servicio_social/buscar-modificar', component: BuscarServicioComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
-<<<<<<< HEAD
   { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent },
-  { path: 'servicio_social/entradas-salidas-config', component: EntradasSalidasConfComponent, canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} } 
-=======
-  { path: 'servicio_social/entradas-salidas', component: EntradasSalidasServComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
+  { path: 'servicio_social/entradas-salidas-config', component: EntradasSalidasConfComponent, canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   { path: 'servicio_social/config', component: ConfigSSComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
   
   { path: '', component: ContenedorAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
   { path: 'admin/agenda', component: AgendaAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
   { path: 'admin/config', component: ConfigAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
   { path: 'admin/newUser', component: NewuserAdminComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador' ]}  },
->>>>>>> 37194d7163a81d6e642165cbffccfb7ab875cb5f
 ];
 //validar token
 //canActivate : [ AuthGuard ]
@@ -222,10 +218,7 @@ const appRoutes: Routes = [
     RpIncidenciaComponent,
     ContenedorReporteComponent,
     AgendaReporteComponent,
-<<<<<<< HEAD
-    ConfiguracionComponent,
     EntradasSalidasConfComponent,
-=======
     ConfigReporteComponent,
     ConfigDHComponent,
     ConfigDonacionComponent,
@@ -237,8 +230,7 @@ const appRoutes: Routes = [
     NewuserAdminComponent,
     ModifuserAdminComponent,
     ContenedorAdminComponent,
-    InformeAdminComponent,
->>>>>>> 37194d7163a81d6e642165cbffccfb7ab875cb5f
+    InformeAdminComponent
   ],
   imports: [
     RouterModule.forRoot(

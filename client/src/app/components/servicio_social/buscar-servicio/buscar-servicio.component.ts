@@ -166,10 +166,19 @@ export class BuscarServicioComponent implements OnInit {
 		else {
 			var resp = confirm("¿Deseas continuar?");
 			if (resp) {
-				this.http.put(this.url + "staff/" + this.form_guardar.value.idStaff, this.form_guardar.value).subscribe(data  => {
+				this.http.put(this.url + "miembro/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
+					this.form_guardar.enable();
+					this.mostrar_alert("Se ha guardado correctamente", "success");
+
+				},
+				error  => {
 					//spinner.setAttribute("hidden", "true");
 					this.form_guardar.enable();
+					this.mostrar_alert("Ocurrió un error al modificar los datos, vuelve a intentarlo", "danger");
+				});
 
+				this.http.put(this.url + "staff/" + this.form_guardar.value.idStaff, this.form_guardar.value).subscribe(data  => {
+					this.form_guardar.enable();
 					this.mostrar_alert("Se ha guardado correctamente", "success");
 
 				},
