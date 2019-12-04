@@ -32,6 +32,7 @@ export class RpSSComponent implements OnInit {
 
   //validacion
   submit_agregar = false;
+  guardando: boolean=false;
 
   url = "https://api-remota.conveyor.cloud/api/";
 
@@ -59,6 +60,10 @@ export class RpSSComponent implements OnInit {
   get f_A() {
     return this.form_report.controls;
   }
+   get f2() {
+    return this.form_report.controls;
+  }
+
 
   //reset agregar
   public clean_Agregar() {

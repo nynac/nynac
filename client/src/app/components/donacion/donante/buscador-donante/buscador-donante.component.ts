@@ -13,6 +13,8 @@ export class BuscadorDonanteComponent implements OnInit {
 form_buscar : FormGroup;
 //validacion
 submit_buscar = false;
+submit_agregar :boolean = false;
+
 
 url = "https://api-remota.conveyor.cloud/api/";
 
@@ -31,6 +33,7 @@ this.form_buscar = this.formBuilder.group({
   evento: [''],
 })
 }
+get f_A(){ return this.form_buscar.controls;}
 
 //controls Buscar
 get f_B() {

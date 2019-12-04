@@ -20,6 +20,8 @@ export class DsNinosComponent implements OnInit, OnChanges {
 	mensaje : string = null;
 	guardando : boolean = false;
 
+	submitted2 :boolean = false;
+
 	//form guardar
 	form_guardar : FormGroup
 

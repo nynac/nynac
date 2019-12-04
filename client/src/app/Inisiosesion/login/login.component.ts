@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   form_enviar_correo : FormGroup
   guardando : boolean = false;
   submitted2 = false;
+  form_invalid: boolean = false;
 
   form: FormGroup;
   successmsg: any;
@@ -46,6 +47,9 @@ export class LoginComponent implements OnInit {
 
   limpiar_enviar_correo(){
     this.form_enviar_correo.reset();
+  }
+  get f2() {
+    return this.form.controls;
   }
 
   correo_valido() {
@@ -87,7 +91,7 @@ export class LoginComponent implements OnInit {
     this.guardando = false;
   }
 
-  onSubmit(id: any) {
+  onSubmit() {
     this.errmsg = null;
     var spinner_login = document.getElementById("spinner_login");
     spinner_login.removeAttribute("hidden");

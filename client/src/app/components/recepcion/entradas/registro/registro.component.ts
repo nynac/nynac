@@ -24,6 +24,8 @@ export class RegistroComponent implements OnInit {
 	submited : boolean = true;
 	hora : any;
 
+	guardando :boolean = false;
+
 	constructor(
 		private http : HttpClient, 
 		private formBuilder: FormBuilder
@@ -37,6 +39,8 @@ export class RegistroComponent implements OnInit {
 			fechasalida : ['']
 		});
 	}
+
+	get f2(){ return this.form_guardar.controls;}
 	
 	esta_activo(){
 		this.miembroID = this.form_guardar.value.miembroID;

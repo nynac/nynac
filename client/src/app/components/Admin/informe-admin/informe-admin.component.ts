@@ -20,6 +20,7 @@ arreglo: any;
   form_config : FormGroup;  
   //validacion
   submit_config = false;
+  submit_info:boolean=false;
 
   url = "https://api-remota.conveyor.cloud/api/";
 

@@ -23,6 +23,7 @@ export class DHNinosComponent implements OnInit, OnChanges {
 	//form guardar
 	form_guardar : FormGroup
 
+	submitted2  :boolean = false;
 	constructor(
 		private http : HttpClient,
 		private formBuilder: FormBuilder

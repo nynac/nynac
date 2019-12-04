@@ -46,7 +46,6 @@ import { AgendaRecepcionComponent } from './components/recepcion/agenda-recepcio
 
 //login
 import { LoginComponent } from './Inisiosesion/login/login.component';   
-import { RecuperarComponent } from './Inisiosesion/recuperar/recuperar.component'; 
 import {MyserviceService} from './myservice.service'  
 
 //REPORTE 
@@ -143,7 +142,6 @@ const appRoutes: Routes = [
   { path: 'coordinacion_operativa/config', component: ConfigReporteComponent,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Coordinacion Operativa']}},
 
   { path: 'login', component: LoginComponent },
-  { path: 'recuperar', component: RecuperarComponent },
   { path: 'bloqueo' ,   component :   BloqueoComponent ,   canActivate :   [ AuthGuard ] },
   
   { path: 'servicio_social', component: AgregarMiembroComponent ,canActivate : [ AuthGuard ], data: { roles:[ 'Administrador','Desarrollo Humano' ]} },
@@ -208,7 +206,6 @@ const appRoutes: Routes = [
     EntradasSalidasServComponent,
     LoginComponent,
     BloqueoComponent,
-    RecuperarComponent,
     AgendaDHComponent,
     AgendaRecepcionComponent,
     NavbarCOComponent,

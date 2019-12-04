@@ -93,7 +93,37 @@ get f_B() {
     console.log(this.form_agregar.value.color);
   }
 
-  buscar_agenda(id: any) {
+  buscar_agenda() {
+    //select mediante el id
+    var response = this.http.get(this.url + "Agenda/" + this.form_buscar.value.buscarID);
+    response.subscribe((data: any[]) => {
+      this.resultado = data;
+      //transformar fecha formato
+      var datePipe = new DatePipe("en-US");
+      this.resultado.start = datePipe.transform(this.resultado.start, 'yyyy-MM-dd');
+      this.resultado.end = datePipe.transform(this.resultado.end, 'yyyy-MM-dd');
+
+      this.form_agregar.get('agendaID').setValue(this.resultado.agendaID);
+      this.form_agregar.get('title').setValue(this.resultado.title);
+      this.form_agregar.get('start').setValue(this.resultado.start);
+      this.form_agregar.get('end').setValue(this.resultado.end);
+      this.form_agregar.get('ubicacion').setValue(this.resultado.ubicacion);
+      this.form_agregar.get('email').setValue(this.resultado.email);
+      this.form_agregar.get('usuarioID').setValue(this.resultado.usuarioID);
+      this.form_agregar.get('color').setValue(this.resultado.color);
+      this.form_agregar.get('sede').setValue(localStorage.getItem("sede"));
+      this.color1=this.form_agregar.value.color;
+      if (this.focus == true) {
+        this.focus = false;
+        this.agregar_o_modificar = 'modificar';
+      }
+    },
+      error => {
+        console.log("Error", error)
+      });
+  }
+
+  modif_agenda(id:any) {
     //select mediante el id
     var response = this.http.get(this.url + "Agenda/" + id);
     response.subscribe((data: any[]) => {
@@ -312,4 +342,3 @@ get f_B() {
   }
 
 }
-

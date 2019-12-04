@@ -24,6 +24,8 @@ export class HistorialComponent implements OnInit {
 	//Resultado
 	historial : any;
 
+	guardando :boolean = false;
+
 	constructor(
 		private http : HttpClient, 
 		private formBuilder: FormBuilder
@@ -34,6 +36,8 @@ export class HistorialComponent implements OnInit {
 			miembroID: ['', Validators.required]
 		});
 	}
+
+	get f2(){ return this.form_buscar.controls;}
 
 	obtener_historial(){
 		this.limpiar(false);
