@@ -50,7 +50,7 @@
 	</div>
 	 <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
       <input type="checkbox" id="estado" formControlName="estado" class="custom-control-input"
-      [ngClass]="{ 'is-invalid': submitted2 && f2.estado.errors}" />
+      [ngClass]="{ 'is-invalid': form_invalid && f2.estado.errors}" />
       <label class="custom-control-label" for="estado">Estado&nbsp;</label>
     </div>
 
