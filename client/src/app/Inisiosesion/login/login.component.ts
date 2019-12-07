@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
     });
 
     this.form_enviar_correo = new FormGroup({
-      correo: new FormControl('', [Validators.required]),
+      correo: new FormControl('', [ Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
+      
     });
   }
 

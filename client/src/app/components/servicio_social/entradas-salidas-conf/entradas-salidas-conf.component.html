@@ -35,7 +35,7 @@
 	<div class="row">
 		<div class="col-12" *ngIf="historial!=null" style="margin:15px 0px 0px 0px;">
 			<div class="col-12 font-weight-bold" >
-				<h5>HISTORIAL <label style="font-weight: normal;">lleva <mark style="background-color: #00AAE7; color: white;">{{horas_acumuladas}}</mark> horas acumuladas</label></h5>
+				<h5>HISTORIAL de <label style="color: #00AAE7;">{{historial[0].nombre}} {{historial[0].apellido_paterno}} {{historial[0].apellido_materno}}&nbsp;</label><label style="font-weight: normal;">lleva <mark style="background-color: #00AAE7; color: white;">{{horas_acumuladas}}</mark> horas acumuladas</label></h5>
 			</div>
 			<div class="col-12">
 				<table class="table text-center table-bordered table-sm rounded">
@@ -79,7 +79,7 @@
 				</div>
 				<div class="row">
 					<div class="col-6 form-group input-group-sm mb-3" >
-						<label for="fechaentrada" style="padding: 0px; font-size: 15px;">Hora de entrada</label>
+						<label for="fechaentrada" style="padding: 0px; font-size: 15px;">Fecha de entrada</label>
 						<input placeholder="fechaentrada" type="date" class="form-control" id="fechaentrada" data-toggle="tooltip" data-placement="top" title="fechaentrada" style="margin-top: -10px;" readonly>
 					</div>
 					<div class="col-6 form-group input-group-sm mb-3" >
@@ -88,7 +88,7 @@
 					</div>
 
 					<div class="col-6 form-group input-group-sm mb-3" >
-						<label for="fechasalida" style="padding: 0px; font-size: 15px;">Fecha</label>
+						<label for="fechasalida" style="padding: 0px; font-size: 15px;">Fecha de salida</label>
 						<input placeholder="fechasalida" type="date" class="form-control" id="fechasalida" data-toggle="tooltip" data-placement="top" title="fechasalida" style="margin-top: -10px;" readonly>
 					</div>
 					<div class="col-6 form-group input-group-sm mb-3" >

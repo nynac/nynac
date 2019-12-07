@@ -4,3 +4,9 @@
 	color: white;
 	font-family: "Helvetica";
 }
+.flotante {
+	display:scroll;
+	position:fixed;
+	bottom:5%;
+	right:2%;
+}

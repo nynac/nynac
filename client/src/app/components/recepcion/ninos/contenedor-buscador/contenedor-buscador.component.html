@@ -16,8 +16,12 @@
 			<div class="col-4"></div>
 		</div>
 	</form>
-
-	<div class="row" style="margin: 25px 0px 0px 0px;">
+<div class="row" style="margin: 25px 0px 0px -15px;">
+	<div class="col-12 custom-control-inline" style="margin: 0px 0px 0px -15px; font-weight: bold; font-size: 15px;">
+		<div class="col-6">ESTADOS: <label class="alert-success" style="font-weight: normal;">&nbsp;Miembro Activo&nbsp;</label>&nbsp;<label class="alert-danger" style="font-weight: normal;">&nbsp;Miembro Inactivo&nbsp;</label></div>
+	</div>
+</div>
+	<div class="row">
 		<div class="col-12" style="font-size: 14px;">
 			<table class="table table-sm table-hover text-center table-bordered rounded"s>
 				<thead style="background-color: #00AAE7; color: white;" class="font-weight-normal">
@@ -34,10 +38,10 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let registro of resultado_info">
-						<td style="vertical-align: middle;" *ngIf="registro.otros_datos.estado == 'true'"  class="alert-success">
+						<td style="vertical-align: middle;" *ngIf="registro.otros_datos.estado == true"  class="alert-success">
 							{{registro.miembroID}}
 						</td>
-						<td style="vertical-align: middle;" *ngIf="registro.otros_datos.estado != 'true'" class="alert-danger">
+						<td style="vertical-align: middle;" *ngIf="registro.otros_datos.estado != true" class="alert-danger">
 							{{registro.miembroID}}
 						</td>
 						<td style="vertical-align: middle;">{{registro.nombres}} {{registro.appaterno }} {{registro.apmaterno}}</td>

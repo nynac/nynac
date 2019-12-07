@@ -48,11 +48,11 @@
 			<option value="Vespertino">Vespertino</option>
 		</select>
 	</div>
-
-	<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
-		<input type="checkbox" id="estado" formControlName="estado" class="custom-control-input" [ngClass]="{ 'is-invalid': form_invalid && f2.estado.errors}"/>
-		<label class="custom-control-label" for="estado">Estado&nbsp;</label>
-	</div>
+	 <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
+      <input type="checkbox" id="estado" formControlName="estado" class="custom-control-input"
+      [ngClass]="{ 'is-invalid': submitted2 && f2.estado.errors}" />
+      <label class="custom-control-label" for="estado">Estado&nbsp;</label>
+    </div>
 
 	<div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
 		<input type="checkbox" id="visa" formControlName="visa" class="custom-control-input" [ngClass]="{ 'is-invalid': form_invalid && f2.visa.errors}"/>
@@ -282,7 +282,7 @@
 			</div>
 			<input type="text" formControlName="emergencia1" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': form_invalid && f2.emergencia1.errors }" style=" text-transform:capitalize;" autocomplete="off"/>
 			<input type="text" formControlName="parentemergencia1" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': form_invalid && f2.parentemergencia1.errors }" style=" text-transform:capitalize;" autocomplete="off"/>
-			<input type="tel" formControlName="telefonoemergencia1" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': form_invalid && f2.telefonoemergencia1.errors }" autocomplete="off"/>
+			<input type="number" formControlName="telefonoemergencia1" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': form_invalid && f2.telefonoemergencia1.errors }" autocomplete="off"/>
 		</div>
 		<div class=" col-12 input-group">
 			<div class="input-group-prepend">
@@ -290,7 +290,7 @@
 			</div>
 			<input type="text" formControlName="emergencia2" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': form_invalid && f2.emergencia2.errors }" style=" text-transform:capitalize;" autocomplete="off"/>
 			<input type="text" formControlName="parentemergencia2" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': form_invalid && f2.parentemergencia2.errors }" style=" text-transform:capitalize;" autocomplete="off"/>
-			<input type="tel" formControlName="telefonoemergencia2" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': form_invalid && f2.telefonoemergencia2.errors }" autocomplete="off"/>
+			<input type="number" formControlName="telefonoemergencia2" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': form_invalid && f2.telefonoemergencia2.errors }" autocomplete="off"/>
 		</div>
 		<div class=" col-12 input-group">
 			<div class="input-group-prepend">
@@ -298,7 +298,7 @@
 			</div>
 			<input type="text" formControlName="emergencia3" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': form_invalid && f2.emergencia3.errors }" style=" text-transform:capitalize;" autocomplete="off"/>
 			<input type="text" formControlName="parentemergencia3" class="form-control" placeholder="Parentesco" [ngClass]="{ 'is-invalid': form_invalid && f2.parentemergencia3.errors }" style=" text-transform:capitalize;" autocomplete="off"/>
-			<input type="tel" formControlName="telefonoemergencia3" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': form_invalid && f2.telefonoemergencia3.errors }" autocomplete="off"/>
+			<input type="number" formControlName="telefonoemergencia3" class="form-control" placeholder="Teléfono" [ngClass]="{ 'is-invalid': form_invalid && f2.telefonoemergencia3.errors }" autocomplete="off"/>
 		</div>
 	</div>
 	<div class="col-2 text-right">
@@ -355,23 +355,7 @@
 	</div>
 </div>
 
-<!-- Modal de información -->
-<button id="btn_modal_info" [hidden]="agregar_o_modificar != 'nuevo'" type="button" class="btn btn-danger flotante" data-toggle="modal" data-target="#modal_info" >AYUDA</button>
-<div class="modal fade" id="modal_info" tabindex="-1" role="dialog" aria-labelledby="modal_infoLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content" style="text-align: center;">
-			<div class="modal-header">
-				<h2 class="modal-title  w-100" id="modal_infoLabel" style="color: red;">IMPORTANTE</h2>
-			</div>
-			<div class="modal-body" style="text-align: justify;">
-				<h5>Usted está creando un nuevo miembro, para ello <ins style="color: red"> sólo deberá agregar información en el apartado de 'DATOS GENERALES'</ins>, una vez completado este paso usted deberá seleccionar la opción MODIFICAR y deberá ingresar el número de miembro que se generó al finalizar datos generales, apartir de ahí usted podrá agregar la información faltante en los demás apartados.</h5>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-info" data-dismiss="modal">Entendido</button>
-			</div>
-		</div>
-	</div>
-</div>
+
 <!-- <span>el siguiente número de miembro es: <mark>{{miembros[miembros.length -1].miembroID + 1}}</mark></span>
 <li *ngFor="let miembro of miembros">
 {{ miembro.estado}}

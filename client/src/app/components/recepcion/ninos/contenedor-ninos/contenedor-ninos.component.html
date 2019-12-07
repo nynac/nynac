@@ -46,7 +46,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">No. Miembro:</span>
 					</div>
-					<input type="number" formControlName="miembroID"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }">
+					<input type="number" id="miembroID" formControlName="miembroID" min="0"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.miembroID.errors }" disabled autocomplete="off">
 				</div>
 				<div class="col-2 text-center" style="margin: 0px 0px 0px -20px">
 					<button type="submit" class="btn btn-club btn-sm" style="width:100%;" id="btn_buscar" [disabled] = "true">
@@ -86,6 +86,24 @@
 		</div>
 		<div class="tab-pane " id="desarrollo">
 			<dh-ninos [global] = "global" (padre_var)="asig_hijo_a_padre($event)"></dh-ninos>
+		</div>
+	</div>
+</div>
+
+<!-- Modal de información -->
+<button id="btn_modal_info" [hidden]="agregar_o_modificar != 'nuevo'" type="button" class="btn btn-danger flotante" data-toggle="modal" data-target="#modal_info" >AYUDA</button>
+<div class="modal fade" id="modal_info" tabindex="-1" role="dialog" aria-labelledby="modal_infoLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content" style="text-align: center;">
+			<div class="modal-header">
+				<h2 class="modal-title  w-100" id="modal_infoLabel" style="color: red;">IMPORTANTE</h2>
+			</div>
+			<div class="modal-body" style="text-align: justify;">
+				<h5>La opción <mark>NUEVO</mark> registra un nuevo miembro, para ello <ins style="color: red"> sólo deberá agregar información en el apartado de 'DATOS GENERALES'</ins>, una vez completado este paso usted deberá seleccionar la opción MODIFICAR y deberá ingresar el número de miembro que se generó al finalizar datos generales, apartir de ahí usted podrá agregar la información faltante en los demás apartados.</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info" data-dismiss="modal">Entendido</button>
+			</div>
 		</div>
 	</div>
 </div>

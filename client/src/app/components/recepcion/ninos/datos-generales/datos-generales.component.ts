@@ -110,7 +110,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		if (this.global != undefined) {
 			this.form_guardar.patchValue(this.global["Nino_DG"][0]);
 			this.form_guardar.patchValue(this.global);
-
+			
 			this.form_guardar.get("fechanacimiento").setValue(datepipe.transform(this.global["Nino_DG"][0]['fechanacimiento'], 'yyyy-MM-dd'));
 			this.form_guardar.get("fechainscripcion").setValue(datepipe.transform(this.global["Nino_DG"][0]['fechainscripcion'], 'yyyy-MM-dd'));
 			
@@ -237,6 +237,22 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 		if (this.webcamImage != null) {
 			this.form_guardar.get("foto").setValue(this.webcamImage.imageAsBase64);
 		}
+
+		this.datos_miembro = {
+			miembroID : this.form_guardar.value.miembroID,
+			estado : this.form_guardar.value.estado,
+			tipo : "niño",
+			sede: this.form_guardar.value.sede
+		}
+
+		this.http.put(this.url + "miembro/" + this.form_guardar.value.miembroID, this.datos_miembro).subscribe(data  => {
+			console.log("Miembro actualizado, guardando datos generales ...");
+		},
+		error  => {
+			this.mostrar_alert("Ocurrió un error al guardar los datos, vuelve a intentarlo", "danger", 5000, null);
+			console.log(error);
+		});
+
 		
 		this.http.put(this.url + "Nino_DG1/" + this.form_guardar.value.miembroID, this.form_guardar.value).subscribe(data  => {
 			spinner.setAttribute("hidden", "true");
@@ -245,7 +261,7 @@ export class DatosGeneralesComponent  implements OnInit, OnChanges {
 			window.scroll(0,0);
 
 			this.form_guardar.enable();
-			this.mostrar_alert("Se guardó correctamente", "success", 15000, null);
+			this.mostrar_alert("Se guardó correctamente", "success", 4000, null);
 
 			if(this.agregar_o_modificar == "nuevo"){
 				document.getElementById("btn_modal_miembroID").click();	

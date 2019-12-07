@@ -52,16 +52,20 @@ export class ContenedorNinosComponent implements OnInit {
 		this.agregar_o_modificar = event.target.value;
 
 		var eleccion = document.getElementById("btn_buscar");
+		var caja_modificar_miembroID =  document.getElementById("miembroID");
 
 		if (this.agregar_o_modificar == "nuevo"){
 			this.limpiar_form_buscar();
 			this.global = null;
 
 			eleccion.setAttribute("disabled", "true");
+			caja_modificar_miembroID.setAttribute("disabled", "true");
 		}
 		else if(this.agregar_o_modificar == "modificar"){
 			eleccion.removeAttribute("disabled");
 			eleccion.setAttribute("enable", "true");
+			caja_modificar_miembroID.removeAttribute("disabled");
+			caja_modificar_miembroID.setAttribute("enable", "true");
 
 			this.limpiar_form_buscar();
 			this.global = null;

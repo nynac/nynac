@@ -47,26 +47,26 @@ export class AgregarMiembroComponent implements OnInit {
 			nombre : [null, Validators.required],
 			apellido_paterno : ['', Validators.required],
 			apellido_materno : ['', ],
-			fecha_nacimiento : ['', ],
+			fecha_nacimiento : ['', Validators.required],
 			telefono_particular : ['', ],
 			celular : ['', ],
-			correo : ['', Validators.email],
-			domcalle : ['', ],
-			domcolonia : ['', ],
-			domcodpost : ['', ],
-			domdelegacion : ['', ],
-			dommunicipio : ['', ],
-			escuela : ['', ],
-			semestre : ['', ],
-			tipo : ['', ],
+			correo : ['',[ Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+			domcalle : ['', Validators.required],
+			domcolonia : ['', Validators.required],
+			domcodpost : ['', Validators.required],
+			domdelegacion : ['', Validators.required],
+			dommunicipio : ['', Validators.required],
+			escuela : ['', Validators.required],
+			semestre : ['', Validators.required],
+			tipo : ['', Validators.required],
 			otro_estudio : ['', ],
 			idiomas : ['', ],
-			padece_enfermedad : ['', ],
-			cual_enfermedad : ['', ],
+			padece_enfermedad : [''],
+			cual_enfermedad : ['', Validators.required],
 			alergias : ['', ],
-			comunicarnos_con : ['', ],
-			telefono_emergencia : ['', ],
-			parentesco_emergencia : ['', ],
+			comunicarnos_con : ['', Validators.required],
+			telefono_emergencia : ['', Validators.required],
+			parentesco_emergencia : ['', Validators.required],
 			experiencia_voluntario : ['', ],
 			donde_experiencia : ['', ],
 			tratado_ninos : ['', ],
@@ -97,6 +97,8 @@ export class AgregarMiembroComponent implements OnInit {
 			this.form_guardar.get('idStaff').setValue(resultado + 1);
 			this.form_guardar.get('miembroID').setValue(resultado + 1);
 
+			window.scroll(0,0);
+
 			if(this.form_guardar.invalid){
 				console.log("formulario invalido");
 				this.submitted2 = true;
@@ -110,7 +112,6 @@ export class AgregarMiembroComponent implements OnInit {
 	}
 
 	guardar_miembro(){
-		window.scroll(0,0);
 		this.datos_miembro = {
 			miembroID : this.form_guardar.value.miembroID,
 			estado : this.form_guardar.value.estado,
