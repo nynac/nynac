@@ -66,7 +66,7 @@ export class AgendaComponent implements OnInit {
       start: ['',Validators.required],
       end: [''],
       ubicacion: [''],
-      email: [''],
+      email: ['',[Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       usuarioID: [this.miembroID],
       color: ['#ffffff'],
       sede:[localStorage.getItem("sede")],
