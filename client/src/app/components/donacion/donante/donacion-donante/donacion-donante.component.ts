@@ -78,7 +78,7 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
       apellidos: ['', Validators.required],
       nombrefiscal: ['', Validators.required],
       status: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]], 
       tipodonante: ['', Validators.required],
       fechanacimiento: [''],
       edad: [''],
