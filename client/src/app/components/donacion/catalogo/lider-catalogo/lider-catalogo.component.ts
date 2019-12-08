@@ -77,6 +77,7 @@ export class LiderCatalogoComponent implements OnInit {
       },
         error => {
           spinner_buscar.setAttribute("hidden", "true");
+          alert("Error.");
           console.log("Error", error)
         });
     }
@@ -139,6 +140,7 @@ export class LiderCatalogoComponent implements OnInit {
     },
       error => {
         spinner_agregar.setAttribute("hidden", "true");
+        alert("Error.");
         console.log("Error", error);
       });
   }
@@ -155,6 +157,7 @@ export class LiderCatalogoComponent implements OnInit {
     },
       error => {
         spinner_agregar.setAttribute("hidden", "true");
+        alert("Error.");
         console.log("Error", error);
       });
   }
@@ -206,6 +209,7 @@ export class LiderCatalogoComponent implements OnInit {
         this.get_nuevo_lider();
       },
         error => {
+          alert("Error.");
           console.log("Error", error)
         });
     }

@@ -15,6 +15,7 @@ export class DireccionDonanteComponent implements OnInit, OnChanges {
     if (this.form_buscar !== undefined) {
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
       this.buscar_direccion();
+      this.traer_donante();
     }
   }
   
@@ -42,6 +43,10 @@ form_agregar: FormGroup;
 //validacion
 submit_buscar = false;
 submit_agregar = false;
+//alert
+visible: boolean=false;
+mensaje: string;
+tipo:any;
 
 url = "https://api-remota.conveyor.cloud/api/";
 
@@ -85,6 +90,8 @@ ngOnInit() {
     pais3 :[''],			
     estado3 :[''],		
     municipio3:[''],	
+    nombre_donante:[''],
+    nombre_Fiscal:[''],
   })
 }
 
@@ -96,6 +103,34 @@ get f_B() {
 //controls Agregar
 get f_A() {
   return this.form_agregar.controls;
+}
+
+traer_donante(){
+  var response = this.http.get(this.url + "get/nombre?RDonID=" + this.form_buscar.value.buscarID);
+    response.subscribe((data: any[]) => {
+      this.resultado = data;
+      this.form_agregar.get('nombre_Fiscal').setValue(this.resultado[0].nombrefiscal);
+      this.form_agregar.get('nombre_donante').setValue(this.resultado[0].nombres);
+    },
+    error => {
+      console.log("Error", error)
+    });
+}
+
+mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
+  this.visible = true;
+  this.mensaje = msg;
+  this.tipo = tipo;
+
+  setTimeout(() => { 
+    this.cerrar_alert();
+  }, duracion
+  );
+}
+cerrar_alert(){
+  this.visible = false;
+  this.mensaje = null;
+  this.tipo = null;
 }
 
 buscar_direccion() {
@@ -143,9 +178,11 @@ buscar_direccion() {
       this.form_agregar.get('estado3').setValue(this.resultado.estado3);
       this.form_agregar.get('municipio3').setValue(this.resultado.municipio3);
       spinner_buscar_direccion.setAttribute("hidden", "true");
+      this.mostrar_alert("Busqueda existosa.", 'primary', 5000, null);
     },
       error => {
         spinner_buscar_direccion.setAttribute("hidden", "true");
+        this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
         console.log("Error", error)
       });
   }
@@ -158,10 +195,12 @@ modificar_direccion() {
   //Update mediante el id y los campos de agregar
   this.http.put(this.url + "DireccionDonante/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
     spinner_agregar_direccion.setAttribute("hidden", "true");
-    alert("DireccionDonante Modificado");
+    
+    this.mostrar_alert("Direccion modificada.", 'primary', 5000, null);
   },
     error => {
       spinner_agregar_direccion.setAttribute("hidden", "true");
+      this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
       console.log("Error", error);
     });
 }

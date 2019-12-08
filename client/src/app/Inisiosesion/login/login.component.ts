@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
 
   resultado: any;
 
-  constructor(private Userservice: MyserviceService, private router: Router, private http: HttpClient, ) { }
+  constructor(private Userservice: MyserviceService, private router: Router, private http: HttpClient, ) {
+    this.verificacion_sesion();
+   }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -41,8 +43,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.form_enviar_correo = new FormGroup({
-      correo: new FormControl('', [ Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
-      
+      correo: new FormControl('', [Validators.required]),
     });
   }
 
@@ -51,6 +52,22 @@ export class LoginComponent implements OnInit {
   }
   get f2() {
     return this.form.controls;
+  }
+
+  verificacion_sesion(){
+    if (localStorage.getItem("miembroID") == undefined || localStorage.getItem('miembroID') == null || localStorage.getItem('puesto') == undefined || localStorage.getItem('puesto') == null ) {
+      return;
+    } else if (localStorage.getItem("puesto") == "Administrador") {
+      this.router.navigate(['']);
+    } else if (localStorage.getItem("puesto") == "Recepcion") {
+      this.router.navigate(['recepcion/entradas-salidas']);
+    } else if (localStorage.getItem("puesto") == "Desarrollo Institucional") {
+      this.router.navigate(['/donacion/agregar-donante']);
+    } else if (localStorage.getItem("puesto") == "Desarrollo Humano") {
+      this.router.navigate(['/desarrollo_humano']);
+    } else if (localStorage.getItem("puesto") == "Coordinacion Operativa") {
+      this.router.navigate(['/coordinacion_operativa']);
+    }
   }
 
   correo_valido() {
@@ -131,7 +148,8 @@ export class LoginComponent implements OnInit {
       }
     },
     error => {
-      this.errmsg = 'Error en la conexion';
+      this.errmsg = 'Favor de ingresar un numero de miembro correcto.(Numerico)';
+      spinner_login.setAttribute("hidden", "true");
       console.log("Error", error)
     });
 

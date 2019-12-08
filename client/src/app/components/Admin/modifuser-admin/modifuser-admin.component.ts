@@ -35,7 +35,7 @@ export class ModifuserAdminComponent implements OnInit {
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
       contrasena: ['', Validators.required],
-      correo: [],
+      correo: ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       puesto: ['', Validators.required],
       tel1: [],
       tel2: [],
@@ -71,7 +71,7 @@ export class ModifuserAdminComponent implements OnInit {
     //select mediante el id
     var response = this.http.get(this.url
       + "usuario/buscador?Rsede=" + this.form_config.value.sede
-      + "&rmiembroid=0&Rstatus=null&Rnacionalidad=null&Restado=null&Rnombre=null&Rpuesto=null"
+      + "&rmiembroid=0&Rstatus=false&Rnacionalidad=null&Restado=null&Rnombre=null&Rpuesto=null"
     );
     response.subscribe((data: any[]) => {
       this.resultado = data;
@@ -87,7 +87,7 @@ export class ModifuserAdminComponent implements OnInit {
     var response = this.http.get(this.url
       + "usuario/buscador?Rsede=" + this.form_config.value.sede
       + "&rmiembroid=" + id
-      + "&Rstatus=null&Rnacionalidad=null&Restado=null&Rnombre=null&Rpuesto=null"
+      + "&Rstatus=false&Rnacionalidad=null&Restado=null&Rnombre=null&Rpuesto=null"
     );
     response.subscribe((data: any[]) => {
       this.arreglo = data;
@@ -111,14 +111,18 @@ export class ModifuserAdminComponent implements OnInit {
   }
 
   modificar() {
+    
     this.submit_info = false;
+    var orig = this.form_config.value.contrasena;
+    this.form_config.get('contrasena').setValue(orig.trim());
+    orig = this.form_config.value.contrasena;
+
     //verifica formularío
-    if (this.form_config.invalid) {
-      alert('Favor de seleccionar un usuario de la tabla o llenar los campos requeridos para su modificación.');
+    if (this.form_config.invalid || orig.length <= 3) {
+      alert('Favor de seleccionar un usuario de la tabla o llenar los campos requeridos para su modificación(contraseña min. 3 letras).');
       this.submit_info = true;
       return;
     }
-    console.log(this.form_config.value.status);
     var spinner_modificar = document.getElementById("spinner_modificar");
     spinner_modificar.removeAttribute("hidden");
     this.modificar_miembro();

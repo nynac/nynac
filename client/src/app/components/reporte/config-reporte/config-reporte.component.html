@@ -20,7 +20,7 @@
             
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
-                <span style="margin-right: 10px">Nombres:</span>
+                <span style="margin-right: 10px">Nombre(s):</span>
                 <input type="text" formControlName="nombre" class="form-control" placeholder="nombre"
                     [ngClass]="{ 'is-invalid': submit_config && f_A.nombre.errors }" autocomplete="off">
             </div>
@@ -44,7 +44,12 @@
                 <input type="checkbox" (click)="heiden_pass()" style="margin-right: 10px;" id="see" name="see">
                 <label for="see">Mostrar Contraseña</label>
             </div>    
-            
+            <div class="col-12" *ngIf="form_config.controls['contrasena'].dirty && form_config.controls['contrasena'].invalid">
+                <div class="alert alert-danger" *ngIf="form_config.controls['contrasena'].dirty && form_config.controls['contrasena'].invalid">
+                        <div *ngIf="form_config.controls['contrasena'].hasError('required')">Contraseña requerida</div>
+                        <div *ngIf="form_config.controls['contrasena'].hasError('minlength')">Contraseña minima de 3 digitos.</div>
+                    </div>
+                </div>
             <div class="col-12"></div>
             
             <div class="col-2"></div>

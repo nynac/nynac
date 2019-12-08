@@ -16,6 +16,9 @@
 </form>
 <div class="dropdown-divider"></div>
 <form [formGroup]="form_agregar" (ngSubmit)="modificar_telefono()">
+        <div style="margin: 0px 30px 0px 15px;" class="text-center">
+				<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+			</div>
     <!-- INICIO ROW #1 -->
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
@@ -23,8 +26,17 @@
             <label for="donacionID" style="margin-right: 10px">ID Donante</label>
             <input type="number" formControlName="donacionID" class="form-control" readonly
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }">
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-divider"></div>
+        </div>
+        
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="nombre_donante" style="margin-right: 10px">Donante</label>
+            <input type="text" formControlName="nombre_donante" class="form-control" readonly
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.nombre_donante.errors }" >            
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="nombre_Fiscal" style="margin-right: 10px">Nombre Fiscal</label>
+            <input type="text" formControlName="nombre_Fiscal" class="form-control" readonly
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.nombre_Fiscal.errors }" >            
         </div>
         <div class="col-12 font-weight-bold">
             <div class="dropdown-divider"></div>

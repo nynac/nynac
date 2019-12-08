@@ -31,10 +31,10 @@ tipo:number=0;
 		this.form_config = this.formBuilder.group({
       usuarioID: [],
       miembroID: [localStorage.getItem("miembroID")],
-      nombre: [],
-      apellidos: [],
-      contrasena: [],
-      correo: [],
+      nombre: ['',Validators.required],
+      apellidos: ['',Validators.required],
+      contrasena: ['', [Validators.required, Validators.minLength(3)]],
+      correo: ['',[Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       puesto: [],
       tel1: [],
       tel2: [],
@@ -46,6 +46,11 @@ tipo:number=0;
     this.buscar_usuario()
 
   }
+
+  //controls Agregar
+  get f_A() { 
+    return this.form_config.controls;
+  }
   heiden_pass() {
     var pass = document.getElementById("pass");
     if (this.tipo === 0) {
@@ -56,17 +61,10 @@ tipo:number=0;
       this.tipo=0;
     }
   }  
-  //controls Agregar
-  get f_A() { 
-    return this.form_config.controls;
-  }
 
 	buscar_usuario(){
 	  this.submit_config = true;
-   if (this.form_config.invalid) {
-     return;
-   }
-   else {
+  
      //select mediante el id
      console.log(this.form_config.value.miembroID);
       var response = this.http.get(this.url + "Usuario/id?id=" + this.form_config.value.miembroID);
@@ -90,15 +88,23 @@ tipo:number=0;
        this.form_config.get('fechanacimiento').setValue(this.resultado[0].fechanacimiento);
        this.form_config.get('nacionalidad').setValue(this.resultado[0].nacionalidad);
        this.form_config.get('estado').setValue(this.resultado[0].estado);
-       console.log(this.form_config.value.miembroID);
      },
        error => {
          console.log("Error", error)
        });
-   }
+   
   }
   
   configuracion() {
+    var orig = this.form_config.value.contrasena;
+    this.form_config.get('contrasena').setValue(orig.trim());
+    orig = this.form_config.value.contrasena;
+    //verifica formularío
+    if (this.form_config.invalid || orig.length <= 3 ) {
+      alert("Favor de llenar los campos requeridos e ingresar una contraseña de minimo 3 letras.");
+      this.submit_config = true;
+      return;
+    }
     var spinner_config = document.getElementById("spinner_config");
     spinner_config.removeAttribute("hidden");
 

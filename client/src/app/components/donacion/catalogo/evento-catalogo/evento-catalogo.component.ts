@@ -88,6 +88,7 @@ export class EventoCatalogoComponent implements OnInit {
       },
         error => {
           spinner_buscar_evento.setAttribute("hidden", "true");
+          alert("Error.");
           console.log("Error", error)
         });
     }
@@ -152,6 +153,7 @@ export class EventoCatalogoComponent implements OnInit {
     },
       error => {
         spinner_agregar.setAttribute("hidden", "true");
+        alert("Error.");
         console.log("Error", error);
       });
   }
@@ -168,6 +170,7 @@ export class EventoCatalogoComponent implements OnInit {
     },
       error => {
         spinner_agregar.setAttribute("hidden", "true");
+        alert("Error.");
         console.log("Error", error);
       });
   }

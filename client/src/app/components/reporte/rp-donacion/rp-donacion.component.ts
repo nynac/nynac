@@ -81,6 +81,10 @@ export class RpDonacionComponent implements OnInit {
 
   //crear excel
   exportAsXLSX(): void {
+    if (this.contador==0){
+      alert("No hay registros.");
+      return;
+    }
     var excel = [];
 
     var spinner_excel = document.getElementById("spinner_excel");
@@ -120,6 +124,10 @@ export class RpDonacionComponent implements OnInit {
 
   //crear pdf
   captureScreen() {
+    if (this.contador==0){
+      alert("No hay registros.");
+      return;
+    }
     var spinner_buscar_evento = document.getElementById("spinner_pdf");
     spinner_buscar_evento.removeAttribute("hidden");
 
@@ -252,6 +260,7 @@ export class RpDonacionComponent implements OnInit {
       + "&RMunicipio=" + this.form_report.value.municipio
       + "&Rsede="+this.form_report.value.sede
     );
+
 
     response.subscribe((data: any[]) => {
       this.informe = data;

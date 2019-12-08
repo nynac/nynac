@@ -77,7 +77,6 @@ export class AgendaReporteComponent implements OnInit {
     this.get_calendario();
 
   }
-
   
 //controls Buscar
 get f_B() {
@@ -149,6 +148,7 @@ get f_B() {
       }
     },
       error => {
+        alert("error");
         console.log("Error", error)
       });
   }
@@ -168,6 +168,7 @@ get f_B() {
         this.get_calendario();
       },
         error => {
+          alert("error");
           console.log("Error", error)
         });
     }
@@ -209,6 +210,7 @@ get f_B() {
       this.get_calendario();
     },
       error => {
+        alert("error");
         console.log("Error", error);
       });
   }
@@ -221,6 +223,7 @@ get f_B() {
       this.get_calendario();
     },
       error => {
+        alert("error");
         console.log("Error", error);
       });
   }

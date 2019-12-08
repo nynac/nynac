@@ -148,7 +148,8 @@ get f_B() {
         this.agregar_o_modificar = 'modificar';
       }
     },
-      error => {
+      error => {    
+        alert("Error.");
         console.log("Error", error)
       });
   }
@@ -168,6 +169,7 @@ get f_B() {
         this.get_calendario();
       },
         error => {
+          alert("Error.");
           console.log("Error", error)
         });
     }
@@ -209,6 +211,7 @@ get f_B() {
       this.get_calendario();
     },
       error => {
+        alert("Error.");
         console.log("Error", error);
       });
   }
@@ -221,6 +224,7 @@ get f_B() {
       this.get_calendario();
     },
       error => {
+        alert("Error.");
         console.log("Error", error);
       });
   }

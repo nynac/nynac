@@ -64,6 +64,10 @@ export class RpIncidenciaComponent implements OnInit {
 
   //crear excel
   exportAsXLSX(): void {
+    if (this.contador==0){
+      alert("No hay registros.");
+      return;
+    }
     var excel = [];
 
     var spinner_excel = document.getElementById("spinner_excel");
@@ -97,6 +101,10 @@ export class RpIncidenciaComponent implements OnInit {
 
   //crear pdf
   public captureScreen() {
+    if (this.contador==0){
+      alert("No hay registros.");
+      return;
+    }
     var spinner_buscar_evento = document.getElementById("spinner_pdf");
     spinner_buscar_evento.removeAttribute("hidden");
 

@@ -18,6 +18,7 @@ export class ContactoDonanteComponent implements OnInit, OnChanges {
     if (this.form_buscar !== undefined) {
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
       this.buscar_contacto();
+      this.traer_donante();
     }
   }
   
@@ -43,6 +44,10 @@ cambiar_valor_Padre(){
   //validacion
   submit_buscar = false;
   submit_agregar = false;
+  //alert
+  visible: boolean=false;
+  mensaje: string;
+  tipo:any;
 
   url = "https://api-remota.conveyor.cloud/api/";
 
@@ -71,7 +76,7 @@ cambiar_valor_Padre(){
       pais1: ['', Validators.required],
       estado1: ['', Validators.required],
       municipio1: ['', Validators.required],
-      email1: ['', Validators.required],
+      email1: ['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       fechanacimiento1: [''],
       telefono1: ['',],
       lada1: [''],
@@ -88,11 +93,13 @@ cambiar_valor_Padre(){
       pais2: [''],
       estado2: [''],
       municipio2: [''],
-      email2: [''],
+      email2: ['',[Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       fechanacimiento2: [''],
       telefono2: [''],
       lada2: [''],
       observacion2: [''],
+      nombre_donante:[''],
+      nombre_Fiscal:[''],
     })
   }
 
@@ -106,15 +113,38 @@ cambiar_valor_Padre(){
     return this.form_agregar.controls;
   }
 
+  traer_donante(){
+    var response = this.http.get(this.url + "get/nombre?RDonID=" + this.form_buscar.value.buscarID);
+      response.subscribe((data: any[]) => {
+        this.resultado = data;
+        this.form_agregar.get('nombre_Fiscal').setValue(this.resultado[0].nombrefiscal);
+        this.form_agregar.get('nombre_donante').setValue(this.resultado[0].nombres);
+      },
+      error => {
+        console.log("Error", error)
+      });
+  }
+
+  mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
+		this.visible = true;
+		this.mensaje = msg;
+		this.tipo = tipo;
+
+		setTimeout(() => { 
+			this.cerrar_alert();
+		}, duracion
+		);
+  }
+  cerrar_alert(){
+		this.visible = false;
+		this.mensaje = null;
+		this.tipo = null;
+  }
+  
   buscar_contacto() {
     //spinner
     var spinner_buscar_contacto = document.getElementById("spinner_buscar_contacto");
     this.submit_buscar = true;
-
-    if (this.form_buscar.invalid) {
-      return;
-    }
-    else {
       spinner_buscar_contacto.removeAttribute("hidden");
       //select mediante el id
       var response = this.http.get(this.url + "Contacto/" + this.form_buscar.value.buscarID);
@@ -161,24 +191,34 @@ cambiar_valor_Padre(){
         this.form_agregar.get('lada2').setValue(this.resultado.lada2);
         this.form_agregar.get('observacion2').setValue(this.resultado.observacion2);
         spinner_buscar_contacto.setAttribute("hidden", "true");
+        this.mostrar_alert("Busqueda existosa.", 'primary', 5000, null);
       },
         error => {
+        this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
           spinner_buscar_contacto.setAttribute("hidden", "true");
           console.log("Error", error)
         });
-    }
+   
   }
+
   modificar_evento() {
+    this.submit_agregar = false;
+    if (this.form_agregar.invalid) {
+      this.submit_agregar = true;
+      alert('Error.');
+      return;
+    }
     var spinner_agregar_fdonante = document.getElementById("spinner_agregar_fdonante");
     spinner_agregar_fdonante.removeAttribute("hidden");
-
     //Update mediante el id y los campos de agregar
     this.http.put(this.url + "Contacto/" + this.form_agregar.value.donacionID, this.form_agregar.value).subscribe(data => {
       spinner_agregar_fdonante.setAttribute("hidden", "true");
-      alert("Contacto Modificado");
+      
+        this.mostrar_alert("Contacto modificado.", 'primary', 5000, null);
     },
       error => {
         spinner_agregar_fdonante.setAttribute("hidden", "true");
+        this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
         console.log("Error", error);
       });
   }

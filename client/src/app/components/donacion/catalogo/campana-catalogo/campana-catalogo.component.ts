@@ -95,6 +95,7 @@ agregar_o_modificar: string = 'nuevo';
      },
        error => {
          spinner_buscar_campana.setAttribute("hidden", "true");
+         alert("Error.");
          console.log("Error", error)
        });
    }
@@ -158,6 +159,7 @@ agregar_o_modificar: string = 'nuevo';
   },
     error => {
       spinner_agregar_campana.setAttribute("hidden", "true");
+      alert("Error.");
       console.log("Error", error);
     });
   }
@@ -175,6 +177,7 @@ agregar_o_modificar: string = 'nuevo';
     },
       error => {
         spinner_agregar_campana.setAttribute("hidden", "true");
+        alert("Error.");
         console.log("Error", error);
       });
   }

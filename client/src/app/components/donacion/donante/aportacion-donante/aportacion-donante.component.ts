@@ -33,13 +33,15 @@ export class AportacionDonanteComponent implements OnInit {
   //validacion
   submit_buscar = false;
   submit_agregar = false;
+  //alert
+  visible: boolean=false;
+  mensaje: string;
+  tipo:any;
 
   url = "https://api-remota.conveyor.cloud/api/";
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {
     this.get_Fdonacion();
-    this.get_nuevo_Fdonacion();
-    console.log(this.estado_radio);
   }
 
   ngOnInit() {
@@ -65,6 +67,8 @@ export class AportacionDonanteComponent implements OnInit {
       ultimopago: [''],
       observacion: [''],
       sede: [localStorage.getItem("sede"), Validators.required],
+      nombre_donante:[''],
+      nombre_Fiscal:[''],
     })
   }
 
@@ -76,7 +80,33 @@ export class AportacionDonanteComponent implements OnInit {
   get f_A() {
     return this.form_agregar.controls;
   }
+  
+  mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
+		this.visible = true;
+		this.mensaje = msg;
+		this.tipo = tipo;
 
+		setTimeout(() => { 
+			this.cerrar_alert();
+		}, duracion
+		);
+  }
+  cerrar_alert(){
+		this.visible = false;
+		this.mensaje = null;
+		this.tipo = null;
+  }
+  traer_donante(){
+    var response = this.http.get(this.url + "get/nombre?RDonID=" + this.form_agregar.value.donacionID);
+      response.subscribe((data: any[]) => {
+        this.resultado = data;
+        this.form_agregar.get('nombre_Fiscal').setValue(this.resultado[0].nombrefiscal);
+        this.form_agregar.get('nombre_donante').setValue(this.resultado[0].nombres);
+      },
+      error => {
+        console.log("Error", error)
+      });
+  }
   opcion_fdonacion() {
     this.submit_agregar = true;
     if (this.form_agregar.invalid) {
@@ -104,8 +134,11 @@ export class AportacionDonanteComponent implements OnInit {
     response.subscribe((data: any[]) => {
       this.arrayFdonacion = data;
       this.form_agregar.get('donacionID').setValue(this.form_buscar.value.buscarID);
+      this.traer_donante();
+      this.mostrar_alert("Busqueda existosa.", 'primary', 5000, null);
     },
       error => {
+        this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
         console.log("Error", error)
       });
   }
@@ -144,9 +177,12 @@ export class AportacionDonanteComponent implements OnInit {
         if (this.focus==true){
           this.focus=false;
           this.agregar_o_modificar='modificar';
-        } 
+        }        
+        this.mostrar_alert("Busqueda existosa.", 'primary', 5000, null);
+      this.traer_donante();
       },
         error => {
+          this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
           console.log("Error", error)
         });
     }
@@ -159,15 +195,17 @@ export class AportacionDonanteComponent implements OnInit {
     spinner_agregar_contacto.removeAttribute("hidden");
     //Donacion
     this.http.post(this.url + "FormaDonacion", this.form_agregar.value).subscribe(data => {
-      alert("Se a registrado la donacion correctamente. ");
-
       spinner_agregar_contacto.setAttribute("hidden", "true");
-
-      this.get_nuevo_Fdonacion();
       this.llenar();
+      this.mostrar_alert("Se a registrado la donacion correctamente.", 'success', 5000, null);
+      if (this.focus==true){
+        this.focus=false;
+        this.agregar_o_modificar='modificar';
+      }        
     },
       error => {
         spinner_agregar_contacto.setAttribute("hidden", "true");
+        this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
         console.log("Error", error);
       });
 
@@ -176,15 +214,15 @@ export class AportacionDonanteComponent implements OnInit {
   modificar_fdonante() {
     var spinner_agregar_contacto = document.getElementById("spinner_agregar_contacto");
     spinner_agregar_contacto.removeAttribute("hidden");
-
     //Update mediante el id y los campos de agregar
     this.http.put(this.url + "FormaDonacion/" + this.form_agregar.value.formadonacionID, this.form_agregar.value).subscribe(data => {
-      spinner_agregar_contacto.setAttribute("hidden", "true");
-      alert("Donacion Modificada");
+      spinner_agregar_contacto.setAttribute("hidden", "true");      
+      this.mostrar_alert("Donacion Modificada.", 'primary', 5000, null);
       this.llenar();
     },
       error => {
         spinner_agregar_contacto.setAttribute("hidden", "true");
+        this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
         console.log("Error", error);
       });
   }
@@ -193,6 +231,7 @@ export class AportacionDonanteComponent implements OnInit {
   clean_Buscar() {
     this.submit_buscar = false;
     this.form_buscar.reset();
+    
   }
 
   //reset agregar
@@ -206,7 +245,11 @@ export class AportacionDonanteComponent implements OnInit {
     if (this.agregar_o_modificar == "nuevo") {
       this.clean_Agregar();
       this.get_nuevo_Fdonacion();
-      this.form_agregar.get('donacionID').setValue(this.form_buscar.value.buscarID);
+      this.form_agregar.get('donacionID').setValue(this.form_buscar.value.buscarID); 
+      if (this.form_agregar.value.donacionID!=0)
+      {
+        this.traer_donante();
+      }     
       //this.get_nuevo_Fdonacion();
       
       this.focus=true;
@@ -214,6 +257,10 @@ export class AportacionDonanteComponent implements OnInit {
     else if (this.agregar_o_modificar == "modificar") {
       this.clean_Agregar();
       this.form_agregar.get('donacionID').setValue(this.form_buscar.value.buscarID);
+      if (this.form_agregar.value.donacionID!=0)
+      {
+        this.traer_donante();
+      }  
       //this.modificar_fdonante();
 
       this.focus=false;
@@ -243,7 +290,7 @@ export class AportacionDonanteComponent implements OnInit {
   cancelar(){
     this.clean_Agregar();
     this.clean_Buscar();
-    this.get_nuevo_Fdonacion();
+    this.traer_donante();
     this.get_Fdonacion();
   }
 }

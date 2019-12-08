@@ -33,16 +33,29 @@
 </form>
 <div class="dropdown-divider"></div>
 <form [formGroup]="form_agregar" (ngSubmit)="opcion_nota()">
+        <div style="margin: 0px 30px 0px 15px;" class="text-center">
+				<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+			</div>
     <!-- INICIO ROW #1 -->
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
-        <div class="col-8 input-group input-group-sm mb-3">
+        <div class="col-4 input-group input-group-sm mb-3">
             <label for="donacionID" style="margin-right: 10px">ID Donante</label>
             <input type="number" formControlName="donacionID" class="form-control" readonly
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }" >
                 <label for="notaID" style="margin-right: 10px">ID Nota</label>
                 <input type="number" formControlName="notaID" class="form-control" readonly
                     [ngClass]="{ 'is-invalid': submit_agregar && f_A.notaID.errors }" >
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="nombre_donante" style="margin-right: 10px">Donante</label>
+            <input type="text" formControlName="nombre_donante" class="form-control" readonly
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.nombre_donante.errors }" >            
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="nombre_Fiscal" style="margin-right: 10px">Nombre Fiscal</label>
+            <input type="text" formControlName="nombre_Fiscal" class="form-control" readonly
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.nombre_Fiscal.errors }" >            
         </div>
         <div class="col-12 font-weight-bold">
             <div class="dropdown-divider"></div>
@@ -64,7 +77,7 @@
                 <option value="Finalizada">Finalizada</option>
             </select>
         </div>
-        <div class="col-3 form-group input-group-sm mb-3" >
+        <div class="col-3 form-group input-group-sm mb-3" style="margin-top: -20px;">
 			<label for="programar" style="padding: 0px; font-size: 13px;">Programar: </label>
 			<input formControlName="programar" placeholder="Programar" type="date" class="form-control"  
 			[ngClass]="{ 'is-invalid': submit_agregar && f_A.programar.errors }" id="programar" data-toggle="tooltip" 

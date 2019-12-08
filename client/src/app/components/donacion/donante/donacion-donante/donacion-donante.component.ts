@@ -49,6 +49,11 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
   submit_buscar = false;
   submit_agregar = false;
 
+  //alert
+  visible: boolean=false;
+  mensaje: string;
+  tipo:any;
+
   url = "https://api-remota.conveyor.cloud/api/";
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {
@@ -101,8 +106,16 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     this.buscar_donante();
   }
 
-  buscar_donante() {
-    
+  calcular_edad(event){
+		var fecha_actual = new Date(Date.now());
+		var fecha_nacimiento = new Date(event.srcElement.value)
+
+		var edad =  fecha_actual.getFullYear() - fecha_nacimiento.getFullYear();
+		this.form_agregar.get('edad').setValue(edad);
+
+	}
+
+  buscar_donante() {    
     // this.get_Lider();
     // this.get_Eventoe();
     // this.get_Campana();
@@ -138,10 +151,13 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
         this.form_agregar.get('observacion').setValue(this.resultado.observacion);
 
         spinner_buscar_donacion.setAttribute("hidden", "true");
-        this.form_buscar.enable();
+        this.form_buscar.enable();        
+        this.mostrar_alert("Busqueda exitosa.", 'primary', 5000, null);
       },
         error => {
           spinner_buscar_donacion.setAttribute("hidden", "true");
+          this.mostrar_alert("Ocurrió un error, Favor de ingresar un id existente.", 'danger', 5000, null);
+          this.form_buscar.enable();  
           console.log("Error", error)
         });
     }
@@ -191,17 +207,33 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
       this.crear_tabla("DireccionDonante", "direcciondonanteID", this.form_agregar.value.donacionID);
       this.crear_tabla("Contacto", "contactoID", this.form_agregar.value.donacionID);
       this.crear_tabla("DFiscal", "datosfiscalesID", this.form_agregar.value.donacionID);
-      alert("Se a registrado los Datos del Donante correctamente.\n ID: " + this.form_agregar.value.donacionID);
+      this.mostrar_alert("Se a registrado los Datos del Donante correctamente.\n ID: " + this.form_agregar.value.donacionID, 'success', 15000, null);
       this.form_buscar.get('buscarID').setValue(this.form_agregar.value.donacionID);
       spinner_agregar_donacion.setAttribute("hidden", "true");
       this.cambiar_valor_Padre();
     },
       error => {
         spinner_agregar_donacion.setAttribute("hidden", "true");
+        this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
         console.log("Error", error);
       });
 
   }
+  mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
+		this.visible = true;
+		this.mensaje = msg;
+		this.tipo = tipo;
+
+		setTimeout(() => { 
+			this.cerrar_alert();
+		}, duracion
+		);
+  }
+  cerrar_alert(){
+		this.visible = false;
+		this.mensaje = null;
+		this.tipo = null;
+	}
 
   crear_tabla(tabla: string, columnaID: string, valorID: number) {
     var datos_aux = JSON.parse('{"' + columnaID + '":' + valorID + ', "donacionID":' + valorID + '}');
@@ -220,10 +252,12 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     //Update mediante el id y los campos de agregar
     this.http.put(this.url + "Donacion/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
       spinner_agregar_donacion.setAttribute("hidden", "true");
-      alert("Donacion Modificado");
+      
+      this.mostrar_alert("Donacion Modificada correctamente.", 'primary', 5000, null);
     },
       error => {
-        spinner_agregar_donacion.setAttribute("hidden", "true");
+        spinner_agregar_donacion.setAttribute("hidden", "true");        
+        this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
         console.log("Error", error);
       });
   }
@@ -267,6 +301,7 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
     this.arrayLideres = data;  
     },
       error => {
+        this.mostrar_alert("Ocurrió un error, Favor de verificar la conexion.", 'danger', 5000, null);
         console.log("Error", error)
       });
   }

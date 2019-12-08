@@ -33,6 +33,9 @@
 </form>
 <div class="dropdown-divider"></div>
 <form [formGroup]="form_agregar" (ngSubmit)="opcion_donante()">
+		<div style="margin: 0px 30px 0px 15px;" class="text-center">
+				<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+			</div>
 	<!-- INICIO ROW #1 -->
 	<div class="dropdown-divider"></div>
 	<div class="row" style="margin: 15px 0px 0px 15px">
@@ -45,7 +48,7 @@
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }">
 		</div>
 		<div class="col-4 input-group input-group-sm mb-3">
-			<span style="margin-right: 10px">Nombres:</span>
+			<span style="margin-right: 10px">Nombre(s):</span>
 			<input type="text" formControlName="nombres" class="form-control" placeholder="Nombres" autocomplete="off"
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.nombres.errors }">
 		</div>
@@ -85,18 +88,18 @@
 				<option value="Individuo">Individuo</option>
 			</select>
 		</div>
-		<div class="col-3 form-group input-group-sm mb-3" >
+		<div class="col-3 form-group input-group-sm mb-3" style="margin-top: -20px;" >
 			<label for="fechanacimiento" style="padding: 0px; font-size: 13px;">Fecha nacimiento: </label>
-			<input formControlName="fechanacimiento" placeholder="Fecha de inscripción" type="date" class="form-control"  
+			<input formControlName="fechanacimiento" placeholder="Fecha de inscripción" type="date" class="form-control"  (change)="calcular_edad($event)"
 			[ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento.errors }" id="fechanacimiento" data-toggle="tooltip" 
 			data-placement="top" title="Fecha de inscripción" style="margin-top: -10px;">
 		</div>
 		<div class="col-2 input-group input-group-sm mb-3">
 			<span style="margin-right: 10px">Edad:</span>
-			<input type="number" formControlName="edad" class="form-control" placeholder="Edad" autocomplete="off"
+			<input type="number" formControlName="edad" class="form-control" placeholder="Edad" autocomplete="off" readonly
 				[ngClass]="{ 'is-invalid': submit_agregar && f_A.edad.errors }">
 		</div>
-		<div class="col-3 form-group input-group-sm mb-3" >
+		<div class="col-3 form-group input-group-sm mb-3" style="margin-top: -20px;">
 			<label for="fechadonacion" style="padding: 0px; font-size: 13px;">Fecha donacion: </label>
 			<input formControlName="fechadonacion" placeholder="Fecha de inscripción" type="date" class="form-control"  
 			[ngClass]="{ 'is-invalid': submit_agregar && f_A.fechadonacion.errors }" id="fechadonacion" data-toggle="tooltip" 

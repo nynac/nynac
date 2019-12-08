@@ -197,6 +197,10 @@ get f_B() {
   
   agregar_agenda() {
     this.get_nuevo_agenda();
+    
+    if (this.form_agregar.value.end > this.form_agregar.value.start){
+      alert("error en fecha ");
+    }
     //verificar la fecha 
     this.http.post(this.url + "Agenda", this.form_agregar.value).subscribe(data => {
       alert("Se a registrado el Evento correctamente. ");

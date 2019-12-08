@@ -14,7 +14,8 @@ export class DFiscalesDonanteComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.form_buscar !== undefined) {
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
-      this.buscar_dfiscales();
+      this.buscar_dfiscales();      
+      this.traer_donante();
     }
   }
   
@@ -40,7 +41,11 @@ form_agregar: FormGroup;
 
 //validacion
 submit_buscar = false;
-submit_agregar = false;
+submit_agregar = false; 
+//alert
+visible: boolean=false;
+mensaje: string;
+tipo:any;
 
 url = "https://api-remota.conveyor.cloud/api/";
 
@@ -67,9 +72,10 @@ ngOnInit() {
     pais 	:['', Validators.required],
     estado:['', Validators.required],
     municipio	:['', Validators.required],
-    email1:[''],
-    email2 :[''],
-
+    email1:['',[Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+    email2 :['',[Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+    nombre_donante:[''],
+    nombre_Fiscal:[''],
   })
 }
 
@@ -82,7 +88,33 @@ get f_B() {
 get f_A() {
   return this.form_agregar.controls;
 }
+mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
+  this.visible = true;
+  this.mensaje = msg;
+  this.tipo = tipo;
 
+  setTimeout(() => { 
+    this.cerrar_alert();
+  }, duracion
+  );
+}
+cerrar_alert(){
+  this.visible = false;
+  this.mensaje = null;
+  this.tipo = null;
+}
+
+traer_donante(){
+  var response = this.http.get(this.url + "get/nombre?RDonID=" + this.form_buscar.value.buscarID);
+    response.subscribe((data: any[]) => {
+      this.resultado = data;
+      this.form_agregar.get('nombre_Fiscal').setValue(this.resultado[0].nombrefiscal);
+      this.form_agregar.get('nombre_donante').setValue(this.resultado[0].nombres);
+    },
+    error => {
+      console.log("Error", error)
+    });
+}
 buscar_dfiscales() {
   //spinner
   var spinner_buscar_dfiscales = document.getElementById("spinner_buscar_dfiscales");
@@ -114,25 +146,35 @@ buscar_dfiscales() {
       this.form_agregar.get('email1').setValue(this.resultado.email1);
       this.form_agregar.get('email2').setValue(this.resultado.email2);
       spinner_buscar_dfiscales.setAttribute("hidden", "true");
+      this.mostrar_alert("Busqueda existosa.", 'primary', 5000, null);
     },
       error => {
         spinner_buscar_dfiscales.setAttribute("hidden", "true");
+        this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
         console.log("Error", error)
       });
   }
 }
 
 modificar_dfiscales() {
+  this.submit_agregar=false;
+  if (this.form_agregar.invalid) {
+    this.submit_agregar=true;
+    alert('Error');
+    return;
+  }
   var spinner_agregar_dfiscales = document.getElementById("spinner_agregar_dfiscales");
   spinner_agregar_dfiscales.removeAttribute("hidden");
 
   //Update mediante el id y los campos de agregar
   this.http.put(this.url + "DFiscal/" + this.form_buscar.value.buscarID, this.form_agregar.value).subscribe(data => {
     spinner_agregar_dfiscales.setAttribute("hidden", "true");
-    alert("Datos Fiscales Modificado");
+    
+    this.mostrar_alert("Datos Fiscales modificados.", 'primary', 5000, null);
   },
     error => {
       spinner_agregar_dfiscales.setAttribute("hidden", "true");
+      this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
       console.log("Error", error);
     });
 }

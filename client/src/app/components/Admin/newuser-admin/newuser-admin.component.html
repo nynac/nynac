@@ -18,7 +18,7 @@
                 <div class="col-1 custom-control custom-checkbox" style="margin: 0px 0px 0px 10px;">
                     <input type="checkbox" id="status" formControlName="status" class="custom-control-input"
                         [ngClass]="{ 'is-invalid': submit_config && f_A.status.errors}" />
-                    <label class="custom-control-label" for="status">Estado&nbsp;</label>
+                    <label class="custom-control-label" for="status">Status&nbsp;</label>
                 </div>
             </div>    
             <div class="col-3 input-group input-group-sm mb-3">
@@ -29,7 +29,7 @@
             <div class="col-12"></div>
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
-                <span style="margin-right: 10px">Nombres:</span>
+                <span style="margin-right: 10px">Nombre(s):</span>
                 <input type="text" formControlName="nombre" class="form-control" placeholder="nombre"
                     [ngClass]="{ 'is-invalid': submit_config && f_A.nombre.errors }" autocomplete="off">
             </div>
@@ -47,11 +47,18 @@
                 <span style="margin-right: 10px">Contraseña:</span>
                 <input type="password" formControlName="contrasena" class="form-control" id="pass" name="pass"
                     [ngClass]="{ 'is-invalid': submit_config && f_A.contrasena.errors }" autocomplete="off">
-            </div>
+            </div>           
             <div class="input-group-sm mb-3">
                 <input type="checkbox" (click)="heiden_pass()" style="margin-right: 10px;" id="see" name="see">
                 <label for="see">Mostrar Contraseña</label>
             </div>
+            <div class="col-12" *ngIf="form_config.controls['contrasena'].dirty && form_config.controls['contrasena'].invalid">
+            <div class="alert alert-danger" *ngIf="form_config.controls['contrasena'].dirty && form_config.controls['contrasena'].invalid">
+                    <div *ngIf="form_config.controls['contrasena'].hasError('required')">Contraseña requerida</div>
+                    <div *ngIf="form_config.controls['contrasena'].hasError('minlength')">Contraseña minima de 3 digitos.</div>
+                </div>
+            </div>
+                
             <div class="col-12"></div>
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
@@ -59,6 +66,7 @@
                 <select formControlName="puesto" class="custom-select" id="puesto"
                     [ngClass]="{ 'is-invalid': submit_config && f_A.puesto.errors }">
                     <option selected disabled>Puestos: </option>
+                    <option value="Administrador">Administrador</option>
                     <option value="Recepcion">Recepcion</option>
                     <option value="Coordinacion Operativa">Coordinacion Operativa</option>
                     <option value="Desarrollo Institucional">Desarrollo Institucional</option>
@@ -92,7 +100,7 @@
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
                 <span style="margin-right: 10px">Correo:</span>
-                <input type="text" formControlName="correo" class="form-control" placeholder="correo"
+                <input type="email" formControlName="correo" class="form-control" placeholder="correo"
                     [ngClass]="{ 'is-invalid': submit_config && f_A.correo.errors }" autocomplete="off">
             </div>
             <div class="col-12"></div>
@@ -118,8 +126,8 @@
 
             <div class="col-2"></div>
             <div class="col-8 input-group input-group-sm mb-3">
-                <span style="margin-right: 10px">Estado:</span>
-                <input type="text" formControlName="estado" class="form-control" placeholder="estado"
+                <span style="margin-right: 10px">Municipio:</span>
+                <input type="text" formControlName="estado" class="form-control" placeholder="Municipio"
                     [ngClass]="{ 'is-invalid': submit_config && f_A.estado.errors }" autocomplete="off">
             </div>
         </div>

@@ -22,6 +22,7 @@ export class NotaDonanteComponent implements OnInit, OnChanges {
       this.form_buscar.get('buscarID').setValue(this.gl_donante);
       this.form_agregar.get('donacionID').setValue(this.gl_donante);
       this.get_nota();   
+      this.traer_donante();
       if (this.focus==true){
         this.focus=false;
         this.agregar_o_modificar='modificar';
@@ -54,6 +55,10 @@ form_agregar : FormGroup;
 //validacion 
 submit_buscar = false;
 submit_agregar= false;
+ //alert
+ visible: boolean=false;
+ mensaje: string;
+ tipo:any;
 
 url = "https://api-remota.conveyor.cloud/api/";
 
@@ -74,6 +79,8 @@ this.form_agregar = this.formBuilder.group({
   statusnota :['',Validators.required],	
   programar :[''],	
   responsable :['',Validators.required],
+  nombre_donante:[''],
+  nombre_Fiscal:[''],
 })
 }
 
@@ -84,6 +91,32 @@ return this.form_buscar.controls;
 //controls Agregar
 get f_A() {
 return this.form_agregar.controls;
+}
+mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
+  this.visible = true;
+  this.mensaje = msg;
+  this.tipo = tipo;
+
+  setTimeout(() => { 
+    this.cerrar_alert();
+  }, duracion
+  );
+}
+cerrar_alert(){
+  this.visible = false;
+  this.mensaje = null;
+  this.tipo = null;
+}
+traer_donante(){
+  var response = this.http.get(this.url + "get/nombre?RDonID=" + this.form_buscar.value.buscarID);
+    response.subscribe((data: any[]) => {
+      this.resultado = data;
+      this.form_agregar.get('nombre_Fiscal').setValue(this.resultado[0].nombrefiscal);
+      this.form_agregar.get('nombre_donante').setValue(this.resultado[0].nombres);
+    },
+    error => {
+      console.log("Error", error)
+    });
 }
 opcion_nota() {
   this.submit_agregar = true;
@@ -130,6 +163,8 @@ buscar_nota(id: any) {
         } 
       },
         error => {
+          
+        this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
           console.log("Error", error)
         });
 }
@@ -147,9 +182,12 @@ agregar_nota() {
 this.clean_Agregar();
     this.get_nuevo_nota();
     this.get_nota();
+    
+    this.mostrar_alert("Registro exitoso de Nota.", 'success', 5000, null);
   },
     error => {
-      spinner_agregar_nota.setAttribute("hidden", "true");
+      spinner_agregar_nota.setAttribute("hidden", "true");      
+      this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
       console.log("Error", error);
     });
 }
@@ -160,11 +198,13 @@ modificar_nota() {
 
   this.http.put(this.url + "NotasDonantes/" + this.form_agregar.value.notaID, this.form_agregar.value).subscribe(data => {
     spinner_agregar_nota.setAttribute("hidden", "true");
-    alert("Nota Modificada");
+    
+    this.mostrar_alert("Modificacion Exitosa.", 'primary', 5000, null);
     this.get_nota();
   },
     error => {
       spinner_agregar_nota.setAttribute("hidden", "true");
+      this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
       console.log("Error", error);
     });
 }
@@ -187,12 +227,15 @@ radioChange(event: any){
     this.clean_Agregar();
     this.get_nuevo_nota();
     this.form_agregar.get('donacionID').setValue(this.gl_donante);
+        
+    this.traer_donante();
     this.focus=true;
   }
   else if(this.agregar_o_modificar == "modificar"){ 
     this.clean_Agregar();   
     this.focus=false;
-    this.form_agregar.get('donacionID').setValue(this.gl_donante);
+    this.form_agregar.get('donacionID').setValue(this.gl_donante);    
+    this.traer_donante();
   }
 }
 //hacer metodo get ultimo y traer por id
@@ -210,8 +253,10 @@ get_nota(){
   var response = this.http.get(this.url + "Nota/notaespecifica?id="+this.form_buscar.value.buscarID);
   response.subscribe((data: any[]) => {
     this.arraynota = data;
+    this.mostrar_alert("Busqueda existosa.", 'primary', 5000, null);
   },
     error => {
+      this.mostrar_alert("Ocurrió un error, Favor de llenar los campos correctamente.", 'danger', 5000, null);
       console.log("Error", error)
     });
 }

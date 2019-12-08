@@ -16,14 +16,26 @@
 </form>
 <div class="dropdown-divider"></div>
 <form [formGroup]="form_agregar" (ngSubmit)="modificar_evento()">
+        <div style="margin: 0px 30px 0px 15px;" class="text-center">
+				<ngb-alert *ngIf="visible==true" (close)="cerrar_alert()" type="{{tipo}}">{{mensaje}}</ngb-alert>
+			</div>
     <!-- INICIO ROW #1 -->
     <div class="dropdown-divider"></div>
     <div class="row" style="margin: 15px 0px 0px 15px">
         <div class="col-4 input-group input-group-sm mb-3">
             <label for="donacionID" style="margin-right: 10px">ID Donante</label>
             <input type="number" formControlName="donacionID" class="form-control" readonly
-                [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }" >
-            
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.donacionID.errors }" >            
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="nombre_donante" style="margin-right: 10px">Donante</label>
+            <input type="text" formControlName="nombre_donante" class="form-control" readonly
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.nombre_donante.errors }" >            
+        </div>
+        <div class="col-4 input-group input-group-sm mb-3">
+            <label for="nombre_Fiscal" style="margin-right: 10px">Nombre Fiscal</label>
+            <input type="text" formControlName="nombre_Fiscal" class="form-control" readonly
+                [ngClass]="{ 'is-invalid': submit_agregar && f_A.nombre_Fiscal.errors }" >            
         </div>
         <div class="col-12 font-weight-bold">
             <div class="dropdown-divider"></div>
@@ -85,7 +97,7 @@
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.pais1.errors }">
                 <option selected disabled>Pais</option>
                 <option value="Mexico">Mexico</option>
-                <option value="EstadosUnidos">Estados Unidos</option>
+                <option value="Estados Unidos">Estados Unidos</option>
                 <option value="Otro">Otro</option>
             </select>
         </div>
@@ -105,7 +117,7 @@
             <input type="email" formControlName="email1" class="form-control" placeholder="Email" autocomplete="off"
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.email1.errors }">
         </div>
-        <div class="col-3 form-group input-group-sm mb-3" >
+        <div class="col-3 form-group input-group-sm mb-3" style="margin-top: -20px;" >
 			<label for="fechanacimiento1" style="padding: 0px; font-size: 13px;">Fecha Nacimiento: </label>
 			<input formControlName="fechanacimiento1" placeholder="Fecha de inscripción" type="date" class="form-control"  
 			[ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento1.errors }" id="fechanacimiento1" data-toggle="tooltip" 
@@ -192,7 +204,7 @@
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.pais2.errors }">
                 <option selected disabled>Pais</option>
                 <option value="Mexico">Mexico</option>
-                <option value="EstadosUnidos">Estados Unidos</option>
+                <option value="Estados Unidos">Estados Unidos</option>
                 <option value="Otro">Otro</option>
             </select>
         </div>
@@ -212,7 +224,7 @@
             <input type="email" formControlName="email2" class="form-control" placeholder="Email" autocomplete="off"
                 [ngClass]="{ 'is-invalid': submit_agregar && f_A.email2.errors }">
         </div>
-        <div class="col-3 form-group input-group-sm mb-3" >
+        <div class="col-3 form-group input-group-sm mb-3" style="margin-top: -20px;">
 			<label for="fechanacimiento2" style="padding: 0px; font-size: 13px;">Fecha Nacimiento: </label>
 			<input formControlName="fechanacimiento2" placeholder="Fecha de inscripción" type="date" class="form-control"  
 			[ngClass]="{ 'is-invalid': submit_agregar && f_A.fechanacimiento2.errors }" id="fechanacimiento2" data-toggle="tooltip" 
