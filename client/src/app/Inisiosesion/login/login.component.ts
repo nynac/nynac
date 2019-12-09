@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   resultado: any;
 
   constructor(private Userservice: MyserviceService, private router: Router, private http: HttpClient, ) {
-    this.verificacion_sesion();
+    this.verificacion_sesion(); //agregé este comentario haber si me actualiza git
    }
 
   ngOnInit() {
