@@ -34,6 +34,11 @@ export class AgendaReporteComponent implements OnInit {
   submit_buscar = false;
   submit_agregar = false;
 
+  //alert
+  visible: boolean=false;
+  mensaje: string;
+  tipo:any;
+
   //Usuario logueado  
   miembroID= localStorage.getItem("miembroID");
 
@@ -77,6 +82,7 @@ export class AgendaReporteComponent implements OnInit {
     this.get_calendario();
 
   }
+
   
 //controls Buscar
 get f_B() {
@@ -89,7 +95,6 @@ get f_B() {
   //asignacion de color a var
   public onEventLog(data: any): void {
     this.form_agregar.get('color').setValue(data);
-    console.log(this.form_agregar.value.color);
   }
 
   buscar_agenda() {
@@ -116,8 +121,10 @@ get f_B() {
         this.focus = false;
         this.agregar_o_modificar = 'modificar';
       }
+      this.mostrar_alert("Busqueda Exitosa", 'primary', 5000, null);
     },
-      error => {
+      error => {        
+        this.mostrar_alert("Error. Favor de verificar los campos y/o la conexion", 'danger', 5000, null);
         console.log("Error", error)
       });
   }
@@ -146,9 +153,11 @@ get f_B() {
         this.focus = false;
         this.agregar_o_modificar = 'modificar';
       }
+      
+      this.mostrar_alert("Registro Obtenido. Listo para modificación.", 'success', 5000, null);
     },
       error => {
-        alert("error");
+        this.mostrar_alert("Error. Favor de verificar los campos y/o la conexion", 'danger', 5000, null);
         console.log("Error", error)
       });
   }
@@ -160,15 +169,15 @@ get f_B() {
     }
     else {
       var response = this.http.delete(this.url + "Agenda/" + id);
-      response.subscribe((data: any[]) => {
-        alert("Se a eliminado el Evento: " + id);
+      response.subscribe((data: any[]) => {        
+      this.mostrar_alert("Se a eliminado el Evento: " + id, 'primary', 15000, null);
         this.get_mieventos();
         this.get_todoseventos();
         this.get_all_agenda();
         this.get_calendario();
       },
         error => {
-          alert("error");
+          this.mostrar_alert("Error. Favor de verificar los campos y/o la conexion", 'danger', 5000, null);
           console.log("Error", error)
         });
     }
@@ -177,6 +186,8 @@ get f_B() {
   opcion_agenda() {
     this.submit_agregar = true;
     if (this.form_agregar.invalid) {
+      
+      this.mostrar_alert("Error. Favor de llenar los campos requeridos.", 'danger', 5000, null);
       return;
     }
     else {
@@ -198,6 +209,7 @@ get f_B() {
   
   agregar_agenda() {
     this.get_nuevo_agenda();
+  
     //verificar la fecha 
     this.http.post(this.url + "Agenda", this.form_agregar.value).subscribe(data => {
       alert("Se a registrado el Evento correctamente. ");
@@ -210,7 +222,7 @@ get f_B() {
       this.get_calendario();
     },
       error => {
-        alert("error");
+        this.mostrar_alert("Error. Favor de verificar los campos y/o la conexion", 'danger', 5000, null);
         console.log("Error", error);
       });
   }
@@ -223,7 +235,7 @@ get f_B() {
       this.get_calendario();
     },
       error => {
-        alert("error");
+        this.mostrar_alert("Error. Favor de verificar los campos y/o la conexion", 'danger', 5000, null);
         console.log("Error", error);
       });
   }
@@ -250,6 +262,7 @@ get f_B() {
       this.form_agregar.get('agendaID').setValue(resultado + 1);
     },
       error => {
+        this.mostrar_alert("Error. Favor de verificar los campos y/o la conexion", 'danger', 5000, null);
         console.log("Error", error)
       });
   }
@@ -343,6 +356,20 @@ get f_B() {
     this.get_todoseventos();
     this.get_all_agenda();
   }
+  mostrar_alert(msg : string, tipo : string, duracion : number, accion : string){
+		this.visible = true;
+		this.mensaje = msg;
+		this.tipo = tipo;
+
+		setTimeout(() => { 
+			this.cerrar_alert();
+		}, duracion
+		);
+  }
+  cerrar_alert(){
+		this.visible = false;
+		this.mensaje = null;
+		this.tipo = null;
+  }
 
 }
-

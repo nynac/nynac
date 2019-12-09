@@ -73,7 +73,7 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
 
     //agregar
     this.form_agregar = this.formBuilder.group({
-      donacionID: [''],
+      donacionID: ['', Validators.required],
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
       nombrefiscal: ['', Validators.required],
@@ -166,6 +166,7 @@ export class DonacionDonanteComponent implements OnInit, OnChanges {
   opcion_donante() {
     this.submit_agregar = true;
     if (this.form_agregar.invalid) {
+      this.mostrar_alert("Favor de llenar los campos requeridos.","danger",5000,null);
       return;
     }
     else {

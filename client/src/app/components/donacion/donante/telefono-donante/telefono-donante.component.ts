@@ -66,7 +66,7 @@ cambiar_valor_Padre(){
 
     //agregar
     this.form_agregar = this.formBuilder.group({
-      telefonoID:[''],
+      telefonoID:['', Validators.required],
       donacionID: ['', Validators.required],
       tipo1: ['', Validators.required],
       telefono1: ['', Validators.required],
@@ -171,6 +171,11 @@ cambiar_valor_Padre(){
   }
 
   modificar_telefono() {
+    this.submit_agregar = true;
+  if (this.form_agregar.invalid) {   
+    this.mostrar_alert("Favor de llenar los campos correctamente.", 'danger', 5000, null);
+    return;
+  }    
     var spinner_agregar_telefono = document.getElementById("spinner_agregar_telefono");
     spinner_agregar_telefono.removeAttribute("hidden");
 

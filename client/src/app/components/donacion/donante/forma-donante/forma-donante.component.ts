@@ -129,8 +129,10 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
   }
 
   opcion_fdonacion() {
-    this.submit_agregar = true;
+    this.submit_agregar = false;
     if (this.form_agregar.invalid) {
+      this.submit_agregar = true;
+      this.mostrar_alert("Ocurrió un error, Favor de llenar los campos requeridos.", 'danger', 5000, null);
       return;
     }
     else {
@@ -193,7 +195,12 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
   }
 
   agregar_fdonante() {
-    console.log("metodo agregar");
+    this.submit_agregar = false;
+    if (this.form_agregar.invalid) {
+      this.submit_agregar = true;
+      this.mostrar_alert("Ocurrió un error, Favor de llenar los campos requeridos.", 'danger', 5000, null);
+      return;
+    }
     this.get_nuevo_Fdonacion();
     //Spiner
     var spinner_agregar_contacto = document.getElementById("spinner_agregar_contacto");
@@ -213,7 +220,12 @@ export class FormaDonanteComponent implements OnInit, OnChanges {
   }
 
   modificar_fdonante() {
-    console.log("metodo modificar");
+    this.submit_agregar = false;
+    if (this.form_agregar.invalid) {
+      this.submit_agregar = true;
+      this.mostrar_alert("Ocurrió un error, Favor de llenar los campos requeridos.", 'danger', 5000, null);
+      return;
+    }
     var spinner_agregar_donacion = document.getElementById("spinner_agregar_donacion");
     spinner_agregar_donacion.removeAttribute("hidden");
 

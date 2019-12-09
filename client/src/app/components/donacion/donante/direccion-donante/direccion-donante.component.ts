@@ -61,7 +61,7 @@ ngOnInit() {
 
   //agregar
   this.form_agregar = this.formBuilder.group({
-    direcciondonanteID: [''],
+    direcciondonanteID: ['', Validators.required],
     donacionID: ['', Validators.required],
     tipodireccion1 :['', Validators.required],	
     calle1	:['', Validators.required],		
@@ -189,6 +189,12 @@ buscar_direccion() {
 }
 
 modificar_direccion() {
+  this.submit_agregar = false;
+  if (this.form_agregar.invalid) {
+    this.submit_agregar = true;
+    this.mostrar_alert("Ocurrió un error, Favor de llenar los campos requeridos.", 'danger', 5000, null);
+    return;
+  }
   var spinner_agregar_direccion = document.getElementById("spinner_agregar_direccion");
   spinner_agregar_direccion.removeAttribute("hidden");
 

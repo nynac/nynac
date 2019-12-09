@@ -60,7 +60,7 @@ ngOnInit() {
 
   //agregar
   this.form_agregar = this.formBuilder.group({
-    datosfiscalesID:[''],
+    datosfiscalesID:['', Validators.required],
     donacionID: ['', Validators.required],
     rfc :['', Validators.required],
     nombre :['', Validators.required],
@@ -157,10 +157,10 @@ buscar_dfiscales() {
 }
 
 modificar_dfiscales() {
-  this.submit_agregar=false;
+  this.submit_agregar = false;
   if (this.form_agregar.invalid) {
-    this.submit_agregar=true;
-    alert('Error');
+    this.submit_agregar = true;
+    this.mostrar_alert("Ocurrió un error, Favor de llenar los campos requeridos.", 'danger', 5000, null);
     return;
   }
   var spinner_agregar_dfiscales = document.getElementById("spinner_agregar_dfiscales");

@@ -73,7 +73,7 @@ this.form_buscar = this.formBuilder.group({
 
 //agregar
 this.form_agregar = this.formBuilder.group({
-  notaID:[''],
+  notaID:['', Validators.required],
   donacionID: ['', Validators.required],
   nota 	:['',Validators.required],	
   statusnota :['',Validators.required],	
@@ -119,8 +119,10 @@ traer_donante(){
     });
 }
 opcion_nota() {
-  this.submit_agregar = true;
+  this.submit_agregar = false;
   if (this.form_agregar.invalid) {
+    this.submit_agregar = true;
+    this.mostrar_alert("Ocurrió un error, Favor de llenar los campos requeridos.", 'danger', 5000, null);
     return;
   }
   else {
@@ -169,7 +171,7 @@ buscar_nota(id: any) {
         });
 }
 
-agregar_nota() {
+agregar_nota() {  
   this.get_nuevo_nota();
   //Spiner
   var spinner_agregar_nota = document.getElementById("spinner_agregar_nota");
