@@ -8,10 +8,17 @@ import { Router } from '@angular/router';
 })
 export class NavbarAdminComponent implements OnInit {
 
+	puesto: any;
+
   constructor(private router: Router) { }
 
   ngOnInit() {
-  }
+    this.puesto=localStorage.getItem('puesto');
+	}
+
+	redireccion_menu(){
+		this.router.navigate(['']);
+	}
   cerrar(){
     localStorage . clear(); 
     this.router.navigate(['/login']);
