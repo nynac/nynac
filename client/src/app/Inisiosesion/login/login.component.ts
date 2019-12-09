@@ -32,10 +32,11 @@ export class LoginComponent implements OnInit {
   resultado: any;
 
   constructor(private Userservice: MyserviceService, private router: Router, private http: HttpClient, ) {
-    this.verificacion_sesion(); //agregé este comentario haber si me actualiza git
+    
    }
 
   ngOnInit() {
+    this.verificacion_sesion();
     this.form = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -54,10 +55,8 @@ export class LoginComponent implements OnInit {
     return this.form.controls;
   }
 
-  verificacion_sesion(){
-    if (localStorage.getItem("miembroID") == undefined || localStorage.getItem('miembroID') == null || localStorage.getItem('puesto') == undefined || localStorage.getItem('puesto') == null ) {
-      return;
-    } else if (localStorage.getItem("puesto") == "Administrador") {
+  verificacion_sesion(){    
+     if (localStorage.getItem("puesto") == "Administrador") {
       this.router.navigate(['']);
     } else if (localStorage.getItem("puesto") == "Recepcion") {
       this.router.navigate(['recepcion/entradas-salidas']);
@@ -67,7 +66,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/desarrollo_humano']);
     } else if (localStorage.getItem("puesto") == "Coordinacion Operativa") {
       this.router.navigate(['/coordinacion_operativa']);
-    }
+    } else{}
   }
 
   correo_valido() {
